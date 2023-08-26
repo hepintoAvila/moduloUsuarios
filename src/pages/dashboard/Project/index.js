@@ -7,12 +7,13 @@ import { usePermisos } from '../../../hooks/usePermisos';
 // PAGES
 import PermisoAlert from '../components/PermisoAlert/PermisoAlert';
 import AdminUsuarios from './AdminUsuarios/AdminUsuarios';
-
+import GestionMenu from './GestionMenu/GestionMenu';
 
 const ProjectDashboard = () => {
   const { tipo, AdvertenciaLocalStorage, itemUrl } = useContext(DashboardContext)
   AdvertenciaLocalStorage();
   const { permisos, initPermiso } = usePermisos(tipo);
+ 
   return (
     <React.Fragment>
       <Title />
@@ -25,7 +26,17 @@ const ProjectDashboard = () => {
                   accion={itemUrl}
                   tipo={tipo}
                   permisos={permisos}
-                />) : <PermisoAlert />}
+                />) : <PermisoAlert menssage={'Cargando...'}/>}
+            </React.Fragment>
+            break;
+          case 'GestionMenu':
+            return <React.Fragment>
+              {initPermiso === 1 ?
+                (<GestionMenu
+                  accion={itemUrl}
+                  tipo={tipo}
+                  permisos={permisos}
+                />) : <PermisoAlert menssage={'Cargando...'}/>}
             </React.Fragment>
           default:
             return (

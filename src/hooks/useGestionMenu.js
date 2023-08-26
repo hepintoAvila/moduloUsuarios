@@ -6,12 +6,12 @@ import encodeBasicUrl from '../utils/encodeBasicUrl';
 import { APICore } from '../helpers/api/apiCore';
 const api = new APICore();
 
-export const useAdminUsuarios = () => {
+export const useGestionMenu = () => {
 
   const [isLoading, setLoading] = useState(false);
-  const [itemsAdminUsuarios, setAdminUsuarios] = useState([]);
-  const [itemsRoles, setRoles] = useState([]);
-  //QUERY DE RESPUSTA DE CONSULTAS
+  const [itemsEditerSubMenu, setEditerSubMenu] = useState([]);
+  const [itemsEditerMenu, setEditerMenu] = useState([]);
+ 
   const query = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
     setTimeout(function () {
@@ -31,15 +31,16 @@ export const useAdminUsuarios = () => {
         const url = `accion=${itemUrl}&tipo=${tipo}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}`;
         const datosMaterial = api.sendRequestData(`${url}`);
         datosMaterial?.then(function (response) {
+          
           try {
             {
               (() => {
                 switch (datos[0]?.obj) {
-                  case 'Usuarios':
-                    setAdminUsuarios(response)
+                  case 'Menu':
+                    setEditerMenu(response)
                     break
-                  case 'Roles':
-                    setRoles(response)
+                    case 'SubMenu':
+                        setEditerSubMenu(response)
                     break
                 }
               })()
@@ -57,13 +58,13 @@ export const useAdminUsuarios = () => {
       }
     }, 2000);
   }, []);
+  console.log('itemsMenu',itemsEditerMenu)
   return (
     {
       query,
       isLoading,
-      itemsAdminUsuarios,
-      itemsRoles,
-
+      itemsEditerMenu,
+      itemsEditerSubMenu
     }
   )
 }

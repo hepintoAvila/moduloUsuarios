@@ -147,7 +147,14 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
     return { principal, seccion };
 
   }
-
+  /*
+  function limpiarTexto(texto) {
+    const sinTildes = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Eliminar tildes
+    const sinEspacios = sinTildes.replace(/\s+/g, ''); // Eliminar espacios en blanco
+    const sinPorcentaje20 = sinEspacios.replace(/%20/g, ''); // Eliminar %20
+    return sinPorcentaje20.toLowerCase(); // Convertir a minúsculas
+  }
+  */
   const activeMenu = useCallback(() => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
 
@@ -175,7 +182,7 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
       let itemsurls = location.pathname?.lastIndexOf('dashboard');
 
       if (itemsurls === 1) {
-
+        
         const principal = filtrarURLNumero(menuRef?.current?.baseURI)
         const objSeccion = filtrarURLSeccion(menuRef?.current?.baseURI)
          const obj = {principal, seccion: objSeccion.seccion}
@@ -197,6 +204,7 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
   const [urlSearch, setpagesSearch] = useState('');
   useEffect(() => {
     const query = window.location;
+
     setpagesSearch(query.hash);
 
   }, [urlSearch]);

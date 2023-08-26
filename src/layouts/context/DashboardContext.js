@@ -55,7 +55,7 @@ function deleteCookie(name) {
     if (items_sub) {
       let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
       if (userInfo?.tipo.length > 0) {
-        setitemsMenuPrincipal(userInfo?.tipo);
+        setitemsMenuPrincipal(userInfo?.tipo.replace(/ /g, ""));
         setitemsUrl(userInfo?.menu);
         setLoading(false)
       }

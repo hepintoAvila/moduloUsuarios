@@ -70,7 +70,7 @@ const Usuarios = (props) => {
   const datos = itemsAdminUsuarios?.data?.auteurs || [];
   const roles = itemsAdminUsuarios?.data?.roles || [];
 
- // console.log('Usuarios',datos)
+ 
   const columns = [
     {
       Header: 'ID',
@@ -104,7 +104,7 @@ const Usuarios = (props) => {
     {permisos?.add === 'S' ? setSignUpModalAdd(!signUpModalAdd) : Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION')}
   };
   useEffect(() => {
-    query('AdminUsuarios','Usuarios',[{opcion:'lista_Usuarios',obj:'Usuarios'}]);
+    query('AdminUsuarios','Usuarios',[{opcion:'listaUsuarios',obj:'Usuarios'}]);
   }, [query]);
 
   //console.log('Usuarios',props)

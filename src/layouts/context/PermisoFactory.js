@@ -101,24 +101,4 @@ const PermisoFactory = (function () {
   };
 })();
 
-/*
-// Función mejorada con los patrones de diseño
-const onPermisos = useCallback((itemUrl) => {
-  setTimeout(function () {
-    const user = Session.getInstance().getUser();
-    if (!user.length) {
-      return;
-    }
-
-    const url = `accion=permisos&opcion=consultar&IdMenu=${encodeBasicUrl(user[0]?.role)}`;
-    APIFacade.sendRequestData(url)
-      .then(response => {
-        const permiso = PermisoFactory.createPermiso(itemUrl, response?.Permisos || [{}]);
-        setpermisos(permiso);
-      })
-      .catch(error => console.error(error));
-  }, 1000);
-}, []);
-
-*/
 export {APIFacade,PermisoFactory,Session};

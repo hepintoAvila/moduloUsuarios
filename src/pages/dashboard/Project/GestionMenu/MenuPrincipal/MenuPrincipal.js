@@ -7,13 +7,13 @@ import { Row, Col, Card, Modal, } from 'react-bootstrap';
 
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import FormUpdate from './FormUpdate';
-import Table from '../../../../../components/Table';
+//import Table from '../../../../../components/Table';
 import Swal from 'sweetalert2';
-
+import { useGestionMenu } from '../../../../../hooks/useGestionMenu';
 import FormAdd from './FormAdd';
 
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
-import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
+import Table from '../../../../../components/Table';
 import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
 
 const ActionColumn = ({ row }) => {
@@ -62,17 +62,17 @@ const ActionColumn = ({ row }) => {
     </React.Fragment>
   );
 };
-const Roles = (props) => {
+const MenuPrincipal = (props) => {
+  const {itemsEditerMenu,query} = useGestionMenu()
   const permisos = props.permisos || {};
-
-  const {itemsRoles,query} = useAdminUsuarios()
+ 
   const {
     sizePerPageList,
     setSignUpModalAdd,
     signUpModalAdd,
     validated,
   } = useContext(DashboardContext);
-  const datos = itemsRoles?.dataRoles?.roles|| [{}];
+  const datos =  itemsEditerMenu?.data?.Menus || [];
   const columns = [
     {
       Header: 'ID',
@@ -80,35 +80,24 @@ const Roles = (props) => {
       sort: true,
     },
     {
-      Header: 'Menu',
-      accessor: 'menu',
+      Header: 'Icon',
+      accessor: 'icon',
       sort: true,
     },
     {
-      Header: 'Submenu',
-      accessor: 'submenu',
+      Header: 'key',
+      accessor: 'key',
       sort: true,
-    }
-    , {
-      Header: 'rol',
-      accessor: 'rol',
-      sort: false,
-    }, {
-      Header: 'query',
-      accessor: 'c',
-      sort: false,
-    }, {
-      Header: 'add',
-      accessor: 'a',
-      sort: false,
-    }, {
-      Header: 'update',
-      accessor: 'u',
-      sort: false,
-    }, {
-      Header: 'delete',
-      accessor: 'd',
-      sort: false,
+    },
+    {
+      Header: 'label',
+      accessor: 'label',
+      sort: true,
+    },
+    {
+      Header: 'status',
+      accessor: 'status',
+      sort: true,
     },
     {
       Header: 'Action',
@@ -120,9 +109,10 @@ const Roles = (props) => {
   ];
 
   useEffect(() => {
-    query('AdminRoles', 'Roles', [{ opcion: 'consultar', obj: 'Roles' }]);
+    query('GestionMenu', 'GestionMenu', [{ opcion: 'consultar', obj: 'Menu' }]);
   }, [query])
 
+  console.log('itemsEditerMenu',itemsEditerMenu)
   return (
     <>
 
@@ -170,4 +160,4 @@ const Roles = (props) => {
   );
 };
 
-export default Roles;
+export default MenuPrincipal;

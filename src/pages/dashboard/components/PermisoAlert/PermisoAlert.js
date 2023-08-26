@@ -21,11 +21,11 @@ const Spinners = () => {
   );
 };
 
-const PermisoAlert =() => {
+const PermisoAlert =(props) => {
   return (
   <Suspense fallback={loading()}><Spinners />
     <Alert variant="danger" className="my-2">
-      <h3>Usted no tiene permisos habilitados en esta seccción...</h3>
+      <h3>{props.menssage}</h3>
     </Alert>
     </Suspense> )
 }

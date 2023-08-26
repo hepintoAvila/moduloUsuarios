@@ -19,6 +19,7 @@ const AdminUsuarios = (props) => {
                   permisos={props.permisos}
                 /> ): <PermisoAlert />}
             </>
+            break
           case 'Roles':
             return <>
               {permisos?.query?.length === 1 ?
@@ -28,6 +29,7 @@ const AdminUsuarios = (props) => {
                   permisos={props.permisos}
                 /> : <PermisoAlert />}
             </>
+            break
           default:
             return (
               <>{''}</>
