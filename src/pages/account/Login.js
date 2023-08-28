@@ -69,7 +69,7 @@ const Login = (): React$Element<any> => {
             <AccountLayout bottomLinks={<BottomLink />}>
                 <div className="text-center w-75 m-auto">
                     <h4 className="text-dark-50 text-center mt-0 fw-bold">{t('Ingresar')}</h4>
-                    <p className="text-muted mb-4">{t('Ingrese su numero de identificación y contraseña.')}</p>
+                    <p className="text-muted mb-4">{t('Ingrese su usuario y contraseña.')}</p>
                 </div>
 
                 {error && (

@@ -75,7 +75,7 @@ const LeftSidebar = ({ isCondensed, isLight, hideLogo, hideUserProfile}: LeftSid
             document.removeEventListener('mousedown', handleOtherClick, false);
         };
     }, []);
-
+ 
 
     return (
         <React.Fragment>
@@ -84,19 +84,19 @@ const LeftSidebar = ({ isCondensed, isLight, hideLogo, hideUserProfile}: LeftSid
                     <React.Fragment>
                         <Link to="/" className="logo text-center logo-light">
                             <span className="logo-lg">
-                                <img src={isLight ? logoDark : logo} alt="logo" height="16" />
+                                <img src={isLight ? logoDark : logo} alt="logo" height="54" />
                             </span>
                             <span className="logo-sm">
-                                <img src={isLight ? logoSm : logoDarkSm} alt="logo" height="16" />
+                                <img src={isLight ? logoSm : logoDarkSm} alt="logo" height="54" />
                             </span>
                         </Link>
 
                         <Link to="/" className="logo text-center logo-dark">
                             <span className="logo-lg">
-                                <img src={isLight ? logoDark : logo} alt="logo" height="16" />
+                                <img src={isLight ? logoDark : logo} alt="logo" height="54" />
                             </span>
                             <span className="logo-sm">
-                                <img src={isLight ? logoSm : logoDarkSm} alt="logo" height="16" />
+                                <img src={isLight ? logoSm : logoDarkSm} alt="logo" height="54" />
                             </span>
                         </Link>
                     </React.Fragment>

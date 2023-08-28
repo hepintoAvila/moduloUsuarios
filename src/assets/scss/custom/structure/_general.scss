@@ -11,8 +11,121 @@ body {
   overflow-x: hidden;
 }
 .bg-primary {
-  background-color: #0f7f1ea3 !important;
+  background-color: #5eb319 !important;
 }
+.bg-footer {
+  background-color:#3366CC !important;
+  color: #fff;
+  padding: inherit;
+  margin-bottom: -1rem
+}
+.bg-header-1 {
+  height: 40px; padding: 8px 0; background: #015dca; color: #fff; box-sizing: border-box; max-width: auto; margin: 0 auto;
+
+}
+.bg-header-2 {
+  display: grid;
+  background-color: #ffffff !important;
+  color: #3a3939;
+  height: 12rem;
+  border-color: #3a3939;
+  align-content: space-evenly;
+  justify-content: center;
+  align-items: baseline;
+}
+.headerImg{
+  position: relative;
+  padding: 0rem 0rem 0rem 2rem;
+  margin-left: 0rem;
+  margin-top: 3rem;
+}
+.headerLogo{
+  position: relative;
+  padding: 0rem 0rem 0rem 2rem;
+  margin-left: auto;
+  margin-top: 3rem;
+}
+.contenedor{
+  margin-top: -13rem;
+}
+.headerTitulo, .center-text{
+  background-color: var(--muted-1-5);
+  font-size: 21px;
+  margin: 0;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  align-self: normal;
+  margin-left: auto;
+  font-size: x-large;
+  font-weight: 900;
+}
+.headerTitulo{
+  margin-top: 3rem;
+  width: max-content;
+  
+}
+.center-text{
+  width: max-content;
+  padding: 7rem;
+  }
+
+.flexRowContent--header___grid__nivel_2 {
+  position: relative !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(1, 1fr);
+  gap: 1em;
+  place-items: center;
+  /* Equivale a... */
+  justify-items: center;
+  align-items: center;
+  place-content: center;
+  /* Equivale a... */
+  justify-content: center;
+  align-content: center;
+  background: #fff; -webkit-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); -moz-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); width: 100%; height: 180px; padding: 0 10% 7rem; margin: 0 auto;
+}
+
+.flexRowContent--header___grid__nivel_2_col1,
+.flexRowContent--header___grid__nivel_2_col2,
+.flexRowContent--header___grid__nivel_2_col3
+{
+  position: relative !important;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(1, 1fr);
+  gap: 3px;
+
+}
+ 
+	
+.flexCol--header___grid__nivel_2_col1 {
+  padding: 1px;
+  border-right: 1px solid #044B92;
+  width: 16em !important;
+  margin-right: 3.5em;
+
+}
+
+.flexCol--header___grid__nivel_2_col2 {
+  padding: 1px;
+  border-right: 1px solid #044B92;
+  width: 19em !important;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.flexCol--header___grid__nivel_2_col3 {
+  padding: 1px;
+  width: 28em !important;
+  margin-right: 5em;
+}
+
+
 .btn-primary {
   color: #fff;
   background-color: #afd1a4;

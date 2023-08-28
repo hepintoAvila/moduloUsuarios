@@ -2,8 +2,8 @@
 // @flow
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container } from 'react-bootstrap';
-
+import { Container, Row, Col, Card } from 'react-bootstrap';
+ 
 // actions
 import { changeSidebarType, changeSidebarTheme } from '../redux/actions';
 import * as layoutConstants from '../constants/layout';
@@ -13,7 +13,7 @@ import ThemeCustomizer from '../components/ThemeCustomizer';
 import { DashboardProvider } from './context/DashboardContext';
 import { MenuProvider } from './context/MenuContext';
 import { PermisosProvider } from './context/PermisosProvider/PermisosProvider';
-
+ 
 // code splitting and lazy loading
 // https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
 const Topbar = React.lazy(() => import('./Topbar'));
@@ -94,11 +94,14 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
         <MenuProvider>
           <PermisosProvider>
             <div className="wrapper">
+    
               <Suspense fallback={loading()}>
                 <LeftSidebar isCondensed={isCondensed} isLight={isLight} hideUserProfile={true} />
               </Suspense>
               <div className="content-page">
+
                 <div className="content">
+
                   <Suspense fallback={loading()}>
                     <Topbar openLeftMenuCallBack={openMenu} hideLogo={true} />
                   </Suspense>

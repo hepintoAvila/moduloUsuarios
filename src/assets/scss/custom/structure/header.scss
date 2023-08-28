@@ -1,17 +1,17 @@
 // 
-// footer.scss
+// header.scss
 //
 
-.footer {
+.header {
     border-top: 1px solid rgba($gray-600, 0.2);
     bottom: 0;
     padding: 19px 24px 20px;
     position: absolute;
     right: 0;
-    color: #fff;
+    color: $gray-600;
     left: $leftbar-width;
 
-    .footer-links {
+    .header-links {
         a {
             color: $gray-600;
             margin-left: 1.5rem;
@@ -27,7 +27,7 @@
 }
 
 @include media-breakpoint-down(md) {
-    .footer {
+    .header {
         left: 0 !important;
         text-align: center;
     }
@@ -35,7 +35,7 @@
 
 
 // Used for account authentication pages
-.footer-alt {
+.header-alt {
     left: 0;
     border: none;
     text-align: center;
@@ -43,19 +43,19 @@
 
 // Layout - Topnav
 body[data-layout="topnav"] {
-    .footer {
+    .header {
         left: 0 !important;
         padding: 19px 0 20px;
     }
     &[data-layout-mode="boxed"] {
-        .footer {
+        .header {
             max-width: $boxed-layout-width;
         }
     }
 }
 
 body[data-layout-mode="boxed"] {
-    .footer {
+    .header {
         border: none;
         margin: 0 auto;
         background-color: $body-bg;
@@ -64,14 +64,14 @@ body[data-layout-mode="boxed"] {
     }
 
     &[data-leftbar-compact-mode="condensed"] {
-        .footer {
+        .header {
             max-width: calc(#{$boxed-layout-width} - 70px);
         }
     }
 }
 
 body[data-layout="detached"] {
-    .footer {
+    .header {
         left: 0;
 
         .container-fluid {

@@ -85,17 +85,17 @@ const MenuPrincipal = (props) => {
       sort: true,
     },
     {
-      Header: 'key',
-      accessor: 'key',
-      sort: true,
-    },
-    {
-      Header: 'label',
+      Header: 'Label',
       accessor: 'label',
       sort: true,
     },
     {
-      Header: 'status',
+      Header: 'Key',
+      accessor: 'key',
+      sort: true,
+    },
+    {
+      Header: 'Status',
       accessor: 'status',
       sort: true,
     },
