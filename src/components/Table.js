@@ -186,11 +186,11 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
 
             <div className="table-responsive">
 
-                    <div className="bg-success p-1 text-sm-end">
+                    <div className="bg-dataTable p-1 text-sm-end">
 
-                        <Button className="btn btn-info mb-0 me-5 p-2" onClick={toggleSignUp}>
+                        <Button className="btn btn-dataTable mb-0 me-5 p-2" onClick={toggleSignUp}>
                           <i className="mdi mdi-tray-plus">{titulo}</i>
-                        </Button>):({titulo})
+                        </Button>
 
                       </div>
                 <table id={table}

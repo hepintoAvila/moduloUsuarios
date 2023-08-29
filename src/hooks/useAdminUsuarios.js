@@ -7,7 +7,6 @@ import { APICore } from '../helpers/api/apiCore';
 const api = new APICore();
 
 export const useAdminUsuarios = () => {
-
   const [isLoading, setLoading] = useState(false);
   const [itemsAdminUsuarios, setAdminUsuarios] = useState([]);
   const [itemsRoles, setRoles] = useState([]);
@@ -37,10 +36,9 @@ export const useAdminUsuarios = () => {
                 switch (datos[0]?.obj) {
                   case 'Usuarios':
                     setAdminUsuarios(response)
-                    break
+                    break;
                   case 'Roles':
                     setRoles(response)
-                    break
                 }
               })()
             }

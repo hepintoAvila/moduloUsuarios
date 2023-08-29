@@ -12,14 +12,14 @@ type PaginationProps = {
 const Pagination = ({ tableProps, sizePerPageList }: PaginationProps): React$Element<React$FragmentType> => {
     return (
         <>
-            <div className="d-lg-flex align-items-center text-center pb-1 bg-success text-white">
+            <div className="d-lg-flex align-items-center text-center pb-1 bg-dataTable text-white">
                 <label className="me-1">Mostrar :</label>
                 <select
                     value={tableProps.state.pageSize}
                     onChange={(e) => {
                         tableProps.setPageSize(Number(e.target.value));
                     }}
-                    className="form-select d-inline-block w-auto bg-success text-white">
+                    className="form-select d-inline-block w-auto bg-dataTable text-white">
                     {sizePerPageList.map((pageSize, index) => {
                         return (
                             <option key={index} value={pageSize.value}>
@@ -45,32 +45,32 @@ const Pagination = ({ tableProps, sizePerPageList }: PaginationProps): React$Ele
                             const page = e.target.value ? Number(e.target.value) - 1 : 0;
                             tableProps.gotoPage(page);
                         }}
-                        className="form-control w-25 ms-1 d-inline-block bg-success text-white"
+                        className="form-control w-25 ms-1 d-inline-block bg-dataTable text-white"
                     />
                 </span>
 
                 <div className="pagination pagination-rounded d-inline-flex ms-auto ">
                     <button
                         onClick={() => tableProps.gotoPage(0)}
-                        className="page-link bg-success"
+                        className="page-link bg-dataTable"
                         disabled={!tableProps.canPreviousPage}>
                         {'<<'}
                     </button>{' '}
                     <button
                         onClick={() => tableProps.previousPage()}
-                        className="page-link bg-success"
+                        className="page-link bg-dataTable"
                         disabled={!tableProps.canPreviousPage}>
                         {'<'}
                     </button>{' '}
                     <button
                         onClick={() => tableProps.nextPage()}
-                        className="page-link bg-success"
+                        className="page-link bg-dataTable"
                         disabled={!tableProps.canNextPage}>
                         {'>'}
                     </button>{' '}
                     <button
                         onClick={() => tableProps.gotoPage(tableProps.pageCount - 1)}
-                        className="page-link bg-success"
+                        className="page-link bg-dataTable"
                         disabled={!tableProps.canNextPage}>
                         {'>>'}
                     </button>{' '}

@@ -78,7 +78,14 @@ table.dataTable {
     font-weight: $font-weight-semibold;
 }
 
+.bg-dataTable{
+    background-color:#98a6ad;
 
+}
+.btn-dataTable{
+    background-color:#98a6ad;
+
+}
 // Responsive data table
 table.dataTable.dtr-inline.collapsed {
     > tbody {
