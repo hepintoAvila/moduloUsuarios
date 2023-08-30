@@ -8,7 +8,9 @@ const FormAdd = (props) => {
 
   let role = localStorage.getItem('roles');
   const roles = JSON.parse(role);
-  console.log('roles',roles)
+  let userInfo = sessionStorage.getItem('hyper_user');
+  const user = JSON.parse(userInfo);
+ 
   return (
     <React.Fragment>
       <Fields
@@ -20,6 +22,7 @@ const FormAdd = (props) => {
         textBtn={'Registrar usuario'}
         roles={[]}
         opcionroles={roles}
+        entidad={user[0]?.entidad}
       />
     </React.Fragment>
   );

@@ -6,7 +6,7 @@ import { PermisosContext } from '../layouts/context/PermisosProvider/PermisosPro
 export const usePermisos = (tipo) => {
   const { onPermisos,PERMISOS_USER } = useContext(PermisosContext);
     const activePermiso = useCallback((tipo) => {
-      //console.log('tipo',tipo)
+      
       onPermisos(tipo)
     }, []);
 

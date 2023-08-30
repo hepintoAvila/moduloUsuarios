@@ -7,6 +7,7 @@ const MenuContext = createContext();
 const MenuProvider = ({ children }) => {
 
     const [MENU_ITEMS_CONTEXT, setmenu] = useState([{}]);
+    
     const onItemMenu = useCallback(() => {
         setTimeout(function () {
             // get parameters from post request
@@ -17,7 +18,10 @@ const MenuProvider = ({ children }) => {
             const datosMenu = api.sendRequestData(`${url}`);
             datosMenu.then(function (response) {
                 try {
+                    
+                    if (response?.length > 0) {
                     setmenu(response);
+                    }   
                 } catch (error) {
                     console.error(error);
                 }

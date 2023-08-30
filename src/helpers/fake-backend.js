@@ -17,7 +17,6 @@ export function configureFakeBackend() {
         const Usuarios = api.sendRequestUser(`${url}`,params.username,params.password);
         Usuarios.then(function (response) {
           try {
-            console.log(response)
           if (response?.data?.Auth.status === '404' || response.status ==='') {
               resolve([401, { message: 'Username or password is incorrect' }]);
           } else {

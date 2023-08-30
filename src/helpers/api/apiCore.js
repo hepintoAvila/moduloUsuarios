@@ -89,7 +89,8 @@ class APICore {
     const params = {
       IdUsuario: userInfo?.id,
       username: environments.loginAPI,
-      password: environments.passwordAPI
+      password: environments.passwordAPI,
+      entidad: userInfo?.entidad,
     }
     return params;
   };

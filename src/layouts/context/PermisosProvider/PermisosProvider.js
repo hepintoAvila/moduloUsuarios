@@ -11,13 +11,14 @@ const PermisosProvider = ({ children }) => {
       let filteredPermisos=[]
       let userInfo = sessionStorage.getItem('PERMISO_ALL');
       const userPermisos = JSON.parse(userInfo)
+      
       if (userPermisos) {
           try {
 
               filteredPermisos = userPermisos?.filter((row) => {
               return row?.opcion === opcion;
               });
-
+              
               if(filteredPermisos?.length >0){
                 setpermisos(filteredPermisos[0])
               sessionStorage.setItem('PERMISO', JSON.stringify(filteredPermisos[0]));

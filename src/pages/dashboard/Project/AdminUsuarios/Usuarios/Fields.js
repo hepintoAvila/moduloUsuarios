@@ -21,7 +21,7 @@ const Register = (props): React$Element<React$FragmentType> => {
     accion: props?.accion,
     opcion: props?.opcion,
     tipo: props?.tipo,
-    entidad:'v3',
+    entidad:props?.entidad,
     id: props?.usuario?.length===1?props?.usuario[0]?.id:'0',
   }]);
   const { t } = useTranslation();
@@ -52,7 +52,7 @@ console.log('props?.opcionroles',props?.opcionroles)
   console.log('Register',items)
    return (
     <>
-      {queryForm ? <Redirect to={`/dashboard/${props?.accion}/${props?.tipo}}`}></Redirect> : null}
+      {queryForm ? <Redirect to={`/dashboard/${props?.accion}/${props?.tipo}`}></Redirect> : null}
       <div className="text-center w-75 m-auto">
         <h4 className="text-dark-50 text-center mt-0 fw-bold">{t(`${props?.textBtn}`)}</h4>
         <p className="text-muted mb-4">
@@ -75,6 +75,7 @@ console.log('props?.opcionroles',props?.opcionroles)
             accion: props?.accion,
             opcion: props?.opcion,
             tipo: props?.tipo,
+            entidad:props?.entidad,
             id: items[0]?.id
           }])}
           placeholder={t('Digite su login')}
@@ -90,6 +91,7 @@ console.log('props?.opcionroles',props?.opcionroles)
             accion: props?.accion,
             opcion: props?.opcion,
             tipo: props?.tipo,
+            entidad:props?.entidad,
             id: items[0]?.id,
           }])}
           placeholder={t('Digite su email')}
@@ -101,10 +103,11 @@ console.log('props?.opcionroles',props?.opcionroles)
           className="react-select"
           classNamePrefix="react-select"
           onChange={(e) => setItems([{
-            ...items[0], rol: e.value
-            , accion: props?.accion,
+            ...items[0], rol: e.value,
+            accion: props?.accion,
             opcion: props?.opcion,
             tipo: props?.tipo,
+            entidad:props?.entidad,
             id: items[0]?.id,
           }])}
           options={props?.opcionroles}

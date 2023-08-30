@@ -130,9 +130,6 @@ const ThemeCustomizer = (state: ThemeCustomizerState): React$Element<any> => {
     return (
         <React.Fragment>
             <div className="p-3">
-                <div className="alert alert-warning" role="alert">
-                    <strong>Customize </strong> the overall color scheme, sidebar menu, etc.
-                </div>
 
                 <h5 className="mt-3">Layout</h5>
                 <hr className="mt-1" />
@@ -152,35 +149,6 @@ const ThemeCustomizer = (state: ThemeCustomizerState): React$Element<any> => {
                     </label>
                 </div>
 
-                <div className="form-check form-switch mb-1">
-                    <input
-                        type="radio"
-                        className="form-check-input"
-                        name="layout"
-                        value="topnav"
-                        id="horizontal-check"
-                        onChange={changeLayoutType}
-                        checked={layoutType === 'topnav'}
-                    />
-                    <label className="custom-control-label" htmlFor="horizontal-check">
-                        Horizontal Layout
-                    </label>
-                </div>
-
-                <div className="form-check form-switch mb-1">
-                    <input
-                        type="radio"
-                        className="form-check-input"
-                        name="layout"
-                        value="detached"
-                        id="detached-check"
-                        onChange={changeLayoutType}
-                        checked={layoutType === 'detached'}
-                    />
-                    <label className="form-check-label" htmlFor="detached-check">
-                        Detached Layout
-                    </label>
-                </div>
 
                 <h5 className="mt-4">Width</h5>
                 <hr className="mt-1" />
