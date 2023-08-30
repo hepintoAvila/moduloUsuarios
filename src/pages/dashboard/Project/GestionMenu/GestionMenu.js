@@ -19,7 +19,6 @@ const GestionMenu = (props) => {
                   permisos={props.permisos}
                 /> ): <PermisoAlert menssage={'Usted no tiene permiso de consulta'}/>}
             </>
-            break
           default:
             return (
               <>{''}</>

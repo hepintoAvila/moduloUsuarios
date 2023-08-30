@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import headerGovco from '../assets/images/header_govco.png';
+//import headerGovco from '../assets/images/header_govco.png';
 const Footer = (): React$Element<any> => {
     const currentYear = new Date().getFullYear();
     return (
@@ -11,7 +11,7 @@ const Footer = (): React$Element<any> => {
                     <Row>
                     <Col md={6}>
                     <span>
-                    <img src={headerGovco} alt="" height="26" />
+                    
                 </span>
                                   
                         </Col>

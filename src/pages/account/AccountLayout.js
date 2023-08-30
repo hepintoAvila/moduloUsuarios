@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import Logo from '../../assets/images/logo.png';
-import headerGovco from '../../assets/images/header_govco.png';
-import headerVida from '../../assets/images/logo-Vida.png';
+//import headerGovco from '../../assets/images/header_govco.png';
+//import headerVida from '../../assets/images/logo-Vida.png';
 import headerSena from '../../assets/images/logo-dark.png';
 
 type AccountLayoutProps = {
@@ -31,7 +31,7 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
             <Row className="justify-content-left bg-header-1  fw-bold"> 
             <Link to="/">
                 <span>
-                    <img src={headerGovco} alt="" height="26" />
+                     
                 </span>
                </Link>
               </Row>
@@ -39,7 +39,7 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
         <div className="flexRowContent--header___grid__nivel_2">
  
                 <div className="flexRowContent--header___grid__nivel_2_col1">
-                    <img src={headerVida} alt="" height="63" className="headerImg"/>
+                    
                 </div>
                 <div  className="flexRowContent--header___grid__nivel_2_col2">
                 <p className="headerTitulo"><span>{t('GIPNCES v.1 - Gestión de Información del Proceso Normativo')} </span><br/><span className="center-text">{t('del Comité de Evaluación y Seguimiento')} </span></p>
