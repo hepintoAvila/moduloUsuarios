@@ -15,14 +15,14 @@ const BtnNivelI = (props) => {
         <Col lg={7} md={10} sm={11}>
         <div class="grid_contenedor">
                   <div class="grid_btn1 col-xl-3 col-lg-4 col-sm-6">
-                    <MenuBtn texto='Módulo Incidentes' image={avatar3} handleClick={props.handleClick} menuRef={props.menuRef}/>
+                    <MenuBtn texto='Módulo Incidentes' image={avatar3} handleClick={props.handleClick} menuRef={'ModuloIncidentes'} />
                   </div>
                   <div class="grid_btn2 col-xl-3 col-lg-4 col-sm-6" >
-                    <MenuBtn texto='Consulta Notificaciones' image={avatar2} handleClick={props.handleClick} menuRef={props.menuRef}/>
+                    <MenuBtn texto='Consulta Notificaciones' image={avatar2} handleClick={props.handleClick} menuRef={'ModuloIncidentes'} />
 
                   </div>
                   <div class="grid_btn3 col-xl-3 col-lg-4 col-sm-6">
-                    <MenuBtn texto='Módulo de Reportes' image={avatar1} handleClick={props.handleClick} menuRef={props.menuRef}/>
+                    <MenuBtn texto='Módulo de Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloIncidentes'}/>
                   </div>
                 </div> 
         </Col>

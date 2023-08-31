@@ -36,5 +36,15 @@ const findMenuItem = (menuItems, menuItemKey) => {
     }
     return null;
 };
+function filtrarURLNumero(url) {
+    const partesURL = url.split('/');
+    const palabra = partesURL[partesURL.length - 1].split('?')[0];
+    return palabra;
+  }
+  function filtrarURLSeccion(url) {
+    const menuitems = url.split('#/')[1].split('?')[0];
+    const [principal, seccion] = menuitems.split('/');
+    return { principal, seccion };
 
-export {getMenuItems, findAllParent, findMenuItem };
+  }
+export {getMenuItems, findAllParent, findMenuItem,filtrarURLNumero,filtrarURLSeccion };

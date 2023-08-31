@@ -8,39 +8,13 @@ import { groupByFields } from '../utils';
 
 import Avatar2 from '../assets/images/users/avatar-2.jpg';
 import Avatar5 from '../assets/images/users/avatar-5.jpg';
+import { Button } from 'react-bootstrap';
 
 /*
  * get options
  */
 const optionGetter = (option) => {
     switch (option.type) {
-        case 'report':
-            return (
-                <Link to="/" className={classNames('dropdown-item', 'notify-item', 'p-0')}>
-                    <i className={classNames(option.icon, 'font-16', 'me-1')}></i>
-                    <span>{option.label}</span>
-                </Link>
-            );
-        case 'help':
-            return (
-                <Link to="/" className={classNames('dropdown-item', 'notify-item', 'p-0')}>
-                    <i className={classNames(option.icon, 'font-16', 'me-1')}></i>
-                    <span>{option.label}</span>
-                </Link>
-            );
-        case 'settings':
-            return (
-                <Link to="/" className={classNames('dropdown-item', 'notify-item', 'p-0')}>
-                    <i className={classNames(option.icon, 'font-16', 'me-1')}></i>
-                    <span>{option.label}</span>
-                </Link>
-            );
-        case 'title':
-            return (
-                <div className="noti-title">
-                    <h6 className="text-overflow mb-2 text-uppercase">Users</h6>
-                </div>
-            );
         case 'users':
             return (
                 <>
@@ -109,7 +83,7 @@ const IndicatorsContainer = (props) => {
         <div style={{}}>
             <components.IndicatorsContainer {...props}>
                 <button className="btn btn-primary" onMouseDown={handleClick}>
-                    Search
+                    Buscar
                 </button>
             </components.IndicatorsContainer>
         </div>
@@ -125,7 +99,7 @@ const MenuList = (props) => {
             {/* menu header */}
             <div className="dropdown-header noti-title">
                 <h5 className="text-overflow mb-2">
-                    Found <span className="text-danger">{options.length}</span> results
+                    Encontrados <span className="text-danger">{options.length}</span> resultados
                 </h5>
             </div>
             {props.children}
@@ -152,9 +126,17 @@ type TopbarSearchProps = {
 
 const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
     const options = [
-        { label: 'Analytics Report', icon: 'uil-notes', type: 'report' },
-        { label: 'How can I help you?', icon: 'uil-life-ring', type: 'help' },
-        { label: 'User profile settings', icon: 'uil-cog', type: 'settings' },
+        {
+            label: 'Hosmmer Eduardo Pinto Rojas',
+            value: 'users',
+            type: 'users',
+            userDetails: {
+                firstname: 'Hosmmer',
+                lastname: 'Pinto',
+                position: 'Aprendiz',
+                avatar: Avatar2,
+            },
+        },
         {
             label: 'Erwin Brown',
             value: 'users',
@@ -162,7 +144,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             userDetails: {
                 firstname: 'Erwin',
                 lastname: 'Brown',
-                position: 'UI Designer',
+                position: 'Aprendiz',
                 avatar: Avatar2,
             },
         },
@@ -173,7 +155,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             userDetails: {
                 firstname: 'Jacob',
                 lastname: 'Deo',
-                position: 'Developer',
+                position: 'Aprendiz',
                 avatar: Avatar5,
             },
         },
@@ -189,7 +171,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             <Select
                 {...props}
                 components={{ Control, IndicatorsContainer, MenuList }}
-                placeholder={'Search...'}
+                placeholder={'Buscar Aprendiz...'}
                 options={formateOptions(options)}
                 formatOptionLabel={handleFormatOptionLabel}
                 isOptionDisabled={(option) => option.type === 'title'}
@@ -200,6 +182,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
                 className="app-search dropdown"
                 classNamePrefix="react-select"
             />
+
         </>
     );
 };

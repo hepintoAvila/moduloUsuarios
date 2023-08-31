@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState, useCallback, useContext } from 'rea
 import { Link, withRouter } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 import classNames from 'classnames';
-import { findAllParent, findMenuItem } from '../helpers/menu';
+import { findAllParent, findMenuItem,filtrarURLNumero,filtrarURLSeccion} from '../helpers/menu';
 import { DashboardContext } from './context/DashboardContext';
-
+ 
 const MenuItemWithChildren = ({ item, linkClassName, subMenuClassNames, activeMenuItems, toggleMenu }) => {
   const [open, setOpen] = useState(activeMenuItems.includes(item.key));
 
@@ -136,17 +136,7 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
   /**
    * activate the menuitems
    */
-  function filtrarURLNumero(url) {
-    const partesURL = url.split('/');
-    const palabra = partesURL[partesURL.length - 1].split('?')[0];
-    return palabra;
-  }
-  function filtrarURLSeccion(url) {
-    const menuitems = url.split('#/')[1].split('?')[0];
-    const [principal, seccion] = menuitems.split('/');
-    return { principal, seccion };
 
-  }
  
   const activeMenu = useCallback(() => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
