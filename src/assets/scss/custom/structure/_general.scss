@@ -70,7 +70,7 @@ body {
   width: max-content;
   padding: 7rem;
   }
-.btnInicio {
+.btnInicio,.btnInicio1 {
   border-color: #c2c5c1;
   background: #5eb319; -webkit-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); -moz-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62);
   box-shadow: $box-shadow;
@@ -78,8 +78,12 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   font-size: $font-size-base;
-  width: 18em;
+  width: 15.5em;
   height: 7em;
+}
+.btnInicio1 {
+  position: relative !important;
+
 }
 .dripicons-preview{
   position: relative !important;
@@ -87,14 +91,15 @@ body {
 
 }
 .btn-menu{
-  margin-left: -6em;
+  margin-left: -7.5em;
+  margin-top: 1em;
 }
 .text-btn{
   font-size: $font-size-base;
   border-color: #fff;
   color: #fff;
   margin-top: 1em;
-  margin-left: -2em;
+  margin-left: -3.5em;
 }
 .flexRowContent--header___grid__nivel_2 {
   position: relative !important;
@@ -186,11 +191,11 @@ body {
 .grid_btn1 {
   padding: 1px;
 
-  margin-right: 13em;
+  margin-right: 15em;
 }
 .grid_btn2 {
   padding: 1px;
-  margin-right: 13em;
+  margin-right: 14em;
 }
 
 .grid_btn3 {

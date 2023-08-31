@@ -273,6 +273,7 @@ const AdvertenciaLocalStorage = () => {
     setLoading,
     setitemsMenuPrincipal,
     isLoading,
+    setitemsUrl,
     tipo,
     itemUrl,
     eliminar,
