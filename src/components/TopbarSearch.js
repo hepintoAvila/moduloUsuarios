@@ -2,14 +2,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Select, { components } from 'react-select';
-import classNames from 'classnames';
-
 import { groupByFields } from '../utils';
 
 import Avatar2 from '../assets/images/users/avatar-2.jpg';
 import Avatar5 from '../assets/images/users/avatar-5.jpg';
-import { Button } from 'react-bootstrap';
-
 /*
  * get options
  */
