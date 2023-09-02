@@ -27,7 +27,7 @@ const ProjectDashboard = () => {
         
         const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
         sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
-        const urls = seccion.length===0 ? `dashboard/${url}/`+seccion+''+url:'/'+seccion+'/'+url
+        const urls = seccion.length===0 ? `dashboard/${url}`:'/'+seccion+'/'+url
         return window.location.hash = urls;
 
   };
