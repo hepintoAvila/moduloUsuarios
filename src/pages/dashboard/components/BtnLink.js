@@ -14,13 +14,13 @@ const BtnLink = (props) => {
   return (
         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover}>
           {
-            props.permisos === 'S' ? (
+            
               <Link
               to={`${props?.url}p=${props?.row}${q}`}
               key={props.key} className="action-icon"
                >
                 <i className={`${props.icon} pt-2`}></i>
-              </Link>) : ''
+              </Link> 
           }
         </OverlayTrigger>
   );

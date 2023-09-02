@@ -10,7 +10,8 @@ export const useAdminUsuarios = () => {
   const [isLoading, setLoading] = useState(false);
   const [itemsAdminUsuarios, setAdminUsuarios] = useState([]);
   const [itemsRoles, setRoles] = useState([]);
-  //QUERY DE RESPUSTA DE CONSULTAS
+  const [itemsAgendarCitas, setAgendarCitas] = useState([]);
+  //QUERY DE RESPUSTA DE CONSULTAS agendarCitas
   const query = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
     setTimeout(function () {
@@ -39,6 +40,8 @@ export const useAdminUsuarios = () => {
                     break;
                   case 'Roles':
                     setRoles(response)
+                  case 'agendarCitas':
+                    setAgendarCitas(response)   
                 }
               })()
             }
@@ -61,7 +64,7 @@ export const useAdminUsuarios = () => {
       isLoading,
       itemsAdminUsuarios,
       itemsRoles,
-
+      itemsAgendarCitas
     }
   )
 }

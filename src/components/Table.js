@@ -92,6 +92,7 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
     const isVisible = props['isVisible'] || false;
     const numtable = props['numtable'] || '0';
     const titulo = props['titulo'] ||  '';
+    const titleTable = props['titleTable'] ||  '';
     //const permisos = props['permisos'] ||  {};
     const toggleSignUp = props['toggleSignUp'] || '';
 
@@ -181,18 +182,18 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
                 </div>
                 <div className="col-2 p-2">
                 <PdfComponent nombre={table}/>
-                </div></>)}
+                </div>
+                <div className="col-2 p-2">
+                <Button className="btn btn-dataTable mb-0 me-5 p-2" onClick={toggleSignUp}>
+                          <i className="mdi mdi-tray-plus">{titulo}</i>
+                        </Button>
+                        </div>       
+                </>)}
             </div>
 
             <div className="table-responsive">
 
-                    <div className="bg-dataTable p-1 text-sm-end">
-
-                        <Button className="btn btn-dataTable mb-0 me-5 p-2" onClick={toggleSignUp}>
-                          <i className="mdi mdi-tray-plus">{titulo}</i>
-                        </Button>
-
-                      </div>
+                <div className="bg-dataTable p-1 text-sm-start text-white mt-1"><br/><h4 className="header-title mb-3">{titleTable}</h4></div>
                 <table id={table}
                     {...dataTable.getTableProps()}
                     className={classNames('table table-striped', props['tableClass'])}>
@@ -217,7 +218,7 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
                         {(rows || []).map((row, i) => {
                             dataTable.prepareRow(row);
                             return (
-                                <tr {...row.getRowProps()}>
+                                <tr {...row.getRowProps()} id={i+1}>
                                     {row.cells.map((cell) => {
                                         return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
                                     })}

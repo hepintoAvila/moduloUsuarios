@@ -1,11 +1,12 @@
 // @flow
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { DashboardContext } from '../../../layouts/context/DashboardContext';
+ 
 import { useContext } from 'react';
+import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 
-const BtnActions = (props) => {
-    const { itemUrl, itemsmenuprincipal } = useContext(DashboardContext);
+const BtnNotificaciones = (props) => {
+    const { itemUrl } = useContext(DashboardContext);
     const popover = (
         <Popover id={props.key}>
             <Popover.Header as="h3">{props.titulo}</Popover.Header>
@@ -21,7 +22,7 @@ const BtnActions = (props) => {
     const urlb = `/dashboard/${itemUrl}/${tipo?.tipo}`;
     return (
         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={props.key}>
-           
+ 
                 <Link
                     key={props.key}
                     to={Number(idUrls?.p) > 0 ? url : urlb}
@@ -29,8 +30,8 @@ const BtnActions = (props) => {
                     onClick={() => props?.toggleActions(props.row, props.titulo)}>
                     <i className={`${props?.icon} pt-2`}></i>
                 </Link>
-             
+         
         </OverlayTrigger>
     );
 };
-export default BtnActions;
+export default BtnNotificaciones;

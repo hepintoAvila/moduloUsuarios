@@ -12,8 +12,7 @@ import SimpleMDEReact from 'react-simplemde-editor';
 import { VerticalForm } from '../../../../components';
 import HeaderForm from './HeaderForm';
 import FileUploader from '../../components/FileUploader';
-import NavbarBuscaAprendiz from './NavbarBuscaAprendiz';
-
+ 
 const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
     const delay = 1000;
     const options = {

@@ -107,7 +107,7 @@ const Usuarios = (props) => {
     query('AdminUsuarios','Usuarios',[{opcion:'listaUsuarios',obj:'Usuarios'}]);
   }, [query]);
 
-  console.log('Usuarios',itemsAdminUsuarios)
+ 
   return (
     <>
 

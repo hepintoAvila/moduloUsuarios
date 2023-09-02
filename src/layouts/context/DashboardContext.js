@@ -59,7 +59,9 @@ function deleteCookie(name) {
         setitemsUrl('Inicio');
         setLoading(false)
       }else{
+
         setitemsMenuPrincipal(userInfo?.tipo.replace(/ /g, ""));
+
         setitemsUrl(userInfo?.menu);
         setLoading(false)
       }
@@ -251,6 +253,7 @@ function deleteCookie(name) {
 
 const pagesInSearch = () => {
   const query = window.location.hash;
+  console.log('query',query)
   return query;
 };
 

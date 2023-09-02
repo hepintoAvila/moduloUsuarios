@@ -12,6 +12,7 @@ import AdminUsuarios from './AdminUsuarios/AdminUsuarios';
 import GestionMenu from './GestionMenu/GestionMenu';
 import ModuloIncidentes from './ModuloIncidentes/ModuloIncidentes';
 import EnviarSolicitud from './ModuloIncidentes/EnviarSolicitud';
+import ModuloNotificaciones from './ModuloNotificaciones/ModuloNotificaciones';
 
 const ProjectDashboard = () => {
 
@@ -20,18 +21,17 @@ const ProjectDashboard = () => {
   const { permisos, initPermiso } = usePermisos(tipo);
 
   const handleClick = (url) => {
-    setitemsMenuPrincipal('/ModuloIncidentes');
+    setitemsMenuPrincipal(`/${url}`);
         const menuitems = window.location.hash.split('#/')[1];
         const [seccion] = menuitems?.split('/');
-        const obj = {principal:seccion.length===0 ? 'dashboard/ModuloIncidentes':seccion, seccion: url}
-         console.log('obj',obj);
+        
+        const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
         sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
-       // setLoading(true)
-     const urls = seccion.length===0 ? 'dashboard/ModuloIncidentes/'+seccion+''+url:'/'+seccion+'/'+url
-      return window.location.hash = urls;
+        const urls = seccion.length===0 ? `dashboard/${url}/`+seccion+''+url:'/'+seccion+'/'+url
+        return window.location.hash = urls;
 
   };
-//console.log('itemUrl',itemUrl)
+console.log('itemUrlInicio',tipo)
   return (
     <React.Fragment>
       <Title />
@@ -73,7 +73,14 @@ const ProjectDashboard = () => {
                   permisos={permisos}
                 />  
             </React.Fragment>            
-            
+           case 'ModuloNotificaciones':
+            return <React.Fragment>
+                <ModuloNotificaciones
+                  accion={itemUrl}
+                  tipo={tipo}
+                  permisos={permisos}
+                />  
+            </React.Fragment> 
           default:
             return (
               <React.Fragment>
