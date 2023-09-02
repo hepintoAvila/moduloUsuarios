@@ -13,6 +13,7 @@ import GestionMenu from './GestionMenu/GestionMenu';
 import ModuloIncidentes from './ModuloIncidentes/ModuloIncidentes';
 import EnviarSolicitud from './ModuloIncidentes/EnviarSolicitud';
 import ModuloNotificaciones from './ModuloNotificaciones/ModuloNotificaciones';
+import AdministradorActas from './AdministradorActas/AdministradorActas';
 
 const ProjectDashboard = () => {
 
@@ -81,6 +82,14 @@ console.log('itemUrlInicio',tipo)
                   permisos={permisos}
                 />  
             </React.Fragment> 
+            case 'AdministradorActas':
+              return <React.Fragment>
+                  <AdministradorActas
+                    accion={itemUrl}
+                    tipo={tipo}
+                    permisos={permisos}
+                  />  
+              </React.Fragment>            
           default:
             return (
               <React.Fragment>

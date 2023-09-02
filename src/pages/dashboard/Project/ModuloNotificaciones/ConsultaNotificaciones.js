@@ -60,8 +60,7 @@ const ActionColumn = ({ row }) => {
   }
   return (
     <React.Fragment>
-      <BtnSeccionAction obj={obj}>
-        </BtnSeccionAction>
+      <BtnSeccionAction obj={obj}></BtnSeccionAction>
     </React.Fragment>
   );
 };

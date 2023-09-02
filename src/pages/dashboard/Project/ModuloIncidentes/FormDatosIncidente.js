@@ -1,16 +1,26 @@
 // @flow
-import React  from 'react';
+import React, { useState }  from 'react';
 import classNames from 'classnames';
  import { Row, Col, Card} from 'react-bootstrap';
 // components
 import { VerticalForm, FormInput } from '../../../../components';
  
 import HeaderForm from './HeaderForm';
+import HyperDatepicker from '../../../../components/Datepicker';
  
 //import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 
 const FormDatosIncidente = (): React$Element<React$FragmentType> => {
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
+    /*
+     * handle date change
+     */
+    const onDateChange = (date) => {
+        if (date) {
+            setSelectedDate(date);
+        }
+    };
     return (
         <>
 
@@ -50,20 +60,21 @@ const FormDatosIncidente = (): React$Element<React$FragmentType> => {
                         <option> -Verbal</option>
                         <option> -Escrito</option>
                 </FormInput>
-                <FormInput
-                                    label="Fecha del Incidente"
-                                    type="date"
-                                    name="fechaIncidente"
-                                    containerClass={'mb-3'}
-                                    key="fechaIncidente"
-                                />
-                                <FormInput
-                                    label="Hora del Incidente"
-                                    type="time"
-                                    name="horaIncidente"
-                                    containerClass={'mb-3'}
-                                    key="horaIncidente"
-                                />
+                <div className="mb-3">
+                            <label>Fecha y Hora</label> <br />
+                            <HyperDatepicker
+                                hideAddon={true}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                tI={60}
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                                timeCaption="time"
+                                value={selectedDate}
+                                onChange={(date) => {
+                                    onDateChange(date);
+                                }}
+                            />
+                        </div>
                 </VerticalForm>
                 </Col>
                 </Row>

@@ -1,14 +1,13 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-unreachable */
 import React, { useContext } from 'react';
- 
-import ConsultaNotificaciones from './ConsultaNotificaciones';
-import AgendarCitas from './Calendar/AgendarCitas';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
-import Navbar from './Navbar';
+import ConsultaActas from './ConsultaActas';
+import RegistrarActas from './RegistrarActas';
+import Navbar from '../ModuloNotificaciones/Navbar';
 
-const ModuloNotificaciones = () => {
+const AdministradorActas = () => {
 
   const { tipo,itemUrl } = useContext(DashboardContext)
 
@@ -16,20 +15,20 @@ const ModuloNotificaciones = () => {
  
   return (
     <React.Fragment>
- <Navbar/>
+       <Navbar/>
       {(() => {
         switch (tipo) {
-          case 'ConsultaNotificaciones':
+          case 'ConsultaActas':
             return <React.Fragment>
-              <ConsultaNotificaciones
+              <ConsultaActas
                   accion={itemUrl}
                   tipo={tipo}
                   permisos={permisos}
                 />
             </React.Fragment>
-           case 'AgendarCitas':
+           case 'RegistrarActa':
             return <React.Fragment>
-              <AgendarCitas
+              <RegistrarActas
                   accion={itemUrl}
                   tipo={tipo}
                   permisos={permisos}
@@ -47,7 +46,7 @@ const ModuloNotificaciones = () => {
     </React.Fragment>
   );
 };
-ModuloNotificaciones.defaultProps = {
+AdministradorActas.defaultProps = {
   itemsmenu: '/',
 };
-export default ModuloNotificaciones;
+export default AdministradorActas;
