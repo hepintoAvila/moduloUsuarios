@@ -40,8 +40,10 @@ export const useAdminUsuarios = () => {
                     break;
                   case 'Roles':
                     setRoles(response)
+                    break;
                   case 'agendarCitas':
-                    setAgendarCitas(response)   
+                    setAgendarCitas(response) 
+                    break;
                 }
               })()
             }

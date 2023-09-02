@@ -5,7 +5,7 @@ import { DashboardContext } from '../../../layouts/context/DashboardContext';
 import { useContext } from 'react';
 
 const BtnActions = (props) => {
-    const { itemUrl, itemsmenuprincipal } = useContext(DashboardContext);
+    const { itemUrl } = useContext(DashboardContext);
     const popover = (
         <Popover id={props.key}>
             <Popover.Header as="h3">{props.titulo}</Popover.Header>

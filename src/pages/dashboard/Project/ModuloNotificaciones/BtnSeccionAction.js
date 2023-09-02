@@ -2,12 +2,12 @@ import { Modal, Pagination, Row } from "react-bootstrap";
 
 import React from "react";
 import BtnActions from "./BtnActions";
- 
 
 const BtnSeccionAction = (props,children) => {
+
   const tipo = props?.obj?.tipo || '';
+
   const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
- 
 
   return (
     <React.Fragment>

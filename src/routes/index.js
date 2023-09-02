@@ -14,7 +14,7 @@ const Queryform = React.lazy(() => import('../pages/dashboard/Project'));
 //const Confirm = React.lazy(() => import('../pages/account/Confirm'));
 const ForgetPassword = React.lazy(() => import('../pages/account/ForgetPassword'));
 const LockScreen = React.lazy(() => import('../pages/account/LockScreen'));
-const ModuloIncidentes = React.lazy(() => import('../pages/dashboard/Project/ModuloIncidentes/ModuloIncidentes'));
+//const ModuloIncidentes = React.lazy(() => import('../pages/dashboard/Project/ModuloIncidentes/ModuloIncidentes'));
 // dashboard
 const ProjectDashboard = React.lazy(() => import('../pages/dashboard/Project'));
 
@@ -77,15 +77,7 @@ const empleadoRoutes = [
   }
 ]
 
-//Empleado
-const incidentesRoutes = [
-    {
-        path: '/dashboard/Project/ModuloIncidentes/ModuloIncidentes',
-        name: 'Queryform',
-        component: ModuloIncidentes,
-        route: Route,
-    }
-  ]
+
 // auth
 const authRoutes = [
     {
@@ -122,7 +114,7 @@ const authRoutes = [
 
 // All routes
 const authProtectedRoutes = [rootRoute, dashboardRoutes, ...appRoutes];
-const publicRoutes = [...authRoutes,...empleadoRoutes,...incidentesRoutes];
+const publicRoutes = [...authRoutes,...empleadoRoutes];
 const authProtectedFlattenRoutes = flattenRoutes([...authProtectedRoutes]);
 const publicProtectedFlattenRoutes = flattenRoutes([...publicRoutes]);
 export { publicRoutes, authProtectedRoutes, authProtectedFlattenRoutes, publicProtectedFlattenRoutes };
