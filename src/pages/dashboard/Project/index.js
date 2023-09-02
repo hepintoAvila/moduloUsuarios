@@ -65,15 +65,7 @@ console.log('itemUrlInicio',tipo)
                   handleClick={handleClick}
 
                 />  
-            </React.Fragment>
-          case 'EnviarSolicitud':
-            return <React.Fragment>
-                <EnviarSolicitud
-                  accion={itemUrl}
-                  tipo={tipo}
-                  permisos={permisos}
-                />  
-            </React.Fragment>            
+            </React.Fragment>    
            case 'ModuloNotificaciones':
             return <React.Fragment>
                 <ModuloNotificaciones

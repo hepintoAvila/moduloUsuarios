@@ -1,35 +1,61 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-unreachable */
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
-import MenuBtn from '../../components/BtnMenu/MenuBtn';
-import avatar1 from '../../../../assets/images/4.png';
-import avatar2 from '../../../../assets/images/6.png';
-import avatar3 from '../../../../assets/images/5.png';
-const ModuloIncidentes = (props) => {
+import React, { useContext } from 'react';
+import { DashboardContext } from '../../../../layouts/context/DashboardContext';
+//import { usePermisos } from '../../../../hooks/usePermisos';
+import Navbar from '../ModuloNotificaciones/Navbar';
+import MenuSegundo from './MenuSegundo';
+import EnviarSolicitud from './EnviarSolicitud';
+import ConsultarIncidente from './ConsultarIncidente';
 
+const ModuloIncidentes = () => {
+  const { tipo,setitemsMenuPrincipal } = useContext(DashboardContext)
+
+  const handleClick = (url) => {
+    setitemsMenuPrincipal(`/${url}`);
+        const menuitems = window.location.hash.split('#/')[1];
+        const [seccion] = menuitems?.split('/');
+        
+        const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
+        sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
+        const urls = seccion.length===0 ? `dashboard/${url}`:'/'+seccion+'/'+url
+        return window.location.hash = urls;
+
+  };
+ 
+
+ // const { permisos } = usePermisos(tipo);
+ 
   return (
     <React.Fragment>
-           <Row className="justify-content-center">
-        <Col lg={7} md={10} sm={11}>
-        <div class="grid_contenedor">
-                  <div class="grid_btn1 col-xl-3 col-lg-4 col-sm-6">
-                    <MenuBtn texto='Enviar Solicitud' image={avatar3} handleClick={props.handleClick} menuRef={'EnviarSolicitud'}/>
-                  </div>
-                  <div class="grid_btn2 col-xl-3 col-lg-4 col-sm-6" >
-                    <MenuBtn texto='Consulta de incidente' image={avatar2} handleClick={props.handleClick} menuRef={'ConsultaIncidente'}/>
-
-                  </div>
-                  <div class="grid_btn3 col-xl-3 col-lg-4 col-sm-6">
-                    <MenuBtn texto='Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ReporteIncidente'}/>
-                  </div>
-                </div> 
-        </Col>
-      </Row>
+       <Navbar/>
+      {(() => {
+        switch (tipo) {
+          case 'ModuloIncidentes':
+            return <React.Fragment>
+              <MenuSegundo handleClick={handleClick}/>
+            </React.Fragment>
+           case 'EnviarSolicitud':
+            return <React.Fragment>
+              <EnviarSolicitud/>
+            </React.Fragment>   
+            case 'ConsultarIncidencia':
+              return <React.Fragment>
+                <ConsultarIncidente/>
+              </React.Fragment>              
+          default:
+            return (
+              <React.Fragment>
+                {''}
+                </React.Fragment>
+            );
+        }
+      })()
+      }
     </React.Fragment>
   );
 };
 ModuloIncidentes.defaultProps = {
-  itemsmenu: '/dashboard/ModuloIncidentes/',
+  itemsmenu: '/',
 };
 export default ModuloIncidentes;

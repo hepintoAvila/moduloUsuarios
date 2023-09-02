@@ -47,7 +47,7 @@ const BtnSeccionAction = (props,children) => {
           <Pagination.Item>
 
                 <BtnActions
-                 url={`/dashboard/AdministradorActas/ConsultarActa${tipo}?id=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloIncidentes/ConsultarIncidencia${tipo}?id=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`ELIMINAR_${props?.obj?.key}`}
                   toggleActions={props?.obj?.eliminar}

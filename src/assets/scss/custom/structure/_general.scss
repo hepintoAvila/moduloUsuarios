@@ -217,6 +217,10 @@ body {
   background-color: #afd1a4;
   border-color: #01480c;
 }
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #313A46;
+}
 // Fix event bubbling on iOS devices
 @supports (-webkit-overflow-scrolling: touch) {
   body {
