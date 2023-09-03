@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import CardDatosPersonales from './CardDatosPersonales';
 import CardDatoEvidencias from './CardDatoEvidencias';
 import CardDatosIncidente from './CardDatosIncidente';
+import CarHistorialIncidencias from './CarHistorialIncidencias';
  
 //const { tipo } = useContext(DashboardContext)
 //const { permisos } = usePermisos(tipo);
@@ -29,7 +30,7 @@ const ConsultarIncidente  = () => {
                                     <Nav.Item as="li" className="nav-item">
                                         <Nav.Link href="#" eventKey="1" className="nav-link rounded-0">
                                             <i className={classnames('mdi mdi-book-account-outline', 'font-18')}></i>
-                                            <span className="d-none d-lg-block">DATOS BÁSICOS</span>
+                                            <span className="d-none d-lg-block">DATOS DEL INCIDENTE</span>
                                         </Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item as="li" className="nav-item">
@@ -46,7 +47,7 @@ const ConsultarIncidente  = () => {
                                             <Tab.Pane eventKey="1">
                                             <CardDatosPersonales/> 
                                             <CardDatosIncidente/> 
-    
+                                            <CarHistorialIncidencias/>
                                             { datos?.length>0 && datos?.map((f, idx) => { 
                                                 <CardDatoEvidencias  f={f} idx={idx}/>
                                             })}  

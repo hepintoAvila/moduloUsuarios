@@ -1,6 +1,6 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-unreachable */
-import React, { useContext, useState } from 'react';
+import React, {  useState } from 'react';
 import { Row, Col, Card, Form } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';

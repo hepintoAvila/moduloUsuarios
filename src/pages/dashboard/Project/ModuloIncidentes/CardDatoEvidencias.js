@@ -1,7 +1,6 @@
 // @flow
 import { Row, Col, Card } from 'react-bootstrap';
-import classnames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
 
 const CardDatoEvidencias = ({f,idx}): React$Element<React$FragmentType> => {
 

@@ -11,7 +11,6 @@ import BtnNivelI from '../components/BtnMenu/BtnNivelI';
 import AdminUsuarios from './AdminUsuarios/AdminUsuarios';
 import GestionMenu from './GestionMenu/GestionMenu';
 import ModuloIncidentes from './ModuloIncidentes/ModuloIncidentes';
-import EnviarSolicitud from './ModuloIncidentes/EnviarSolicitud';
 import ModuloNotificaciones from './ModuloNotificaciones/ModuloNotificaciones';
 import AdministradorActas from './AdministradorActas/AdministradorActas';
 

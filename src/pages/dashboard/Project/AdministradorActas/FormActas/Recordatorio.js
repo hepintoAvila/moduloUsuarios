@@ -33,7 +33,7 @@ const Recordatorio = () => {
                                     Descripción del Recordatorio:
                                 </Form.Label>
                                 <Col md={9}>
-                                <SimpleMDEReact id={2} options={options} />
+                                <SimpleMDEReact id={2} options={options} delay={delay}/>
                                 </Col>
                             </Form.Group>
                         </Card.Body>

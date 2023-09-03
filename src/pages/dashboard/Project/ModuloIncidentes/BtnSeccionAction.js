@@ -18,45 +18,41 @@ const BtnSeccionAction = (props,children) => {
       <Row>
         <Pagination className="pagination-rounded mx-auto" size="sm">
           <Pagination.Item>
-
                 <BtnActions
                  url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${props?.obj?.row}`}
                   permisos={'N'}
-                  key={`AGENDAR${props?.obj?.key}`}
+                  key={`CONCEPTO${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
-                  titulo={'AGENDAR'}
-                  descripcion={`Agendar Cita para el Incidente ${descripcionbtnaction}`}
-                  icon={'mdi mdi-calendar-plus'}
+                  titulo={'CONCEPTO'}
+                  descripcion={`Ver concepto del instructor ${descripcionbtnaction}`}
+                  icon={'mdi mdi-account-convert'}
                 />
-          </Pagination.Item>
+          </Pagination.Item> 
           <Pagination.Item>
                 <BtnActions
-                url={`/dashboard/AdministradorActas/RegistrarActa${tipo}?id=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${props?.obj?.row}`}
                   permisos={'N'}
-                  key={`ACTAS_${props?.obj?.key}`}
+                  key={`CRITERIO DEL COMITE${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
-                  titulo={'ACTAS'}
-                  descripcion={`Registrar Acta ${descripcionbtnaction}`}
-                  icon={'mdi mdi-layers'}
-
-                /> 
-          </Pagination.Item>         
+                  titulo={'CRITERIO'}
+                  descripcion={`Ver criterio del Comité ${descripcionbtnaction}`}
+                  icon={'mdi mdi-account-multiple-check-outline'}
+                />
+          </Pagination.Item>  
           <Pagination.Item>
-
                 <BtnActions
-                 url={`/dashboard/ModuloIncidentes/ConsultarIncidencia${tipo}?id=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${props?.obj?.row}`}
                   permisos={'N'}
-                  key={`DETALLES_${props?.obj?.key}`}
+                  key={`PLAN DE MEJORAMIENTO${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
-                  titulo={'DETALLES'}
-                  descripcion={`Ver Detalles ${descripcionbtnaction}`}
-                  icon={'mdi mdi-layers-search-outline'}
-
-                /> 
-          </Pagination.Item>
+                  titulo={'MEJORAMIENTO'}
+                  descripcion={`Plan de Mejoramiento${descripcionbtnaction}`}
+                  icon={'mdi mdi-account-reactivate'}
+                />
+          </Pagination.Item>                    
       </Pagination>
       </Row>
     </React.Fragment>

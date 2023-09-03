@@ -1,10 +1,10 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-unreachable */
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { Row, Col, Card, Form } from 'react-bootstrap';
-import { Typeahead } from 'react-bootstrap-typeahead';
+
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import FormInput from '../../../components/FormInput';
+
 //import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 //import { usePermisos } from '../../../../hooks/usePermisos';
 import SimpleMDEReact from 'react-simplemde-editor';
@@ -33,7 +33,7 @@ const DecisionComite = () => {
                                     Descripción :
                                 </Form.Label>
                                 <Col md={9}>
-                                <SimpleMDEReact id={1} options={options} />
+                                <SimpleMDEReact id={1} options={options} delay={delay}/>
                                 </Col>
                             </Form.Group>
                         </Card.Body>
