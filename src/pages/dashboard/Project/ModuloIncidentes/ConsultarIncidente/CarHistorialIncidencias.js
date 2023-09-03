@@ -4,7 +4,7 @@
 // @flow
 import React, { useContext, useEffect } from 'react';
 import { Row, Col, Card,  } from 'react-bootstrap';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
 
  
 import Table from '../../../../../components/Table';
@@ -21,7 +21,7 @@ const ActionColumn = ({ row }) => {
     setOpen,
     setItemsUpdate,
     open, 
-    setitemsMenuPrincipal
+    setitemsMenuPrincipal,setitemsUrl
   } = useContext(DashboardContext);
 
    const toggleSignUp = (id) => {
@@ -34,17 +34,13 @@ const ActionColumn = ({ row }) => {
       setOpen(open);
       toggle()
     } else {
-      Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
-      const url =`AgendarCitas?idIncidencia=${id}`
-      const menuitems = window.location.hash.split('#/')[1];
-      const [seccion] = menuitems?.split('/');
-      const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
-      sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
-     // setLoading(true)
-    const urls = seccion.length===0 ? `dashboard/${url}/`+seccion+''+url:'/'+seccion+'/'+url
-    console.log('urls',urls);
-    setitemsMenuPrincipal(url)
-    return window.location.hash = urls;
+      //Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
+      const url =`dashboard/ModuloIncidentes/ConsultarIncidencia?id=${id}`
+      sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: 'ConsultarIncidencia', menu: 'ModuloIncidentes' }));
+      setitemsMenuPrincipal('ModuloIncidentes');
+      setitemsUrl('ConsultarIncidencia');
+      setOpen(!open);
+    return window.location.hash = url;
     }
   };
 
@@ -61,8 +57,19 @@ const ActionColumn = ({ row }) => {
   }
   return (
     <React.Fragment>
-      <BtnSeccionAction obj={obj}>
-        
+      <BtnSeccionAction obj={obj}> 
+      <Row>
+                <Col>
+                    <Card>
+                        <Card.Body>
+                            <h4 className="header-title mb-3">Conceptos</h4>
+                            <p className="text-muted font-14 mb-3">
+                            Hechos constitutivos de la presunta falta: El aprendiz se ausentó 4 días de los 5 días programados para la formación transversal correspondiente a la Competencia: Promover la interacción idónea consigo mismo, con los demás y con la naturaleza en los contextos laboral y social y RAPS: Asumir responsablemente los criterios de preservación y conservación del Medio Ambiente y de Desarrollo Sostenible, en el ejercicio de su desempeño laboral y social; cuyos motivos manifestados por el aprendiz sin presentar pruebas que soporten lo expresado, están registrados en el aplicativo Sofia Plus.
+                            </p>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>   
       </BtnSeccionAction>
     </React.Fragment>
   );

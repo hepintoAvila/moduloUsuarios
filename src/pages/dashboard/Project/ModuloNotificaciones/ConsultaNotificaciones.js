@@ -35,7 +35,7 @@ const ActionColumn = ({ row }) => {
       toggle()
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
-      const url =`AgendarCitas?idIncidencia=${id}`
+      const url =`AgendarCitas?p=${id}`
       const menuitems = window.location.hash.split('#/')[1];
       const [seccion] = menuitems?.split('/');
       const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}

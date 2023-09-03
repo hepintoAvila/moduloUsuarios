@@ -31,7 +31,6 @@ const ProjectDashboard = () => {
         return window.location.hash = urls;
 
   };
-console.log('itemUrlInicio',tipo)
   return (
     <React.Fragment>
       <Title />
@@ -82,10 +81,10 @@ console.log('itemUrlInicio',tipo)
                   />  
               </React.Fragment>            
           default:
-            
+            console.log('itemUrl',itemUrl.length);
             return (
               <React.Fragment>
-                <BtnNivelI handleClick={handleClick} menuRef={''} />
+                {itemUrl.length===0?<BtnNivelI handleClick={handleClick} menuRef={''} />:''}
                </React.Fragment>
             );
         }

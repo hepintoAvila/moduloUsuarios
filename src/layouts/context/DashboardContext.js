@@ -61,7 +61,7 @@ function deleteCookie(name) {
       }else{
 
         setitemsMenuPrincipal(userInfo?.tipo.replace(/ /g, ""));
-
+ 
         setitemsUrl(userInfo?.menu);
         setLoading(false)
       }

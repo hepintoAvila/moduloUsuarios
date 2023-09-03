@@ -32,7 +32,7 @@ const BtnSeccionAction = (props,children) => {
           </Pagination.Item>
           <Pagination.Item>
                 <BtnActions
-                url={`/dashboard/AdministradorActas/RegistrarActa${tipo}?id=${props?.obj?.row}`}
+                url={`/dashboard/AdministradorActas/RegistrarActa${tipo}?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`ACTAS_${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
@@ -46,7 +46,7 @@ const BtnSeccionAction = (props,children) => {
           <Pagination.Item>
 
                 <BtnActions
-                 url={`/dashboard/ModuloIncidentes/ConsultarIncidencia${tipo}?id=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloIncidentes/ConsultarIncidencia${tipo}?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`DETALLES_${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
