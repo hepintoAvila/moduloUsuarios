@@ -8,12 +8,15 @@ import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import FormAdd from './FormAdd';
 import FormUpdate from './FormUpdate';
-import Table from '../../../../../components/Table';
+ 
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import Swal from 'sweetalert2';
 
-import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
+ 
 import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
+import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
+import Table from '../../../components/Table';
+ 
 const ActionColumn = ({ row }) => {
   const {
     eliminar,
@@ -70,7 +73,7 @@ const Usuarios = (props) => {
   const datos = itemsAdminUsuarios?.data?.auteurs || [];
   const roles = itemsAdminUsuarios?.data?.roles || [];
 
- 
+  
   const columns = [
     {
       Header: 'ID',
@@ -147,7 +150,7 @@ const Usuarios = (props) => {
               <Table
                 columns={columns}
                 data={datos}
-                pageSize={5}
+                pageSize={25}
                 sizePerPageList={sizePerPageList}
                 isSortable={true}
                 pagination={true}
@@ -158,7 +161,8 @@ const Usuarios = (props) => {
                 nametable={props.accion}
                 titulo={'Usuarios'}
                 permisos={permisos}
-                toggleSignUp={toggleSignUp}
+ 
+               
               />) : <PermisoAlert />}
             </Card.Body>
           </Card>

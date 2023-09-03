@@ -57,6 +57,33 @@ const BtnSeccionAction = (props,children) => {
 
                 /> 
           </Pagination.Item>
+          <Pagination.Item>
+          <BtnActions
+          url={`/dashboard/ModuloNotificaciones/ConsultaNotificaciones${tipo}?p=${props?.obj?.row}`}
+            permisos={'N'}
+            key={`COMITE_${props?.obj?.key}`}
+            toggleActions={props?.obj?.toggleSignUp}
+            row={props?.obj?.row}
+            titulo={'REGISTRAR COMITE'}
+            descripcion={`Asignar miembros del comité al incidente ${descripcionbtnaction}`}
+            icon={'mdi mdi-account-multiple-plus'}
+
+          /> 
+          </Pagination.Item>
+          <Pagination.Item>
+
+          <BtnActions
+          url={`/dashboard/ModuloNotificaciones/ConsultaNotificaciones${tipo}?p=${props?.obj?.row}`}
+            permisos={'N'}
+            key={`VOZ_${props?.obj?.key}`}
+            toggleActions={props?.obj?.toggleSignUp}
+            row={props?.obj?.row}
+            titulo={'REGISTRAR CONCEPTO O VOZ'}
+            descripcion={`Registrar el concepto de miembro del comité ${descripcionbtnaction}`}
+            icon={'mdi mdi-account-tie-voice'}
+
+          /> 
+</Pagination.Item>         
       </Pagination>
       </Row>
     </React.Fragment>

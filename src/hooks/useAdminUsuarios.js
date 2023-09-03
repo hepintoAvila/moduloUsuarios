@@ -37,7 +37,7 @@ export const useAdminUsuarios = () => {
               (() => {
                 switch (datos[0]?.obj) {
                   case 'Usuarios':
-                    setAdminUsuarios(response)
+                      setAdminUsuarios(response)
                     break;
                   case 'Roles':
                     setRoles(response)

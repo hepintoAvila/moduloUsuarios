@@ -61,7 +61,6 @@ const ProjectDashboard = () => {
                   tipo={tipo}
                   permisos={permisos}
                   handleClick={handleClick}
-
                 />  
             </React.Fragment>    
            case 'ModuloNotificaciones':
@@ -81,7 +80,6 @@ const ProjectDashboard = () => {
                   />  
               </React.Fragment>            
           default:
-            console.log('itemUrl',itemUrl.length);
             return (
               <React.Fragment>
                 {itemUrl.length===0?<BtnNivelI handleClick={handleClick} menuRef={''} />:''}

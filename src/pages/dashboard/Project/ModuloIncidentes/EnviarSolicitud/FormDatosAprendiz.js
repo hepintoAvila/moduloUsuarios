@@ -17,7 +17,6 @@ const FormDatosAprendiz = (): React$Element<React$FragmentType> => {
 
     return (
         <>
-
         <Card className={classNames('widget-flat')}>
         <NavbarBuscaAprendiz/>
         <HeaderForm title={'DATOS DEL APRENDIZ'}/>

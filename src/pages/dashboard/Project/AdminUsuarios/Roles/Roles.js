@@ -94,19 +94,19 @@ const Roles = (props) => {
       accessor: 'rol',
       sort: false,
     }, {
-      Header: 'query',
+      Header: 'Consulta',
       accessor: 'c',
       sort: false,
     }, {
-      Header: 'add',
+      Header: 'Agregar',
       accessor: 'a',
       sort: false,
     }, {
-      Header: 'update',
+      Header: 'Actualizar',
       accessor: 'u',
       sort: false,
     }, {
-      Header: 'delete',
+      Header: 'Eliminar',
       accessor: 'd',
       sort: false,
     },

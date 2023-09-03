@@ -70,7 +70,7 @@ const Register = (props): React$Element<React$FragmentType> => {
         <Row>
           <Col sm={2}>
             <Form.Group className="mb-3">
-              <Form.Label>query</Form.Label>
+              <Form.Label>Consultar</Form.Label>
               <Select
                 type="select"
                 name="c"
@@ -87,7 +87,7 @@ const Register = (props): React$Element<React$FragmentType> => {
           </Col>
           <Col sm={2}>
             <Form.Group className="mb-3">
-              <Form.Label>add</Form.Label>
+              <Form.Label>Registrar</Form.Label>
               <Select
                 type="select"
                 name="a"
@@ -104,7 +104,7 @@ const Register = (props): React$Element<React$FragmentType> => {
           </Col>
           <Col sm={2}>
             <Form.Group className="mb-3">
-              <Form.Label>update</Form.Label>
+              <Form.Label>Actualizar</Form.Label>
               <Select
                 type="select"
                 name="u"
@@ -123,7 +123,7 @@ const Register = (props): React$Element<React$FragmentType> => {
           </Col>
           <Col sm={2}>
             <Form.Group className="mb-3">
-              <Form.Label>delete</Form.Label>
+              <Form.Label>Eliminar</Form.Label>
               <Select
                 type="select"
                 name="d"

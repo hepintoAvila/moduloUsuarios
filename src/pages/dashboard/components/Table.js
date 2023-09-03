@@ -13,6 +13,7 @@ import classNames from 'classnames';
 
 // components
 import Pagination from './Pagination';
+import { Button } from 'react-bootstrap';
 
 // Define a default UI for filtering
 const GlobalFilter = ({ preGlobalFilteredRows, globalFilter, setGlobalFilter, searchBoxClass }) => {
@@ -82,7 +83,11 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
     const pagination = props['pagination'] || false;
     const isSelectable = props['isSelectable'] || false;
     const isExpandable = props['isExpandable'] || false;
-
+    const isVisible = props['isVisible'] || false;
+    
+    const titulo = props['titulo'] || '';
+    const toggleSignUp = props['toggleSignUp'] || '';
+    
     const dataTable = useTable(
         {
             columns: props['columns'],
@@ -162,7 +167,13 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
                     searchBoxClass={props['searchBoxClass']}
                 />
             )}
-
+            {isVisible && (<>
+                <div className="col-12 p-2 bg-dataTable">
+                <Button className="btn btn-dataTable mb-0 me-5 p-2" onClick={toggleSignUp}>
+                          <i className="mdi mdi-tray-plus">{titulo}</i>
+                        </Button>
+                        </div>       
+                </>)}
             <div className="table-responsive">
                 <table
                     {...dataTable.getTableProps()}
