@@ -3,6 +3,7 @@ import {Row, Col } from 'react-bootstrap';
 import FormDatosAprendiz from './FormDatosAprendiz';
 import FormDatosIncidente from './FormDatosIncidente';
 import FormDatosEvidencia from './FormDatosEvidencia';
+ 
 
 const EnviarSolicitud = () => {
  

@@ -2,12 +2,9 @@ import { Modal, Pagination, Row } from "react-bootstrap";
 
 import React from "react";
 import BtnActions from "./BtnActions";
-
+ 
 const BtnSeccionAction = (props,children) => {
-
-  const tipo = props?.obj?.tipo || '';
-
-  const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
+const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
 
   return (
     <React.Fragment>
@@ -19,7 +16,7 @@ const BtnSeccionAction = (props,children) => {
         <Pagination className="pagination-rounded mx-auto" size="sm">
           <Pagination.Item>
                 <BtnActions
-                 url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloIncidentes/ConsultarIncidencia?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`CONCEPTO${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
@@ -31,7 +28,7 @@ const BtnSeccionAction = (props,children) => {
           </Pagination.Item> 
           <Pagination.Item>
                 <BtnActions
-                 url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloIncidentes/ConsultarIncidencia?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`CRITERIO DEL COMITE${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
@@ -43,7 +40,7 @@ const BtnSeccionAction = (props,children) => {
           </Pagination.Item>  
           <Pagination.Item>
                 <BtnActions
-                 url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloIncidentes/ConsultarIncidencia?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`PLAN DE MEJORAMIENTO${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}

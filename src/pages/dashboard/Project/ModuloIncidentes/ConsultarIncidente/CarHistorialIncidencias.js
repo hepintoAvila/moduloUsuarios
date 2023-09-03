@@ -7,10 +7,10 @@ import { Row, Col, Card,  } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
  
-import Table from '../../../../components/Table';
-import { DashboardContext } from '../../../../layouts/context/DashboardContext';
-import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
-import BtnSeccionAction from './BtnSeccionAction';
+import Table from '../../../../../components/Table';
+import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
+import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
+import BtnSeccionAction from '../Components/BtnSeccionAction';
  
 const ActionColumn = ({ row }) => {
 
@@ -61,7 +61,9 @@ const ActionColumn = ({ row }) => {
   }
   return (
     <React.Fragment>
-      <BtnSeccionAction obj={obj}></BtnSeccionAction>
+      <BtnSeccionAction obj={obj}>
+        
+      </BtnSeccionAction>
     </React.Fragment>
   );
 };

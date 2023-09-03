@@ -4,10 +4,13 @@ import classNames from 'classnames';
 import { Button,  Row, Col, Card } from 'react-bootstrap';
 
 // components
-import { VerticalForm, FormInput } from '../../../../components';
+ 
 import { useTranslation } from 'react-i18next';
-import HeaderForm from './HeaderForm';
-import NavbarBuscaAprendiz from './NavbarBuscaAprendiz';
+ 
+import NavbarBuscaAprendiz from '../Components/NavbarBuscaAprendiz';
+import { VerticalForm,FormInput } from '../../../../../components';
+import HeaderForm from '../Components/HeaderForm';
+ 
  
 const FormDatosAprendiz = (): React$Element<React$FragmentType> => {
     const { t } = useTranslation();

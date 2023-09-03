@@ -3,10 +3,11 @@
 import React, { useContext } from 'react';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 //import { usePermisos } from '../../../../hooks/usePermisos';
-import Navbar from '../ModuloNotificaciones/Navbar';
-import MenuSegundo from './MenuSegundo';
-import EnviarSolicitud from './EnviarSolicitud';
-import ConsultarIncidente from './ConsultarIncidente';
+import Navbar from '../ModuloNotificaciones/Components/Navbar';
+import MenuSegundo from './Components/MenuSegundo';
+import EnviarSolicitud from './EnviarSolicitud/EnviarSolicitud';
+import ConsultarIncidente from './ConsultarIncidente/ConsultarIncidente';
+ 
 
 const ModuloIncidentes = () => {
   const { tipo,setitemsMenuPrincipal } = useContext(DashboardContext)

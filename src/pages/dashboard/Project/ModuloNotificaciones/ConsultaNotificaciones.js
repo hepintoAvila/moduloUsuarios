@@ -6,10 +6,11 @@ import React, { useContext, useEffect } from 'react';
 import { Row, Col, Card,  } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
-import BtnSeccionAction from './BtnSeccionAction';
+ 
 import Table from '../../../../components/Table';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
+import BtnSeccionAction from './Components/BtnSeccionAction';
  
 const ActionColumn = ({ row }) => {
 

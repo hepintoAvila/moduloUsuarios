@@ -9,9 +9,10 @@ import { Row, Col, Card } from 'react-bootstrap';
 
 import SimpleMDEReact from 'react-simplemde-editor';
 // components
-import { VerticalForm } from '../../../../components';
-import HeaderForm from './HeaderForm';
-import FileUploader from '../../components/FileUploader';
+import { VerticalForm} from '../../../../../components';
+ 
+import FileUploader from '../../../../../components/FileUploader';
+import HeaderForm from '../Components/HeaderForm';
  
 const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
     const delay = 1000;

@@ -3,10 +3,11 @@ import React, { useState }  from 'react';
 import classNames from 'classnames';
  import { Row, Col, Card} from 'react-bootstrap';
 // components
-import { VerticalForm, FormInput } from '../../../../components';
+import { VerticalForm,FormInput } from '../../../../../components';
  
-import HeaderForm from './HeaderForm';
-import HyperDatepicker from '../../../../components/Datepicker';
+ 
+import HyperDatepicker from '../../../../../components/Datepicker';
+import HeaderForm from '../Components/HeaderForm';
  
 //import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 
@@ -48,15 +49,16 @@ const FormDatosIncidente = (): React$Element<React$FragmentType> => {
                         name="tipoLLamado"
                         label="Seleccione el tipo de LLamado"
                         type="select"
-                        containerClass="mb-3"
+                        containerClass="mb-3 font-weight-bold"
                         className="form-select"
                         key="tipoLLamado"
                         >
+                        <option>Seleccione...</option>
                         <option>GRAVE</option>
                         <option>MEDIO</option>
                         <option> -Verbal</option>
                         <option> -Escrito</option>
-                        <option>AMBIENTAL</option>
+                        <option>BAJA</option>
                         <option> -Verbal</option>
                         <option> -Escrito</option>
                 </FormInput>

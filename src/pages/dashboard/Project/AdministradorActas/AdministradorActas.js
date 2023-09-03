@@ -5,7 +5,7 @@ import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
 import ConsultaActas from './ConsultaActas';
 import RegistrarActas from './RegistrarActas';
-import Navbar from '../ModuloNotificaciones/Navbar';
+import Navbar from '../ModuloNotificaciones/Components/Navbar';
 
 const AdministradorActas = () => {
 

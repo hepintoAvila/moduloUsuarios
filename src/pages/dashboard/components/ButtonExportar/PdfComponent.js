@@ -1,6 +1,7 @@
 import React from 'react';
 import jsPDF from 'jspdf';
-import BtnActions from '../../Project/ModuloNotificaciones/BtnNotificaciones';
+import BtnActions from '../../Project/ModuloNotificaciones/Components/BtnActions';
+ 
 const PdfComponent = (props) => {
   const generatePdf = () => {
     //const doc = new jsPDF();

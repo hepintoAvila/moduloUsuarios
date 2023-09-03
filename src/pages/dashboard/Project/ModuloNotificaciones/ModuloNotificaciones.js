@@ -6,12 +6,11 @@ import ConsultaNotificaciones from './ConsultaNotificaciones';
 import AgendarCitas from './Calendar/AgendarCitas';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
-import Navbar from './Navbar';
+import Navbar from './Components/Navbar';
+ 
 
 const ModuloNotificaciones = () => {
-
   const { tipo,itemUrl } = useContext(DashboardContext)
-
   const { permisos } = usePermisos(tipo);
  
   return (

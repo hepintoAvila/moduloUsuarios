@@ -2,7 +2,7 @@
 // @flow
 import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
-import profileImg from '../../../../assets/images/users/avatar-2.jpg';
+import profileImg from '../../../../../assets/images/users/avatar-2.jpg';
 const CardDatosPersonales = () => {
     const profileStats = [
         { label: 'Identificación', value: '12344555666' },

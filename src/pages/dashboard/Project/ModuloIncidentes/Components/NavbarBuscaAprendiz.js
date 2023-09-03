@@ -1,7 +1,7 @@
 
 import { Button, Col, Row } from "react-bootstrap";
-import TopbarSearch from "../../../../components/TopbarSearch";
-import { DashboardContext } from '../../../../layouts/context/DashboardContext';
+import TopbarSearch from "../../../../../components/TopbarSearch";
+import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { useContext } from "react";
 
 
