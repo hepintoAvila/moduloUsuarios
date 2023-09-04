@@ -13,7 +13,7 @@ import HeaderForm from '../Components/HeaderForm';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
  
  
-const FormDatosAprendiz = (): React$Element<React$FragmentType> => {
+const FormDatosAprendiz = (props): React$Element<React$FragmentType> => {
  
     const { t } = useTranslation();
     const { setitemsMenuPrincipal } = useContext(DashboardContext)
@@ -30,7 +30,7 @@ const FormDatosAprendiz = (): React$Element<React$FragmentType> => {
     return (
         <>
         <Card className={classNames('widget-flat')}>
-        <NavbarBuscaAprendiz/>
+        <NavbarBuscaAprendiz handleClick={props.handleClick} nivel={3}/>
         <HeaderForm title={'DATOS DEL APRENDIZ'}/>
             <Card.Body>
             

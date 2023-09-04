@@ -36,7 +36,8 @@ const ActionColumn = ({ row }) => {
     } else {
       //Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
       const url =`dashboard/ModuloIncidentes/ConsultarIncidencia?id=${id}`
-      sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: 'ConsultarIncidencia', menu: 'ModuloIncidentes' }));
+      sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: 'ConsultarIncidencia', menu: 'ModuloIncidentes', tipoAnterior:'dashboard/',
+      menuAnterior:'dashboard/' }));
       setitemsMenuPrincipal('ModuloIncidentes');
       setitemsUrl('ConsultarIncidencia');
       setOpen(!open);

@@ -6,16 +6,16 @@ import ConsultaNotificaciones from './ConsultaNotificaciones';
 import AgendarCitas from './Calendar/AgendarCitas';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
-import Navbar from './Components/Navbar';
+import Navbar from './Navbar';
  
 
-const ModuloNotificaciones = () => {
+const ModuloNotificaciones = (props) => {
   const { tipo,itemUrl } = useContext(DashboardContext)
   const { permisos } = usePermisos(tipo);
  
   return (
     <React.Fragment>
- <Navbar/>
+ <Navbar handleClick={props.handleClick} nivel={2}/>
       {(() => {
         switch (tipo) {
           case 'ConsultaNotificaciones':

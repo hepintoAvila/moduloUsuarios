@@ -5,9 +5,10 @@ import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
 import ConsultaActas from './ConsultaActas';
 import RegistrarActas from './RegistrarActas';
-import Navbar from '../ModuloNotificaciones/Components/Navbar';
+import Navbar from './Navbar';
+ 
 
-const AdministradorActas = () => {
+const AdministradorActas = (props) => {
 
   const { tipo,itemUrl } = useContext(DashboardContext)
 
@@ -15,7 +16,7 @@ const AdministradorActas = () => {
  
   return (
     <React.Fragment>
-       <Navbar/>
+       <Navbar handleClick={props.handleClick} nivel={3}/>
       {(() => {
         switch (tipo) {
           case 'ConsultaActas':

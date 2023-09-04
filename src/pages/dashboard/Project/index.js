@@ -20,13 +20,20 @@ const ProjectDashboard = () => {
   AdvertenciaLocalStorage();
   const { permisos, initPermiso } = usePermisos(tipo);
 
-  const handleClick = (url) => {
+  const handleClick = (url,nivel) => {
+    
     setitemsMenuPrincipal(`/${url}`);
-        const menuitems = window.location.hash.split('#/')[1];
+        const menuitems = window.location.hash.split('#/')[1]; 
         const [seccion] = menuitems?.split('/');
         
+        const strurl = (nivel===2||nivel===3)? `/${seccion}/${url}` : `${seccion}`
+        
         const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
-        sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
+        sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ 
+          tipo: obj.principal, 
+          menu: obj.seccion,
+          tipoAnterior:'dashboard/',
+          menuAnterior:'dashboard/' }));
         const urls = seccion.length===0 ? `dashboard/${url}`:'/'+seccion+'/'+url
         return window.location.hash = urls;
 
@@ -70,6 +77,7 @@ const ProjectDashboard = () => {
                   accion={itemUrl}
                   tipo={tipo}
                   permisos={permisos}
+                  handleClick={handleClick}
                 />  
             </React.Fragment> 
             case 'AdministradorActas':
@@ -78,6 +86,7 @@ const ProjectDashboard = () => {
                     accion={itemUrl}
                     tipo={tipo}
                     permisos={permisos}
+                    handleClick={handleClick}
                   />  
               </React.Fragment>            
           default:

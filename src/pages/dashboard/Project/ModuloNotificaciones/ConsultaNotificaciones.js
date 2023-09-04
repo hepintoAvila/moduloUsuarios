@@ -42,20 +42,28 @@ const ActionColumn = ({ row }) => {
         switch (sessionStorage.getItem('OPTIONS')) {
             case 'AGENDAR':
                   obj = {principal:seccion.length===0 ? `dashboard/AgendarCitas?p=${id}`:seccion, seccion: `AgendarCitas?p=${id}`}
-                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
+                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion,
+                    tipoAnterior:'dashboard/',
+                    menuAnterior:'dashboard/'}));
                   break
             case 'ACTAS':
                   obj = {principal:seccion.length===0 ? `dashboard/RegistrarActa?p=${id}`:seccion, seccion: `RegistrarActa?p=${id}`}
-                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
+                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion,
+                    tipoAnterior:'dashboard/',
+                    menuAnterior:'dashboard/'}));
                   break
             case 'DETALLES':
                   obj = {principal:seccion.length===0 ? `dashboard/AgendarCitas?p=${id}`:seccion, seccion: `ConsultarIncidencia?p=${id}`}
-                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
+                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion,
+                    tipoAnterior:'dashboard/',
+                    menuAnterior:'dashboard/'  }));
                   break
             default:
                 setOpen(false);
                 obj = {principal:seccion.length===0 ? `ModuloNotificaciones/ConsultaNotificaciones`:`ModuloNotificaciones/ConsultaNotificaciones`, seccion: `ModuloNotificaciones/ConsultaNotificaciones`}
-                sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo:'ConsultaNotificaciones', menu: 'ModuloNotificaciones'}));
+                sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo:'ConsultaNotificaciones', menu: 'ModuloNotificaciones',
+                tipoAnterior:'dashboard/',
+                menuAnterior:'dashboard/' }));
                                   
         }
     })()
@@ -74,15 +82,16 @@ const ActionColumn = ({ row }) => {
     const menuitems = window.location.hash.split('#/')[1];
     const [seccion] = menuitems?.split('/');
     console.log(menuitems)
-    const obj = { principal: seccion.length === 0 ? `dashboard/ModuloNotificaciones/ConsultaNotificaciones?p=${id}` : seccion, seccion: `ConsultaNotificaciones?p=${id}` }  
+    const obj = { principal: seccion.length === 0 ? `dashboard/ModuloNotificaciones/ConsultaNotificaciones?p=${id}` : seccion, seccion: `ConsultaNotificaciones?p=${id}`,
+    tipoAnterior:'dashboard/',
+    menuAnterior:'dashboard/'  }  
     const urls = seccion.length===0 ? `dashboard/${obj.principal}/`+seccion+''+obj.principal:'/'+seccion+'/'+obj.principal
     setitemsMenuPrincipal(seccion)
     setOpen(!open); 
     
     return window.location.hash = urls;   
   }
-  console.log('open',open)
-  let permiso = sessionStorage.getItem('PERMISO');
+   let permiso = sessionStorage.getItem('PERMISO');
   const localPermiso = JSON.parse(permiso);
   const obj = {
     open,
