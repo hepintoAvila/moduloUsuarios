@@ -42,7 +42,7 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
                     
                 </div>
                 <div  className="flexRowContent--header___grid__nivel_2_col2">
-                <p className="headerTitulo"><span>{t('GIPNCES v.1 - Gestión de Información del Proceso Normativo')} </span><br/><span className="center-text">{t('del Comité de Evaluación y Seguimiento')} </span></p>
+                <p className="headerTitulo"><span>{t('SICES v.1 - Sistema de Información del Comité de Evaluación y Seguimiento')} </span><br/><span className="center-text">{t('')} </span></p>
  
                 </div>
                 <div  className="flexRowContent--header___grid__nivel_2_col3">
@@ -77,7 +77,7 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
             </div>
             <footer className="footer footer-alt">
             <Row className="justify-content-center bg-footer  fw-bold"> 
-              {t('GIPNCES v.1')}<br/>
+              {t('SICES v.1')}<br/>
               {t('@2023-Centro de Servicios Empresariales y Turísticos Santander-Bucaramanga')}
               </Row>
             </footer>

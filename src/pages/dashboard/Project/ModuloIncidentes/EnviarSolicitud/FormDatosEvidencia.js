@@ -31,14 +31,14 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
         <HeaderForm title={'EVIDENCIAS DEL INCIDENTE'}/>
             <Card.Body>
             
-                <Row className="align-items-center">
+            <Row className="align-items-center">
                     <Col className="col-12">
                 <VerticalForm>
                 <Row>
                 <Col>
                     <Card>
                         <Card.Body>
-                            <h4 className="header-title mb-3">Descripcrón del Incidente</h4>
+                            <h4 className="header-title mb-3">Descripción del Incidente</h4>
                             <p className="text-muted font-14 mb-3">
                                 Narre los hechos:
                             </p>

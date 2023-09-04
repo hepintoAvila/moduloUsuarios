@@ -4,65 +4,99 @@
 // @flow
 import React, { useContext, useEffect } from 'react';
 import { Row, Col, Card,  } from 'react-bootstrap';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
 
  
 import Table from '../../../../components/Table';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from './Components/BtnSeccionAction';
+import OpcionsForm from './Form/OpcionsForm';
  
 const ActionColumn = ({ row }) => {
 
   const {
-    eliminar,
     validated,
-    toggle,
     setOpen,
     setItemsUpdate,
     open, 
     setitemsMenuPrincipal
   } = useContext(DashboardContext);
 
-   const toggleSignUp = (id) => {
+   const toggleSignUp = (id,opciones) => {
+    
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'N') {
 
       if(row.cells[0].row.values.id===id)
       setItemsUpdate(row?.cells[0]?.row?.values)
-      setOpen(open);
-      toggle()
+      //toggle()
     } else {
-      Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
-      const url =`AgendarCitas?p=${id}`
+      sessionStorage.removeItem('OPTIONS')
+      
       const menuitems = window.location.hash.split('#/')[1];
       const [seccion] = menuitems?.split('/');
-      const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
-      sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
-     // setLoading(true)
-    const urls = seccion.length===0 ? `dashboard/${url}/`+seccion+''+url:'/'+seccion+'/'+url
-    console.log('urls',urls);
-    setitemsMenuPrincipal(url)
+      let obj={}
+      {(() => {
+        switch (sessionStorage.getItem('OPTIONS')) {
+            case 'AGENDAR':
+                  obj = {principal:seccion.length===0 ? `dashboard/AgendarCitas?p=${id}`:seccion, seccion: `AgendarCitas?p=${id}`}
+                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
+                  break
+            case 'ACTAS':
+                  obj = {principal:seccion.length===0 ? `dashboard/RegistrarActa?p=${id}`:seccion, seccion: `RegistrarActa?p=${id}`}
+                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
+                  break
+            case 'DETALLES':
+                  obj = {principal:seccion.length===0 ? `dashboard/AgendarCitas?p=${id}`:seccion, seccion: `ConsultarIncidencia?p=${id}`}
+                  sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
+                  break
+            default:
+                setOpen(false);
+                obj = {principal:seccion.length===0 ? `ModuloNotificaciones/ConsultaNotificaciones`:`ModuloNotificaciones/ConsultaNotificaciones`, seccion: `ModuloNotificaciones/ConsultaNotificaciones`}
+                sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo:'ConsultaNotificaciones', menu: 'ModuloNotificaciones'}));
+                                  
+        }
+    })()
+    }
+
+    //Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
+    const urls = seccion.length===0 ? `dashboard/${obj.principal}/`+seccion+''+obj.principal:'/'+seccion+'/'+obj.principal
+    setitemsMenuPrincipal(obj.seccion)
     return window.location.hash = urls;
     }
   };
 
+  const toggleModal= (id,opciones) => {
+   
+    sessionStorage.setItem('OPTIONS',opciones)
+    const menuitems = window.location.hash.split('#/')[1];
+    const [seccion] = menuitems?.split('/');
+    console.log(menuitems)
+    const obj = { principal: seccion.length === 0 ? `dashboard/ModuloNotificaciones/ConsultaNotificaciones?p=${id}` : seccion, seccion: `ConsultaNotificaciones?p=${id}` }  
+    const urls = seccion.length===0 ? `dashboard/${obj.principal}/`+seccion+''+obj.principal:'/'+seccion+'/'+obj.principal
+    setitemsMenuPrincipal(seccion)
+    setOpen(!open); 
+    
+    return window.location.hash = urls;   
+  }
+  console.log('open',open)
   let permiso = sessionStorage.getItem('PERMISO');
   const localPermiso = JSON.parse(permiso);
   const obj = {
     open,
     toggleSignUp,
+    toggleModal,
     localPermiso,
     validated,
     key:row.cells[0].value,
     row:row.cells[0].value,
-    eliminar,
   }
   return (
     <React.Fragment>
       <BtnSeccionAction obj={obj}>
-        
+        <OpcionsForm/>
       </BtnSeccionAction>
     </React.Fragment>
   );
