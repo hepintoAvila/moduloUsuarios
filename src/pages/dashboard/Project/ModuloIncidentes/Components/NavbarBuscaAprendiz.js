@@ -19,31 +19,11 @@ const NavbarBuscaAprendiz = (props) => {
           return window.location.hash = urls;
     
       };
-    const SearchResults = [
-        {
-            id: 1,
-            title: 'Analytics Report',
-            icon: 'uil-notes',
-            redirectTo: '/',
-        },
-        {
-            id: 2,
-            title: 'How can I help you?',
-            icon: 'uil-life-ring',
-            redirectTo: '/',
-        },
-        {
-            id: 3,
-            icon: 'uil-cog',
-            title: 'User profile settings',
-            redirectTo: '/',
-        },
-    ];
     return (
         <Row>
             <div className={`navbar-custom`}>
                 <Row>
-                    <Col xl={4}><div className="mb-3 mb-0 text-center"><TopbarSearch items={SearchResults} /></div></Col>
+                    <Col xl={4}><div className="mb-3 mb-0 text-center"><TopbarSearch/></div></Col>
                     <Col xl={4}><div className="mb-3 mb-0 text-center btnhistorial">
                     </div></Col>
                     <Col xl={4}><div className="mb-0 mb-0 text-center btnregresar"><Button variant="primary" type="submit" onClick={() => handleClick('')}>{'Regresar'} </Button> </div></Col>

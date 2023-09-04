@@ -144,6 +144,7 @@ const CarHistorialIncidencias = (props) => {
                     searchBoxClass="mt-2 mb-3"
                     isSearchable={true}
                     nametable={props.accion}
+                    titleTable={'HISTORIAL DE INCIDENCIAS'}
               />}
             </Card.Body>
           </Card>

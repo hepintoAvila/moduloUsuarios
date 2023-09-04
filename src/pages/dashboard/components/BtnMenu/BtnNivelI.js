@@ -22,7 +22,7 @@ const BtnNivelI = (props) => {
 
                   </div>
                   <div class="grid_btn3 col-xl-3 col-lg-4 col-sm-6">
-                    <MenuBtn texto='Módulo de Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloReportes'}/>
+                    <MenuBtn texto='Consultar Aprendiz' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloIncidentes/ConsultarAprendiz'}/>
                   </div>
                 </div> 
         </Col>

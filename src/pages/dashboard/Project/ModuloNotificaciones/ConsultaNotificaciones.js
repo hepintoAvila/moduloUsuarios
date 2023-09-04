@@ -173,6 +173,7 @@ const ConsultaNotificaciones = (props) => {
                     searchBoxClass="mt-2 mb-3"
                     isSearchable={true}
                     nametable={props.accion}
+                    titleTable={'LISTADO DE NOTIFICACIONES'}
               />}
             </Card.Body>
           </Card>

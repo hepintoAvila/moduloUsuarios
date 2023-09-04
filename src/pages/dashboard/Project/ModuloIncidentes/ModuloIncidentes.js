@@ -7,6 +7,8 @@ import Navbar from '../ModuloNotificaciones/Components/Navbar';
 import MenuSegundo from './Components/MenuSegundo';
 import EnviarSolicitud from './EnviarSolicitud/EnviarSolicitud';
 import ConsultarIncidente from './ConsultarIncidente/ConsultarIncidente';
+import CarHistorialIncidencias from './ConsultarIncidente/CarHistorialIncidencias';
+import ConsultarAprendiz from './ConsultarIncidente/ConsultarAprendiz';
  
 
 const ModuloIncidentes = () => {
@@ -43,8 +45,17 @@ const ModuloIncidentes = () => {
             case 'ConsultarIncidencia':
               return <React.Fragment>
                 <ConsultarIncidente/>
-              </React.Fragment>              
+              </React.Fragment>  
+              case 'ConsultaIncidente':  
+                return <React.Fragment>
+                  <CarHistorialIncidencias/>
+                </React.Fragment> 
+               case 'ConsultarAprendiz':  
+               return <React.Fragment>
+                 <ConsultarAprendiz/>
+               </React.Fragment>                                           
           default:
+            
             return (
               <React.Fragment>
                 {''}
