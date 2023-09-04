@@ -15,7 +15,7 @@ const Footer = (): React$Element<any> => {
                 </span>
                                   
                         </Col>
-                        <Col md={6}><div className="text-md-end footer-links d-none d-md-block">{currentYear} © GIPNCES - @2023-Desarrollado por: Hosmmer Eduardo Pinto Rojas.  Celular: 3042172357  Email: hosmmereduardo@gmail.com</div></Col>
+                        <Col md={6}><div className="text-md-end footer-links d-none d-md-block">{currentYear} © SICES v.1 - @2023-Desarrollado por: Hosmmer Eduardo Pinto Rojas.  Celular: 3042172357  Email: hosmmereduardo@gmail.com</div></Col>
 
                     </Row>
                 </div>
