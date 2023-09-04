@@ -1,7 +1,7 @@
 // @flow
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { Button,  Row, Col, Card, Modal } from 'react-bootstrap';
+import { Button,  Row, Col, Card } from 'react-bootstrap';
 
 // components
  
@@ -21,9 +21,6 @@ const FormDatosAprendiz = (props): React$Element<React$FragmentType> => {
    
         const menuitems = window.location.hash.split('#/')[1];
         const [seccion] = menuitems?.split('/');
-        const obj = { principal: seccion.length === 0 ? `dashboard/ModuloIncidentes/ConsultarAprendiz` : `dashboard/ModuloIncidentes/ConsultarAprendiz`, seccion: `dashboard/ModuloIncidentes/ConsultarAprendiz` }  
-        const urls = seccion.length===0 ? `dashboard/${obj.principal}/`+seccion+''+obj.principal:'/'+seccion+'/'+obj.principal
-        
         setitemsMenuPrincipal(seccion)
         return window.location.hash = `dashboard/ModuloIncidentes/ConsultarAprendiz`;   
       }

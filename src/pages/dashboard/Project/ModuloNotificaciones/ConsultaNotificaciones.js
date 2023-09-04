@@ -43,27 +43,23 @@ const ActionColumn = ({ row }) => {
             case 'AGENDAR':
                   obj = {principal:seccion.length===0 ? `dashboard/AgendarCitas?p=${id}`:seccion, seccion: `AgendarCitas?p=${id}`}
                   sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion,
-                    tipoAnterior:'dashboard/',
-                    menuAnterior:'dashboard/'}));
+                  }));
                   break
             case 'ACTAS':
                   obj = {principal:seccion.length===0 ? `dashboard/RegistrarActa?p=${id}`:seccion, seccion: `RegistrarActa?p=${id}`}
                   sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion,
-                    tipoAnterior:'dashboard/',
-                    menuAnterior:'dashboard/'}));
+                  }));
                   break
             case 'DETALLES':
                   obj = {principal:seccion.length===0 ? `dashboard/AgendarCitas?p=${id}`:seccion, seccion: `ConsultarIncidencia?p=${id}`}
                   sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion,
-                    tipoAnterior:'dashboard/',
-                    menuAnterior:'dashboard/'  }));
+                  }));
                   break
             default:
                 setOpen(false);
                 obj = {principal:seccion.length===0 ? `ModuloNotificaciones/ConsultaNotificaciones`:`ModuloNotificaciones/ConsultaNotificaciones`, seccion: `ModuloNotificaciones/ConsultaNotificaciones`}
                 sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo:'ConsultaNotificaciones', menu: 'ModuloNotificaciones',
-                tipoAnterior:'dashboard/',
-                menuAnterior:'dashboard/' }));
+                }));
                                   
         }
     })()

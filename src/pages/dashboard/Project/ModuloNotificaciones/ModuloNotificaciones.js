@@ -7,6 +7,7 @@ import AgendarCitas from './Calendar/AgendarCitas';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
 import Navbar from './Navbar';
+import NavbarAgendarCitas from './NavbarAgendarCitas';
  
 
 const ModuloNotificaciones = (props) => {
@@ -28,6 +29,7 @@ const ModuloNotificaciones = (props) => {
             </React.Fragment>
            case 'AgendarCitas':
             return <React.Fragment>
+              <NavbarAgendarCitas handleClick={props.handleClick} nivel={2}/>
               <AgendarCitas
                   accion={itemUrl}
                   tipo={tipo}

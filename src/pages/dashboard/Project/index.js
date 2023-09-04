@@ -25,15 +25,12 @@ const ProjectDashboard = () => {
     setitemsMenuPrincipal(`/${url}`);
         const menuitems = window.location.hash.split('#/')[1]; 
         const [seccion] = menuitems?.split('/');
-        
-        const strurl = (nivel===2||nivel===3)? `/${seccion}/${url}` : `${seccion}`
+        //const strurl = (nivel===2||nivel===3)? `/${seccion}/${url}` : `${seccion}`
         
         const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
         sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ 
           tipo: obj.principal, 
-          menu: obj.seccion,
-          tipoAnterior:'dashboard/',
-          menuAnterior:'dashboard/' }));
+          menu: obj.seccion}));
         const urls = seccion.length===0 ? `dashboard/${url}`:'/'+seccion+'/'+url
         return window.location.hash = urls;
 
