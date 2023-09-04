@@ -3,7 +3,7 @@
 // @flow
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import avatar1 from '../../../../assets/images/1.png';
+import avatar1 from '../../../../assets/images/7.png';
 import avatar2 from '../../../../assets/images/2.png';
 import avatar3 from '../../../../assets/images/3.png';
 import MenuBtn from '../../components/BtnMenu/MenuBtn';
