@@ -4,8 +4,8 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
  
 import avatar1 from '../../../../../assets/images/4.png';
-import avatar2 from '../../../../../assets/images/6.png';
-import avatar3 from '../../../../../assets/images/5.png';
+import avatar2 from '../../../../../assets/images/5.png';
+import avatar3 from '../../../../../assets/images/9.png';
 import MenuBtn from '../../../components/BtnMenu/MenuBtn';
 const MenuSegundo = (props) => {
  

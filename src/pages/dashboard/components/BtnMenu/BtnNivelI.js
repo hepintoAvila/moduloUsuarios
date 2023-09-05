@@ -3,9 +3,9 @@
 // @flow
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import avatar1 from '../../../../assets/images/7.png';
-import avatar2 from '../../../../assets/images/2.png';
-import avatar3 from '../../../../assets/images/3.png';
+import avatar1 from '../../../../assets/images/8.png';
+import avatar2 from '../../../../assets/images/10.png';
+import avatar3 from '../../../../assets/images/12.png';
 import MenuBtn from '../../components/BtnMenu/MenuBtn';
 
 const BtnNivelI = (props) => {
@@ -22,7 +22,7 @@ const BtnNivelI = (props) => {
                     <MenuBtn texto='Consulta Notificaciones' image={avatar2} handleClick={props.handleClick} menuRef={'ModuloNotificaciones/ConsultaNotificaciones'} nivel={1}/>
                   </div>
                   <div class="grid_btn3 col-xl-3 col-lg-4 col-sm-6">
-                    <MenuBtn texto='Consultar Aprendiz' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloIncidentes/ConsultarAprendiz'} nivel={1}/>
+                    <MenuBtn texto='Módulo Aprendiz' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloIncidentes/ConsultarAprendiz'} nivel={1}/>
                   </div>
                 </div> 
         </Col>
