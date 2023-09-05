@@ -4,7 +4,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import avatar1 from '../../../../assets/images/8.png';
-import avatar2 from '../../../../assets/images/10.png';
+import avatar2 from '../../../../assets/images/16.png';
 import avatar3 from '../../../../assets/images/12.png';
 import MenuBtn from '../../components/BtnMenu/MenuBtn';
 
