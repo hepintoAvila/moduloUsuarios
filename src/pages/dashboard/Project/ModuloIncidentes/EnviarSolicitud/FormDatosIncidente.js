@@ -8,6 +8,7 @@ import { VerticalForm,FormInput } from '../../../../../components';
  
 import HyperDatepicker from '../../../../../components/Datepicker';
 import HeaderForm from '../Components/HeaderForm';
+import FileUploader from '../../../../../components/FileUploader';
  
 //import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 
@@ -77,9 +78,29 @@ const FormDatosIncidente = (): React$Element<React$FragmentType> => {
                                 }}
                             />
                         </div>
+
                 </VerticalForm>
                 </Col>
                 </Row>
+                <Row>
+                <Col>
+                    <Card>
+                        <Card.Body>
+                            <h4 className="header-title mb-3">Subir documentos</h4>
+
+                            <p className="text-muted font-13 m-b-30">
+                               Cargue aqui las evidencias del incidente
+                            </p>
+
+                            <FileUploader
+                                onFileUpload={(files) => {
+                                    console.log(files);
+                                }}
+                            />
+                        </Card.Body>
+                    </Card>
+                    </Col>
+                    </Row>
             </Card.Body>
         </Card>
         </>

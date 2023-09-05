@@ -33,7 +33,6 @@ const Register = (props): React$Element<React$FragmentType> => {
     queryForm: state.Queryform.queryForm,
   }));
 
-console.log('props?.opcionroles',props?.opcionroles)
   const schemaResolver = yupResolver(
     yup.object().shape({
       login: yup.string().required(t('Digite su login')),
@@ -49,7 +48,7 @@ console.log('props?.opcionroles',props?.opcionroles)
       setOpen(open)
     }, 2000);
   };
-  console.log('Register',items)
+ 
    return (
     <>
       {queryForm ? <Redirect to={`/dashboard/${props?.accion}/${props?.tipo}`}></Redirect> : null}

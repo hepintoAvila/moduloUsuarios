@@ -140,7 +140,7 @@ const Usuarios = (props) => {
                 <Col sm={8}>
                   <div className="text-sm-end">
                     <Button className="btn btn-dataTable mb-2 me-1" onClick={toggleSignUp}>
-                      <i className="mdi mdi-cog-outline"></i>
+                      <i className="mdi mdi-account-plus"></i>
                     </Button>
                   </div>
                 </Col>
@@ -159,9 +159,9 @@ const Usuarios = (props) => {
                 isSearchable={true}
                 isVisible={true}
                 nametable={props.accion}
-                titulo={'Usuarios'}
+                titulo={'LISTADO DE USUARIOS REGISTRADOS'}
                 permisos={permisos}
- 
+                icons={'dripicons-user'}
                
               />) : <PermisoAlert />}
             </Card.Body>

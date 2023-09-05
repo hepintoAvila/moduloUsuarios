@@ -12,6 +12,8 @@ export const useAdminUsuarios = () => {
   const [itemsRoles, setRoles] = useState([]);
   const [itemsAgendarCitas, setAgendarCitas] = useState([]);
   const [itemsHistorial, setHistorial] = useState([]);
+  const [itemsAprendices, setAprendices] = useState([]);
+  
   //QUERY DE RESPUSTA DE CONSULTAS 
   const query = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
@@ -48,7 +50,12 @@ export const useAdminUsuarios = () => {
                   case 'historial':
                     console.log(response)
                       setHistorial(response) 
-                   break;                   
+                   break; 
+                   case 'aprendices':
+                    console.log(response)
+                      setAprendices(response) 
+                   break;                  
+                   
                 }
               })()
             }
@@ -72,7 +79,8 @@ export const useAdminUsuarios = () => {
       itemsAdminUsuarios,
       itemsRoles,
       itemsAgendarCitas,
-      itemsHistorial
+      itemsHistorial,
+      itemsAprendices
     }
   )
 }

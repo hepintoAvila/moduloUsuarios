@@ -48,25 +48,6 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
                     </Card>
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    <Card>
-                        <Card.Body>
-                            <h4 className="header-title mb-3">Subir documentos</h4>
-
-                            <p className="text-muted font-13 m-b-30">
-                               Cargue aqui las evidencias del incidente
-                            </p>
-
-                            <FileUploader
-                                onFileUpload={(files) => {
-                                    console.log(files);
-                                }}
-                            />
-                        </Card.Body>
-                    </Card>
-                    </Col>
-                    </Row>
                 </VerticalForm>
                 </Col>
                 </Row>

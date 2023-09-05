@@ -5,11 +5,11 @@ import Select, { components } from 'react-select';
 import { groupByFields } from '../utils';
 
 import Avatar2 from '../assets/images/users/avatar-2.jpg';
-import Avatar5 from '../assets/images/users/avatar-5.jpg';
 /*
  * get options
  */
 const optionGetter = (option) => {
+    //option.userDetails.avatar
     switch (option.type) {
         case 'users':
             return (
@@ -17,7 +17,7 @@ const optionGetter = (option) => {
                     <Link to="/" className="dropdown-item notify-item p-0">
                         <div className="d-flex">
                             <img
-                                src={option.userDetails.avatar}
+                                src={Avatar2}
                                 alt=""
                                 className="d-flex me-2 rounded-circle"
                                 height="32"
@@ -121,57 +121,23 @@ type TopbarSearchProps = {
 };
 
 const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
-    const options = [
-        {
-            label: 'Hosmmer Eduardo Pinto Rojas',
-            value: 'users',
-            type: 'users',
-            userDetails: {
-                firstname: 'Hosmmer',
-                lastname: 'Pinto',
-                position: 'Aprendiz',
-                avatar: Avatar2,
-            },
-        },
-        {
-            label: 'Erwin Brown',
-            value: 'users',
-            type: 'users',
-            userDetails: {
-                firstname: 'Erwin',
-                lastname: 'Brown',
-                position: 'Aprendiz',
-                avatar: Avatar2,
-            },
-        },
-        {
-            label: 'Jacob Deo',
-            value: 'users',
-            type: 'users',
-            userDetails: {
-                firstname: 'Jacob',
-                lastname: 'Deo',
-                position: 'Aprendiz',
-                avatar: Avatar5,
-            },
-        },
-    ];
 
     const onClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        console.log('',);
     };
-
+ 
     return (
         <>
             <Select
                 {...props}
                 components={{ Control, IndicatorsContainer, MenuList }}
                 placeholder={'Buscar Aprendiz...'}
-                options={formateOptions(options)}
+                options={formateOptions(props?.data)}
                 formatOptionLabel={handleFormatOptionLabel}
                 isOptionDisabled={(option) => option.type === 'title'}
-                maxMenuHeight="350px"
+                maxMenuHeight="450px"
                 handleClick={onClick}
                 isSearchable
                 name="search-app"
