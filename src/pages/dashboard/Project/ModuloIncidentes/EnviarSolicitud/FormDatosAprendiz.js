@@ -12,10 +12,12 @@ import { VerticalForm,FormInput } from '../../../../../components';
 import HeaderForm from '../Components/HeaderForm';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
+import { SearchContext } from '../../../../../layouts/context/SearchContext';
  
  
 const FormDatosAprendiz = (props): React$Element<React$FragmentType> => {
     const {itemsAprendices,query} = useAdminUsuarios()
+    const {itemsOptionAprendiz} = useContext(SearchContext)
     const apredizDatos = itemsAprendices?.data?.aprencices || [];
 
 
@@ -36,11 +38,12 @@ const FormDatosAprendiz = (props): React$Element<React$FragmentType> => {
         query('ModuloIncidentes','Aprendiz',[{opcion:'listaAprendices',obj:'aprendices'}]);
       }, [query]);
 
-     
+ 
+    //console.log('itemsOptionAprendiz',itemsOptionAprendiz) 
     return (
         <>
         <Card className={classNames('widget-flat')}>
-        <NavbarBuscaAprendiz handleClick={props.handleClick} nivel={3} data={apredizDatos}/>
+        <NavbarBuscaAprendiz handleClick={props.handleClick} nivel={3} data={apredizDatos} selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`}/>
         <HeaderForm title={'DATOS DEL APRENDIZ'}/>
             <Card.Body>
             
@@ -51,36 +54,41 @@ const FormDatosAprendiz = (props): React$Element<React$FragmentType> => {
                         label={t('Nombres')}
                         type="text"
                         name="Nombres"
-                        placeholder={t('Nombres')}
+                        placeholder={itemsOptionAprendiz?.Nombres}
                         containerClass={'mb-3'}
+                        disabled
                     />
                     <FormInput
                         label={t('Apellidos')}
                         type="text"
                         name="Apellidos"
-                        placeholder={t('Apellidos')}
+                        placeholder={itemsOptionAprendiz?.Apellidos}
                         containerClass={'mb-3'}
+                        disabled
                     />
                      <FormInput
                         label={t('Identificacion')}
                         type="text"
                         name="Identificacion"
-                        placeholder={t('Identificacion')}
+                        placeholder={itemsOptionAprendiz?.Identificacion}
                         containerClass={'mb-3'}
+                        disabled
                     />    
                       <FormInput
                         label={t('Celular')}
                         type="text"
                         name="Celular"
-                        placeholder={t('Celular')}
+                        placeholder={itemsOptionAprendiz?.Celular}
                         containerClass={'mb-3'}
+                        disabled
                     />                                    
                     <FormInput
                         label={t('Email address')}
                         type="email"
-                        name="email"
-                        placeholder={t('Enter your email')}
+                        name="Email"
+                        placeholder={itemsOptionAprendiz?.Email}
                         containerClass={'mb-3'}
+                        disabled
                     />
 
 

@@ -1,15 +1,16 @@
 // @flow
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Select, { components } from 'react-select';
 import { groupByFields } from '../utils';
 
 import Avatar2 from '../assets/images/users/avatar-2.jpg';
+import { SearchContext } from '../layouts/context/SearchContext';
 /*
  * get options
  */
 const optionGetter = (option) => {
-    //option.userDetails.avatar
+
     switch (option.type) {
         case 'users':
             return (
@@ -122,19 +123,40 @@ type TopbarSearchProps = {
 
 const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
 
+    const {setSelectedOptionAprendiz} = useContext(SearchContext)
+
+    const options = props?.data
+    const handleTypeSelect = e => {
+        const values = options.filter(function(option) {
+            return option.label=== e.label;
+          })
+          const detalles = {
+            idAprendiz:values[0]?.userDetails?.id,
+            Nombres:values[0]?.userDetails?.firstname,
+            Apellidos:values[0]?.userDetails?.lastname,
+            Identificacion:values[0]?.userDetails?.identificacion,
+            Celular:values[0]?.userDetails?.telefono,
+            Email:values[0]?.userDetails?.correo
+          }
+          setSelectedOptionAprendiz(detalles);
+
+      };
     const onClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('',);
+        
     };
- 
+    const values = options?.filter(function(option) {
+        return option.label=== props?.selectedOption
+      })
+    console.log('props?.selectedOption',options)
     return (
         <>
             <Select
                 {...props}
                 components={{ Control, IndicatorsContainer, MenuList }}
                 placeholder={'Buscar Aprendiz...'}
-                options={formateOptions(props?.data)}
+                options={formateOptions(options)}
                 formatOptionLabel={handleFormatOptionLabel}
                 isOptionDisabled={(option) => option.type === 'title'}
                 maxMenuHeight="450px"
@@ -143,6 +165,10 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
                 name="search-app"
                 className="app-search dropdown"
                 classNamePrefix="react-select"
+                onChange={handleTypeSelect}
+                value={options?.filter(function(option) {
+                    return option.label=== props?.selectedOption;
+                  })}
             />
 
         </>

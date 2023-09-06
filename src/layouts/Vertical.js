@@ -13,6 +13,7 @@ import ThemeCustomizer from '../components/ThemeCustomizer';
 import { DashboardProvider } from './context/DashboardContext';
 import { MenuProvider } from './context/MenuContext';
 import { PermisosProvider } from './context/PermisosProvider/PermisosProvider';
+import { SearchProvider } from './context/SearchContext';
  
 // code splitting and lazy loading
 // https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
@@ -93,6 +94,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
       <DashboardProvider>
         <MenuProvider>
           <PermisosProvider>
+            <SearchProvider>
             <div className="wrapper">
     
               <Suspense fallback={loading()}>
@@ -126,6 +128,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
                 <ThemeCustomizer />
               </RightSidebar>
             </Suspense>
+            </SearchProvider>
           </PermisosProvider>
         </MenuProvider>
       </DashboardProvider>

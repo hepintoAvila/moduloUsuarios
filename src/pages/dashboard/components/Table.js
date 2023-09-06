@@ -13,7 +13,6 @@ import classNames from 'classnames';
 
 // components
 import Pagination from './Pagination';
-import { Button } from 'react-bootstrap';
 
 // Define a default UI for filtering
 const GlobalFilter = ({ preGlobalFilteredRows, globalFilter, setGlobalFilter, searchBoxClass }) => {
