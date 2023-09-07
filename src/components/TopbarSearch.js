@@ -130,26 +130,21 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
         const values = options.filter(function(option) {
             return option.label=== e.label;
           })
+
           const detalles = {
             idAprendiz:values[0]?.userDetails?.id,
             Nombres:values[0]?.userDetails?.firstname,
             Apellidos:values[0]?.userDetails?.lastname,
             Identificacion:values[0]?.userDetails?.identificacion,
             Celular:values[0]?.userDetails?.telefono,
-            Email:values[0]?.userDetails?.correo
+            Email:values[0]?.userDetails?.correo,
+            aprendizError:true
           }
           setSelectedOptionAprendiz(detalles);
-
+          return window.location.hash = `/dashboard/ModuloIncidentes/EnviarSolicitud?p=${values[0]?.userDetails?.id}`;
       };
-    const onClick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-    };
-    const values = options?.filter(function(option) {
-        return option.label=== props?.selectedOption
-      })
-    console.log('props?.selectedOption',options)
+ 
+
     return (
         <>
             <Select
@@ -160,7 +155,6 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
                 formatOptionLabel={handleFormatOptionLabel}
                 isOptionDisabled={(option) => option.type === 'title'}
                 maxMenuHeight="450px"
-                handleClick={onClick}
                 isSearchable
                 name="search-app"
                 className="app-search dropdown"

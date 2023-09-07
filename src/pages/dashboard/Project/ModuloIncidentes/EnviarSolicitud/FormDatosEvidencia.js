@@ -1,5 +1,5 @@
 // @flow
-import React  from 'react';
+import React, { useContext, useState }  from 'react';
 
 import classNames from 'classnames';
  
@@ -11,8 +11,10 @@ import SimpleMDEReact from 'react-simplemde-editor';
 // components
 import { VerticalForm} from '../../../../../components';
  import HeaderForm from '../Components/HeaderForm';
+import { SearchContext } from '../../../../../layouts/context/SearchContext';
  
 const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
+     const {setDescripcion,itemsDescripcion} = useContext(SearchContext)
     const delay = 1000;
     const options = {
         autosave: {
@@ -36,12 +38,15 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
                 <Col>
                     <Card>
                         <Card.Body>
-                            <h4 className="header-title mb-3">Descripción del Incidente</h4>
-                            <p className="text-muted font-14 mb-3">
-                                Narre los hechos:
-                            </p>
+                            
+                            {itemsDescripcion?.length ===0 ? <div className="isinvalid"><p className="text-white font-14 mb-3">
+                                Por favor, Narre aqui los hechos:
+                            </p></div>:<div><h4 className="header-title mb-3">Descripción del Incidente</h4></div>}
 
-                            <SimpleMDEReact id={1} options={options} />
+                            <SimpleMDEReact id={1} options={options} onChange={(e) => {
+                                    setDescripcion(e);
+                                }} />
+                                   
                         </Card.Body>
                     </Card>
                 </Col>

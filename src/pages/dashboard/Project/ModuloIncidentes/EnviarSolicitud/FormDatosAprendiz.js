@@ -39,7 +39,7 @@ const FormDatosAprendiz = (props): React$Element<React$FragmentType> => {
       }, [query]);
 
  
-    //console.log('itemsOptionAprendiz',itemsOptionAprendiz) 
+    
     return (
         <>
         <Card className={classNames('widget-flat')}>
@@ -58,6 +58,7 @@ const FormDatosAprendiz = (props): React$Element<React$FragmentType> => {
                         containerClass={'mb-3'}
                         disabled
                     />
+                    
                     <FormInput
                         label={t('Apellidos')}
                         type="text"

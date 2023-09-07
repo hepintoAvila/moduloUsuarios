@@ -23,6 +23,23 @@ body {
   height: 40px; padding: 8px 0; background: #5eb319; color: #fff; box-sizing: border-box; max-width: auto; margin: 0 auto;
 
 }
+.form-control .is-invalid, .was-validated .form-control:invalid {
+  border-color: #fa5c7c;
+  padding-right: calc(1.5em + 0.9rem);
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.225rem) center;
+  background-size: calc(0.75em + 0.45rem) calc(0.75em + 0.45rem);
+}
+.isinvalid{
+  border-color: #ccc5c6;
+  background: #fa5c7c;
+  padding-right: calc(1.5em + 0.9rem);
+  background-repeat: no-repeat;
+  color: white;
+  border-width: 3em;
+  background-position: right calc(0.375em + 0.225rem) center;
+  background-size: calc(0.75em + 0.45rem) calc(0.75em + 0.45rem);
+}
 .bg-header-2 {
   display: grid;
   background-color: #ffffff !important;
