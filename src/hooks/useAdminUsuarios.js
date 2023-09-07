@@ -48,11 +48,9 @@ export const useAdminUsuarios = () => {
                     setAgendarCitas(response) 
                     break;
                   case 'historial':
-                    console.log(response)
                       setHistorial(response) 
                    break; 
                    case 'aprendices':
-                    console.log(response)
                       setAprendices(response) 
                    break;                  
                    

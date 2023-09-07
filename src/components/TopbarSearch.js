@@ -1,5 +1,5 @@
 // @flow
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Select, { components } from 'react-select';
 import { groupByFields } from '../utils';
@@ -73,19 +73,7 @@ const Control = ({ children, ...props }) => {
     );
 };
 
-/* custon indicator */
-const IndicatorsContainer = (props) => {
-    const { handleClick } = props.selectProps;
-    return (
-        <div style={{}}>
-            <components.IndicatorsContainer {...props}>
-                <button className="btn btn-primary" onMouseDown={handleClick}>
-                    Buscar
-                </button>
-            </components.IndicatorsContainer>
-        </div>
-    );
-};
+
 
 /* custom menu list */
 const MenuList = (props) => {
@@ -149,7 +137,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
         <>
             <Select
                 {...props}
-                components={{ Control, IndicatorsContainer, MenuList }}
+                components={{ Control, MenuList }}
                 placeholder={'Buscar Aprendiz...'}
                 options={formateOptions(options)}
                 formatOptionLabel={handleFormatOptionLabel}
