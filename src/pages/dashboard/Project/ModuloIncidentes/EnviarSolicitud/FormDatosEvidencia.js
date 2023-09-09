@@ -1,5 +1,5 @@
 // @flow
-import React, { useContext, useState }  from 'react';
+import React, { useContext }  from 'react';
 
 import classNames from 'classnames';
  
@@ -14,7 +14,7 @@ import { VerticalForm} from '../../../../../components';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
  
 const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
-     const {setDescripcion,descripcionError} = useContext(SearchContext)
+     const {setDescripcion,descripcionError,setLoading} = useContext(SearchContext)
     const delay = 1000;
     const options = {
         autosave: {
@@ -30,12 +30,9 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
       
         <HeaderForm title={'EVIDENCIAS DEL INCIDENTE'}/>
             <Card.Body>
-            
-            <Row className="align-items-center">
-                    <Col className="col-12">
+                  <Row className="align-items-center">
                 <VerticalForm>
                 <Row>
-                <Col>
                     <Card>
                         <Card.Body>
                             
@@ -45,14 +42,13 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
 
                             <SimpleMDEReact id={1} options={options} onChange={(e) => {
                                     setDescripcion({descripcion:e,valideDescripcion:e?.length===0 ? false : true});
+                                    setLoading(false)
                                 }} />
                                    
                         </Card.Body>
                     </Card>
-                </Col>
-            </Row>
+                     </Row>
                 </VerticalForm>
-                </Col>
                 </Row>
             </Card.Body>
         </Card>

@@ -1,9 +1,8 @@
 // @flow
 import React, { useContext, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import classNames from 'classnames';
-import { Button, Alert, Form, Row, Col, Card } from 'react-bootstrap';
+import { Button,Row, Col, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2'
 // components
@@ -11,11 +10,12 @@ import { VerticalForm, FormInput } from '../../../../../components';
 import HyperDatepicker from '../../../../../components/Datepicker';
 import HeaderForm from '../Components/HeaderForm';
 import FileUploader from '../../../../../components/FileUploader';
-import { queryFormSend } from '../../../../../redux/actions';
-
+ 
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
+
+
 function contarVerdaderos(array) {
     let contador = 0;
     for (let i = 0; i <= array.length; i++) {
@@ -28,8 +28,8 @@ function contarVerdaderos(array) {
 const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const {validateError,setError} = useContext(SearchContext)
-
+    const {validateError,setError,queryFile,loading} = useContext(SearchContext)
+ 
     
     const [items, setItems] = useState([{
         idAprendiz: props?.idAprendiz?.length===0 ? '':props?.idAprendiz,
@@ -37,20 +37,16 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         tipoLLamado: '',
         fechaIncidente: '',
         accion: 'ModuloIncidentes',
-        opcion: 'add',
+        opcion: 'add_solicitud',
         tipo: 'EnviarSolicitud',
         selectedFile:'',
         base64String:'',
         descripcion:props?.itemsDescripcion?.length===0 ? '':props?.itemsDescripcion,
     }]);
-    const dispatch = useDispatch();
+ 
     const { t } = useTranslation();
 
-    const { loading, queryForm, error } = useSelector((state) => ({
-        loading: state.Queryform.loading,
-        error: state.Queryform.error,
-        queryForm: state.Queryform.queryForm,
-    }));
+ 
 
     const schemaResolver = yupResolver(
         yup.object().shape({
@@ -68,7 +64,26 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 showConfirmButton: false,
                 timer: 1500
               })
-            dispatch(queryFormSend(...items))
+        const datosfiles = 
+            {
+                idAprendiz:btoa(items[0].idAprendiz),
+                tipoComite:btoa(items[0].tipoComite),
+                tipoLLamado:btoa(items[0].tipoLLamado),
+                fechaIncidente:btoa(items[0].fechaIncidente),
+                accion: 'ModuloIncidentes',
+                opcion: 'add_solicitud',
+                tipo: 'EnviarSolicitud',
+                selectedFile:btoa(items[0].selectedFile),
+                descripcion:btoa(items[0].descripcion),
+            }
+            const queryDatos = datosfiles
+            ? Object.keys(datosfiles)
+              .map((key) => key + '=' + datosfiles[key])
+              .join('&')
+            : '';
+            const url = ''
+            queryFile(queryDatos, items[0].base64String)
+            //dispatch(queryFormSend(formData[0]))
         }else{
             Swal.fire({
                 icon: 'error',
@@ -135,8 +150,8 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
  
     return (
         <>
-      {queryForm ? <Redirect to={`/ModuloIncidentes/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
-           <VerticalForm onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{}}>
+      {loading ? <Redirect to={`/ModuloIncidentes/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
+           <VerticalForm onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{}} className={classNames('col-4')}>
                 <Row>
                     <Card className={classNames('widget-flat')}>
 
@@ -144,7 +159,6 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                         <Card.Body>
 
                             <Row className="align-items-center">
-                                <Col className="col-12">
                                    {!props?.aprendizError? <div className="isinvalid">SELECCIONE EL APRENDIZ</div>:<div>APRENDIZ:</div>}
                                     {children}
                                     <br/>
@@ -208,7 +222,6 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                              : ''}
                                         </div>
                                     </div>
-                                </Col>
                             </Row>
                             <Row>
                                 <Col>
@@ -246,13 +259,11 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                     </Card>
                 </Row>
                 <Row>
-                    <Col sm={12}>
-                    <div className="mb-3 mb-0 text-center">
-          <Button variant="primary" type="submit" disabled={loading}>
-            {t('ENVIAR SOLICITUD')}
-          </Button>
-        </div>
-                    </Col>
+                    <div className="mb-3 mb-0 text-center btnenviarSolicitud">
+                        <Button variant="primary" type="submit" disabled={loading}>
+                            {t('ENVIAR SOLICITUD')}
+                        </Button>
+                    </div>
                 </Row>
             </VerticalForm>
         </>
