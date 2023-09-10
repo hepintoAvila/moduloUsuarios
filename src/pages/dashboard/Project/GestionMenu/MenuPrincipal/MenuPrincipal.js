@@ -15,6 +15,7 @@ import FormAdd from './FormAdd';
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import Table from '../../../../../components/Table';
 import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
 const ActionColumn = ({ row }) => {
 
@@ -109,7 +110,7 @@ const MenuPrincipal = (props) => {
   ];
 
   useEffect(() => {
-    query('GestionMenu', 'GestionMenu', [{ opcion: 'consultar', obj: 'Menu' }]);
+    query('GestionMenu', 'GestionMenu', [{ opcion: encodeBasicUrl('consultar'), obj: 'Menu' }]);
   }, [query])
 
   console.log('itemsEditerMenu',itemsEditerMenu)

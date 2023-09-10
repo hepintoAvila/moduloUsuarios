@@ -10,6 +10,7 @@ import { Row, Col, Card,  } from 'react-bootstrap';
 import Table from '../../../../../components/Table';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
 const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
@@ -65,7 +66,7 @@ const CarSolicitudeEnviadas = (props) => {
   ];
 
   useEffect(() => {
-    query('ModuloIncidentes', 'EnviarSolicitud', [{ opcion: 'ConsultarSolicitud', obj: 'ConsultarSolicitud' }]);
+    query('ModuloIncidentes', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud' }]);
   }, [query])
 
   return (

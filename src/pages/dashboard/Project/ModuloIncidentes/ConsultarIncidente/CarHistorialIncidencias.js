@@ -11,6 +11,7 @@ import Table from '../../../../../components/Table';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from '../Components/BtnSeccionAction';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
  
 const ActionColumn = ({ row }) => {
 
@@ -123,7 +124,7 @@ const CarHistorialIncidencias = (props) => {
   ];
 
   useEffect(() => {
-    query('ModuloHistorial', 'historial', [{ opcion: 'consultar', obj: 'historial' }]);
+    query('ModuloHistorial', 'historial', [{ opcion: encodeBasicUrl('consultar'), obj: 'historial' }]);
   }, [query])
 
   return (

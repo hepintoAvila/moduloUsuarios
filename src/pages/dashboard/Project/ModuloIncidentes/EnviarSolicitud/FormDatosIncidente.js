@@ -36,9 +36,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         tipoComite: '',
         tipoLLamado: '',
         fechaIncidente: '',
-        accion: 'ModuloIncidentes',
-        opcion: 'add_solicitud',
-        tipo: 'EnviarSolicitud',
+        accion: btoa('ModuloIncidentes'),
+        opcion: btoa('add_solicitud'),
+        tipo: btoa('EnviarSolicitud'),
         selectedFile:'',
         base64String:'',
         descripcion:props?.itemsDescripcion?.length===0 ? '':props?.itemsDescripcion,
@@ -81,9 +81,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               .map((key) => key + '=' + datosfiles[key])
               .join('&')
             : '';
-            const url = ''
             queryFile(queryDatos, items[0].base64String)
-            //dispatch(queryFormSend(formData[0]))
         }else{
             Swal.fire({
                 icon: 'error',

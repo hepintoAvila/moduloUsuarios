@@ -15,6 +15,7 @@ import FormAdd from './FormAdd';
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
 const ActionColumn = ({ row }) => {
 
@@ -120,7 +121,7 @@ const Roles = (props) => {
   ];
 
   useEffect(() => {
-    query('AdminRoles', 'Roles', [{ opcion: 'consultar', obj: 'Roles' }]);
+    query('AdminRoles', 'Roles', [{ opcion: encodeBasicUrl('consultar'), obj: 'Roles' }]);
   }, [query])
 
   return (

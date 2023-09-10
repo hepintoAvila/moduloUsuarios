@@ -11,6 +11,7 @@ import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { queryFormSend } from '../../../../../redux/actions';
 import { VerticalForm } from '../../../../../components';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
 const Register = (props): React$Element<React$FragmentType> => {
   const { setOpen, open } = useContext(DashboardContext);
@@ -46,7 +47,7 @@ const Register = (props): React$Element<React$FragmentType> => {
     dispatch(queryFormSend(...items))
 
     setTimeout(function () {
-      query('AdminUsuarios', 'Roles', [{ opcion: 'consultar', obj: 'Roles' }]);
+      query('AdminUsuarios', 'Roles', [{ opcion: encodeBasicUrl('consultar'), obj: 'Roles' }]);
       setOpen(open);
     }, 2000);
   };

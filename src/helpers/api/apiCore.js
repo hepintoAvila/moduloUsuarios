@@ -68,6 +68,8 @@ const get = async (url, authOptions) => {
     console.error(err);
   }
 };
+
+
 class APICore {
 
   generateToken = (user, tokenSecret, tokenMaxAge) => {
@@ -151,7 +153,7 @@ class APICore {
     const user = JSON.parse(userInfo);
     if(user){
     const authOptions = {
-      url: `${environments.baseURL}${url}&Apikey=${user[0]?.Apikey}&ApiToken=${user[0]?.ApiToken}`,
+      url: `${environments.baseURL}${url}&Apikey=${encodeBasic(user[0]?.Apikey)}&ApiToken=${encodeBasic(user[0]?.ApiToken)}`,
       method: 'GET',
       headers: {
         ...axios.defaults.headers,
@@ -167,7 +169,7 @@ class APICore {
     const authOptions = {
       method: 'GET',
       headers: {
-        Url: `${environments.baseURL}&${url}&username=${username}`,
+        Url: `${environments.baseURL}&${url}&username=${encodeBasic(username)}`,
         ...axios.defaults.headers,
         Authorization: `Basic ${encodeBasic(username, password)}`,
       },

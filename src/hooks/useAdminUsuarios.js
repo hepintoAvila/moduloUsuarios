@@ -34,10 +34,9 @@ export const useAdminUsuarios = () => {
       let userInfo = sessionStorage.getItem('hyper_user');
       const user = JSON.parse(userInfo);
       if (user) {
-        const url = `accion=${itemUrl}&tipo=${tipo}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}`;
+        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}`;
         const datosMaterial = api.sendRequestData(`${url}`);
         datosMaterial?.then(function (response) {
-          console.log('allApredizDatos',response);
           try {
             {
               (() => {

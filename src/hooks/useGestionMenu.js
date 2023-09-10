@@ -28,7 +28,7 @@ export const useGestionMenu = () => {
       let userInfo = sessionStorage.getItem('hyper_user');
       const user = JSON.parse(userInfo);
       if (user) {
-        const url = `accion=${itemUrl}&tipo=${tipo}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}`;
+        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}`;
         const datosMaterial = api.sendRequestData(`${url}`);
         datosMaterial?.then(function (response) {
           

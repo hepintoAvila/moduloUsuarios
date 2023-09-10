@@ -12,6 +12,7 @@ import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from './Components/BtnSeccionAction';
 import OpcionsForm from './Form/OpcionsForm';
+import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
  
 const ActionColumn = ({ row }) => {
 
@@ -157,7 +158,7 @@ const ConsultaNotificaciones = (props) => {
   ];
 
   useEffect(() => {
-    query('ModuloNotificaciones', 'agendarCitas', [{ opcion: 'consultar', obj: 'agendarCitas' }]);
+    query('ModuloNotificaciones', 'agendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'agendarCitas' }]);
   }, [query])
 
   return (

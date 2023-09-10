@@ -11,44 +11,19 @@ import ConfirmacionUpdateStrategy from './ConfirmacionUpdateStrategy';
 import ConfirmacionBorrarStrategy from './ConfirmacionBorrarStrategy';
 
 import { APICore } from '../../helpers/api/apiCore';
+import encodeBasicUrl from '../../utils/encodeBasicUrl';
 const api = new APICore();
 const DashboardContext = createContext();
-
+//tipo, AdvertenciaLocalStorage, itemUrl,setitemsMenuPrincipal
 const DashboardProvider = ({ children }) => {
 
-  const [isLoading, setLoading] = useState(false);
   const [tipo, setitemsMenuPrincipal] = useState('');
   const [itemUrl, setitemsUrl] = useState('');
   const [itemsQuery, setItemsQuery] = useState([]);
-  const [signUpModal, setSignUpModal] = useState(false);
-  const [signUpModalAdd, setSignUpModalAdd] = useState(false);
-  const [openActions, setActions] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [idCategoria, setIdCategoria] = useState(0);
-  const [itemsUpdate, setItemsUpdate] = useState([]);
-  const [itemsAdd, setItemsAdd] = useState([]);
-
-
-// función para obtener el valor de una cookie
-function getCookie(name) {
-  var value = "; " + document.cookie;
-  var parts = value.split("; " + name + "=");
-  if (parts.length === 2) {
-    return JSON.parse(parts.pop().split(";").shift());
-  }
-}
-
-// función para eliminar una cookie
-function deleteCookie(name) {
-  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
-}
-  const toggle = () => {
-    setOpen((prevState) => !prevState);
-  };
-  const updateApu = (id) => {
-      query('Informes', 'Apu', [{ opcion: 'consultar_idapu_vistaprevia', obj: 'Apu',IdApu:id}]);
-   };
-  //DESGLOSAR URL PARA CADA OPCION DEL MENU
+  const [isLoading, setLoading] = useState([]);
+ 
+  
+   //DESGLOSAR URL PARA CADA OPCION DEL MENU
   const itemsMenuCallBack = useCallback((e) => {
 
     const items_sub = e?.replace('/dashboard/', '').replace('/', '');
@@ -115,142 +90,6 @@ function deleteCookie(name) {
     },
   ];
 
-  const INIT_RESPONSE = [{
-    id: 1,
-    Nombre: 'NO EXISTE AUN REGISTROS EN EL SISTEMA',
-    Unidad: '0',
-    Valor: '0',
-    Descripcion: '',
-    status: 'Deactivated',
-  }];
-
-  const queryFile = useCallback((queryDatos,dataFile) => {
-    const url = `accion=selectedFile&tipo=selectedFile&opcion=add_imagen_apu&${queryDatos}`;
-    const datosMaterial = api.sendFile(url,dataFile);
-    datosMaterial?.then(function (resp) {
-        Swal.fire('' + resp[0].menssage + '');
-    }).catch((error) => console.error('Error:', error))
-      .finally(() => {
-        setTimeout(function () {
-        setLoading(false)
-        },1000);
-      });
-
-  }, []);
-
-
-//QUERY DE RESPUSTA DE CONSULTAS
-  const query = useCallback((itemUrl, tipo, opcion) => {
-    setLoading(true);
-    let varibles;
-    let datos = opcion;
-    if (opcion) {
-      var queryString = datos[0]
-        ? Object.keys(datos[0])
-          .map((key) => key + '=' + datos[0][key])
-          .join('&')
-        : '';
-      varibles = queryString;
-    }
-    const url = `accion=${itemUrl}&tipo=${tipo}&${varibles}`;
-    const datosMaterial = api.sendRequestData(`${url}`);
-    datosMaterial?.then(function (response) {
-      try {
-        const dataHandler = createResponseHandler(response, {
-          setItemsQuery,
-        });
-        const handler = dataHandler[datos[0]?.obj] || dataHandler.default;
-        handler();
-      } catch (error) {
-        console.error(error);
-      }
-    })
-      .catch((error) => console.error('Error:', error))
-      .finally(() => {
-        setTimeout(function () {
-          setLoading(false);
-        }, 1000);
-      });
-  }, []);
-
-  //ELEIMINAR REGISTRO
-  const eliminar = useCallback((cel) => {
-
-    let permiso = sessionStorage.getItem('PERMISO');
-    const localPermiso = JSON.parse(permiso);
-    if(localPermiso.delete){
-    const estrategiaConfirmacion = new ConfirmacionEliminacionStrategy();
-    estrategiaConfirmacion.confirmar(cel, (cel) => {
-      const url = `accion=${itemUrl}&tipo=${tipo}&opcion=delete&id=${cel}`;
-      const respuesta = api.sendRequestData(`${url}`);
-      respuesta.then(function (resp) {
-        Swal.fire('' + resp[0].menssage + '');
-      })
-        .catch((error) => console.error('Error:', error))
-        .finally(() => {
-          setTimeout(function () {
-          }, 5000);
-        });
-    });
-  }else{
-    Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION')
-  }
-  }, [itemUrl, tipo]);
-
-
-
-
- //EDITOR DE APUS
- const add = useCallback((cel,idProyecto) => {
-  const estrategiaConfirmacion = new ConfirmacionAddStrategy();
-  estrategiaConfirmacion.confirmar(cel, (cel) => {
-    const url = `accion=${itemUrl}&tipo=${tipo}&opcion=add_apu&idApu=${cel}&idProyecto=${idProyecto}`;
-    const respuesta = api.sendRequestData(`${url}`);
-    respuesta.then(function (resp) {
-      Swal.fire('' + resp[0].menssage + '');
-    })
-      .catch((error) => console.error('Error:', error))
-      .finally(() => {
-        setTimeout(function () {
-        }, 5000);
-      });
-  });
-}, [itemUrl, tipo]);
-
- //ACTULIZAR  APUS ASIGNADAS
- const update = useCallback((cel,idProyecto,valor) => {
-  const estrategiaConfirmacion = new ConfirmacionUpdateStrategy();
-  estrategiaConfirmacion.confirmar(cel, (cel) => {
-    const url = `accion=${itemUrl}&tipo=${tipo}&opcion=EditarProyecto&idApu=${cel}&idProyecto=${idProyecto}&valor=${valor}`;
-    const respuesta = api.sendRequestData(`${url}`);
-    respuesta.then(function (resp) {
-      Swal.fire('' + resp[0].menssage + '');
-    })
-      .catch((error) => console.error('Error:', error))
-      .finally(() => {
-        setTimeout(function () {
-        }, 5000);
-      });
-  });
-}, [itemUrl, tipo]);
-
- //ACTULIZAR  APUS ASIGNADAS
- const borrar = useCallback((cel,idProyecto) => {
-  const estrategiaConfirmacion = new ConfirmacionBorrarStrategy();
-  estrategiaConfirmacion.confirmar(cel, (cel) => {
-    const url = `accion=${itemUrl}&tipo=${tipo}&opcion=delete_apu&idApu=${cel}&idProyecto=${idProyecto}`;
-    const respuesta = api.sendRequestData(`${url}`);
-    respuesta.then(function (resp) {
-      Swal.fire('' + resp[0].menssage + '');
-    })
-      .catch((error) => console.error('Error:', error))
-      .finally(() => {
-        setTimeout(function () {
-        }, 5000);
-      });
-  });
-}, [itemUrl, tipo]);
-
 const pagesInSearch = () => {
   const query = window.location.hash;
   console.log('query',query)
@@ -279,20 +118,10 @@ const AdvertenciaLocalStorage = () => {
     setitemsUrl,
     tipo,
     itemUrl,
-    eliminar,
-    signUpModal, setSignUpModal,
-    StatusColumn, sizePerPageList, INIT_RESPONSE,
-    signUpModalAdd, setSignUpModalAdd,
-    itemsQuery, setItemsQuery, query,
-    open, setOpen, toggle,
-    openActions, setActions,
-    itemsUpdate, setItemsUpdate,
-    itemsAdd, setItemsAdd,
+    StatusColumn, sizePerPageList, 
+    itemsQuery, setItemsQuery,
     Spinners,
-    getCookie,deleteCookie,
-    queryFile,updateApu,
-    add,update,borrar,pagesInSearch,
-    idCategoria, setIdCategoria
+    pagesInSearch,
   };
   return (
     <>

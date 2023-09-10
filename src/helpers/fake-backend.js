@@ -3,19 +3,22 @@ import MockAdapter from 'axios-mock-adapter';
 import Swal from 'sweetalert2'
 
 import { APICore } from './api/apiCore';
+import encodeBasicUrl from '../utils/encodeBasicUrl';
 const api = new APICore();
 
 var mock = new MockAdapter(axios);
 
 export function configureFakeBackend() {
+
   mock.onPost('/login/').reply(function (config) {
     return new Promise(function (resolve, reject) {
       setTimeout(function () {
         // get parameters from post request
         let params = JSON.parse(config?.data);
-        const url = `accion=auteur&opcion=consultarusuario`;
+        const url = `accion=${encodeBasicUrl('auteur')}&opcion=${encodeBasicUrl('consultarusuario')}`;
         const Usuarios = api.sendRequestUser(`${url}`,params.username,params.password);
         Usuarios.then(function (response) {
+          console.log('response',response)
           try {
           if (response?.data?.Auth.status === '404' || response.status ==='') {
               resolve([401, { message: 'Username or password is incorrect' }]);

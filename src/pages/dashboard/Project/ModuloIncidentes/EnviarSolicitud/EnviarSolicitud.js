@@ -7,7 +7,6 @@ import { SearchContext } from '../../../../../layouts/context/SearchContext';
 import TopbarSearch from '../../../../../components/TopbarSearch';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import classnames from 'classnames'; 
-import { connect } from 'react-redux';
 import CarHistorialIncidencias from '../ConsultarIncidente/CarHistorialIncidencias';
 import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
 

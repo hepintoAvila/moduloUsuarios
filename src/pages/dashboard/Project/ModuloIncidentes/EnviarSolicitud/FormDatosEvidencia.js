@@ -1,12 +1,9 @@
 // @flow
 import React, { useContext }  from 'react';
-
 import classNames from 'classnames';
- 
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Card } from 'react-bootstrap';
 
 //actions
-
 import SimpleMDEReact from 'react-simplemde-editor';
 // components
 import { VerticalForm} from '../../../../../components';
