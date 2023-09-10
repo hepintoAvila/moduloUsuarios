@@ -9,6 +9,7 @@ import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import classnames from 'classnames'; 
 import CarHistorialIncidencias from '../ConsultarIncidente/CarHistorialIncidencias';
 import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
 const EnviarSolicitud = (props) => {
     const {itemsOptionAprendiz,descripcion,descripcionError} = useContext(SearchContext)
@@ -17,7 +18,7 @@ const EnviarSolicitud = (props) => {
 
 
     useEffect(() => {
-        query('ModuloIncidentes','Aprendiz',[{opcion:'listaAprendices',obj:'aprendices'}]);
+        query('ModuloIncidentes','Aprendiz',[{opcion:encodeBasicUrl('listaAprendices'),obj:'aprendices'}]);
       }, [query]);
 
       const tabContents = [
@@ -67,13 +68,12 @@ const EnviarSolicitud = (props) => {
                                     })}
                                 </Nav>
                                 <Tab.Content>
-                                    {tabContents.map((tab, index) => {
+                                    {tabContents?.map((tab, index) => {
                                         return (
                                             <Tab.Pane eventKey={tab.title} id={tab.id} key={index}>
                                                 <Row>
-
-                                                            {(() => {
-                                                        switch (index) {
+                                                {(() => {
+                                                        switch (Number(index)) {
                                                             case 0:
                                                                 return (
                                                                 <>
@@ -116,7 +116,9 @@ const EnviarSolicitud = (props) => {
                                                                         <CarHistorialIncidencias/> 
                                                                         </Col>
                                                                     </Row>
-                                                                    );                                                               
+                                                                    ); 
+                                                                    default:
+                                                                      return(<>{''}</>)                                                              
                                                         }
                                                         })()}
                                                 

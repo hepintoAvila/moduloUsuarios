@@ -1,20 +1,10 @@
 
 import React, { createContext, useState, useCallback,useEffect } from 'react';
-import Swal from 'sweetalert2'
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
-import createResponseHandler from './createResponseHandler';
-import ConfirmacionEliminacionStrategy from './ConfirmacionEliminacionStrategy';
-import ConfirmacionAddStrategy from './ConfirmacionAddStrategy';
-import ConfirmacionUpdateStrategy from './ConfirmacionUpdateStrategy';
-import ConfirmacionBorrarStrategy from './ConfirmacionBorrarStrategy';
 
-import { APICore } from '../../helpers/api/apiCore';
-import encodeBasicUrl from '../../utils/encodeBasicUrl';
-const api = new APICore();
 const DashboardContext = createContext();
-//tipo, AdvertenciaLocalStorage, itemUrl,setitemsMenuPrincipal
 const DashboardProvider = ({ children }) => {
 
   const [tipo, setitemsMenuPrincipal] = useState('');
