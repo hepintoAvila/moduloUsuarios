@@ -75,15 +75,7 @@ const ProjectDashboard = () => {
                   handleClick={handleClick}
                 />  
             </React.Fragment> 
-            case 'AdministradorActas':
-              return <React.Fragment>
-                  <AdministradorActas
-                    accion={itemUrl}
-                    tipo={tipo}
-                    permisos={permisos}
-                    handleClick={handleClick}
-                  />  
-              </React.Fragment>            
+        
           default:
             return (
               <React.Fragment>
