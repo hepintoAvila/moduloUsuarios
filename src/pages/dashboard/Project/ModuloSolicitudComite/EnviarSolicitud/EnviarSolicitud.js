@@ -18,7 +18,7 @@ const EnviarSolicitud = (props) => {
 
 
     useEffect(() => {
-        query('ModuloIncidentes','Aprendiz',[{opcion:encodeBasicUrl('listaAprendices'),obj:'aprendices'}]);
+        query('ModuloSolicitudComite','Aprendiz',[{opcion:encodeBasicUrl('listaAprendices'),obj:'aprendices'}]);
       }, [query]);
 
       const tabContents = [

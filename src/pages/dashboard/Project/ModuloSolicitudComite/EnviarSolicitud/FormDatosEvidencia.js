@@ -25,7 +25,7 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
 
         <Card className={classNames('widget-flat')}>
       
-        <HeaderForm title={'EVIDENCIAS DEL INCIDENTE'}/>
+        <HeaderForm title={'HECHOS CONSTITUTIVOS'}/>
             <Card.Body>
                   <Row className="align-items-center">
                 <VerticalForm>

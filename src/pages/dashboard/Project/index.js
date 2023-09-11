@@ -10,7 +10,7 @@ import PermisoAlert from '../components/PermisoAlert/PermisoAlert';
 import BtnNivelI from '../components/BtnMenu/BtnNivelI';
 import AdminUsuarios from './AdminUsuarios/AdminUsuarios';
 import GestionMenu from './GestionMenu/GestionMenu';
-import ModuloIncidentes from './ModuloIncidentes/ModuloIncidentes';
+import ModuloSolicitudComite from './ModuloSolicitudComite/ModuloSolicitudComite';
 import ModuloNotificaciones from './ModuloNotificaciones/ModuloNotificaciones';
 import AdministradorActas from './AdministradorActas/AdministradorActas';
 
@@ -57,9 +57,9 @@ const ProjectDashboard = () => {
                   permisos={permisos}
                 />) : <PermisoAlert menssage={'Cargando...'} />}
             </React.Fragment>
-          case 'ModuloIncidentes':
+          case 'ModuloSolicitudComite':
             return <React.Fragment>
-                <ModuloIncidentes
+                <ModuloSolicitudComite
                   accion={itemUrl}
                   tipo={tipo}
                   permisos={permisos}

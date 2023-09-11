@@ -15,7 +15,8 @@ const SearchProvider = ({ children }) => {
         fechaError:false,
         files:false,
         base64Strings:false,
-        descripcionError:false
+        descripcionError:false,
+        fechaPropuestaError:false,
     });
   const  descripcion=  itemsDescripcion?.descripcion;
   const  descripcionError=  itemsDescripcion?.valideDescripcion;

@@ -11,7 +11,7 @@ const DashboardProvider = ({ children }) => {
   const [itemUrl, setitemsUrl] = useState('');
   const [itemsQuery, setItemsQuery] = useState([]);
   const [isLoading, setLoading] = useState([]);
- 
+  const [open, setOpen] = useState(false);
   
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
   const itemsMenuCallBack = useCallback((e) => {
@@ -112,6 +112,8 @@ const AdvertenciaLocalStorage = () => {
     itemsQuery, setItemsQuery,
     Spinners,
     pagesInSearch,
+    open,
+    setOpen
   };
   return (
     <>

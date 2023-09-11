@@ -11,11 +11,8 @@ const Login = React.lazy(() => import('../pages/account/Login'));
 const Logout = React.lazy(() => import('../pages/account/Logout'));
 const Register = React.lazy(() => import('../pages/account/Register'));
 const Queryform = React.lazy(() => import('../pages/dashboard/Project'));
-//const Confirm = React.lazy(() => import('../pages/account/Confirm'));
 const ForgetPassword = React.lazy(() => import('../pages/account/ForgetPassword'));
 const LockScreen = React.lazy(() => import('../pages/account/LockScreen'));
-//const ModuloIncidentes = React.lazy(() => import('../pages/dashboard/Project/ModuloIncidentes/ModuloIncidentes'));
-// dashboard
 const ProjectDashboard = React.lazy(() => import('../pages/dashboard/Project'));
 
 // root routes

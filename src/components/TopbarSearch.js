@@ -129,7 +129,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             aprendizError:true
           }
           setSelectedOptionAprendiz(detalles);
-          return window.location.hash = `/dashboard/ModuloIncidentes/EnviarSolicitud?p=${values[0]?.userDetails?.id}`;
+          return window.location.hash = `/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${values[0]?.userDetails?.id}`;
       };
  
 

@@ -6,22 +6,6 @@ import { Button, Col, Row } from "react-bootstrap";
 
 
 const NavbarMenuPrincipal = (props) => {
-    //const {setitemsMenuPrincipal } = useContext(DashboardContext)
-    /*
-    const handleClick = (url) => {
-        setitemsMenuPrincipal('/ModuloIncidentes');
-            const menuitems = window.location.hash.split('#/')[1];
-            const [seccion] = menuitems?.split('/');
-            const obj = {principal:seccion.length===0 ? 'dashboard/ModuloIncidentes':seccion, seccion: url}
-             console.log('obj',obj);
-            sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
-           // setLoading(true)
-         const urls = seccion.length===0 ? 'dashboard/ModuloIncidentes/'+seccion+''+url:'/'+seccion+'/'+url
-         console.log('window',window)
-          return window.location.hash = urls;
-    
-      };
-      */
     return (
         <Row>
             <div className={`navbar-custom`}>

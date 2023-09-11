@@ -14,6 +14,7 @@ import FileUploader from '../../../../../components/FileUploader';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
 
 function contarVerdaderos(array) {
@@ -28,6 +29,8 @@ function contarVerdaderos(array) {
 const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDatePropuesta, setSelectedDatePropuesta] = useState(new Date());
+    
     const {validateError,setError,queryFile,loading} = useContext(SearchContext)
  
     
@@ -36,9 +39,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         tipoComite: '',
         tipoLLamado: '',
         fechaIncidente: '',
-        accion: btoa('ModuloIncidentes'),
-        opcion: btoa('add_solicitud'),
-        tipo: btoa('EnviarSolicitud'),
+        accion: encodeBasicUrl('ModuloSolicitudComite'),
+        opcion: encodeBasicUrl('add_solicitud'),
+        tipo: encodeBasicUrl('EnviarSolicitud'),
         selectedFile:'',
         base64String:'',
         descripcion:props?.itemsDescripcion?.length===0 ? '':props?.itemsDescripcion,
@@ -70,9 +73,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 tipoComite:btoa(items[0].tipoComite),
                 tipoLLamado:btoa(items[0].tipoLLamado),
                 fechaIncidente:btoa(items[0].fechaIncidente),
-                accion: 'ModuloIncidentes',
-                opcion: 'add_solicitud',
-                tipo: 'EnviarSolicitud',
+                accion: btoa('ModuloSolicitudComite'),
+                opcion: btoa('add_solicitud'),
+                tipo: btoa('EnviarSolicitud'),
                 selectedFile:btoa(items[0].selectedFile),
                 descripcion:btoa(items[0].descripcion),
             }
@@ -98,7 +101,8 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
          const  llamadoError = items[0]?.tipoLLamado?.length===0 ? false:true
          const  aprendizError = items[0]?.idAprendiz?.length===0 ? false:true
          const  fechaError = items[0]?.fechaIncidente?.length===0 ? false:true    
-          setError({...validateError,comiteError,llamadoError,aprendizError,fechaError})
+         const  fechaPropuestaError = items[0]?.fechaPropuesta?.length===0 ? false:true   
+          setError({...validateError,comiteError,llamadoError,aprendizError,fechaError,fechaPropuestaError})
       }, [items]);
 
       const onDateChange = (date,fechaError) => {
@@ -107,6 +111,15 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             setError({...validateError,fechaError:fechaError})
             setItems([{
                 ...items[0], fechaIncidente:date,
+              }])
+        }
+    };
+    const onDateChangePropuesta = (date,fechaError) => {
+        if (date) {
+            setSelectedDatePropuesta(date);
+            setError({...validateError,fechaError:fechaError})
+            setItems([{
+                ...items[0], fechaPropuesta:date,
               }])
         }
     };
@@ -148,12 +161,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
  
     return (
         <>
-      {loading ? <Redirect to={`/ModuloIncidentes/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
+      {loading ? <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
            <VerticalForm onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{}} className={classNames('col-4')}>
                 <Row>
                     <Card className={classNames('widget-flat')}>
 
-                        <HeaderForm title={'DATOS DEL INCIDENTE'} />
+                        <HeaderForm title={'SOLICITUD DE COMITÉ DE EVALUACIÓN Y SEGUIMIENTO'} />
                         <Card.Body>
 
                             <Row className="align-items-center">
@@ -174,12 +187,11 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                     >
                                         <option value="ACADEMICO"> ACADEMICO</option>
                                         <option value="DISCIPLINARIO">DISCIPLINARIO</option>
-                                        <option value="AMBIENTAL">AMBIENTAL</option>
                                     </FormInput>
                                      
                                     <FormInput
                                         name="tipoLLamado"
-                                        label="Seleccione el tipo de LLamado"
+                                        label="Seleccione el tipo de Falta"
                                         type="select"
                                         containerClass="mb-3 font-weight-bold"
                                         className="form-select"
@@ -190,16 +202,17 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                           }])}
                                     >
                                         <option>Seleccione...</option>
-                                        <option value="GRAVE">GRAVE</option>
-                                        <option >MEDIO</option>
-                                        <option value="MEDIO-Verbal"> -Verbal</option>
-                                        <option value="MEDIO-Escrito"> -Escrito</option>
-                                        <option >BAJA</option>
-                                        <option value="BAJA-Verbal"> -Verbal</option>
-                                        <option value="BAJA-Escrito"> -Escrito</option>
+                                        <option >ACADEMICO</option>
+                                        <option value="MEDIO-Leve"> -Leve</option>
+                                        <option value="MEDIO-Grave"> -Grave</option>
+                                        <option value="MEDIO-Gravísimas"> -Gravísimas</option>
+                                        <option >DISCIPLINARIO</option>
+                                        <option value="MEDIO-Leve"> -Leve</option>
+                                        <option value="MEDIO-Grave"> -Grave</option>
+                                        <option value="MEDIO-Gravísimas"> -Gravísimas</option>
                                     </FormInput>
                                     <div className="mb-3">
-                                        <label>Fecha y Hora</label> <br />
+                                        <label>Fecha y Hora de los Hechos</label> <br />
                                         <HyperDatepicker
                                             name="fechaIncidente"
                                             hideAddon={true}
@@ -216,7 +229,29 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                         />
                                         <div className="isinvalid">
                                             {!validateError.fechaError ? 
-                                                 'SELECCIONE LA FECHA Y HORA'
+                                                 'SELECCIONE LA FECHA Y HORA HECHOS'
+                                             : ''}
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Fecha y Hora Propuesta para Agendar</label> <br />
+                                        <HyperDatepicker
+                                            name="fechaHoraPropuesta"
+                                            hideAddon={true}
+                                            showTimeSelect
+                                            timeFormat="HH:mm"
+                                            tI={60}
+                                            dateFormat="MMMM d, yyyy h:mm aa"
+                                            timeCaption="time"
+                                            className="form-control"
+                                            value={selectedDatePropuesta}
+                                            onChange={(date) =>
+                                                onDateChangePropuesta(date,true)
+                                                }
+                                        />
+                                        <div className="isinvalid">
+                                            {!validateError.fechaPropuestaError ? 
+                                                 'SELECCIONE LA FECHA Y HORA PROPUESTA'
                                              : ''}
                                         </div>
                                     </div>

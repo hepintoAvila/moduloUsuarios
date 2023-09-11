@@ -15,14 +15,14 @@ const MenuSegundo = (props) => {
         <Col lg={7} md={10} sm={11}>
         <div class="grid_contenedor">
                   <div class="grid_btn1 col-xl-3 col-lg-4 col-sm-6">
-                    <MenuBtn texto='Enviar Solicitud' image={avatar3} handleClick={props.handleClick} menuRef={'ModuloIncidentes/EnviarSolicitud'} nivel={2}/>
+                    <MenuBtn texto='Enviar Solicitud' image={avatar3} handleClick={props.handleClick} menuRef={'ModuloSolicitudComite/EnviarSolicitud'} nivel={2}/>
                   </div>
                   <div class="grid_btn2 col-xl-3 col-lg-4 col-sm-6" >
-                    <MenuBtn texto='Consulta de incidente' image={avatar2} handleClick={props.handleClick} menuRef={'ModuloIncidentes/ConsultaIncidente'} nivel={2}/>
+                    <MenuBtn texto='Consulta de incidente' image={avatar2} handleClick={props.handleClick} menuRef={'ModuloSolicitudComite/ConsultaIncidente'} nivel={2}/>
 
                   </div>
                   <div class="grid_btn3 col-xl-3 col-lg-4 col-sm-6">
-                    <MenuBtn texto='Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloIncidentes/ReporteIncidente'} nivel={2}/>
+                    <MenuBtn texto='Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloSolicitudComite/ReporteIncidente'} nivel={2}/>
                   </div>
                 </div> 
         </Col>
@@ -31,6 +31,6 @@ const MenuSegundo = (props) => {
   );
 };
 MenuSegundo.defaultProps = {
-  itemsmenu: '/dashboard/ModuloIncidentes/',
+  itemsmenu: '/dashboard/ModuloSolicitudComite/',
 };
 export default MenuSegundo;

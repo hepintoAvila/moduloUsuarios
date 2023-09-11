@@ -41,7 +41,7 @@ const BtnSeccionAction = (props,children) => {
           </Pagination.Item>         
           <Pagination.Item>
                 <BtnActions
-                 url={`/dashboard/ModuloIncidentes/ConsultarIncidencia?p=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloSolicitudComite/ConsultarIncidencia?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`DETALLES_${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}

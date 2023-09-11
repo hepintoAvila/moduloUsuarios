@@ -48,8 +48,18 @@ const CarSolicitudeEnviadas = (props) => {
       sort: false,
     },
     {
-        Header: 'Fecha Hora',
+        Header: 'Fecha Hora Hechos',
         accessor: 'fechaHora',
+        sort: false,
+      },
+      {
+        Header: 'Fecha Hora Propuesta',
+        accessor: 'fechaHoraPropuesta',
+        sort: false,
+      },
+      {
+        Header: 'Fecha Hora Agendada',
+        accessor: 'fechaHoraAgendada',
         sort: false,
       },
       {
@@ -66,7 +76,7 @@ const CarSolicitudeEnviadas = (props) => {
   ];
 
   useEffect(() => {
-    query('ModuloIncidentes', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud' }]);
+    query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud' }]);
   }, [query])
 
   return (

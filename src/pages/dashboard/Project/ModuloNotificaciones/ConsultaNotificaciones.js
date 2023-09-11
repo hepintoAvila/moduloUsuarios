@@ -108,13 +108,12 @@ const ActionColumn = ({ row }) => {
   );
 };
 const ConsultaNotificaciones = (props) => {
-  //const permisos = props.permisos || {};
+  const {itemsSolicitudes,query} = useAdminUsuarios()
 
-  const {itemsAgendarCitas,query} = useAdminUsuarios()
   const {
     sizePerPageList
   } = useContext(DashboardContext);
-  const datos = itemsAgendarCitas?.AgendarCitas|| [{}];
+  const datos = itemsSolicitudes?.data?.Solicitudes|| [{}];
   const columns = [
     {
       Header: 'ID',
@@ -122,32 +121,46 @@ const ConsultaNotificaciones = (props) => {
       sort: true,
     },
     {
-      Header: 'codigo',
-      accessor: 'codigo',
+      Header: 'codigoFicha',
+      accessor: 'codigoFicha',
+      sort: false,
+    },
+    {
+      Header: 'Aprendiz',
+      accessor: 'aprendiz',
       sort: true,
     },
     {
-      Header: 'Instructor',
-      accessor: 'instructor',
+      Header: 'Tipo Solicitud',
+      accessor: 'tipoSolicitud ',
       sort: true,
     }
     , {
-      Header: 'Aprendiz',
-      accessor: 'aprendiz',
-      sort: false,
-    }, {
-      Header: 'Fecha Incidente',
-      accessor: 'fechaIncidente',
-      sort: false,
-    }, {
-      Header: 'Fecha Agendada',
-      accessor: 'fechaAgendada',
-      sort: false,
-    }, {
-      Header: 'Tipo Atencion',
-      accessor: 'tipoAtencion',
+      Header: 'Tipo de LLamado',
+      accessor: 'tipoLLamado',
       sort: false,
     },
+    {
+      Header: 'Fecha Hora Hechos',
+      accessor: 'fechaHora',
+      sort: false,
+    },
+    {
+      Header: 'Fecha Hora Propuesta',
+      accessor: 'fechaHoraPropuesta',
+      sort: false,
+    },
+      {
+        Header: 'Fecha Hora Agendada',
+        accessor: 'fechaHoraAgendada',
+        sort: false,
+      },
+      
+      {
+        Header: 'Estado',
+        accessor: 'estado',
+        sort: false,
+      },
     {
       Header: 'Action',
       accessor: 'action',
@@ -158,7 +171,7 @@ const ConsultaNotificaciones = (props) => {
   ];
 
   useEffect(() => {
-    query('ModuloNotificaciones', 'agendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'agendarCitas' }]);
+    query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud' }]);
   }, [query])
 
   return (

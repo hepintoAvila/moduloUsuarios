@@ -11,13 +11,13 @@ import CarHistorialIncidencias from './ConsultarIncidente/CarHistorialIncidencia
 import ConsultarAprendiz from './ConsultarIncidente/ConsultarAprendiz';
  
 
-const ModuloIncidentes = (props) => {
+const ModuloSolicitudComite = (props) => {
   return (
     <React.Fragment>
        <Navbar handleClick={props.handleClick} nivel={2}/>
       {(() => {
         switch (props.tipo) {
-          case 'ModuloIncidentes':
+          case 'ModuloSolicitudComite':
             return <React.Fragment>
               <MenuSegundo handleClick={props.handleClick}/>
             </React.Fragment>
@@ -50,7 +50,7 @@ const ModuloIncidentes = (props) => {
     </React.Fragment>
   );
 };
-ModuloIncidentes.defaultProps = {
+ModuloSolicitudComite.defaultProps = {
   itemsmenu: '/',
 };
-export default ModuloIncidentes;
+export default ModuloSolicitudComite;
