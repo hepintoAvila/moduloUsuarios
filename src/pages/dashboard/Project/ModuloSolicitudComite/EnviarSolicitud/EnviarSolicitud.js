@@ -10,6 +10,7 @@ import classnames from 'classnames';
 import CarHistorialIncidencias from '../ConsultarIncidente/CarHistorialIncidencias';
 import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+import ConsultaCalendario from './ConsultaCalendario';
 
 const EnviarSolicitud = (props) => {
     const {itemsOptionAprendiz,descripcion,descripcionError} = useContext(SearchContext)
@@ -97,7 +98,9 @@ const EnviarSolicitud = (props) => {
                                                                             <Col lg={4}>
                                                                                 <p className="mt-3">{tab.text}</p>
                                                                                 <FormDatosAprendiz handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} />
+                                                                                <ConsultaCalendario />
                                                                             </Col>
+                                                                             
                                                                         </Row>
                                                                  </>);
                                                                 case 1:

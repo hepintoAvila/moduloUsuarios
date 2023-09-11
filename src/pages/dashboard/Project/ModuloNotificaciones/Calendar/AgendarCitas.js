@@ -17,12 +17,6 @@ const SidePanel = () => {
     // external events
     const externalEvents = [
         {
-            id: 1,
-            textClass: 'text-success',
-            className: 'bg-success',
-            title: 'AMBIENTAL',
-        },,
-        {
             id: 2,
             textClass: 'text-warning',
             className: 'bg-warning',
@@ -83,6 +77,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     /*
      * event data
      */
+    
     const [events, setEvents] = useState([...defaultEvents]);
     const [eventData, setEventData] = useState({});
     const [dateInfo, setDateInfo] = useState({});

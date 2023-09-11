@@ -168,10 +168,10 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
 
                         <HeaderForm title={'SOLICITUD DE COMITÉ DE EVALUACIÓN Y SEGUIMIENTO'} />
                         <Card.Body>
-
-                            <Row className="align-items-center">
-                                   {!props?.aprendizError? <div className="isinvalid">SELECCIONE EL APRENDIZ</div>:<div>APRENDIZ:</div>}
+                        {!props?.aprendizError? <div className="isinvalid">SELECCIONE EL APRENDIZ</div>:<div>APRENDIZ:</div>}
                                     {children}
+                            <Row className="align-items-center">
+                                   
                                     <br/>
                                     <FormInput
                                         name="tipoComite"
@@ -258,10 +258,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                             </Row>
                             <Row>
                                 <Col>
+                                         
                                     <Card>
+                                    {!validateError.files && !validateError.base64Strings ? <div className="isinvalid"><p className="text-white font-13 m-b-30">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
+                                  
                                         <Card.Body> 
                                             
-                                            {!validateError.files && !validateError.base64Strings ? <div className="isinvalid"><p className="text-white font-13 m-b-30">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
                                             
 
                                             <FileUploader
