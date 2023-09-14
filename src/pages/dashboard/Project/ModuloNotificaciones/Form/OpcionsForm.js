@@ -3,10 +3,12 @@ import FormVoz from './FormVoz';
 import FormComite from './FormComite';
  
 const OpcionsForm = () => {
+    const options = sessionStorage.getItem('OPTIONS');
+    console.log('options',options)
     return (
         <React.Fragment>
             {(() => {
-                switch (sessionStorage.getItem('OPTIONS')) {
+                switch (options) {
                     case 'COMITE':
                         return (
                             <React.Fragment>

@@ -64,10 +64,10 @@ const flattenRoutes = (routes) => {
     return flatRoutes;
 };
 
-//Empleado
-const empleadoRoutes = [
+//SOLICITUDES
+const moduloSolicitudComiteRoutes = [
   {
-      path: '/GestionBasica/Queryform',
+      path: '/ModuloSolicitudComite/Queryform',
       name: 'Queryform',
       component: Queryform,
       route: Route,
@@ -111,7 +111,7 @@ const authRoutes = [
 
 // All routes
 const authProtectedRoutes = [rootRoute, dashboardRoutes, ...appRoutes];
-const publicRoutes = [...authRoutes,...empleadoRoutes];
+const publicRoutes = [...authRoutes,...moduloSolicitudComiteRoutes];
 const authProtectedFlattenRoutes = flattenRoutes([...authProtectedRoutes]);
 const publicProtectedFlattenRoutes = flattenRoutes([...publicRoutes]);
 export { publicRoutes, authProtectedRoutes, authProtectedFlattenRoutes, publicProtectedFlattenRoutes };
