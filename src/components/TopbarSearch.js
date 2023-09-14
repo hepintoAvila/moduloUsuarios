@@ -111,7 +111,7 @@ type TopbarSearchProps = {
 
 const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
 
-    const {setSelectedOptionAprendiz} = useContext(SearchContext)
+    const {setSelectedOptionAprendiz,validateError,setError} = useContext(SearchContext)
 
     const options = props?.data
     const handleTypeSelect = e => {
@@ -129,6 +129,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             aprendizError:true
           }
           setSelectedOptionAprendiz(detalles);
+          setError({...validateError,aprendizError:true})
           return window.location.hash = `/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${values[0]?.userDetails?.id}`;
       };
  

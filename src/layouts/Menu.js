@@ -8,10 +8,10 @@ import { findAllParent, findMenuItem,filtrarURLNumero,filtrarURLSeccion} from '.
 import { DashboardContext } from './context/DashboardContext';
  
 const MenuItemWithChildren = ({ item, linkClassName, subMenuClassNames, activeMenuItems, toggleMenu }) => {
-  const [open, setOpen] = useState(activeMenuItems.includes(item.key));
+  const [open, setOpen] = useState(activeMenuItems.includes(item?.key));
 
   useEffect(() => {
-    setOpen(activeMenuItems.includes(item.key));
+    setOpen(activeMenuItems.includes(item?.key));
   }, [activeMenuItems, item]);
 
   const toggleMenuItem = (e) => {
@@ -27,18 +27,18 @@ const MenuItemWithChildren = ({ item, linkClassName, subMenuClassNames, activeMe
       <Link
         to="/#"
         onClick={toggleMenuItem}
-        data-menu-key={item.key}
+        data-menu-key={item?.key}
         aria-expanded={open}
         className={classNames('has-arrow', 'side-sub-nav-link', linkClassName, {
-          'menuitem-active': activeMenuItems.includes(item.key) ? 'active' : '',
+          'menuitem-active': activeMenuItems.includes(item?.key) ? 'active' : '',
         })}>
-        {item.icon && <i className={item.icon}></i>}
-        {!item.badge ? (
+        {item?.icon && <i className={item?.icon}></i>}
+        {!item?.badge ? (
           <span className="menu-arrow"></span>
         ) : (
-          <span className={`badge bg-${item.badge.variant} float-end`}>{item.badge.text}</span>
+          <span className={`badge bg-${item?.badge.variant} float-end`}>{item?.badge.text}</span>
         )}
-        <span> {item.label} </span>
+        <span> {item?.label} </span>
       </Link>
       <Collapse in={open}>
         <ul className={classNames(subMenuClassNames)}>
@@ -118,7 +118,7 @@ type AppMenuProps = {
 };
 
 const AppMenu = ({ menuItems, location }: AppMenuProps) => {
-  const { itemsMenuCallBack,setLoading } = useContext(DashboardContext)
+  const { itemsMenuCallBack,setLoading} = useContext(DashboardContext)
 
   const menuRef = useRef(null);
 
@@ -185,31 +185,37 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
   }, [activeMenu]);
 
   const [urlSearch, setpagesSearch] = useState('');
+
   useEffect(() => {
     const query = window.location;
-
     setpagesSearch(query.hash);
-
   }, [urlSearch]);
+ 
+ 
 
-  itemsMenuCallBack(location.pathname)
-
-
-
+  let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
+  if (userInfo) {
+    if (userInfo?.tipo.length === 0) {
+      itemsMenuCallBack(0);
+    }else{
+      itemsMenuCallBack(userInfo?.tipo.length);
+    }
+  }
+ 
  
     return (
     <>
       <ul className="side-nav" ref={menuRef} id="main-side-menu">
         {
         
-        (menuItems.length>=1) && (menuItems || [])?.map((item, idx) => {
+        (menuItems?.length>=1) && (menuItems || [])?.map((item, idx) => {
           return (
             <React.Fragment key={idx}>
-              {item.isTitle ? (
-                <li className="side-nav-title side-nav-item">{item.label}</li>
+              {item?.isTitle ? (
+                <li className="side-nav-title side-nav-item">{item?.label}</li>
               ) : (
                 <>
-                  {item.children ? (
+                  {item?.children ? (
                     <MenuItemWithChildren
                       item={item}
                       toggleMenu={toggleMenu}
@@ -221,7 +227,7 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
                     <MenuItem
                       item={item}
                       linkClassName="side-nav-link"
-                      className={activeMenuItems.includes(item.key) ? 'menuitem-active' : ''}
+                      className={activeMenuItems.includes(item?.key) ? 'menuitem-active' : ''}
                     />
                   )}
                 </>

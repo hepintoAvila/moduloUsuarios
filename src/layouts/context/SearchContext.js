@@ -7,19 +7,25 @@ const SearchProvider = ({ children }) => {
     const [itemsOptionAprendiz, setSelectedOptionAprendiz] = useState('none');
     const [itemsEnvioSolicitud, setSelectedEnvioSolicitud] = useState([]);
     const [itemsDescripcion, setDescripcion] = useState([]);
+    const [itemsNombrePrograma, setNombrePrograma] = useState([]);
     const [loading, setLoading] = useState(false); 
+    
     const [validateError, setError] = useState({
         comiteError:false,
-        llamadoError:false,
+        tipoAtencionError:false,
         aprendizError:false,
         fechaError:false,
-        files:false,
-        base64Strings:false,
+        filesError:false,
+        base64StringsError:false,
         descripcionError:false,
         fechaPropuestaError:false,
+        nombreProgramaError:false
     });
-  const  descripcion=  itemsDescripcion?.descripcion;
-  const  descripcionError=  itemsDescripcion?.valideDescripcion;
+
+    const  nombrePrograma=  itemsNombrePrograma?.nombrePrograma;
+    const  nombreProgramaError=  itemsNombrePrograma?.valideNombrePrograma;   
+    const  descripcion=  itemsDescripcion?.descripcion;
+    const  descripcionError=  itemsDescripcion?.valideDescripcion;
 
   const queryFile = useCallback((queryDatos, dataFile) => {
     const infoUsers = sessionStorage.getItem('hyper_user');
@@ -52,7 +58,8 @@ const data = {
     validateError, setError,
     queryFile,
     loading,
-    setLoading
+    setLoading,
+    setNombrePrograma,nombreProgramaError,nombrePrograma
 };
 
     return (

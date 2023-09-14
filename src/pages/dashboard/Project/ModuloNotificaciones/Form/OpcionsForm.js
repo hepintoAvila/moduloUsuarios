@@ -1,12 +1,12 @@
 import React from 'react';
 import FormVoz from './FormVoz';
 import FormComite from './FormComite';
- 
+ const options = JSON.parse(sessionStorage.getItem('OPTIONS'));
 const OpcionsForm = () => {
     return (
         <React.Fragment>
             {(() => {
-                switch (sessionStorage.getItem('OPTIONS')) {
+                switch (options) {
                     case 'COMITE':
                         return (
                             <React.Fragment>
@@ -20,6 +20,12 @@ const OpcionsForm = () => {
                                 <FormVoz accion={'ModuloNotificaciones'} tipo={'ConsultaNotificaciones'}/>
                             </React.Fragment>
                         );
+                        default:
+                            return (
+                              <React.Fragment>
+                                {''}
+                               </React.Fragment>
+                    );                    
                 }
             })()
             }

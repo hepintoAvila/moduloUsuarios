@@ -27,7 +27,7 @@ const EnviarSolicitud = (props) => {
             id: '1',
             title: 'Enviar Solicitud',
             icon: 'mdi mdi-home-variant',
-            text: 'Envia tus solicitudes al comité a travez de este formulario.',
+            text: '',
         },
         {
             id: '2',
@@ -107,7 +107,7 @@ const EnviarSolicitud = (props) => {
                                                                 return (
                                                                     <Row>
                                                                      <Col lg={12}>
-                                                                        <p className="mt-3">1{tab.text}</p>
+                                                                        <p className="mt-3">{tab.text}</p>
                                                                         <CarSolicitudeEnviadas />
                                                                     </Col>
                                                                 </Row>

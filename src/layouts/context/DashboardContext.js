@@ -7,7 +7,7 @@ import Spinner from '../../components/Spinner';
 const DashboardContext = createContext();
 const DashboardProvider = ({ children }) => {
 
-  const [tipo, setitemsMenuPrincipal] = useState('');
+  const [tipo, setitemsMenuPrincipal] = useState('/dashboard/');
   const [itemUrl, setitemsUrl] = useState('');
   const [itemsQuery, setItemsQuery] = useState([]);
   const [isLoading, setLoading] = useState([]);
@@ -15,19 +15,17 @@ const DashboardProvider = ({ children }) => {
   
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
   const itemsMenuCallBack = useCallback((e) => {
-
-    const items_sub = e?.replace('/dashboard/', '').replace('/', '');
-    if (items_sub) {
+   
+    if (e===0) {
       let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
       if (userInfo?.tipo.length === 0) {
         setitemsMenuPrincipal('Bienvenido');
         setitemsUrl('Inicio');
         setLoading(false)
       }else{
-
+        
         setitemsMenuPrincipal(userInfo?.tipo.replace(/ /g, ""));
- 
-        setitemsUrl(userInfo?.menu);
+         setitemsUrl(userInfo?.menu);
         setLoading(false)
       }
     }

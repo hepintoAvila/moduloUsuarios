@@ -70,7 +70,6 @@ const ThemeCustomizer = (state: ThemeCustomizerState): React$Element<any> => {
      */
     const changeWidthMode = (e) => {
         var mode = e ? e.currentTarget.value : 'default';
-
         switch (mode) {
             case 'boxed':
                 dispatch(changeLayoutWidth(layoutConstants.LAYOUT_WIDTH_BOXED));
@@ -130,10 +129,8 @@ const ThemeCustomizer = (state: ThemeCustomizerState): React$Element<any> => {
     return (
         <React.Fragment>
             <div className="p-3">
-
                 <h5 className="mt-3">Layout</h5>
                 <hr className="mt-1" />
-
                 <div className="form-check form-switch mb-1">
                     <input
                         type="radio"
@@ -148,8 +145,6 @@ const ThemeCustomizer = (state: ThemeCustomizerState): React$Element<any> => {
                         Vertical Layout
                     </label>
                 </div>
-
-
                 <h5 className="mt-4">Width</h5>
                 <hr className="mt-1" />
 

@@ -1,5 +1,5 @@
 // @flow
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext,useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import { Button,Row, Col, Card } from 'react-bootstrap';
@@ -31,26 +31,26 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedDatePropuesta, setSelectedDatePropuesta] = useState(new Date());
     
-    const {validateError,setError,queryFile,loading} = useContext(SearchContext)
+    const {validateError,setError,queryFile,loading,nombrePrograma} = useContext(SearchContext)
  
     
     const [items, setItems] = useState([{
         idAprendiz: props?.idAprendiz?.length===0 ? '':props?.idAprendiz,
         tipoComite: '',
-        tipoLLamado: '',
+        tipoAtencion: '',
         fechaIncidente: '',
+        fechaPropuesta: '',
         accion: encodeBasicUrl('ModuloSolicitudComite'),
         opcion: encodeBasicUrl('add_solicitud'),
         tipo: encodeBasicUrl('EnviarSolicitud'),
         selectedFile:'',
         base64String:'',
         descripcion:props?.itemsDescripcion?.length===0 ? '':props?.itemsDescripcion,
+        nombrePrograma:nombrePrograma?.length===0 ? '':nombrePrograma,
+
     }]);
  
     const { t } = useTranslation();
-
- 
-
     const schemaResolver = yupResolver(
         yup.object().shape({
         })
@@ -58,8 +58,8 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
       const onSubmit = () => {
         const obj = Object.values({...validateError})
         let numtrue = contarVerdaderos(obj)
-
-        if(Number(numtrue)===7){
+        console.log('numtrue',numtrue);
+        if(Number(numtrue)===9){
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -71,13 +71,17 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             {
                 idAprendiz:btoa(items[0].idAprendiz),
                 tipoComite:btoa(items[0].tipoComite),
-                tipoLLamado:btoa(items[0].tipoLLamado),
+                tipoAtencion:btoa(items[0].tipoAtencion),
                 fechaIncidente:btoa(items[0].fechaIncidente),
+                fechaPropuesta:btoa(items[0].fechaPropuesta),
                 accion: btoa('ModuloSolicitudComite'),
                 opcion: btoa('add_solicitud'),
                 tipo: btoa('EnviarSolicitud'),
                 selectedFile:btoa(items[0].selectedFile),
                 descripcion:btoa(items[0].descripcion),
+                nombrePrograma:btoa(items[0].nombrePrograma),
+
+                
             }
             const queryDatos = datosfiles
             ? Object.keys(datosfiles)
@@ -93,40 +97,34 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               })
         }
 
-        console.log(numtrue,obj);
+        
        
       };
-    useEffect(() => {
-         const  comiteError = items[0]?.tipoComite?.length===0 ? false:true
-         const  llamadoError = items[0]?.tipoLLamado?.length===0 ? false:true
-         const  aprendizError = items[0]?.idAprendiz?.length===0 ? false:true
-         const  fechaError = items[0]?.fechaIncidente?.length===0 ? false:true    
-         const  fechaPropuestaError = items[0]?.fechaPropuesta?.length===0 ? false:true   
-          setError({...validateError,comiteError,llamadoError,aprendizError,fechaError,fechaPropuestaError})
-      }, [items]);
 
-      const onDateChange = (date,fechaError) => {
+
+      const onDateChangefechaIncidente = (date,fechaIncidenteError) => {
         if (date) {
             setSelectedDate(date);
-            setError({...validateError,fechaError:fechaError})
+            setError({...validateError,fechaIncidenteError:fechaIncidenteError})
             setItems([{
                 ...items[0], fechaIncidente:date,
               }])
         }
     };
-    const onDateChangePropuesta = (date,fechaError) => {
+    const onDateChangePropuesta = (date,fechaPropuestaError) => {
         if (date) {
             setSelectedDatePropuesta(date);
-            setError({...validateError,fechaError:fechaError})
+            setError({...validateError,fechaPropuestaError:fechaPropuestaError})
             setItems([{
                 ...items[0], fechaPropuesta:date,
               }])
         }
     };
     
-    const onDateChangeFile = (file,base64String,files,base64Strings) => {
+    
+    const onDateChangeFile = (file,base64String,filesError,base64StringsError) => {
         if (file) {
-            setError({...validateError,files:files,base64Strings:base64Strings})
+            setError({...validateError,filesError:filesError,base64StringsError:base64StringsError})
             setItems([{
                 ...items[0], 
                 selectedFile:file,
@@ -134,31 +132,24 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               }])
         }
     };
- 
- 
-    useEffect(() => {
-        if (props?.itemsDescripcion?.length>0){
-        setError({...validateError,descripcionError:true})
-        setItems([{
-            ...items[0], descripcion:props?.itemsDescripcion,
-          }])
-        }else{
-            setError({...validateError,descripcionError:false})
-        }
-    }, [props?.itemsDescripcion]);
-
-    useEffect(() => {
-        if (props?.idAprendiz?.length===0){
-            setError({...validateError,aprendizError:false})
-        }else{
-            setError({...validateError,aprendizError:true})
+    const onChangeTipoAtencion= (value,tipoAtencionError) => {
+        if (value) {
+            setError({...validateError,tipoAtencionError:tipoAtencionError})
             setItems([{
-                ...items[0], idAprendiz:props?.idAprendiz,
+                ...items[0], 
+                tipoAtencion: value,
               }])
         }
-    }, [props?.idAprendiz]);
-
- 
+    };
+        const onChangeTipoComite= (value,comiteError) => {
+        if (value) {
+            setError({...validateError,comiteError:comiteError})
+            setItems([{
+                ...items[0], 
+                tipoComite:value,
+              }])
+        }
+    };
     return (
         <>
       {loading ? <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
@@ -181,25 +172,26 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                         className="form-select"
                                         key="tipoComite"
                                         isInvalid={!validateError.comiteError}
-                                         onChange={(e) => setItems([{
-                                            ...items[0], tipoComite: e.target.value,
-                                          }])}
+                                         onChange={(e) => onChangeTipoComite(
+                                            e.target.value,true
+                                          )}
                                     >
                                         <option value="ACADEMICO"> ACADEMICO</option>
                                         <option value="DISCIPLINARIO">DISCIPLINARIO</option>
                                     </FormInput>
                                      
                                     <FormInput
-                                        name="tipoLLamado"
-                                        label="Seleccione el tipo de Falta"
+                                        name="tipoAtencion"
+                                        label="Seleccione el tipo de Atencion"
                                         type="select"
                                         containerClass="mb-3 font-weight-bold"
                                         className="form-select"
-                                        key="tipoLLamado"
-                                        isInvalid={!validateError.llamadoError}
-                                        onChange={(e) => setItems([{
-                                            ...items[0], tipoLLamado: e.target.value,
-                                          }])}
+                                        key="tipoAtencion"
+                                        isInvalid={!validateError.tipoAtencionError}
+                                        onChange={(e) => onChangeTipoAtencion(
+                                            e.target.value,true
+                                          )}
+                      
                                     >
                                         <option>Seleccione...</option>
                                         <option >ACADEMICO</option>
@@ -224,14 +216,16 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                             className="form-control"
                                             value={selectedDate}
                                             onChange={(date) =>
-                                                onDateChange(date,true)
+                                                onDateChangefechaIncidente(date,true)
                                                 }
                                         />
-                                        <div className="isinvalid">
-                                            {!validateError.fechaError ? 
-                                                 'SELECCIONE LA FECHA Y HORA HECHOS'
-                                             : ''}
-                                        </div>
+                                        
+                                            {!validateError.fechaIncidenteError ? 
+                                            <div className="isinvalid">
+                                                 SELECCIONE LA FECHA Y HORA HECHOS
+                                                 </div>: ''
+                                             }
+                                       
                                     </div>
                                     <div className="mb-3">
                                         <label>Fecha y Hora Propuesta para Agendar</label> <br />
@@ -249,18 +243,17 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                                 onDateChangePropuesta(date,true)
                                                 }
                                         />
-                                        <div className="isinvalid">
+                                        
                                             {!validateError.fechaPropuestaError ? 
-                                                 'SELECCIONE LA FECHA Y HORA PROPUESTA'
-                                             : ''}
-                                        </div>
+                                            <div className="isinvalid">SELECCIONE LA FECHA Y HORA PROPUESTA</div>: ''}
+                                       
                                     </div>
                             </Row>
                             <Row>
                                 <Col>
                                          
                                     <Card>
-                                    {!validateError.files && !validateError.base64Strings ? <div className="isinvalid"><p className="text-white font-13 m-b-30">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
+                                    {!validateError.filesError && !validateError.base64StringsError ? <div className="isinvalid"><p className="text-white font-13 m-b-30">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
                                   
                                         <Card.Body> 
                                             

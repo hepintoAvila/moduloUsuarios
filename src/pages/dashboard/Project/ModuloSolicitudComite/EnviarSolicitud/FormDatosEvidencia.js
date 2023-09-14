@@ -1,6 +1,5 @@
 // @flow
 import React, { useContext }  from 'react';
-import classNames from 'classnames';
 import { Row, Card } from 'react-bootstrap';
 
 //actions
@@ -11,7 +10,7 @@ import { VerticalForm} from '../../../../../components';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
  
 const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
-     const {setDescripcion,descripcionError,setLoading} = useContext(SearchContext)
+     const {setDescripcion,descripcionError,setLoading,validateError,setError} = useContext(SearchContext)
     const delay = 1000;
     const options = {
         autosave: {
@@ -23,7 +22,7 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
     return (
         <>
 
-        <Card className={classNames('widget-flat')}>
+        <Card className={'widget-flat'}>
       
         <HeaderForm title={'HECHOS CONSTITUTIVOS'}/>
             <Card.Body>
@@ -39,6 +38,7 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
                             <SimpleMDEReact id={1} options={options} label={'Atentamente le informamos que de conformidad con el Procedimiento Ejecución de la Formación Profesional en su etapa electiva y/o el Reglamento para Aprendices del SENA, se le hace este llamado de Atención por el siguiente motivo:'} onChange={(e) => {
                                     setDescripcion({descripcion:e,valideDescripcion:e?.length===0 ? false : true});
                                     setLoading(false)
+                                    setError({...validateError,descripcionError:true})
                                 }} />
                                    
                         </Card.Body>

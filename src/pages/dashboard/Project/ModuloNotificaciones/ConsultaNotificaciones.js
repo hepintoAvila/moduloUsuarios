@@ -136,8 +136,8 @@ const ConsultaNotificaciones = (props) => {
       sort: true,
     }
     , {
-      Header: 'Tipo de LLamado',
-      accessor: 'tipoLLamado',
+      Header: 'Tipo de Atención',
+      accessor: 'tipoAtencion',
       sort: false,
     },
     {
@@ -171,7 +171,7 @@ const ConsultaNotificaciones = (props) => {
   ];
 
   useEffect(() => {
-    query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud' }]);
+    query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud',sw:'1' }]);
   }, [query])
 
   return (

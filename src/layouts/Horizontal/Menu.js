@@ -65,7 +65,6 @@ const MenuItemWithChildren = ({
                                                 activeMenuItems.includes(child.key) ? 'active' : ''
                                             )}
                                             activeMenuItems={activeMenuItems}
-                                            className=""
                                             subMenuClassNames="dropdown-menu"
                                             toggleMenu={toggleMenu}
                                         />

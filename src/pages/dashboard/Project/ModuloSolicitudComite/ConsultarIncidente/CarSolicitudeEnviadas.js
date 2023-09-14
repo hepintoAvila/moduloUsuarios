@@ -15,12 +15,12 @@ import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
 
-  const {itemsSolicitudes,query} = useAdminUsuarios()
+  const {itemsSolicitudByID,query} = useAdminUsuarios()
 
   const {
     sizePerPageList
   } = useContext(DashboardContext);
-  const datos = itemsSolicitudes?.data?.Solicitudes|| [{}];
+  const datos = itemsSolicitudByID?.data?.Solicitudes|| [{}];
   const columns = [
     {
       Header: 'ID',
@@ -43,25 +43,26 @@ const CarSolicitudeEnviadas = (props) => {
       sort: true,
     }
     , {
-      Header: 'Tipo de LLamado',
-      accessor: 'tipoLLamado',
+      Header: 'Tipo de Atención',
+      accessor: 'tipoAtencion',
       sort: false,
     },
     {
-        Header: 'Fecha Hora Hechos',
-        accessor: 'fechaHora',
-        sort: false,
-      },
-      {
-        Header: 'Fecha Hora Propuesta',
-        accessor: 'fechaHoraPropuesta',
-        sort: false,
-      },
+      Header: 'Fecha Hora Hechos',
+      accessor: 'fechaHora',
+      sort: false,
+    },
+    {
+      Header: 'Fecha Hora Propuesta',
+      accessor: 'fechaHoraPropuesta',
+      sort: false,
+    },
       {
         Header: 'Fecha Hora Agendada',
         accessor: 'fechaHoraAgendada',
         sort: false,
       },
+      
       {
         Header: 'Estado',
         accessor: 'estado',
@@ -76,7 +77,7 @@ const CarSolicitudeEnviadas = (props) => {
   ];
 
   useEffect(() => {
-    query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud' }]);
+    query('ModuloSolicitudComite', 'ConsultarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitudByID',sw:0 }]);
   }, [query])
 
   return (

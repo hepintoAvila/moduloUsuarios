@@ -16,24 +16,37 @@ import AdministradorActas from './AdministradorActas/AdministradorActas';
 
 const ProjectDashboard = () => {
 
-  const { tipo, AdvertenciaLocalStorage, itemUrl,setitemsMenuPrincipal } = useContext(DashboardContext)
+  const { tipo, AdvertenciaLocalStorage, itemUrl,setitemsMenuPrincipal,setitemsUrl } = useContext(DashboardContext)
   AdvertenciaLocalStorage();
   const { permisos, initPermiso } = usePermisos(tipo);
 
   const handleClick = (url,nivel) => {
-    
-    setitemsMenuPrincipal(`/${url}`);
+   if(url?.length>0){
+      if(nivel===1){
+      setitemsMenuPrincipal(url);
+      setitemsUrl(url);
+        return window.location.hash = `dashboard/${url}/${url}`
+      }else{
         const menuitems = window.location.hash.split('#/')[1]; 
         const [seccion] = menuitems?.split('/');
+        
         const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
         sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ 
           tipo: obj.principal, 
           menu: obj.seccion}));
         const urls = seccion.length===0 ? `dashboard/${url}`:'/'+seccion+'/'+url
-        return window.location.hash = urls;
+
+        const urltemp = obj.seccion?.split('/');
+        setitemsMenuPrincipal(urltemp[1]);
+        setitemsUrl(urltemp[0]);
+          return window.location.hash = urls;
+      }
+
+    }
+   
 
   };
-
+ 
   return (
     <React.Fragment>
       <Title />

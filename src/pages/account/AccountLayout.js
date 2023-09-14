@@ -42,7 +42,7 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
                     
                 </div>
                 <div  className="flexRowContent--header___grid__nivel_2_col2">
-                <p className="headerTitulo"><span>{t('SICES v.1 - Sistema de Información del Comité de Evaluación y Seguimiento')} </span><br/><span className="center-text">{t('')} </span></p>
+                <p className="headerTitulo"><span>{t('SICES v.1 - Sistema de Información del Comité de Evaluación y Seguimiento')} </span></p>
  
                 </div>
                 <div  className="flexRowContent--header___grid__nivel_2_col3">

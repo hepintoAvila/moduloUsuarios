@@ -7,42 +7,39 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import BootstrapTheme from '@fullcalendar/bootstrap';
 import allLocales from '@fullcalendar/core/locales-all';
-const defaultEvents = [
-    {
-        id: 1,
-        title: 'Interview - Backend Engineer',
-        start: new Date(),
-        className: 'bg-success',
-    },
-    {
-        id: 2,
-        title: 'Phone Screen - Frontend Engineer',
-        start: new Date().setDate(new Date().getDate() + 2),
-        className: 'bg-info',
-    },
-    {
-        id: 3,
-        title: 'Meeting with John Deo',
-        start: new Date().setDate(new Date().getDate() + 2),
-        end: new Date().setDate(new Date().getDate() + 4),
-        className: 'bg-warning',
-    },
-    {
-        id: 4,
-        title: 'Buy a Theme',
-        start: new Date().setDate(new Date().getDate() + 4),
-        end: new Date().setDate(new Date().getDate() + 5),
-        className: 'bg-primary',
-    },
-];
-
-type CalendarProps = {
-    events: Array<any>,
-};
 
 
-const ConsultaCalendario = ({ events }: CalendarProps): React$Element<React$FragmentType> => {
- 
+
+
+const ConsultaCalendario = () => {
+    const defaultEvents = [
+        {
+            id: 1,
+            title: 'Interview - Backend Engineer',
+            start: new Date(),
+            className: 'bg-success',
+        },
+        {
+            id: 2,
+            title: 'Phone Screen - Frontend Engineer',
+            start: new Date().setDate(new Date().getDate() + 2),
+            className: 'bg-info',
+        },
+        {
+            id: 3,
+            title: 'Meeting with John Deo',
+            start: new Date().setDate(new Date().getDate() + 2),
+            end: new Date().setDate(new Date().getDate() + 4),
+            className: 'bg-warning',
+        },
+        {
+            id: 4,
+            title: 'Buy a Theme',
+            start: new Date().setDate(new Date().getDate() + 4),
+            end: new Date().setDate(new Date().getDate() + 5),
+            className: 'bg-primary',
+        },
+    ];
     return (
         <>
             {/* full calendar control */}
@@ -52,7 +49,7 @@ const ConsultaCalendario = ({ events }: CalendarProps): React$Element<React$Frag
                     locales={allLocales} locale={'es'} 
                     initialView="dayGridMonth"
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin, BootstrapTheme]}
-                    handleWindowResize={true}
+                    handleWindowResize={false}
                     themeSystem="bootstrap"
                     buttonText={{
                         month: 'Mes',

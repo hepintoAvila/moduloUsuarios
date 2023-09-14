@@ -14,6 +14,9 @@ export const useAdminUsuarios = () => {
   const [itemsHistorial, setHistorial] = useState([]);
   const [itemsAprendices, setAprendices] = useState([]);
   const [itemsSolicitudes, setConsultarSolicitud] = useState([]);
+  const [itemsSolicitudByID, setConsultarSolicitudByID] = useState([]);
+
+  
 
   
   
@@ -59,7 +62,9 @@ export const useAdminUsuarios = () => {
                    case 'ConsultarSolicitud':
                     setConsultarSolicitud(response) 
                  break;                                    
-                   
+                 case 'ConsultarSolicitudByID':
+                  setConsultarSolicitudByID(response) 
+               break;                   
                 }
               })()
             }
@@ -85,7 +90,8 @@ export const useAdminUsuarios = () => {
       itemsAgendarCitas,
       itemsHistorial,
       itemsAprendices,
-      itemsSolicitudes
+      itemsSolicitudes,
+      itemsSolicitudByID
     }
   )
 }

@@ -4,7 +4,7 @@ import React from "react";
 import BtnLink from "../BtnLink";
 import BtnActions from "../BtnActions";
 
-const BtnSeccionAction = (props,children) => {
+const BtnSeccionAction = (props) => {
 
   const isbtnLink = props?.obj?.isbtnLink|| 'N';
   const tipo = props?.obj?.tipo || '';
