@@ -34,11 +34,12 @@ const ProjectDashboard = () => {
         sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ 
           tipo: obj.principal, 
           menu: obj.seccion}));
-        const urls = seccion.length===0 ? `dashboard/${url}`:'/'+seccion+'/'+url
+        
 
         const urltemp = obj.seccion?.split('/');
         setitemsMenuPrincipal(urltemp[1]);
         setitemsUrl(urltemp[0]);
+        const urls = `dashboard/${url}`;
           return window.location.hash = urls;
       }
 
@@ -46,7 +47,7 @@ const ProjectDashboard = () => {
    
 
   };
- 
+ console.log('itemUrl',itemUrl)
   return (
     <React.Fragment>
       <Title />

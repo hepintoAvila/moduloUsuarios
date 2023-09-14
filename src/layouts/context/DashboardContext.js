@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useCallback,useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
@@ -14,23 +14,23 @@ const DashboardProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
-  const itemsMenuCallBack = useCallback((e) => {
-   
+ 
+  const itemsMenuCallBack = (e) => {
+    let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
     if (e===0) {
-      let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
-      if (userInfo?.tipo.length === 0) {
+    if (userInfo?.tipo.length === 0) {
         setitemsMenuPrincipal('Bienvenido');
         setitemsUrl('Inicio');
         setLoading(false)
       }else{
-        
+        console.log('userInfo',userInfo);
         setitemsMenuPrincipal(userInfo?.tipo.replace(/ /g, ""));
          setitemsUrl(userInfo?.menu);
         setLoading(false)
       }
     }
-  }, []);
-
+  };
+ 
   const Spinners = () => {
     const sizes = ['sm'];
     return (
