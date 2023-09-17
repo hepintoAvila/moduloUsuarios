@@ -1,19 +1,68 @@
 // @flow
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Button } from 'react-bootstrap';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Row, Col, Card, Button,Table} from 'react-bootstrap';
 import '@fullcalendar/react';
-import { Draggable } from '@fullcalendar/interaction';
-import classNames from 'classnames';
-
+ import classNames from 'classnames';
 // components
  
 import Calendar from './Calendar';
 import AddEditEvent from './AddEditEvent';
 
 // dummy data
-import { defaultEvents } from './data';
+ 
+import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
-const SidePanel = () => {
+const TableComite = ({miembros,setIdDirectivos}) => {
+ 
+    const [checkedState, setCheckedState] = useState(
+        new Array(miembros.length).fill(false)
+      );
+     const handleOnChange = useCallback((position) => {
+        const updatedCheckedState = checkedState.map((item, index) =>
+          index === position ? !item : item
+        );
+        setCheckedState(updatedCheckedState);
+    }, [checkedState]);
+
+    setIdDirectivos(checkedState);
+    return (
+        <Card>
+            <Card.Body>
+                <Table className="mb-0 tableComite" responsive>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombres  Apellidos</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {miembros?.map(({ correo, nombresApellidos,id }, index) => {
+                            return (
+                                <tr key={index}>
+                                    <th scope="row">{id}</th>
+                                    <td>{nombresApellidos}<br/>{correo}</td>
+                                    <td>
+                                    <input type="checkbox" 
+                                    id={`custom-checkbox-${index}`}
+                                    name={nombresApellidos}
+                                    value={nombresApellidos}
+                                    checked={checkedState[index]}
+                                    onChange={() => handleOnChange(index)}
+                                    />
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </Table>
+            </Card.Body>
+        </Card>
+    );
+};
+const SidePanel = ({miembroscomites,setIdDirectivos}) => {
+ 
     // external events
     const externalEvents = [
         {
@@ -29,7 +78,7 @@ const SidePanel = () => {
             title: 'DISCIPLINARIA',
         },
     ];
-
+  
     return (
         <>
             <div id="external-events" className="m-t-20">
@@ -49,6 +98,12 @@ const SidePanel = () => {
                     );
                 })}
             </div>
+              {miembroscomites?.length>0 ? <TableComite 
+              miembros={miembroscomites}
+              setIdDirectivos={setIdDirectivos}
+              />:''}  
+              
+          
         </>
     );
 };
@@ -62,91 +117,115 @@ type CalendarAppState = {
 };
 
 const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType> => {
-    /*
-     * modal handeling
-     */
+    const defaultEvents = [
+        {
+            id: 1,
+            className:'bg-info',
+            start:new Date().setDate(new Date().getDate() + 2),
+            end: '',
+            title:'Prueba',
+        }
+    ];
+    const {itemsQueryById,query,
+        obtenerNumeroDesdeURL,
+        setIdSolicitud,
+        idSolicitudComite,
+        idDirectivos, setIdDirectivos,
+        obtenerIdsVerdaderos,
+        getData,
+        status,
+        loading} = useContext(NotificacionesContext)
+
+    
+
+    const [isEditable, setIsEditable] = useState(false);
     const [show, setShow] = useState(false);
+    const [events, setEvents] = useState([...defaultEvents]);
+    const [eventData, setEventData] = useState({});
+    const [itemsList, setItems] = useState([]); 
+    const [dateInfo, setDateInfo] = useState({});
+  
+ 
+    useEffect(() => {
+        const idSolicitud = obtenerNumeroDesdeURL(window.location.hash)
+        setIdSolicitud(idSolicitud)
+        query('ModuloNotificaciones','AgendarCitas',[{opcion:encodeBasicUrl('consultar'),obj:'queryByIdComite',sw:3,idSolicitud:encodeBasicUrl(idSolicitud)}]);
+      }, [query]);
+
     const onCloseModal = () => {
         setShow(false);
         setEventData({});
         setDateInfo({});
     };
-    const onOpenModal = () => setShow(true);
-    const [isEditable, setIsEditable] = useState(false);
-
-    /*
-     * event data
-     */
-    
-    const [events, setEvents] = useState([...defaultEvents]);
-    const [eventData, setEventData] = useState({});
-    const [dateInfo, setDateInfo] = useState({});
-
-    useEffect(() => {
-        // create dragable events
-        let draggableEl = document.getElementById('external-events');
-        new Draggable(draggableEl, {
-            itemSelector: '.external-event',
-        });
-    }, []);
-
-    /*
-    calendar events
-    */
     // on date click
     const onDateClick = (arg) => {
-        setDateInfo(arg);
-        onOpenModal();
+ 
+        setDateInfo(arg?.dateStr);
+        setShow(true);
         setIsEditable(false);
+       
     };
 
     // on event click
     const onEventClick = (arg) => {
         const event = {
             id: parseInt(arg.event.id),
-            title: arg.event.title,
-            start: arg.event.start,
-            className: arg.event.classNames[0],
+            idSolicitudComite: parseInt(arg.event.idSolicitudComite),
+            observaciones: arg.event.Observaciones,
+            tiempoEstipulado: arg.event.tiempoEstipulado,
+            fechaHoraCita: arg.event.fechaHoraCita,
+            className: arg.event.className,
+            start:arg.event.fechaHoraCita,
+            start:arg.event.fechaHoraCita,
+            end: arg.event.fechaFinal,
+            idComites:arg.event.idComites,
+            title:`hola mundo` 
         };
         setEventData(event);
-        onOpenModal();
+        setShow(true);
         setIsEditable(true);
-    };
-
-    // on drop
-    const onDrop = (arg) => {
-        const dropEventData = arg;
-        const title = dropEventData.draggedEl.title;
-        if (title == null) {
-        } else {
-            let newEvent = {
-                id: events.length + 1,
-                title: title,
-                start: dropEventData ? dropEventData.dateStr : new Date(),
-                className: dropEventData.draggedEl.attributes.data.value,
-            };
-            const modifiedEvents = [...events];
-            modifiedEvents.push(newEvent);
-
-            setEvents(modifiedEvents);
-        }
     };
 
     /*
     on add event 
     */
     const onAddEvent = (data) => {
-        const modifiedEvents = [...events];
-        const event = {
-            id: modifiedEvents.length + 1,
-            title: data.title,
-            start: dateInfo ? dateInfo.date : new Date(),
-            className: data.className,
-        };
-        modifiedEvents.push(event);
-        setEvents(modifiedEvents);
-        onCloseModal();
-    };
+ 
+                    const idsVerdaderos = obtenerIdsVerdaderos(idDirectivos,itemsQueryById?.data?.Directivos);
+                    const modifiedEvents = [...events];
+                    const datos = data[0];
+                    
+                    const datosEvent ={
+                        id: modifiedEvents.length + 1,
+                        fechaCita:`${datos.fechaCita} ${datos.horaCita}`,
+                        horaCita:datos.horaCita,
+                        tiempoEstipulado:datos.tiempoEstipulado,
+                        start:`${datos.fechaCita} ${datos.horaCita}`,
+                        end:`${datos.fechaCita} 00:00`,
+                        title:datos.horaCita,
+                        observaciones:datos.observaciones,
+                        idSolicitudComite:datos.idSolicitudComite,
+                        idComites:`${idsVerdaderos}`,
+                        accion:'ModuloNotificaciones',
+                        opcion:'AgendarCitas',
+                        tipo:'addCitas',
+                        className:'bg-warning',
+                    }              
+                        setTimeout(function () {
+                            const queryDatos = datosEvent
+                            ? Object.keys(datosEvent)
+                              .map((key) => key + '=' + btoa(datosEvent[key]))
+                              .join('&')
+                            : '';
+                            getData(queryDatos)    
+                        }, 2000);
+                        
+                        modifiedEvents.push(datosEvent);
+                        setEvents(modifiedEvents);
+                        onCloseModal();  
+               
+                       
+};
 
     /*
     on update event
@@ -167,9 +246,36 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
         var modifiedEvents = [...events];
         const idx = modifiedEvents.findIndex((e) => e['id'] === eventData.id);
         modifiedEvents.splice(idx, 1);
+       
         setEvents(modifiedEvents);
         onCloseModal();
     };
+
+    useEffect(() => {
+        if(!loading){
+         setItems(itemsQueryById?.data?.Solicitudes[0])
+        
+         setEvents(itemsQueryById?.data?.Agenda?itemsQueryById?.data?.Agenda:[]);
+        }else{
+            setItems({
+                id: 1,
+                idSolicitudComite: 0,
+                observaciones: 'SIN REGISTROS',
+                tiempoEstipulado: '',
+                fechaHoraCita:'',
+                className: '',
+                start:'',
+                start:'',
+                end: '',
+                title:'',
+                idComites:'',
+            })
+        }
+     }, [itemsQueryById,loading]);
+/*
+
+    */ 
+  
 
     return (
         <>
@@ -178,26 +284,30 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                     <Card>
                         <Card.Body>
                             <Row>
-                                <Col lg={3}>
+                                <Col lg={4}>
                                     <div className="d-grid">
                                         {/* add events */}
                                         <Button
                                             className="btn btn-lg font-16 btn-danger"
                                             id="btn-new-event"
-                                            onClick={onOpenModal}>
-                                            <i className="mdi mdi-plus-circle-outline"></i>Crear una Cita
+                                            onClick={onDateClick}>
+                                            <i className="mdi mdi-plus-circle-outline"></i>Crear un Miembro del Comité
                                         </Button>
                                     </div>
+                                   <SidePanel 
+                                   miembroscomites={itemsQueryById?.data?.Directivos} 
+                                   setIdDirectivos={setIdDirectivos}
+                                   />
 
-                                    <SidePanel />
                                 </Col>
-                                <Col lg={9}>
+                                <Col lg={8}>
                                     {/* fullcalendar control */}
                                     <Calendar
                                         onDateClick={onDateClick}
                                         onEventClick={onEventClick}
-                                        onDrop={onDrop}
                                         events={events}
+                                        status={status}
+                                        
                                     />
                                 </Col>
                             </Row>
@@ -209,13 +319,18 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             {/* add new event modal */}
             {show ? (
                 <AddEditEvent
+                    idSolicitud={idSolicitudComite}
                     isOpen={show}
                     onClose={onCloseModal}
                     isEditable={isEditable}
+                    setIsEditable={setIsEditable}
                     eventData={eventData}
                     onUpdateEvent={onUpdateEvent}
                     onRemoveEvent={onRemoveEvent}
                     onAddEvent={onAddEvent}
+                    itemsQueryById={itemsList}
+                    dateInfo={dateInfo}                    
+                    status={status}                   
                 />
             ) : null}
         </>

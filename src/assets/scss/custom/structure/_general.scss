@@ -253,6 +253,23 @@ body {
   color: #fff;
   background-color: #313A46;
 }
+.formModal{
+  background-color: #eaeef1;
+  padding: 1em;
+  border: 1px solid #e1d9d9;
+  border-radius: 0.8rem;
+}
+.tableComite {
+  font-size: 0.9em;
+}
+/*
+.react-datepicker__time-container,
+.react-datepicker__time,
+.react-datepicker__time-box {
+  height: 150px;
+  width: 26em;
+}
+ */
 // Fix event bubbling on iOS devices
 @supports (-webkit-overflow-scrolling: touch) {
   body {

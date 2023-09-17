@@ -27,7 +27,7 @@ const VerticalForm = ({
         control,
         formState: { errors },
     } = methods;
-
+    console.log('methods',errors)
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={formClass} noValidate>
             {Array.isArray(children)

@@ -30,7 +30,6 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedDatePropuesta, setSelectedDatePropuesta] = useState(new Date());
-    
     const {validateError,setError,queryFile,loading,nombrePrograma} = useContext(SearchContext)
  
     
@@ -58,7 +57,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
       const onSubmit = () => {
         const obj = Object.values({...validateError})
         let numtrue = contarVerdaderos(obj)
-        console.log('numtrue',numtrue);
+
         if(Number(numtrue)===9){
             Swal.fire({
                 position: 'top-end',
@@ -182,7 +181,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                      
                                     <FormInput
                                         name="tipoAtencion"
-                                        label="Seleccione el tipo de Atencion"
+                                        label="Seleccione el tipo de Falta"
                                         type="select"
                                         containerClass="mb-3 font-weight-bold"
                                         className="form-select"
@@ -194,14 +193,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                       
                                     >
                                         <option>Seleccione...</option>
-                                        <option >ACADEMICO</option>
-                                        <option value="MEDIO-Leve"> -Leve</option>
-                                        <option value="MEDIO-Grave"> -Grave</option>
-                                        <option value="MEDIO-Gravísimas"> -Gravísimas</option>
-                                        <option >DISCIPLINARIO</option>
-                                        <option value="MEDIO-Leve"> -Leve</option>
-                                        <option value="MEDIO-Grave"> -Grave</option>
-                                        <option value="MEDIO-Gravísimas"> -Gravísimas</option>
+                                        <option value="Leve">Leve</option>
+                                        <option value="Grave">Grave</option>
+                                        <option value="Gravísimas">Gravísimas</option>
                                     </FormInput>
                                     <div className="mb-3">
                                         <label>Fecha y Hora de los Hechos</label> <br />
@@ -264,6 +258,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                                 const files = Array.from(e);
                                                 
                                                   const file = files[0];
+                                                  
                                                   const reader = new FileReader();
                                                   reader.readAsArrayBuffer(file);
                                                   // Cuando la lectura del archivo termine
@@ -273,6 +268,8 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                                       new Uint8Array(reader.result)
                                                         .reduce((data, byte) => data + String.fromCharCode(byte), '')
                                                     );
+
+                                                    
                                                     onDateChangeFile(JSON.stringify(file),base64String,true,true)
                                                 }
                                                 
