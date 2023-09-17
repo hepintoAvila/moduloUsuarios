@@ -10,6 +10,12 @@ const NotificacionesProvider = ({ children }) => {
     const [idSolicitudComite, setIdSolicitud] = useState(0);
     const [idDirectivos, setIdDirectivos] = useState();
     const [status, setStatus] = useState('202');
+    const [modal, setModal] = useState(false);
+    const [dateInfoUpdate, setDateInfoUpdate] = useState({});
+    const [fechaFinal, setFechaFiinal] = useState();
+    const [fechaInicialUptade, setFechaInicial] = useState();
+    const [eventData, setEventData] = useState({});
+
 
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
   const getData = useCallback((queryDatos) => {
@@ -124,7 +130,76 @@ const query = useCallback((itemUrl, tipo, opcion) => {
     }
     return false; // Si no se encontraron elementos vacíos, el objeto no contiene elementos vacíos
   }
+  function formatearFecha(fecha) {
+    const yyyy = fecha.getFullYear();
+    const mm = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dd = String(fecha.getDate()).padStart(2, '0');
+    const hh = String(fecha.getHours()).padStart(2, '0');
+    const min = String(fecha.getMinutes()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+  }
 
+  function calcularFechaFinal(var1, var2) {
+    // Convierte la fecha de inicio en un objeto Date
+    const fechaInicio = new Date(var1);
+    // Obtiene el número de minutos a sumar
+    const minutosASumar = parseInt(var2, 10);
+
+    // Calcula la fecha final sumando los minutos
+    const fechaFinal = new Date(fechaInicio.getTime() + minutosASumar * 60000);
+    const fechaFinalFormateada = formatearFecha(fechaFinal);
+    return fechaFinalFormateada;
+  }  
+  
+  function calcularFechaInicial(start, var2) {
+
+    // Obtener la fecha actual
+    const fechaActual = new Date(var2);
+  
+    // Separar la hora y los minutos de var2
+    const [horasVar2, minutosVar2] = var2.split(':').map(Number);
+    
+ 
+    // Clonar la fecha inicial (para evitar modificarla)
+    const fechaInicial = new Date(start);
+  
+    // Agregar la hora y los minutos de var2 a la fecha inicial
+    fechaInicial.setHours(fechaInicial.getHours() + horasVar2);
+    fechaInicial.setMinutes(fechaInicial.getMinutes() + minutosVar2);
+  
+    return convertirFormato(fechaInicial);
+  }
+  function esFechaValidaEnFormatoISO(variable) {
+    try {
+      const fecha = new Date(variable);
+      return !isNaN(fecha.getTime());
+    } catch (error) {
+      return false;
+    }
+  }
+  
+function convertirFormato(fechaEnFormatoISO) {
+  
+ 
+  const fecha = new Date(fechaEnFormatoISO);
+
+  const anio = fecha.getFullYear();
+  const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+  const dia = fecha.getDate().toString().padStart(2, '0');
+  const horas = fecha.getHours().toString().padStart(2, '0');
+  const minutos = fecha.getMinutes().toString().padStart(2, '0');
+  const fechaEnNuevoFormato = `${anio}-${mes}-${dia} ${horas}:${minutos}`;
+
+  return fechaEnNuevoFormato;
+}
+    // on event click
+    const onEventClick = (arg) => {
+      setEventData(arg);
+      setDateInfoUpdate(arg);
+      setFechaFiinal(arg?.defaultEvents?.start)
+      setFechaInicial(arg?.defaultEvents?.start)
+      setModal(true);
+  };
 const data = {
     getData,
     setQueryByIdComite,
@@ -135,7 +210,17 @@ const data = {
     idDirectivos, setIdDirectivos,
     obtenerIdsVerdaderos,
     objetoContieneElementosVacios,
-    status
+    calcularFechaFinal,
+    calcularFechaInicial,
+    status,
+    convertirFormato,
+    onEventClick,
+    setModal, modal,
+    dateInfoUpdate,
+    setFechaFiinal,fechaFinal,
+    setFechaInicial,fechaInicialUptade,
+    eventData, setEventData,
+    esFechaValidaEnFormatoISO
 };
 
 

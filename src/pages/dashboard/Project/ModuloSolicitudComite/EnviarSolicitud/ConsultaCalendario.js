@@ -30,9 +30,9 @@ const ConsultaCalendario = () => {
         setIdSolicitud,loading} = useContext(NotificacionesContext)
 
     useEffect(() => {
-        const idSolicitud = obtenerNumeroDesdeURL(window.location.hash)
-        setIdSolicitud(idSolicitud)
-        query('ModuloNotificaciones','AgendarCitas',[{opcion:encodeBasicUrl('consultar'),obj:'queryByIdComite',sw:3,idSolicitud:encodeBasicUrl(idSolicitud)}]);
+        const idSolicituds = obtenerNumeroDesdeURL(window.location.hash)
+        setIdSolicitud(idSolicituds)
+        query('ModuloNotificaciones','AgendarCitas',[{opcion:encodeBasicUrl('consultar'),obj:'queryByIdComite',sw:3,idSolicitud:encodeBasicUrl(idSolicituds)}]);
       }, [query]);
 
       useEffect(() => {

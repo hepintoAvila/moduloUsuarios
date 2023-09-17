@@ -3,24 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Row, Col, Button,Form } from 'react-bootstrap';
 import FormInput from '../../../components/FormInput';
 
-function obtenerFechaEnEspanol(fecha) {
-    // Días de la semana en español
-    const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-  
-    // Meses en español
-    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  
-    // Obtener el día, mes y año de la fecha
-    const dia = fecha.getDate();
-    const mes = fecha.getMonth();
-    const anio = fecha.getFullYear();
-  
-    // Construir la cadena en español
-    const fechaEnEspanol = `${dias[fecha.getDay()]} ${dia} de ${meses[mes]} de ${anio}`;
-  
-    return fechaEnEspanol;
-  }
-
 type AddEditEventProps = {
     isOpen?: boolean,
     onClose?: () => void,
@@ -49,7 +31,7 @@ const AddEditEvent = ({
         { horaCitaError: true, horaCitaMenssageError: { message: 'Este campo es requerido' }, tiempoEstipuladoError: true, tiempoEstipuladoMenssageError: { message: 'Este campo es requerido' } },
 
     );
-    const [fechaSelect, setFechaSelect] = useState('');
+    //const [fechaSelect, setFechaSelect] = useState('');
     const [selectTexto, setFechaSelectTexto] = useState('');
     
     const [items, setItems] = useState([{
@@ -88,10 +70,10 @@ const AddEditEvent = ({
    
    
     useEffect(() => {
-        const fecha= new Date(items[0]?.fechaCita?.date?.toString());
+       // const fecha= new Date(items[0]?.fechaCita?.date?.toString());
         //const fechaEnEspanol = obtenerFechaEnEspanol(fecha);
         setFechaSelectTexto(dateInfo)
-        setFechaSelect(items[0]?.fechaCita?.date?.toString())
+        //setFechaSelect(items[0]?.fechaCita?.date?.toString())
     }, [dateInfo]);
    
     return (

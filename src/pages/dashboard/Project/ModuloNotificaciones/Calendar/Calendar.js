@@ -16,7 +16,7 @@ type CalendarProps = {
     status: Boolean,
 };
 
-const Calendar = ({ onDateClick, onEventClick, onDrop, events,status }: CalendarProps): React$Element<React$FragmentType> => {
+const Calendar = ({ onDateClick, onEventClick, events,status }: CalendarProps): React$Element<React$FragmentType> => {
     const [newevents, setEvents] = useState([]);
     /*
      * handle calendar methods
@@ -25,10 +25,31 @@ const Calendar = ({ onDateClick, onEventClick, onDrop, events,status }: Calendar
         onDateClick(arg);
     };
     const handleEventClick = (arg) => {
-        onEventClick(arg);
-    };
-    const handleDrop = (arg) => {
-        onDrop(arg);
+        const modifiedEvents = [...events];
+        const idx = modifiedEvents.findIndex((e) => e['id'] === arg.event._def.publicId);
+       
+        if(idx===1){
+            const result = events.filter((item) => item.id===arg.event._def.publicId);
+            onEventClick({
+                id: arg.event._def.publicId,
+                idAgenda: arg.event._def.publicId,
+                className:result[0]?.className,
+                start:result[0]?.start,
+                end:result[0]?.end,
+                title:result[0]?.title.toString(),
+            });
+        }else{
+            const result = events.filter((item) => item.id===arg.event._def.publicId);
+            onEventClick({
+                id: arg.event._def.publicId,
+                idAgenda: arg.event._def.publicId,
+                className:result[0]?.className,
+                start:result[0]?.start,
+                end:result[0]?.end,
+                title:result[0]?.title.toString(),
+            }); 
+        }
+        
     };
  
     useEffect(() => {
@@ -65,7 +86,6 @@ const Calendar = ({ onDateClick, onEventClick, onDrop, events,status }: Calendar
                     events={newevents}
                     dateClick={handleDateClick}
                     eventClick={handleEventClick}
-                    drop={handleDrop}
                 />
             </div>
         </>
