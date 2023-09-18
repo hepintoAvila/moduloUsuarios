@@ -26,7 +26,7 @@ const NotificacionesProvider = ({ children }) => {
     const respDatos = api.sendRequestData(url);
     respDatos
         ?.then(function (resp) {
-           
+
           if(resp[0].status==='202' ){
             Swal.fire('' + resp[0].message + '');
             setStatus('202')
@@ -40,7 +40,7 @@ const NotificacionesProvider = ({ children }) => {
         .catch((error) => console.error('Error:', error))
         .finally(() => {
             setTimeout(function () {
-                setLoading(true);
+               setLoading(true);
             }, 1000);
         });
         }

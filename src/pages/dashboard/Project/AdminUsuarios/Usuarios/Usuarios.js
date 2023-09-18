@@ -107,7 +107,7 @@ const Usuarios = (props) => {
     {permisos?.add === 'S' ? setSignUpModalAdd(!signUpModalAdd) : Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION')}
   };
   useEffect(() => {
-    query('AdminUsuarios','Usuarios',[{opcion:'listaUsuarios',obj:'Usuarios'}]);
+    query('AdminUsuarios','Usuarios',[{opcion:btoa('listaUsuarios'),obj:'Usuarios'}]);
   }, [query]);
 
  

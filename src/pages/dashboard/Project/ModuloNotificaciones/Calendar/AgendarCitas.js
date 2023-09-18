@@ -13,6 +13,7 @@ import AddEditEvent from './AddEditEvent';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import FormInput from '../../../components/FormInput';
+import Swal from 'sweetalert2';
 //const loadings = (loading) => {loading? <div className=""></div>:''};
 
 const TableComite = ({ miembros, setIdDirectivos }) => {
@@ -176,7 +177,13 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     on add event 
     */
     const onAddEvent = (data) => {
-
+        Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Solicitud Enviada',
+            showConfirmButton: false,
+            timer: 1500
+          }) 
         const idsVerdaderos = obtenerIdsVerdaderos(idDirectivos, itemsQueryById?.data?.Directivos);
         const modifiedEvents = [...events];
         const datos = data[0];
@@ -217,7 +224,13 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     on update event
     */
     const onUpdateEvent = (idAgenda) => {
-         
+        Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Solicitud Enviada',
+            showConfirmButton: false,
+            timer: 1500
+          }) 
             const datosEvent = {
                 idAgenda: `${idAgenda}`,
                 fechaCita: `${itemsUpdate[0]?.horaCita}`,
@@ -246,6 +259,13 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     };
  
     const onEliminarEvent = (idAgenda) => {
+        Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Solicitud Enviada',
+            showConfirmButton: false,
+            timer: 1500
+          }) 
         var modifiedEvents = [...events];
         const idx = modifiedEvents.findIndex((e) => e['id'] ===  idAgenda);
         modifiedEvents.splice(idx, 1);

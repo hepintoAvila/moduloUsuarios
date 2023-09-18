@@ -12,7 +12,7 @@ const DashboardProvider = ({ children }) => {
   const [itemsQuery, setItemsQuery] = useState([]);
   const [isLoading, setLoading] = useState([]);
   const [open, setOpen] = useState(false);
-  
+  const [signUpModalAdd, setSignUpModalAdd] = useState(false);
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
  
   const itemsMenuCallBack = (e) => {
@@ -135,7 +135,9 @@ const handleRegresar = (tipo) => {
     pagesInSearch,
     open,
     setOpen,
-    handleRegresar
+    handleRegresar,
+    signUpModalAdd,
+    setSignUpModalAdd
   };
   return (
     <>
