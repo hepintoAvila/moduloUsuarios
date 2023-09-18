@@ -96,7 +96,30 @@ const AdvertenciaLocalStorage = () => {
 
 
 };
-
+const handleRegresar = (tipo) => {
+    
+  const menuitems = window.location.hash.split('#/')[1]; 
+  const seccion = menuitems.replace(/^dashboard\//, '');
+  const [seccion1] = seccion?.split('/');
+  let url = '';
+  {(() => {
+      switch (tipo) {
+      case 'EnviarSolicitud':
+        url = `/dashboard/${seccion1}/${tipo}`;
+      case 'ConsultaIncidente':
+      case 'ModuloSolicitudComite': 
+      url = `/dashboard/${seccion1}/${tipo}`;
+      case 'ConsultaNotificaciones':
+      case 'AgendarCitas':
+        url = `/dashboard/${seccion1}/${tipo}`;
+      }
+    })()
+  }
+   
+  setitemsMenuPrincipal(seccion1);
+  setitemsUrl(tipo);
+  return window.location.hash=url;
+}
   const data = {
     AdvertenciaLocalStorage,
     itemsMenuCallBack,
@@ -111,7 +134,8 @@ const AdvertenciaLocalStorage = () => {
     Spinners,
     pagesInSearch,
     open,
-    setOpen
+    setOpen,
+    handleRegresar
   };
   return (
     <>

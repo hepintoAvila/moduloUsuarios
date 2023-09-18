@@ -153,15 +153,13 @@ const query = useCallback((itemUrl, tipo, opcion) => {
   
   function calcularFechaInicial(start, var2) {
 
-    // Obtener la fecha actual
-    const fechaActual = new Date(var2);
-  
+ 
     // Separar la hora y los minutos de var2
     const [horasVar2, minutosVar2] = var2.split(':').map(Number);
-    
  
     // Clonar la fecha inicial (para evitar modificarla)
-    const fechaInicial = new Date(start);
+    const start2 = start.substr(0, 10) + ' 00:00:00';
+    const fechaInicial = new Date(start2);
   
     // Agregar la hora y los minutos de var2 a la fecha inicial
     fechaInicial.setHours(fechaInicial.getHours() + horasVar2);

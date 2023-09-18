@@ -1,5 +1,5 @@
 // @flow
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {useCallback, useContext, useEffect, useState } from 'react';
 import { Row, Col, Card, Button, Table, Modal, Form } from 'react-bootstrap';
 import '@fullcalendar/react';
 import classNames from 'classnames';
@@ -13,6 +13,7 @@ import AddEditEvent from './AddEditEvent';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import FormInput from '../../../components/FormInput';
+//const loadings = (loading) => {loading? <div className=""></div>:''};
 
 const TableComite = ({ miembros, setIdDirectivos }) => {
 
@@ -215,39 +216,41 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     /*
     on update event
     */
-    const onUpdateEvent = () => {
- 
-        const datosEvent = {
-            idAgenda: `${itemsUpdate[0]?.idAgenda}`,
-            fechaCita: `${itemsUpdate[0]?.horaCita}`,
-            tiempoEstipulado: `${itemsUpdate[0]?.tiempoEstipulado}`,
-            observaciones: `${itemsUpdate[0]?.observaciones}`,
-            accion: 'ModuloNotificaciones',
-            opcion: 'AgendarCitas',
-            tipo: 'updateCitas',
-        }
-        setTimeout(function () {
-            const queryDatos = datosEvent
-                ? Object.keys(datosEvent)
-                    .map((key) => key + '=' + btoa(datosEvent[key]))
-                    .join('&')
-                : '';
-            getData(queryDatos)
-        }, 2000); 
+    const onUpdateEvent = (idAgenda) => {
+         
+            const datosEvent = {
+                idAgenda: `${idAgenda}`,
+                fechaCita: `${itemsUpdate[0]?.horaCita}`,
+                tiempoEstipulado: `${itemsUpdate[0]?.tiempoEstipulado}`,
+                observaciones: `${itemsUpdate[0]?.observaciones}`,
+                accion: 'ModuloNotificaciones',
+                opcion: 'AgendarCitas',
+                tipo: 'updateCitas',
+            }
+            setTimeout(function () {
+                const queryDatos = datosEvent
+                    ? Object.keys(datosEvent)
+                        .map((key) => key + '=' + btoa(datosEvent[key]))
+                        .join('&')
+                    : '';
+                getData(queryDatos)
+            }, 2000); 
+    
+            const modifiedEvents = [...events];
+            const idx = modifiedEvents.findIndex((e) => e['id'] === itemsUpdate[0]?.idAgenda);
+            modifiedEvents[idx]['title'] = itemsUpdate[0]?.horaCita;
+            setEvents(modifiedEvents);
+            toggle(); 
 
-        const modifiedEvents = [...events];
-        const idx = modifiedEvents.findIndex((e) => e['id'] === itemsUpdate[0]?.idAgenda);
-        modifiedEvents[idx]['title'] = itemsUpdate[0]?.horaCita;
-        setEvents(modifiedEvents);
-        toggle(); 
+
     };
  
-    const onEliminarEvent = (id) => {
+    const onEliminarEvent = (idAgenda) => {
         var modifiedEvents = [...events];
-        const idx = modifiedEvents.findIndex((e) => e['id'] ===  id);
+        const idx = modifiedEvents.findIndex((e) => e['id'] ===  idAgenda);
         modifiedEvents.splice(idx, 1);
         const datosEvent = {
-            idAgenda: `${id}`,
+            idAgenda: `${idAgenda}`,
             accion: 'ModuloNotificaciones',
             opcion: 'AgendarCitas',
             tipo: 'deleteCitas',
@@ -269,7 +272,6 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     useEffect(() => {
         if (!loading) {
             setItems(itemsQueryById?.data?.Solicitudes[0])
-
             setEvents(itemsQueryById?.data?.Agenda ? itemsQueryById?.data?.Agenda : []);
         } else {
             setItems({
@@ -322,7 +324,8 @@ useEffect(() => {
     setidAgenda(dateInfoUpdate.idAgenda)
 }, [dateInfoUpdate]);    
 
-//console.log('itemsUpdate',events);
+
+// console.log('loading',loading);
    return (
         <>
             <Row>
@@ -330,24 +333,9 @@ useEffect(() => {
                     <Card>
                         <Card.Body>
                             <Row>
-                                <Col lg={4}>
-                                    <div className="d-grid">
-                                        {/* add events 
-                                        <Button
-                                            className="btn btn-lg font-16 btn-danger"
-                                            id="btn-new-event"
-                                            onClick={onDateClick}>
-                                            <i className="mdi mdi-plus-circle-outline"></i>Crear un Miembro del Comité
-                                        </Button>*/}
-                                    </div>
-                                    <SidePanel
-                                        miembroscomites={itemsQueryById?.data?.Directivos}
-                                        setIdDirectivos={setIdDirectivos}
-                                    />
-
-                                </Col>
-                                <Col lg={8}>
+                            <Col lg={8}>
                                     {/* fullcalendar control */}
+                           
                                     <Calendar
                                         onDateClick={onDateClick}
                                         onEventClick={onEventClick}
@@ -355,7 +343,18 @@ useEffect(() => {
                                         status={status}
 
                                     />
+ 
                                 </Col>
+                                <Col lg={4}>
+                                    <div className="d-grid">
+                                    </div>
+                                    <SidePanel
+                                        miembroscomites={itemsQueryById?.data?.Directivos}
+                                        setIdDirectivos={setIdDirectivos}
+                                    />
+
+                                </Col>
+
                             </Row>
                         </Card.Body>
                     </Card>
@@ -371,20 +370,20 @@ useEffect(() => {
                     isEditable={isEditable}
                     setIsEditable={setIsEditable}
                     eventData={eventData}
-                    onUpdateEvent={onUpdateEvent}
                     onAddEvent={onAddEvent}
                     itemsQueryById={itemsList}
                     dateInfo={dateInfo}
                     status={status}
                 />
             ) : null}
-            {modal ? (<>
+ 
+            {modal? (<>
                 <Modal show={modal} onHide={toggle}  size="sm-down">
                     <Modal.Header onHide={toggle} closeButton>
                         <h4 className="modal-title">CONFIGURACIÓN DE LA REUNIÓN</h4>
                     </Modal.Header>
                     <Modal.Body>
-                        <form onSubmit={onUpdateEvent} className="formModal">
+                        <form  className="formModal">
                             <Row>
                             <ul className="list-unstyled">
                                         <li className="mb-2">
@@ -461,7 +460,7 @@ useEffect(() => {
                                 <Button className="btn btn-light me-1" onClick={toggle}>
                                     Cerrar
                                 </Button>
-                                <Button variant="success" type="submit" className="btn btn-success">
+                                <Button variant="success" type="submit" className="btn btn-success" onClick={() => onUpdateEvent(idAgenda)}>
                                     Actualizar
                                 </Button>
                             </Col>
