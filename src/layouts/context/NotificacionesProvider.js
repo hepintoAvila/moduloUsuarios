@@ -16,6 +16,10 @@ const NotificacionesProvider = ({ children }) => {
     const [fechaFinal, setFechaFiinal] = useState();
     const [fechaInicialUptade, setFechaInicial] = useState();
     const [eventData, setEventData] = useState({});
+    const [itemsAgendarCitas, setAgendarCitas] = useState([]);
+    const [itemsSolicitudes, setConsultarSolicitud] = useState([]);
+    const [itemsSolicitudByID, setConsultarSolicitudByID] = useState([]);
+    const [itemsAprendices, setAprendices] = useState([]);
 
 
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
@@ -75,13 +79,27 @@ const query = useCallback((itemUrl, tipo, opcion) => {
                   case 'queryByIdComite':
                     setQueryByIdComite(response)
                     break
-                    case 'query':
-                        setQueryByIdComite(response)
+                  case 'query':
+                    setQueryByIdComite(response)
                     break
-                    case 'queryByIdAprendiz':
-                        setQueryByIdAprendiz(response)
+                  case 'queryByIdAprendiz':
+                    setQueryByIdAprendiz(response)
                     break
-                    
+                  case 'queryByIdAprendiz':
+                    setQueryByIdAprendiz(response)
+                    break
+                  case 'aprendices':
+                    setAprendices(response)
+                    break
+                  case 'agendarCitas':
+                    setAgendarCitas(response)
+                    break;
+                  case 'ConsultarSolicitud':
+                    setConsultarSolicitud(response)
+                    break;
+                  case 'ConsultarSolicitudByID':
+                    setConsultarSolicitudByID(response) 
+             break;               
                 }
               })()
             }
@@ -224,9 +242,12 @@ const data = {
     setFechaInicial,fechaInicialUptade,
     eventData, setEventData,
     esFechaValidaEnFormatoISO,
-    itemsQueryByIdAprendiz
+    itemsQueryByIdAprendiz,
+    itemsAprendices, setAprendices,
+    itemsAgendarCitas, setAgendarCitas,
+    itemsSolicitudes, setConsultarSolicitud,
+    itemsSolicitudByID, setConsultarSolicitudByID
 };
-
 
     return (
       <>

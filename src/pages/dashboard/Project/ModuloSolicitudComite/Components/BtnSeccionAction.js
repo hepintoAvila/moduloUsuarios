@@ -16,7 +16,7 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
         <Pagination className="pagination-rounded mx-auto" size="sm">
           <Pagination.Item>
                 <BtnActions
-                 url={`/dashboard/ModuloSolicitudComite/ConsultarIncidencia?p=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`CONCEPTO${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
@@ -28,7 +28,7 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
           </Pagination.Item> 
           <Pagination.Item>
                 <BtnActions
-                 url={`/dashboard/ModuloSolicitudComite/ConsultarIncidencia?p=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`CRITERIO DEL COMITE${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
@@ -40,7 +40,7 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
           </Pagination.Item>  
           <Pagination.Item>
                 <BtnActions
-                 url={`/dashboard/ModuloSolicitudComite/ConsultarIncidencia?p=${props?.obj?.row}`}
+                 url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`PLAN DE MEJORAMIENTO${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}

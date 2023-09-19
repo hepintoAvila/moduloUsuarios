@@ -13,6 +13,7 @@ import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from './Components/BtnSeccionAction';
 import OpcionsForm from './Form/OpcionsForm';
 import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
+import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
  
 const ActionColumn = ({ row }) => {
 
@@ -108,8 +109,8 @@ const ActionColumn = ({ row }) => {
   );
 };
 const ConsultaNotificaciones = (props) => {
-  const {itemsSolicitudes,query} = useAdminUsuarios()
-
+ 
+  const {itemsSolicitudes,query} = useContext(NotificacionesContext)
   const {
     sizePerPageList
   } = useContext(DashboardContext);

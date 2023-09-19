@@ -11,11 +11,12 @@ import CarHistorialIncidencias from '../ConsultarIncidente/CarHistorialIncidenci
 import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import ConsultaCalendario from './ConsultaCalendario';
+import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 
 const EnviarSolicitud = (props) => {
     const {itemsOptionAprendiz,descripcion,descripcionError} = useContext(SearchContext)
-    const {itemsAprendices,query} = useAdminUsuarios()
-    const allApredizDatos = itemsAprendices?.data?.aprencices || [];
+    const {itemsAprendices,query} = useContext(NotificacionesContext)
+    const allApredizDatos = itemsAprendices?.data?.Aprendices || [];
 
 
     useEffect(() => {
@@ -43,6 +44,13 @@ const EnviarSolicitud = (props) => {
             text: 'Connsulta el estado de tus solicitudes enviadas',
         },
     ];
+    const queryEnviados = (index) => {
+        if(index===2){
+            query('ModuloSolicitudComite','ConsultarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'ConsultarSolicitudByID',sw:2}]);
+        }
+        
+        //
+      };
     return (
         <React.Fragment>
             <Row>
@@ -55,7 +63,7 @@ const EnviarSolicitud = (props) => {
                                     {tabContents.map((tab, index) => {
                                         return (
                                             <Nav.Item key={index}>
-                                                <Nav.Link href="#" eventKey={tab.title}>
+                                                <Nav.Link href="#" eventKey={tab.title} onSelect={()=>queryEnviados(index)}>
                                                     <i
                                                         className={classnames(
                                                             tab.icon,
@@ -109,7 +117,7 @@ const EnviarSolicitud = (props) => {
                                                                     <Row>
                                                                      <Col lg={12}>
                                                                         <p className="mt-3">{tab.text}</p>
-                                                                        <CarSolicitudeEnviadas />
+                                                                        <CarHistorialIncidencias/>
                                                                     </Col>
                                                                 </Row>
                                                                 );
@@ -117,7 +125,7 @@ const EnviarSolicitud = (props) => {
                                                                     return (
                                                                         <Row>
                                                                         <Col sm="12">
-                                                                        <CarHistorialIncidencias/> 
+                                                                        <CarSolicitudeEnviadas />
                                                                         </Col>
                                                                     </Row>
                                                                     ); 

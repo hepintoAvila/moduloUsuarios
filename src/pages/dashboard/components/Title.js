@@ -9,7 +9,6 @@ import { DashboardContext } from '../../../layouts/context/DashboardContext';
  */
 const Title = ()=> {
   const {itemUrl,tipo} = useContext(DashboardContext)
-  console.log('tipo',tipo.length);
       const breadCrumbItems=
         [
           // eslint-disable-next-line no-undef
