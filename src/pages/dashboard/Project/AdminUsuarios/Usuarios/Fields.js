@@ -2,9 +2,8 @@
 import React, { useState,useContext } from 'react';
 import { Button} from 'react-bootstrap';
 import Select from 'react-select';
-import { useTranslation } from 'react-i18next';
 // components
-import { VerticalForm, FormInput } from '../../../../../components/';
+import { FormInput } from '../../../../../components/';
  
  
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';

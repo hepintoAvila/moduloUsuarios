@@ -18,14 +18,13 @@ const SearchProvider = ({ children }) => {
         filesError:false,
         base64StringsError:false,
         descripcionError:false,
-        fechaPropuestaError:false,
         nombreProgramaError:false
     });
 
     const  nombrePrograma=  itemsNombrePrograma?.nombrePrograma;
     const  nombreProgramaError=  itemsNombrePrograma?.valideNombrePrograma;   
     const  descripcion=  itemsDescripcion?.descripcion;
-    const  descripcionError=  itemsDescripcion?.valideDescripcion;
+    const  descripcionError=  itemsDescripcion?.valideDescripcion? itemsDescripcion?.valideDescripcion:'';
 
   const queryFile = useCallback((queryDatos, dataFile) => {
     const infoUsers = sessionStorage.getItem('hyper_user');

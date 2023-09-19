@@ -2,17 +2,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext} from 'react';
 import { Row, Col, Card,  } from 'react-bootstrap';
 //import Swal from 'sweetalert2';
 
  
 import Table from '../../../../../components/Table';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from '../Components/BtnSeccionAction';
-import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
-import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
+
 import Swal from 'sweetalert2';
  
 const ActionColumn = ({ row }) => {
@@ -23,8 +21,7 @@ const ActionColumn = ({ row }) => {
     toggle,
     setOpen,
     setItemsUpdate,
-    open, 
-    setitemsMenuPrincipal,setitemsUrl
+    open,
   } = useContext(DashboardContext);
 
    const toggleSignUp = (id) => {
@@ -83,11 +80,9 @@ const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
  
 
-  const {itemsSolicitudByID} = useContext(NotificacionesContext)
-  const {
-    sizePerPageList
-  } = useContext(DashboardContext);
-  const datos = itemsSolicitudByID?.data?.Solicitudes|| [{}];
+ 
+  const datos = props?.Solicitudes|| [];
+
   const columns = [
     {
       Header: 'ID',
@@ -137,7 +132,7 @@ const CarSolicitudeEnviadas = (props) => {
                     columns={columns}
                     data={datos}
                     pageSize={5}
-                    sizePerPageList={sizePerPageList}
+                    sizePerPageList={props.sizePerPageList}
                     isSortable={true}
                     pagination={true}
                     theadClass="table-light"

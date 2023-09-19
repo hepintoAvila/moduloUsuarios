@@ -9,7 +9,6 @@ import { Row, Col, Card,  } from 'react-bootstrap';
  
 import Table from '../../../../components/Table';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
-import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from './Components/BtnSeccionAction';
 import OpcionsForm from './Form/OpcionsForm';
 import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
@@ -144,11 +143,6 @@ const ConsultaNotificaciones = (props) => {
     {
       Header: 'Fecha Hora Hechos',
       accessor: 'fechaHora',
-      sort: false,
-    },
-    {
-      Header: 'Fecha Hora Propuesta',
-      accessor: 'fechaHoraPropuesta',
       sort: false,
     },
       {

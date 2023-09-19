@@ -52,11 +52,6 @@ const CarHistorialIncidencias = (props) => {
       accessor: 'fechaHora',
       sort: false,
     },
-    {
-      Header: 'Fecha Hora Propuesta',
-      accessor: 'fechaHoraPropuesta',
-      sort: false,
-    },
       {
         Header: 'Fecha Hora Agendada',
         accessor: 'fechaHoraAgendada',
