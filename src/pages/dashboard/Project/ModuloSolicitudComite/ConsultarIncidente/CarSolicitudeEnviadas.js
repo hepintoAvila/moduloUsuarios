@@ -2,25 +2,25 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Row, Col, Card,  } from 'react-bootstrap';
+import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
+import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 //import Swal from 'sweetalert2';
 
  
 import Table from '../../../../../components/Table';
-import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
-import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
-
+ 
 const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
 
-  const {itemsSolicitudByID,query} = useAdminUsuarios()
-
+ 
+  const {itemsQueryByIdAprendiz} = useContext(NotificacionesContext)
   const {
     sizePerPageList
   } = useContext(DashboardContext);
-  const datos = itemsSolicitudByID?.data?.Solicitudes|| [{}];
+  const datos = itemsQueryByIdAprendiz?.data?.Solicitudes|| [{}];
+ 
   const columns = [
     {
       Header: 'ID',
@@ -75,11 +75,7 @@ const CarSolicitudeEnviadas = (props) => {
       classes: 'table-action',
     },
   ];
-
-  useEffect(() => {
-    query('ModuloSolicitudComite', 'ConsultarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitudByID',sw:0 }]);
-  }, [query])
-
+ 
   return (
     <>
 
@@ -99,7 +95,7 @@ const CarSolicitudeEnviadas = (props) => {
                     isSearchable={true}
                     nametable={props.accion}
                     titleTable={'HISTORIAL DE SOLICITUDES'}
-              />}
+  />}
             </Card.Body>
           </Card>
         </Col>

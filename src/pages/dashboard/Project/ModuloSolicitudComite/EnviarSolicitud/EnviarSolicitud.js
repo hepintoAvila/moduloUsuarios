@@ -31,15 +31,16 @@ const EnviarSolicitud = (props) => {
         },
         {
             id: '2',
-            title: 'Solicitudes Enviadas',
+            title: 'Historial del Aprendiz',
             icon: 'mdi mdi-account-circle',
-            text: 'Connsulta el estado de tus solicitudes enviadas',
+            text: 'Consulta el historial del Aprendiz una vez haya sido seleccionado de la opción: enviar solicitus.',
+            
         },
         {
             id: '3',
-            title: 'Historial del Aprendiz',
+            title: 'Solicitudes Enviadas',
             icon: 'mdi mdi-cog-outline',
-            text: 'Consulta el historial del Aprendiz una vez haya sido seleccionado de la opción: enviar solicitus.',
+            text: 'Connsulta el estado de tus solicitudes enviadas',
         },
     ];
     return (

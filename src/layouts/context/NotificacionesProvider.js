@@ -7,6 +7,7 @@ const NotificacionesContext = createContext();
 const NotificacionesProvider = ({ children }) => {
      const [loading, setLoading] = useState(true);
     const [itemsQueryById, setQueryByIdComite] = useState([]);
+    const [itemsQueryByIdAprendiz, setQueryByIdAprendiz] = useState([]);
     const [idSolicitudComite, setIdSolicitud] = useState(0);
     const [idDirectivos, setIdDirectivos] = useState();
     const [status, setStatus] = useState('202');
@@ -77,6 +78,10 @@ const query = useCallback((itemUrl, tipo, opcion) => {
                     case 'query':
                         setQueryByIdComite(response)
                     break
+                    case 'queryByIdAprendiz':
+                        setQueryByIdAprendiz(response)
+                    break
+                    
                 }
               })()
             }
@@ -218,7 +223,8 @@ const data = {
     setFechaFiinal,fechaFinal,
     setFechaInicial,fechaInicialUptade,
     eventData, setEventData,
-    esFechaValidaEnFormatoISO
+    esFechaValidaEnFormatoISO,
+    itemsQueryByIdAprendiz
 };
 
 

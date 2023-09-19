@@ -6,6 +6,8 @@ import { groupByFields } from '../utils';
 
 import Avatar2 from '../assets/images/users/avatar-2.jpg';
 import { SearchContext } from '../layouts/context/SearchContext';
+import { NotificacionesContext } from '../layouts/context/NotificacionesProvider';
+import encodeBasicUrl from '../utils/encodeBasicUrl';
 /*
  * get options
  */
@@ -110,7 +112,7 @@ type TopbarSearchProps = {
 };
 
 const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
-
+    const {query} = useContext(NotificacionesContext)
     const {setSelectedOptionAprendiz,validateError,setError} = useContext(SearchContext)
 
     const options = props?.data
@@ -128,6 +130,10 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             Email:values[0]?.userDetails?.correo,
             aprendizError:true
           }
+
+          
+          query('ModuloSolicitudComite','EnviarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'queryByIdAprendiz',sw:4,idAprendiz:encodeBasicUrl(values[0]?.userDetails?.id)}]);
+          
           setSelectedOptionAprendiz(detalles);
           setError({...validateError,aprendizError:true})
           return window.location.hash = `/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${values[0]?.userDetails?.id}`;

@@ -1,5 +1,5 @@
 // @flow
-import React, {useContext,useState } from 'react';
+import React, {useContext,useEffect,useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import { Button,Row, Col, Card } from 'react-bootstrap';
@@ -30,11 +30,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedDatePropuesta, setSelectedDatePropuesta] = useState(new Date());
-    const {validateError,setError,queryFile,loading,nombrePrograma} = useContext(SearchContext)
+    const {validateError,setError,queryFile,loading,nombrePrograma,descripcion} = useContext(SearchContext)
  
     
+    
     const [items, setItems] = useState([{
-        idAprendiz: props?.idAprendiz?.length===0 ? '':props?.idAprendiz,
+        idAprendiz: '',
         tipoComite: '',
         tipoAtencion: '',
         fechaIncidente: '',
@@ -44,8 +45,8 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         tipo: encodeBasicUrl('EnviarSolicitud'),
         selectedFile:'',
         base64String:'',
-        descripcion:props?.itemsDescripcion?.length===0 ? '':props?.itemsDescripcion,
-        nombrePrograma:nombrePrograma?.length===0 ? '':nombrePrograma,
+        descripcion:'',
+        nombrePrograma:'',
 
     }]);
  
@@ -94,6 +95,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 title: 'Oops...',
                 text: 'ERROR:: FALTAN CAMPOS POR DILIGENCIAR'
               })
+
         }
 
         
@@ -107,6 +109,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             setError({...validateError,fechaIncidenteError:fechaIncidenteError})
             setItems([{
                 ...items[0], fechaIncidente:date,
+                idAprendiz:props?.idAprendiz,
+                descripcion:descripcion,
+                nombrePrograma:nombrePrograma
               }])
         }
     };
@@ -116,6 +121,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             setError({...validateError,fechaPropuestaError:fechaPropuestaError})
             setItems([{
                 ...items[0], fechaPropuesta:date,
+                idAprendiz:props?.idAprendiz,
+                descripcion:descripcion,
+                nombrePrograma:nombrePrograma
               }])
         }
     };
@@ -127,7 +135,10 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             setItems([{
                 ...items[0], 
                 selectedFile:file,
-                base64String:base64String
+                base64String:base64String,
+                idAprendiz:props?.idAprendiz,
+                descripcion:descripcion,
+                nombrePrograma:nombrePrograma
               }])
         }
     };
@@ -137,6 +148,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             setItems([{
                 ...items[0], 
                 tipoAtencion: value,
+                idAprendiz:props?.idAprendiz,
+                descripcion:descripcion,
+                nombrePrograma:nombrePrograma
               }])
         }
     };
@@ -146,9 +160,29 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             setItems([{
                 ...items[0], 
                 tipoComite:value,
+                idAprendiz:props?.idAprendiz,
+                descripcion:descripcion,
+                nombrePrograma:nombrePrograma
               }])
         }
     };
+    useEffect(() => {
+        const obj = [{
+            ...items[0], 
+            descripcion:descripcion,
+        }]
+        setItems(obj)
+    }, [descripcion]);
+
+    useEffect(() => {
+        const objnombrePrograma = [{
+            ...items[0], 
+            nombrePrograma:nombrePrograma,
+        }]
+        setItems(objnombrePrograma)
+    }, [nombrePrograma]);
+
+ 
     return (
         <>
       {loading ? <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}

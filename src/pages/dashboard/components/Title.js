@@ -9,13 +9,12 @@ import { DashboardContext } from '../../../layouts/context/DashboardContext';
  */
 const Title = ()=> {
   const {itemUrl,tipo} = useContext(DashboardContext)
+  console.log('tipo',tipo.length);
       const breadCrumbItems=
         [
           // eslint-disable-next-line no-undef
-          { label: tipo.length===0 ?'Bienvenidos':itemUrl.toUpperCase()+' / '+tipo.toUpperCase(), path: '/'+tipo.toUpperCase()+'/'+itemUrl.toUpperCase().replace('/', '')+ '/', active: true },
-          // eslint-disable-next-line no-undef
-          {title:tipo.length===0 ?'Bienvenidos, para comenzar seleccione uno de los items del menu principal':tipo.toUpperCase().replace('/', '')+'-' + itemUrl.toUpperCase().replace('/', '')}
-        ]
+          { label: tipo.length===11 ?'Bienvenidos':itemUrl.toUpperCase()+' / '+tipo.toUpperCase(), path: '/'+tipo.toUpperCase()+'/'+itemUrl.toUpperCase().replace('/', '')+ '/', active: true },
+         ]
     return (
         <Row>
             <Col>
