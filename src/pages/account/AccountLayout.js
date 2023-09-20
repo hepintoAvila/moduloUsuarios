@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 
 import Logo from '../../assets/images/logo.png';
 //import headerGovco from '../../assets/images/header_govco.png';
-//import headerVida from '../../assets/images/logo-Vida.png';
+import logo_comite from '../../assets/images/logo_comite.png';
 import headerSena from '../../assets/images/logo-dark.png';
-
+import logo_comite_white from '../../assets/images/logo_comite_white.png';
 type AccountLayoutProps = {
     bottomLinks?: React$Element<any>,
     children?: any,
@@ -39,7 +39,7 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
         <div className="flexRowContent--header___grid__nivel_2">
  
                 <div className="flexRowContent--header___grid__nivel_2_col1">
-                    
+                <img src={logo_comite} alt="" height="63" className="headerLogo"/>
                 </div>
                 <div  className="flexRowContent--header___grid__nivel_2_col2">
                 <p className="headerTitulo"><span>{t('SICES v.1 - Sistema de Información del Comité de Evaluación y Seguimiento')} </span></p>
@@ -62,7 +62,7 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
                                 <Card.Header className="pt-4 pb-4 text-center bg-primary">
                                     <Link to="/">
                                         <span>
-                                            <img src={Logo} alt="" height="69" />
+                                            <img src={logo_comite_white} alt="" height="69" />
                                         </span>
                                     </Link>
                                 </Card.Header>

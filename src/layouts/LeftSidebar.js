@@ -12,8 +12,8 @@ import AppMenu from './Menu';
 
 import logoSm from '../assets/images/logo_sm.png';
 import logoDark from '../assets/images/logo-dark.png';
-import logoDarkSm from '../assets/images/logo_sm_dark.png';
-import logo from '../assets/images/logo.png';
+import logoDarkSm from '../assets/images/logo_comite_white.png'
+import logo from '../assets/images/logo_comite_white.png';
 import profileImg from '../assets/images/users/avatar-1.jpg';
 
 
