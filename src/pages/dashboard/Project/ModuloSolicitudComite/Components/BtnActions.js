@@ -16,7 +16,7 @@ const BtnActions = (props) => {
         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={`t2_${props?.titulo}_t3`}>
           {
             props?.permisos === 'N' ? (
-              <Link key={`l2_${props?.titulo}_l3`}to={props?.url} className="action-icon " onClick={() => props?.toggleActions(props?.row, props?.titulo)}>
+              <Link key={`l2_${props?.titulo}_l3`}to={props?.url} className="action-icon " onClick={() => props?.toggleActions(props?.codigoFicha)}>
                 <i className={`${props?.icon} pt-2`}></i>
               </Link>) : ''
           }

@@ -20,8 +20,8 @@ const NotificacionesProvider = ({ children }) => {
     const [itemsSolicitudes, setConsultarSolicitud] = useState([]);
     const [itemsSolicitudByID, setConsultarSolicitudByID] = useState([]);
     const [itemsAprendices, setAprendices] = useState([]);
-
-
+    const [codigoFicha, setCodigoFicha] = useState('');
+    
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
   const getData = useCallback((queryDatos) => {
     const infoUsers = sessionStorage.getItem('hyper_user');
@@ -246,7 +246,8 @@ const data = {
     itemsAprendices, setAprendices,
     itemsAgendarCitas, setAgendarCitas,
     itemsSolicitudes, setConsultarSolicitud,
-    itemsSolicitudByID, setConsultarSolicitudByID
+    itemsSolicitudByID, setConsultarSolicitudByID,
+    codigoFicha, setCodigoFicha
 };
 
     return (

@@ -1,17 +1,12 @@
-import { Modal, Pagination, Row } from "react-bootstrap";
+import { Pagination, Row } from "react-bootstrap";
 
 import React from "react";
-import BtnActions from "./BtnActions";
- 
-const BtnSeccionAction = (props,children) => {
-const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
+import BtnActions from "../pages/dashboard/Project/ModuloSolicitudComite/Components/BtnActions";
+const BtnSeccionPdf = (props) => {
+const descripcionbtnaction = props?.obj?.descripcionbtnaction || 'en .pdf';
 
   return (
     <React.Fragment>
-      <Modal show={props?.obj?.open} onHide={props?.obj?.toggleSignUp} fullscreen={true} >
-        <Modal.Body>{props?.children ? props?.children : null}
-        </Modal.Body>
-      </Modal>
       <Row>
         <Pagination className="pagination-rounded mx-auto" size="sm">
           <Pagination.Item>
@@ -56,4 +51,4 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
     </React.Fragment>
   );
 }
-export default BtnSeccionAction;
+export default BtnSeccionPdf;
