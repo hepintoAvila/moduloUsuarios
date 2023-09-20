@@ -291,7 +291,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
 
     useEffect(() => {
         if (!loading) {
-            setItems(itemsQueryById?.data?.Solicitudes[0])
+            setItems(itemsQueryById?.data?.Solicitudes)
             setEvents(itemsQueryById?.data?.Agenda ? itemsQueryById?.data?.Agenda : []);
         } else {
             setItems({
