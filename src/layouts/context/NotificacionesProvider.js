@@ -20,7 +20,9 @@ const NotificacionesProvider = ({ children }) => {
     const [itemsSolicitudes, setConsultarSolicitud] = useState([]);
     const [itemsSolicitudByID, setConsultarSolicitudByID] = useState([]);
     const [itemsAprendices, setAprendices] = useState([]);
-    const [codigoFicha, setCodigoFicha] = useState('');
+    const [codigoFicha, setCodigoFicha] = useState({});
+    const [consultarPdf, setConsultarPdf] = useState({});
+    
     
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
   const getData = useCallback((queryDatos) => {
@@ -99,6 +101,9 @@ const query = useCallback((itemUrl, tipo, opcion) => {
                     break;
                   case 'ConsultarSolicitudByID':
                     setConsultarSolicitudByID(response) 
+                    case 'ConsultarPdf':
+                      setConsultarPdf(response) 
+                    
              break;               
                 }
               })()
@@ -247,7 +252,8 @@ const data = {
     itemsAgendarCitas, setAgendarCitas,
     itemsSolicitudes, setConsultarSolicitud,
     itemsSolicitudByID, setConsultarSolicitudByID,
-    codigoFicha, setCodigoFicha
+    codigoFicha, setCodigoFicha,
+    consultarPdf
 };
 
     return (

@@ -3,6 +3,7 @@ import { Pagination, Row } from "react-bootstrap";
 import React from "react";
 import BtnActions from "../pages/dashboard/Project/ModuloSolicitudComite/Components/BtnActions";
 const BtnSeccionPdf = (props) => {
+
 const descripcionbtnaction = props?.obj?.descripcionbtnaction || 'en .pdf';
 
   return (
@@ -27,6 +28,7 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || 'en .pdf';
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`CRITERIO DEL COMITE${props?.obj?.key}`}
+                  codigoFicha={props?.obj?.codigoFicha}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
                   titulo={'CRITERIO'}
@@ -39,6 +41,7 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || 'en .pdf';
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
                   permisos={'N'}
                   key={`PLAN DE MEJORAMIENTO${props?.obj?.key}`}
+                  codigoFicha={props?.obj?.codigoFicha}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
                   titulo={'MEJORAMIENTO'}

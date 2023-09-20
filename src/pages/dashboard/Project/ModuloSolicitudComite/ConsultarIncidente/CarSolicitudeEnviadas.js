@@ -9,26 +9,25 @@ import Swal from 'sweetalert2';
  
 import Table from '../../../../../components/Table';
 
- import BtnPdf from '../Components/BtnPdf';
+ import ViewPdf from '../Components/ViewPdf';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import BtnSeccionPdf from '../../../../../components/BtnSeccionPdf';
  
  
 const ActionColumn = ({ row }) => {
-  const {setCodigoFicha,setModal} = useContext(NotificacionesContext)
+  const { setCodigoFicha, setModal } = useContext(NotificacionesContext)
 
-   const toggleSignUp = (codigoFicha) => {
- 
-      if(row?.cells[1]?.row?.values?.codigoFicha===codigoFicha){
-          setCodigoFicha(codigoFicha)
-          setModal(true);
-          //Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${codigoFicha}`);
-      }else{
-          Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${row?.cells[1]?.row?.values?.codigoFicha}`);
-      }
-   
-   
+  const toggleSignUp = (codigoFicha, titulo) => {
+
+    if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
+      setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo })
+      setModal(true);
+      //Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${codigoFicha}`);
+    } else {
+      Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${row?.cells[1]?.row?.values?.codigoFicha}-${titulo}`);
+    }  
   };
+
   const obj = {
     toggleSignUp,
     codigoFicha:row?.cells[1]?.row?.values?.codigoFicha,
@@ -91,7 +90,6 @@ const CarSolicitudeEnviadas = (props) => {
       Cell: ActionColumn,
     },
   ];
-  console.log('codigoFicha',codigoFicha);
   return (
     <>
 
@@ -119,7 +117,7 @@ const CarSolicitudeEnviadas = (props) => {
       <Row>
       <Modal show={modal}  fullscreen={true} >
         <Modal.Body> 
-        <BtnPdf codigoFicha={codigoFicha}/> 
+        <ViewPdf codigoFicha={codigoFicha?.codigoFicha} titulo={codigoFicha?.titulo}/> 
         </Modal.Body>
       </Modal>
       </Row>
