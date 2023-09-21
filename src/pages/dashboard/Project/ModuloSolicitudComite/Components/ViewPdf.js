@@ -17,7 +17,7 @@ const ViewPdf = (props) => {
         break
         case 'CRITERIO':
          setTimeout(function () {
-          query('ModuloSolicitudComite','ConsultarPdf',[{opcion:encodeBasicUrl('ConsultarPdf'),obj:'ConsultarPdf',codigoFicha:props?.codigoFicha}]);
+          //query('ModuloSolicitudComite','ConsultarPdf',[{opcion:encodeBasicUrl('ConsultarPdf'),obj:'ConsultarPdf',codigoFicha:props?.codigoFicha}]);
         }, 2000);
          setUrl(`https://api.compucel.co/ecrire/exec/model/sena/ModuloSolicitudComite/pdf/sc/${props?.codigoFicha}.pdf`) ;
                   
