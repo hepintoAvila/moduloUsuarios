@@ -1,10 +1,10 @@
 // @flow
-import React, { useContext, useEffect, useState } from 'react';
-import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
-import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+import React, { useEffect, useState } from 'react';
+//import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
+//import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 const ViewPdf = (props) => {
   const [url, setUrl] = useState('');
-  const {query} = useContext(NotificacionesContext)
+//const {query} = useContext(NotificacionesContext)
  
 
 
@@ -33,7 +33,7 @@ const ViewPdf = (props) => {
     }
   }, [props?.codigoFicha]);
   
-  console.log(url)
+ // console.log(url)
   return (
     <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
       <object

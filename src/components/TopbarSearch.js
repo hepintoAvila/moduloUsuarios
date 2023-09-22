@@ -126,8 +126,16 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             Nombres:values[0]?.userDetails?.firstname,
             Apellidos:values[0]?.userDetails?.lastname,
             Identificacion:values[0]?.userDetails?.identificacion,
-            Celular:values[0]?.userDetails?.telefono,
+            Telefono:values[0]?.userDetails?.telefono,
             Email:values[0]?.userDetails?.correo,
+            Municipio:values[0]?.userDetails?.municipio,
+            Direccion:values[0]?.userDetails?.direccion, 
+            Disciplinaria:values[0]?.userDetails?.disciplinaria, 
+            Academica:values[0]?.userDetails?.academica, 
+            Jornada:values[0]?.userDetails?.jornada, 
+            Etapa:values[0]?.userDetails?.etapa, 
+            Ficha:values[0]?.userDetails?.fichanum, 
+            Rol:values[0]?.userDetails?.rol, 
             aprendizError:true
           }
 

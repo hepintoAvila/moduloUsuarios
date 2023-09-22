@@ -16,12 +16,13 @@ const FormDatosAprendiz = (props) => {
               setError({...validateError,nombreProgramaError:true})
         }
     };
-return (        <>
-          <Card className="bg-secundary text-black">
-            <Card.Body className="profile-user-box">
-                <Row>
+return (
+<>
+
+   
+                <Row  className="cardAprendiz text-black">
                     <Col sm={12}>
-                        <Row className="align-items-center">
+                        <Row className="align-items-center cardAprendiz">
                             <Col className="col-auto">
                                 <div className="avatar-lg">
                                     <img
@@ -33,9 +34,11 @@ return (        <>
                                 </div>
                             </Col>
                             <Col>
-                                <div>
+                            <div>
+                                <h4 className="header-title mb-3 mt-3">DATOS BÁSICOS DEL APRENDIZ</h4></div>
+                                    <div>
                                     <h5 className="mt-1 mb-1 text-black">{props?.datosAprendiz?.Nombres} {props?.datosAprendiz?.Apellidos}</h5>
-                                    <p className="mb-0 font-13 text-black-50"> Aprendiz</p>
+                                    <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Rol}</p>
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
                                         <h6 className="mb-1">D.I: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Identificacion}</p></h6>
@@ -44,10 +47,54 @@ return (        <>
                                             <h6 className="mb-1">Correo: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Email}</p></h6>
                                             
                                         </li>
-                                    </ul>
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">Dirección: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Direccion}</p></h6>
+                                            
+                                        </li>
+                                        </ul> 
+                                        <ul className="mb-0 list-inline text-black">
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">Telefono: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Telefono}</p></h6>
+                                        </li>
+
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">Jornada: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Jornada}</p></h6>
+                                        </li>
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">Etapa: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Etapa}</p></h6>
+                                        </li>
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">Ficha No.: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Ficha}</p></h6>
+                                        </li>
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">Municipo: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Municipio}</p></h6>
+                                        </li>
+                                    </ul> 
+                                    <h4 className="header-title mb-1">SANCIONES ANTERIORES:</h4></div>
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
-                                            <h5 className="mb-1">Nombre del Programa</h5>
+                                        <h6 className="mb-1">#Falta Academicas: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Academica}</p></h6>
+                                        </li>
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">#Falta Disciplinarias: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Disciplinaria}</p></h6>
+                                        </li>
+                                    </ul>    
+                                    <ul className="mb-0 list-inline text-black">
+                                        <li className="list-inline-item me-3">
+                                        <h6 className="mb-1">#LLamado Verbal: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Academica}</p></h6>
+                                        </li>
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">#Inasistencias: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Disciplinaria}</p></h6>
+                                        </li>
+                                        <li className="list-inline-item">
+                                            <h6 className="mb-1">#LLamado Escrito: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Disciplinaria}</p></h6>
+                                        </li>
+                                    </ul>                                                                      
+                                    <div>
+                                    
+                                    <ul className="mb-0 list-inline text-black">
+                                        <li className="list-inline-item me-3">
+                                            <h5 className="mb-1">PROGRAMA DE FORMACIÓN</h5>
                                             <p className="mb-0 font-13 text-black-50"> </p>
                                         </li>
                                         <li className="list-inline-item">
@@ -62,22 +109,25 @@ return (        <>
                                         value={nombrePrograma}
                                         onChange={(e) => onNombrePrograma(e.target.value)}
                                     >
-                                        <option value="">Seleccione el tipo de Programa</option>
+                                        <option value="">Seleccione programa de formación</option>
                                         <option value="APOYO ADMINISTRATIVO EN SALUD"> APOYO ADMINISTRATIVO EN SALUD</option>
                                         <option value="DESARROLLO DE SOFTWARE">DESARROLLO DE SOFTWARE</option>
                                     </FormInput></p>
-                                    {!nombreProgramaError? <div className="isinvalid"><p className="text-white font-14 mb-3">
-                                    Seleccione el tipo de Programa:
-                            </p></div>:<div><h4 className="header-title mb-3">Descripción del Incidente</h4></div>}
+
                                         </li>
-                                    </ul>                                   
-                                </div>
+                                    </ul> 
+                                                                   
+                            </div>
+
                             </Col>
                         </Row>
                     </Col>
                 </Row>
-            </Card.Body>
-        </Card>
+                <Row>
+                {!nombreProgramaError? <div className="isinvalid"><p className="text-white font-14 mb-3"></p></div>:''}   
+               </Row>
+         
+      
         </>
     );
 };

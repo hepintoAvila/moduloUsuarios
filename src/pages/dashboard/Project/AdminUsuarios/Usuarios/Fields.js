@@ -20,6 +20,10 @@ const {setSignUpModalAdd,
     login: props?.usuario?.length===1? props?.usuario[0]?.login:'',
     email: props?.usuario?.length===1? props?.usuario[0]?.email:'',
     rol: props?.usuario?.length===1?props?.usuario[0]?.rol:'',
+    nombres:'',
+    apellidos:'',
+    identificacion:'',
+    telefono:'',
   }]);
 
   const Registrarse = (items) => {
@@ -87,6 +91,50 @@ const {setSignUpModalAdd,
           placeholder="Selecione el Rol..."
           selected={props?.roles?.value}
         />
+          <FormInput
+          label={'Nombres'}
+          type="text"
+          name="nombres"
+          value={items[0]?.nombres}
+          onChange={(e) => setItems([{
+            ...items[0], nombres: e.target.value
+          }])}
+          placeholder={'Digite sus nombres'}
+          containerClass={'mb-3'}
+        />
+          <FormInput
+          label={'Apellidos'}
+          type="text"
+          name="apellidos"
+          value={items[0]?.apellidos}
+          onChange={(e) => setItems([{
+            ...items[0], apellidos: e.target.value
+          }])}
+          placeholder={'Digite sus apellidos'}
+          containerClass={'mb-3'}
+        />
+          <FormInput
+          label={'Identificación'}
+          type="text"
+          name="identificacion"
+          value={items[0]?.identificacion}
+          onChange={(e) => setItems([{
+            ...items[0], identificacion: e.target.value
+          }])}
+          placeholder={'Digite sus identificacion'}
+          containerClass={'mb-3'}
+        />  
+            <FormInput
+          label={'Numero del Celular'}
+          type="text"
+          name="telefono"
+          value={items[0]?.telefono}
+          onChange={(e) => setItems([{
+            ...items[0], telefono: e.target.value
+          }])}
+          placeholder={'Digite el número de sus telefono'}
+          containerClass={'mb-3'}
+        />          
         <div className="mb-3 mb-0 text-center">
 
         </div>

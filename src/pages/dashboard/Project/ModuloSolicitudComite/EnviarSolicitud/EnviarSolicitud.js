@@ -115,7 +115,9 @@ const EnviarSolicitud = (props) => {
                                                                             <Col lg={6} className="derechaColumnEnviarSolicitud">
                                                                             
                                                                                 <p className="mt-3">{tab.text}</p>
+                                                                               
                                                                                 <FormDatosAprendiz handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} />
+                                                                               <br/>
                                                                                 <FormDatosEvidencia />
                                                                                 
                                                                                </Col>

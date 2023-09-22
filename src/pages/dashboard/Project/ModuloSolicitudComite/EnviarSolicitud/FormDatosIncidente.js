@@ -29,7 +29,7 @@ function contarVerdaderos(array) {
 const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
-    //const [selectedDatePropuesta, setSelectedDatePropuesta] = useState(new Date());
+ 
     const {validateError,setError,queryFile,loading,nombrePrograma,descripcion} = useContext(SearchContext)
  
     
@@ -60,7 +60,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
 
         if(Number(numtrue)===8){
             Swal.fire({
-                position: 'top-end',
+                position: 'top-center',
                 icon: 'success',
                 title: 'Solicitud Enviada',
                 showConfirmButton: false,
@@ -200,7 +200,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                     <br/>
                                     <FormInput
                                         name="tipoComite"
-                                        label="Seleccione el tipo de comité"
+                                        label="Seleccione el tipo de falta"
                                         type="select"
                                         containerClass="mb-3"
                                         className="form-select"
@@ -212,11 +212,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                     >
                                         <option value="ACADEMICO"> ACADEMICO</option>
                                         <option value="DISCIPLINARIO">DISCIPLINARIO</option>
+                                        <option value="ACADEMICO Y DISCIPLINARIO">ACADEMICO Y DISCIPLINARIO</option>
                                     </FormInput>
                                      
                                     <FormInput
                                         name="tipoAtencion"
-                                        label="Seleccione el tipo de Falta"
+                                        label="Seleccione la calificación de la falta"
                                         type="select"
                                         containerClass="mb-3 font-weight-bold"
                                         className="form-select"
@@ -235,6 +236,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                     <div className="mb-3">
                                         <label>Fecha y Hora de los Hechos</label> <br />
                                         <HyperDatepicker
+                                            label=''
                                             name="fechaIncidente"
                                             hideAddon={true}
                                             showTimeSelect
