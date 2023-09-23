@@ -3,9 +3,6 @@ import { Pagination, Row } from "react-bootstrap";
 import React from "react";
 import BtnActions from "../pages/dashboard/Project/ModuloSolicitudComite/Components/BtnActions";
 const BtnSeccionPdf = (props) => {
-
-const descripcionbtnaction = props?.obj?.descripcionbtnaction || 'en .pdf';
-
   return (
     <React.Fragment>
       <Row>
@@ -14,12 +11,12 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || 'en .pdf';
                 <BtnActions
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
                   permisos={'N'}
-                  key={`CONCEPTO${props?.obj?.key}`}
+                  key={`EVIDENCIAS${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
-                  titulo={'CONCEPTO'}
+                  titulo={'EVIDENCIAS'}
                   codigoFicha={props?.obj?.codigoFicha}
-                  descripcion={`Ver concepto del instructor ${descripcionbtnaction}`}
+                  descripcion={`Ver evidencias del instructor`}
                   icon={'mdi mdi-account-convert'}
                 />
           </Pagination.Item> 
@@ -27,12 +24,12 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || 'en .pdf';
                 <BtnActions
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
                   permisos={'N'}
-                  key={`CRITERIO DEL COMITE${props?.obj?.key}`}
+                  key={`Formato${props?.obj?.key}`}
                   codigoFicha={props?.obj?.codigoFicha}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
-                  titulo={'CRITERIO'}
-                  descripcion={`Ver criterio del Comité ${descripcionbtnaction}`}
+                  titulo={'FORMATO'}
+                  descripcion={`Ver Formato solicitud Comité`}
                   icon={'mdi mdi-account-multiple-check-outline'}
                 />
           </Pagination.Item>  
@@ -40,12 +37,12 @@ const descripcionbtnaction = props?.obj?.descripcionbtnaction || 'en .pdf';
                 <BtnActions
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
                   permisos={'N'}
-                  key={`PLAN DE MEJORAMIENTO${props?.obj?.key}`}
+                  key={`eDITAR${props?.obj?.key}`}
                   codigoFicha={props?.obj?.codigoFicha}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
-                  titulo={'MEJORAMIENTO'}
-                  descripcion={`Plan de Mejoramiento${descripcionbtnaction}`}
+                  titulo={'EDITAR'}
+                  descripcion={`EDITAR solicitud`}
                   icon={'mdi mdi-account-reactivate'}
                 />
           </Pagination.Item>                    

@@ -20,6 +20,13 @@ const SearchProvider = ({ children }) => {
         descripcionError:false,
         nombreProgramaError:false
     });
+    const [fallas, setFallas] = useState([{
+        faltaAcademica:0,
+        faltaDisciplinaria:0,
+        faltaInasistencias:0,
+        faltaVerbal:0,
+        faltaEscrito:0,
+    }]);
 
     const  nombrePrograma=  itemsNombrePrograma?.nombrePrograma;
     const  nombreProgramaError=  itemsNombrePrograma?.valideNombrePrograma;   
@@ -58,7 +65,8 @@ const data = {
     queryFile,
     loading,
     setLoading,
-    setNombrePrograma,nombreProgramaError,nombrePrograma
+    setNombrePrograma,nombreProgramaError,nombrePrograma,
+    fallas, setFallas
 };
 
     return (

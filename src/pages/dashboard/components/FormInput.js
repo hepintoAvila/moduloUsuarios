@@ -69,7 +69,7 @@ const FormInput = ({
     ...otherProps
 }: FormInputProps): React$Element<React$FragmentType> => {
     // handle input type
-    const comp = type === 'textarea' ? 'textarea' : type === 'select' ? 'select' : 'input';
+    const comp = type === 'textarea' ? 'textarea' : type === 'select' ? 'select' : type === 'number' ? 'number': 'input';
 
     return (
         <>

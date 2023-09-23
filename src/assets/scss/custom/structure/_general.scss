@@ -274,6 +274,17 @@ body {
 .cardAprendiz{
   background-color: #74c95863 !important;
 }
+.inputAprendiz{
+  background-color: #74c95863 !important;
+  border: 0.1em solid #74c95863;
+  height: 30px;
+  width: 50px;
+  &:focus,
+  &:active {
+      border: 0.1em solid #74c95863;
+      text-decoration: none;
+  }
+}
 .indicador_novedades{
   position: sticky;
   background: #ff0081;

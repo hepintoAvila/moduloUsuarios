@@ -22,7 +22,7 @@ const NotificacionesProvider = ({ children }) => {
     const [itemsAprendices, setAprendices] = useState([]);
     const [codigoFicha, setCodigoFicha] = useState({});
     const [consultarPdf, setConsultarPdf] = useState({});
-    const [itemsSolicitudSinEnviar, setConsultarSolicitudSinEnviar] = useState({});
+    const [itemsSinEnviar, setConsultarSolicitudSinEnviar] = useState({});
     
     
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
@@ -257,7 +257,7 @@ const data = {
     itemsSolicitudByID, setConsultarSolicitudByID,
     codigoFicha, setCodigoFicha,
     consultarPdf,
-    itemsSolicitudSinEnviar,
+    itemsSinEnviar,
 };
 
     return (

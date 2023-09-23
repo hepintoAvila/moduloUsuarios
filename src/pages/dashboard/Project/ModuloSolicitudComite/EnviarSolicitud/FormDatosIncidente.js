@@ -8,7 +8,6 @@ import Swal from 'sweetalert2'
 // components
 import { VerticalForm, FormInput } from '../../../../../components';
 import HyperDatepicker from '../../../../../components/Datepicker';
-import HeaderForm from '../Components/HeaderForm';
 import FileUploader from '../../../../../components/FileUploader';
  
 import * as yup from 'yup';
@@ -30,18 +29,18 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
  
-    const {validateError,setError,queryFile,loading,nombrePrograma,descripcion} = useContext(SearchContext)
+    const {validateError,setError,queryFile,loading,nombrePrograma,descripcion,fallas} = useContext(SearchContext)
  
-    
+    //console.log({...fallas[0]})
     
     const [items, setItems] = useState([{
         idAprendiz: '',
         tipoComite: '',
         tipoAtencion: '',
         fechaIncidente: '',
-        accion: encodeBasicUrl('ModuloSolicitudComite'),
-        opcion: encodeBasicUrl('add_solicitud'),
-        tipo: encodeBasicUrl('EnviarSolicitud'),
+        accion: 'ModuloSolicitudComite',
+        opcion: 'add_solicitud',
+        tipo: 'EnviarSolicitud',
         selectedFile:'',
         base64String:'',
         descripcion:'',
@@ -68,22 +67,23 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               })
         const datosfiles = 
             {
-                idAprendiz:btoa(items[0].idAprendiz),
-                tipoComite:btoa(items[0].tipoComite),
-                tipoAtencion:btoa(items[0].tipoAtencion),
-                fechaIncidente:btoa(items[0].fechaIncidente),
-                accion: btoa('ModuloSolicitudComite'),
-                opcion: btoa('add_solicitud'),
-                tipo: btoa('EnviarSolicitud'),
-                selectedFile:btoa(items[0].selectedFile),
-                descripcion:btoa(items[0].descripcion),
-                nombrePrograma:btoa(items[0].nombrePrograma),
-
+                idAprendiz:items[0].idAprendiz,
+                tipoComite:items[0].tipoComite,
+                tipoAtencion:items[0].tipoAtencion,
+                fechaIncidente:items[0].fechaIncidente,
+                accion: 'ModuloSolicitudComite',
+                opcion: 'add_solicitud',
+                tipo: 'EnviarSolicitud',
+                selectedFile:items[0].selectedFile,
+                descripcion:items[0].descripcion,
+                nombrePrograma:items[0].nombrePrograma,
+                ...fallas[0],    
                 
             }
+           
             const queryDatos = datosfiles
             ? Object.keys(datosfiles)
-              .map((key) => key + '=' + datosfiles[key])
+              .map((key) => key + '=' + btoa(datosfiles[key]))
               .join('&')
             : '';
             queryFile(queryDatos, items[0].base64String)

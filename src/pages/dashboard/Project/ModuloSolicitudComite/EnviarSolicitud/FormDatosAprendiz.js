@@ -1,14 +1,14 @@
 // @flow
-import React, { useContext }  from 'react';
+import React, { useContext, useState }  from 'react';
  // components
- import { Card, Row, Col } from 'react-bootstrap';
+ import { Row, Col } from 'react-bootstrap';
 import profileImg from '../../../../../assets/images/users/avatar-3.jpg';
 import FormInput from '../../../components/FormInput';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
 
 const FormDatosAprendiz = (props) => {
 
-    const {setNombrePrograma,nombrePrograma,nombreProgramaError,setError,validateError} = useContext(SearchContext)
+    const {setNombrePrograma,nombrePrograma,nombreProgramaError,setError,validateError,fallas, setFallas} = useContext(SearchContext)
 
     const onNombrePrograma = (e) => {
         if (e) {
@@ -16,10 +16,10 @@ const FormDatosAprendiz = (props) => {
               setError({...validateError,nombreProgramaError:true})
         }
     };
+    
+  
 return (
 <>
-
-   
                 <Row  className="cardAprendiz text-black">
                     <Col sm={12}>
                         <Row className="align-items-center cardAprendiz">
@@ -70,28 +70,89 @@ return (
                                             <h6 className="mb-1">Municipo: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Municipio}</p></h6>
                                         </li>
                                     </ul> 
-                                    <h4 className="header-title mb-1">SANCIONES ANTERIORES:</h4></div>
+                                    <h4 className="header-title mb-1 mp-2">SANCIONES ANTERIORES:</h4></div>
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
-                                        <h6 className="mb-1">#Falta Academicas: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Academica}</p></h6>
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Academicas:</p><p className="mb-0 font-13 text-black-50">
+                                        <input
+                                        name="faltaAcademica"
+                                        value={fallas[0]?.faltaAcademica}
+                                        placeholder={props?.datosAprendiz?.Academica}
+                                        type="number"
+                                        containerClass="mb-3 font-weight-bold me-3"
+                                        className="inputAprendiz"
+                                        key="faltaAcademica"
+                                        onChange={(e) => setFallas(
+                                            [{
+                                            ...fallas[0], faltaAcademica: e.target.value,
+                                          }])}
+                                          /></p></h6>
+                                        </li>
+                                        <li className="list-inline-item"></li>
+                                        <li className="list-inline-item">
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Disciplinarias:</p><p className="mb-0 font-13 text-black-50">
+                                       <input
+                                        name="faltaDisciplinaria"
+                                        value={fallas[0]?.faltaDisciplinaria}
+                                        placeholder={props?.datosAprendiz?.Disciplinaria}
+                                        type="number"
+                                        containerClass="mb-3 font-weight-bold me-3"
+                                        className="inputAprendiz"
+                                        key="faltaDisciplinaria"
+                                        onChange={(e) => setFallas([{
+                                            ...fallas[0], faltaDisciplinaria: e.target.value,
+                                          }])}
+                                          /></p></h6>
+                                            
                                         </li>
                                         <li className="list-inline-item">
-                                            <h6 className="mb-1">#Falta Disciplinarias: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Disciplinaria}</p></h6>
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Inasistencias:</p><p className="mb-0 font-13 text-black-50"><input
+                                        name="faltaInasistencias"
+                                        value={fallas[0]?.faltaInasistencias}
+                                        type="number"
+                                        containerClass="mb-3 font-weight-bold me-3"
+                                        className="inputAprendiz"
+                                        key="faltaInasistencias"
+                                        placeholder={props?.datosAprendiz?.Academica}
+                                        onChange={(e) => setFallas([{
+                                            ...fallas[0], faltaInasistencias: e.target.value,
+                                          }])}
+                                          /></p></h6>
                                         </li>
                                     </ul>    
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
-                                        <h6 className="mb-1">#LLamado Verbal: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Academica}</p></h6>
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#LLamado Verbal:</p><p className="mb-0 font-13 text-black-50"><input
+                                        name="faltaVerbal"
+                                        value={fallas[0]?.faltaVerbal}
+                                        type="number"
+                                        containerClass="mb-3 font-weight-bold me-3"
+                                        className="inputAprendiz"
+                                        key="faltaVerbal"
+                                        onChange={(e) => setFallas([{
+                                            ...fallas[0], faltaVerbal: e.target.value,
+                                          }])}
+                                          /></p></h6>
                                         </li>
+                                        
+                                        <li className="list-inline-item"></li><li className="list-inline-item"></li>
                                         <li className="list-inline-item">
-                                            <h6 className="mb-1">#Inasistencias: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Disciplinaria}</p></h6>
-                                        </li>
-                                        <li className="list-inline-item">
-                                            <h6 className="mb-1">#LLamado Escrito: <p className="mb-0 font-13 text-black-50">{props?.datosAprendiz?.Disciplinaria}</p></h6>
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#LLamado Escrito:</p><p className="mb-0 font-13 text-black-50"><input
+                                        name="faltaEscrito"
+                                        value={fallas[0]?.faltaEscrito}
+                                        type="number"
+                                        containerClass="mb-3 font-weight-bold me-3"
+                                        className="inputAprendiz"
+                                        key="faltaEscrito"
+                                        placeholder={props?.datosAprendiz?.Academica}
+                                        onChange={(e) => setFallas([{
+                                            ...fallas[0], faltaEscrito: e.target.value,
+                                          }])}
+                                          /></p></h6>
                                         </li>
                                     </ul>                                                                      
                                     <div>
-                                    
+                                   
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
                                             <h5 className="mb-1">PROGRAMA DE FORMACIÓN</h5>

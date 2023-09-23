@@ -6,6 +6,7 @@ import { Button,  Row, Col } from 'react-bootstrap';
 
 const MenuBtn = (props) => {
   const novedades = props?.novedades
+  console.log('props?.countNovedades',props?.countNovedades)
   return (
     <>
       <Row className="justify-content-center">
@@ -18,7 +19,7 @@ const MenuBtn = (props) => {
                 <Button variant="outline-secondary" type="submit" className="btnInicio1" onClick={() => props.handleClick(props.menuRef,props.nivel)}>
                   <Row className="justify-content-center">
                   
-                    <div className="col-xl-3 col-lg-4 col-sm-6"><img src={props.image} height="64" alt="" className="btn-menu" />{novedades?<div className="indicador_novedades"><label className="indicador_novedades_label">{'255'}</label></div>:null}</div>
+                    <div className="col-xl-3 col-lg-4 col-sm-6"><img src={props.image} height="64" alt="" className="btn-menu" />{novedades?<div className="indicador_novedades"><label className="indicador_novedades_label">{props?.countNovedades}</label></div>:null}</div>
                     <div className="col-xl-3 col-lg-4 col-sm-6 text-btn">{props.texto}</div>
                   </Row>
                 </Button>

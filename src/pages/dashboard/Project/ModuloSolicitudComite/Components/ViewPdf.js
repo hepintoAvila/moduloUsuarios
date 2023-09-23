@@ -8,21 +8,21 @@ const ViewPdf = (props) => {
  
 
 
-  
+   
   useEffect(() => {
     {(() => {
       switch (props?.titulo) {
-        case 'CONCEPTO':
+        case 'EVIDENCIAS':
           setUrl( `https://api.compucel.co/ecrire/exec/model/sena/ModuloIncidentes/pdf/${props?.codigoFicha}.pdf`);
         break
-        case 'CRITERIO':
+        case 'FORMATO':
          setTimeout(function () {
           //query('ModuloSolicitudComite','ConsultarPdf',[{opcion:encodeBasicUrl('ConsultarPdf'),obj:'ConsultarPdf',codigoFicha:props?.codigoFicha}]);
         }, 2000);
          setUrl(`https://api.compucel.co/ecrire/exec/model/sena/ModuloSolicitudComite/pdf/sc/${props?.codigoFicha}.pdf`) ;
                   
         break
-        case 'MEJORAMIENTO':
+        case 'EDITAR':
           setUrl(`https://api.compucel.co/ecrire/exec/model/sena/ModuloIncidentes/pdf/${props?.codigoFicha}.pdf`);
         break      
         default:
