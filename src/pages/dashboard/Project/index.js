@@ -34,8 +34,6 @@ const ProjectDashboard = () => {
         sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ 
           tipo: obj.principal, 
           menu: obj.seccion}));
-        
-
         const urltemp = obj.seccion?.split('/');
         setitemsMenuPrincipal(urltemp[1]);
         setitemsUrl(urltemp[0]);
@@ -44,8 +42,6 @@ const ProjectDashboard = () => {
       }
 
     }
-   
-
   };
 
   return (

@@ -22,6 +22,7 @@ const NotificacionesProvider = ({ children }) => {
     const [itemsAprendices, setAprendices] = useState([]);
     const [codigoFicha, setCodigoFicha] = useState({});
     const [consultarPdf, setConsultarPdf] = useState({});
+    const [itemsSolicitudSinEnviar, setConsultarSolicitudSinEnviar] = useState({});
     
     
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
@@ -101,9 +102,11 @@ const query = useCallback((itemUrl, tipo, opcion) => {
                     break;
                   case 'ConsultarSolicitudByID':
                     setConsultarSolicitudByID(response) 
-                    case 'ConsultarPdf':
+                  case 'ConsultarPdf':
                       setConsultarPdf(response) 
-                    
+                  case 'ConsultarSolicitudSinEnviar':
+                        setConsultarSolicitudSinEnviar(response)                      
+                      
              break;               
                 }
               })()
@@ -253,7 +256,8 @@ const data = {
     itemsSolicitudes, setConsultarSolicitud,
     itemsSolicitudByID, setConsultarSolicitudByID,
     codigoFicha, setCodigoFicha,
-    consultarPdf
+    consultarPdf,
+    itemsSolicitudSinEnviar,
 };
 
     return (
