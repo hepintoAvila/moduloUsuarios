@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {Row, Col, Tab, Nav, Card } from 'react-bootstrap';
 import FormDatosAprendiz from './FormDatosAprendiz';
 import FormDatosIncidente from './FormDatosIncidente';
@@ -14,8 +14,9 @@ import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
 import HeaderForm from '../Components/HeaderForm';
 
 const EnviarSolicitud = (props) => {
+    
     const {itemsOptionAprendiz,descripcion,descripcionError} = useContext(SearchContext)
-    const {itemsAprendices,query,itemsSolicitudByID} = useContext(NotificacionesContext)
+    const {itemsAprendices,query,itemsSolicitudByID,activeTab, setActiveTab} = useContext(NotificacionesContext)
     const allApredizDatos = itemsAprendices?.data?.Aprendices || [];
  
     const {
@@ -51,12 +52,15 @@ const EnviarSolicitud = (props) => {
     const queryEnviados = (index) => {
         if(index===2){
            query('ModuloSolicitudComite','ConsultarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'ConsultarSolicitudByID',sw:2}]);
+           setActiveTab('Solicitudes Enviadas')
+        }else if(index===0){
+            setActiveTab('Enviar Solicitud')
+        }else{
+            setActiveTab('Historial del Aprendiz')  
         }
         
         //
       };
- 
-  
     return (
         <React.Fragment>
             <Row>
@@ -64,7 +68,7 @@ const EnviarSolicitud = (props) => {
                     <Card>
                         <Card.Body>
                             <h4 className="header-title mb-3">ADMINISTRADOR DE SOLICITUDES</h4>
-                            <Tab.Container defaultActiveKey="Enviar Solicitud">
+                            <Tab.Container defaultActiveKey={activeTab}>
                                 <Nav variant="tabs">
                                     {tabContents.map((tab, index) => {
                                         return (

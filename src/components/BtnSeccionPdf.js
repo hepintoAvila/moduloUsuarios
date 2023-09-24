@@ -30,7 +30,7 @@ const BtnSeccionPdf = (props) => {
                   row={props?.obj?.row}
                   titulo={'FORMATO'}
                   descripcion={`Ver Formato solicitud Comité`}
-                  icon={'mdi mdi-account-multiple-check-outline'}
+                  icon={'mdi mdi-file-pdf-box'}
                 />
           </Pagination.Item>  
           <Pagination.Item>
@@ -39,13 +39,26 @@ const BtnSeccionPdf = (props) => {
                   permisos={'N'}
                   key={`eDITAR${props?.obj?.key}`}
                   codigoFicha={props?.obj?.codigoFicha}
-                  toggleActions={props?.obj?.toggleSignUp}
+                  toggleActions={props?.obj?.EditDelete}
                   row={props?.obj?.row}
                   titulo={'EDITAR'}
                   descripcion={`EDITAR solicitud`}
-                  icon={'mdi mdi-account-reactivate'}
+                  icon={'mdi mdi-square-edit-outline'}
                 />
-          </Pagination.Item>                    
+          </Pagination.Item> 
+          <Pagination.Item>
+                <BtnActions
+                 url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
+                  permisos={'N'}
+                  key={`DELETE${props?.obj?.key}`}
+                  codigoFicha={props?.obj?.codigoFicha}
+                  toggleActions={props?.obj?.EditDelete}
+                  row={props?.obj?.row}
+                  titulo={'DELETE'}
+                  descripcion={`DELETE solicitud`}
+                  icon={'mdi mdi-delete-circle-outline'}
+                />
+          </Pagination.Item>                     
       </Pagination>
       </Row>
     </React.Fragment>

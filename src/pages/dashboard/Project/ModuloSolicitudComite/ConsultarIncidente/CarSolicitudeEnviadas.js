@@ -12,10 +12,11 @@ import Table from '../../../../../components/Table';
  import ViewPdf from '../Components/ViewPdf';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import BtnSeccionPdf from '../../../../../components/BtnSeccionPdf';
+import ConfirmacionEliminacionStrategy from '../../../../../layouts/context/ConfirmacionEliminacionStrategy';
  
  
 const ActionColumn = ({ row }) => {
-  const { setCodigoFicha, setModal } = useContext(NotificacionesContext)
+  const { setCodigoFicha, setModal,getData } = useContext(NotificacionesContext)
 
   const toggleSignUp = (codigoFicha, titulo) => {
 
@@ -28,8 +29,51 @@ const ActionColumn = ({ row }) => {
     }  
   };
 
+  const EditDelete = (codigoFicha, titulo) => {
+
+    if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
+      
+      if(titulo==='DELETE'){
+        const id = row?.cells[0]?.row?.values?.id
+        
+        Swal.fire({
+            title: 'Desea eliminar el registro? ' + id,
+            showCancelButton: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+             const datosEvent = {
+                idSolicitud:id,
+                accion: 'ModuloSolicitudComite',
+                opcion: 'deleteSolicitud',
+                tipo: 'deleteSolicitud',
+               }
+                  const queryDatos = datosEvent
+                  ? Object.keys(datosEvent)
+                      .map((key) => key + '=' + btoa(datosEvent[key]))
+                      .join('&')
+                  : '';
+                  Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'Enviado Solicitud...',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })                  
+                  setTimeout(function () {
+                    getData(queryDatos)
+                  }, 2000);
+            }
+          });
+      }
+
+   
+    } else {
+      Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${row?.cells[1]?.row?.values?.codigoFicha}-${titulo}`);
+    }  
+  };
   const obj = {
     toggleSignUp,
+    EditDelete,
     codigoFicha:row?.cells[1]?.row?.values?.codigoFicha,
     key:row.cells[0].value,
     row:row.cells[0].value,
@@ -54,7 +98,7 @@ const CarSolicitudeEnviadas = (props) => {
       accessor: 'id',
       sort: true,
     },{
-      Header: 'CODIGO',
+      Header: 'Código',
       accessor: 'codigoFicha',
       sort: true,
     },
@@ -72,13 +116,14 @@ const CarSolicitudeEnviadas = (props) => {
       Header: 'Fecha Incidencia',
       accessor: 'fechaHora',
       sort: false,
-    }, {
-      Header: 'Actas',
-      accessor: 'actas',
+    },
+    {
+      Header: 'Fecha Agendada',
+      accessor: 'fechaHoraAgendada',
       sort: false,
     },
     {
-        Header: 'Tipo',
+        Header: 'Calificación',
         accessor: 'tipoAtencion',
         sort: false,
       },
