@@ -73,11 +73,12 @@ return (
                                     <h4 className="header-title mb-1 mp-2">SANCIONES ANTERIORES:</h4></div>
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Academicas:</p><p className="mb-0 font-13 text-black-50">
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Academicas: {props?.datosAprendiz?.Academica}</p><p className="mb-0 font-13 text-black-50">
                                         <input
                                         name="faltaAcademica"
                                         value={fallas[0]?.faltaAcademica}
-                                        placeholder={props?.datosAprendiz?.Academica}
+                                        placeholder={`${props?.datosAprendiz?.Academica}`}
+                                        min={`${props?.datosAprendiz?.Academica}`} max="100"
                                         type="number"
                                         containerClass="mb-3 font-weight-bold me-3"
                                         className="inputAprendiz"
@@ -90,12 +91,14 @@ return (
                                         </li>
                                         <li className="list-inline-item"></li>
                                         <li className="list-inline-item">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Disciplinarias:</p><p className="mb-0 font-13 text-black-50">
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Disciplinarias: {props?.datosAprendiz?.Disciplinaria}</p><p className="mb-0 font-13 text-black-50">
                                        <input
                                         name="faltaDisciplinaria"
                                         value={fallas[0]?.faltaDisciplinaria}
                                         placeholder={props?.datosAprendiz?.Disciplinaria}
+                                        min={`${props?.datosAprendiz?.Disciplinaria}`} max="100"
                                         type="number"
+                                        inputmode="numeric"
                                         containerClass="mb-3 font-weight-bold me-3"
                                         className="inputAprendiz"
                                         key="faltaDisciplinaria"
@@ -106,14 +109,15 @@ return (
                                             
                                         </li>
                                         <li className="list-inline-item">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Inasistencias:</p><p className="mb-0 font-13 text-black-50"><input
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Inasistencias: {props?.datosAprendiz?.Inasistencias}</p><p className="mb-0 font-13 text-black-50"><input
                                         name="faltaInasistencias"
                                         value={fallas[0]?.faltaInasistencias}
+                                        min={`${props?.datosAprendiz?.Inasistencias}`} max="100"
                                         type="number"
                                         containerClass="mb-3 font-weight-bold me-3"
                                         className="inputAprendiz"
                                         key="faltaInasistencias"
-                                        placeholder={props?.datosAprendiz?.Academica}
+                                        placeholder={props?.datosAprendiz?.Inasistencias}
                                         onChange={(e) => setFallas([{
                                             ...fallas[0], faltaInasistencias: e.target.value,
                                           }])}
@@ -122,13 +126,15 @@ return (
                                     </ul>    
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#LLamado Verbal:</p><p className="mb-0 font-13 text-black-50"><input
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#LLamado Verbal: {props?.datosAprendiz?.Verbal}</p><p className="mb-0 font-13 text-black-50"><input
                                         name="faltaVerbal"
                                         value={fallas[0]?.faltaVerbal}
                                         type="number"
                                         containerClass="mb-3 font-weight-bold me-3"
                                         className="inputAprendiz"
                                         key="faltaVerbal"
+                                        placeholder={props?.datosAprendiz?.Verbal}
+                                        min={`${props?.datosAprendiz?.Verbal}`} max="100"
                                         onChange={(e) => setFallas([{
                                             ...fallas[0], faltaVerbal: e.target.value,
                                           }])}
@@ -137,14 +143,15 @@ return (
                                         
                                         <li className="list-inline-item"></li><li className="list-inline-item"></li>
                                         <li className="list-inline-item">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#LLamado Escrito:</p><p className="mb-0 font-13 text-black-50"><input
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#LLamado Escrito: {props?.datosAprendiz?.Escrito}</p><p className="mb-0 font-13 text-black-50"><input
                                         name="faltaEscrito"
                                         value={fallas[0]?.faltaEscrito}
                                         type="number"
                                         containerClass="mb-3 font-weight-bold me-3"
                                         className="inputAprendiz"
                                         key="faltaEscrito"
-                                        placeholder={props?.datosAprendiz?.Academica}
+                                        placeholder={props?.datosAprendiz?.Escrito}
+                                        min={`${props?.datosAprendiz?.Escrito}`} max="100"
                                         onChange={(e) => setFallas([{
                                             ...fallas[0], faltaEscrito: e.target.value,
                                           }])}
