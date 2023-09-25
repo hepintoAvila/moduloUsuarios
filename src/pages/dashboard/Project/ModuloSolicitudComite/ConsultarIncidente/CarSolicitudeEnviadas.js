@@ -12,8 +12,7 @@ import Table from '../../../../../components/Table';
  import ViewPdf from '../Components/ViewPdf';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import BtnSeccionPdf from '../../../../../components/BtnSeccionPdf';
-import ConfirmacionEliminacionStrategy from '../../../../../layouts/context/ConfirmacionEliminacionStrategy';
- 
+import FormEditarSolicitud from '../EnviarSolicitud/FormEditarSolicitud';
  
 const ActionColumn = ({ row }) => {
   const { setCodigoFicha, setModal,getData } = useContext(NotificacionesContext)
@@ -87,7 +86,7 @@ const ActionColumn = ({ row }) => {
 };
 const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
-  const {codigoFicha,modal} = useContext(NotificacionesContext)
+  const {codigoFicha,modal,setModal} = useContext(NotificacionesContext)
 
  
   const datos = props?.Solicitudes|| [];
@@ -135,6 +134,9 @@ const CarSolicitudeEnviadas = (props) => {
       Cell: ActionColumn,
     },
   ];
+  const onClose = () => {
+    setModal(false);
+};
   return (
     <>
 
@@ -160,11 +162,25 @@ const CarSolicitudeEnviadas = (props) => {
         </Col>
       </Row>
       <Row>
-      <Modal show={modal}  fullscreen={true} >
-        <Modal.Body> 
-        <ViewPdf codigoFicha={codigoFicha?.codigoFicha} titulo={codigoFicha?.titulo}/> 
-        </Modal.Body>
-      </Modal>
+        <Modal show={modal} fullscreen={codigoFicha?.titulo==='EDITAR'? false:true} onHide={onClose} >
+          <Modal.Body>
+          <Modal.Header onClick={onClose}>
+                    <h4 className="modal-description">Formulario {codigoFicha?.titulo}</h4>
+                  </Modal.Header>
+            {(() => {
+              switch (codigoFicha?.titulo) {
+                case 'EVIDENCIAS':
+                case 'FORMATO':
+                  return (<><ViewPdf codigoFicha={codigoFicha?.codigoFicha} titulo={codigoFicha?.titulo} /> </>)
+                  
+                case 'EDITAR':
+                  return (<><FormEditarSolicitud /> </>)
+                default:
+                  return (<>{''}</>)
+              }
+            })()}
+          </Modal.Body>
+        </Modal>
       </Row>
     </>
   );

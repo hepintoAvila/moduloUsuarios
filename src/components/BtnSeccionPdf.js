@@ -39,7 +39,7 @@ const BtnSeccionPdf = (props) => {
                   permisos={'N'}
                   key={`eDITAR${props?.obj?.key}`}
                   codigoFicha={props?.obj?.codigoFicha}
-                  toggleActions={props?.obj?.EditDelete}
+                  toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
                   titulo={'EDITAR'}
                   descripcion={`EDITAR solicitud`}
