@@ -5,6 +5,7 @@ import React, { useContext, useState }  from 'react';
 import profileImg from '../../../../../assets/images/users/avatar-3.jpg';
 import FormInput from '../../../components/FormInput';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
+import classNames from 'classnames';
 
 const FormDatosAprendiz = (props) => {
 
@@ -23,7 +24,7 @@ return (
                 <Row  className="cardAprendiz text-black">
                     <Col sm={12}>
                         <Row className="align-items-center cardAprendiz">
-                            <Col className="col-auto">
+                            <Col className={`col-auto ${props?.swEdit===1 ? 'fotoUserSw' : 'fotoUser'}`}>
                                 <div className="avatar-lg">
                                     <img
                                         src={profileImg}
@@ -73,7 +74,8 @@ return (
                                     <h4 className="header-title mb-1 mp-2">SANCIONES ANTERIORES:</h4></div>
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Academicas: {props?.datosAprendiz?.Academica}</p><p className="mb-0 font-13 text-black-50">
+                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Academicas: {props.swEdit===1 ? <label className='editTitulos'><i class="mdi mdi-account-check"></i>{props?.edit[0]?.sancionesAprendiz?.academica}</label> :props?.datosAprendiz?.Academica}</p><p className="mb-0 font-13 text-black-50">
+                                        
                                         <input
                                         name="faltaAcademica"
                                         value={fallas[0]?.faltaAcademica}
@@ -91,7 +93,9 @@ return (
                                         </li>
                                         <li className="list-inline-item"></li>
                                         <li className="list-inline-item">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Falta Disciplinarias: {props?.datosAprendiz?.Disciplinaria}</p><p className="mb-0 font-13 text-black-50">
+                                        <p className="mb-0 font-13 text-black-50">#Falta Disciplinarias: {props.swEdit===1 ? <label className='editTitulos'><i class="mdi mdi-account-check"></i>{props?.edit[0]?.sancionesAprendiz?.disciplinaria}</label> :props?.datosAprendiz?.Disciplinaria}
+                                        </p>
+                                        <h6 className="mb-1">
                                        <input
                                         name="faltaDisciplinaria"
                                         value={fallas[0]?.faltaDisciplinaria}
@@ -105,11 +109,13 @@ return (
                                         onChange={(e) => setFallas([{
                                             ...fallas[0], faltaDisciplinaria: e.target.value,
                                           }])}
-                                          /></p></h6>
+                                          /></h6>
                                             
                                         </li>
                                         <li className="list-inline-item">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#Inasistencias: {props?.datosAprendiz?.Inasistencias}</p><p className="mb-0 font-13 text-black-50"><input
+                                        <p className="mb-0 font-13 text-black-50">#Inasistencias: {props.swEdit===1 ? <label className='editTitulos'><i class="mdi mdi-account-check"></i>{props?.edit[0]?.sancionesAprendiz?.inasistencias}</label> :props?.datosAprendiz?.Inasistencias}
+                                        </p>
+                                        <h6 className="mb-1"><input
                                         name="faltaInasistencias"
                                         value={fallas[0]?.faltaInasistencias}
                                         min={`${props?.datosAprendiz?.Inasistencias}`} max="100"
@@ -121,12 +127,14 @@ return (
                                         onChange={(e) => setFallas([{
                                             ...fallas[0], faltaInasistencias: e.target.value,
                                           }])}
-                                          /></p></h6>
+                                          /></h6>
                                         </li>
                                     </ul>    
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#LLamado Verbal: {props?.datosAprendiz?.Verbal}</p><p className="mb-0 font-13 text-black-50"><input
+                                        <p className="mb-0 font-13 text-black-50">#LLamado Verbal: {props.swEdit===1 ? <label className='editTitulos'><i class="mdi mdi-account-check"></i>{props?.edit[0]?.sancionesAprendiz?.verbal}</label> :props?.datosAprendiz?.Verbal}
+                                        </p>
+                                        <h6 className="mb-1"><input
                                         name="faltaVerbal"
                                         value={fallas[0]?.faltaVerbal}
                                         type="number"
@@ -138,12 +146,15 @@ return (
                                         onChange={(e) => setFallas([{
                                             ...fallas[0], faltaVerbal: e.target.value,
                                           }])}
-                                          /></p></h6>
+                                          /></h6>
                                         </li>
                                         
                                         <li className="list-inline-item"></li><li className="list-inline-item"></li>
                                         <li className="list-inline-item">
-                                        <h6 className="mb-1"> <p className="mb-0 font-13 text-black-50">#LLamado Escrito: {props?.datosAprendiz?.Escrito}</p><p className="mb-0 font-13 text-black-50"><input
+                                        <p className="mb-0 font-13 text-black-50">#LLamado Escrito: {props.swEdit===1 ? <label className='editTitulos'><i class="mdi mdi-account-check"></i>{props?.edit[0]?.sancionesAprendiz?.escrito}</label> :props?.datosAprendiz?.Escrito}
+                                        </p>   
+                                        <h6 className="mb-1">
+                                        <input
                                         name="faltaEscrito"
                                         value={fallas[0]?.faltaEscrito}
                                         type="number"
@@ -155,11 +166,11 @@ return (
                                         onChange={(e) => setFallas([{
                                             ...fallas[0], faltaEscrito: e.target.value,
                                           }])}
-                                          /></p></h6>
+                                          /></h6>
                                         </li>
                                     </ul>                                                                      
                                     <div>
-                                   
+                                   {props.swEdit===1 ? <label className='editTitulos'><i class="mdi mdi-account-check"></i>{props?.edit[0]?.nombrePrograma}</label> :''}
                                     <ul className="mb-0 list-inline text-black">
                                         <li className="list-inline-item me-3">
                                             <h5 className="mb-1">PROGRAMA DE FORMACIÓN</h5>
@@ -180,7 +191,7 @@ return (
                                         <option value="">Seleccione programa de formación</option>
                                         <option value="APOYO ADMINISTRATIVO EN SALUD"> APOYO ADMINISTRATIVO EN SALUD</option>
                                         <option value="DESARROLLO DE SOFTWARE">DESARROLLO DE SOFTWARE</option>
-                                    </FormInput></p>
+                                        </FormInput></p>
 
                                         </li>
                                     </ul> 

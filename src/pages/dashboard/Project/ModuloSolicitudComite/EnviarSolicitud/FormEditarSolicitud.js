@@ -13,6 +13,9 @@ import FileUploader from '../../../../../components/FileUploader';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
+import FormDatosAprendiz from './FormDatosAprendiz';
+//import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+//import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 
 function contarVerdaderos(array) {
     let contador = 0;
@@ -30,7 +33,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     const [selectedDate, setSelectedDate] = useState(new Date());
  
     const {validateError,setError,queryFile,loading,nombrePrograma,descripcion,fallas} = useContext(SearchContext)
- 
+    const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes || []
     //console.log({...fallas[0]})
     
     const [items, setItems] = useState([{
@@ -167,7 +170,30 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         setItems(objnombrePrograma)
     }, [nombrePrograma]);
 
- console.log('codigoFicha',props?.codigoFicha)
+    useEffect(() => {
+        if(datosAprendiz.length===1){
+            const objet =[{
+                idAprendiz: datosAprendiz[0]?.idAprendiz,
+                aprendiz: datosAprendiz[0]?.aprendiz,
+                tipoComite: datosAprendiz[0]?.tipoSolicitud,
+                tipoAtencion: datosAprendiz[0]?.tipoAtencion,
+                fechaIncidente:'',
+                fechaHora:datosAprendiz[0]?.fechaHora,
+                accion: 'ModuloSolicitudComite',
+                opcion: 'add_solicitud',
+                tipo: 'EnviarSolicitud',
+                selectedFile:'',
+                base64String:'',
+                descripcion:datosAprendiz[0]?.description,
+                nombrePrograma:datosAprendiz[0]?.nombrePrograma,
+                sancionesAprendiz:datosAprendiz[0]?.sancionesAprendiz,
+            }]
+            setItems(objet)
+        }
+    }, [datosAprendiz]);
+
+    
+    console.log({...items})
     return (
         <>
             {loading ? (
@@ -182,13 +208,14 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                 <Row className={classNames('zIndex')}>
                     <Card className={classNames('widget-flat')}>
                         <Card.Body>
+                        <label className={classNames('editTitulos')}><i class="mdi mdi-account-check mb-4"></i>{items[0]?.aprendiz}</label>    
                         {children}
                             {!props?.aprendizError ? (
                                 <div className="isinvalid">SELECCIONE EL APRENDIZ</div>
                             ) : (
                                 null
                             )}
-                        {childrenAprendiz}
+                        <FormDatosAprendiz handleClick={props.handleClick} datosAprendiz={props.datosAprendiz} swEdit={1} edit={items} />
                         </Card.Body>
                     </Card>
                 </Row>
@@ -199,9 +226,11 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                         <Card.Body>
                             <Row className="align-items-center">
                                 <br />
+                                <label> Seleccione el tipo de falta:</label>
+                                <label className={classNames('editTitulos')}><i class="mdi mdi-account-check"></i>{items[0]?.tipoComite}</label> 
                                 <FormInput
                                     name="tipoComite"
-                                    label="Seleccione el tipo de falta"
+                                    label=""
                                     type="select"
                                     containerClass="mb-3"
                                     className="form-select"
@@ -212,10 +241,11 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                     <option value="DISCIPLINARIO">DISCIPLINARIO</option>
                                     <option value="ACADEMICO Y DISCIPLINARIO">ACADEMICO Y DISCIPLINARIO</option>
                                 </FormInput>
-
+                                <label>Seleccione la calificación de la falta:</label>
+                                <label className={classNames('editTitulos')}><i class="mdi mdi-account-check"></i>{items[0]?.tipoAtencion}</label>    
                                 <FormInput
                                     name="tipoAtencion"
-                                    label="Seleccione la calificación de la falta"
+                                    label=""
                                     type="select"
                                     containerClass="mb-3 font-weight-bold"
                                     className="form-select"
@@ -227,8 +257,9 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                     <option value="Grave">Grave</option>
                                     <option value="Gravísimas">Gravísimas</option>
                                 </FormInput>
+                                <label>Fecha y Hora de los Hechos:</label>
+                                <label className={classNames('editTitulos')}><i class="mdi mdi-account-check"></i>{items[0]?.fechaHora}</label> 
                                 <div className="mb-3">
-                                    <label>Fecha y Hora de los Hechos</label> <br />
                                     <HyperDatepicker
                                         label=""
                                         name="fechaIncidente"
@@ -256,9 +287,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                             <FileUploader
                                                 onFileUpload={(e) => {
                                                     const files = Array.from(e);
-
                                                     const file = files[0];
-
                                                     const reader = new FileReader();
                                                     reader.readAsArrayBuffer(file);
                                                     // Cuando la lectura del archivo termine
@@ -297,6 +326,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                             </Row>
                             <Row>
                                 <Col>
+                                    <label className={classNames('editTitulos')}><i class="mdi mdi-account-check"></i>{items[0]?.descripcion}</label> 
                                     <div className="mb-3">{childrenEvidencias}</div>
                                 </Col>
                             </Row>

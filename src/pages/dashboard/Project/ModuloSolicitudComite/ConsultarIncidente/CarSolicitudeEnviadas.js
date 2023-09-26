@@ -13,12 +13,13 @@ import Table from '../../../../../components/Table';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import BtnSeccionPdf from '../../../../../components/BtnSeccionPdf';
 import FormEditarSolicitud from '../EnviarSolicitud/FormEditarSolicitud';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
  
 const ActionColumn = ({ row }) => {
-  const { setCodigoFicha, setModal,getData } = useContext(NotificacionesContext)
-
+  const { setCodigoFicha, setModal,getData,query } = useContext(NotificacionesContext)
+ 
   const toggleSignUp = (codigoFicha, titulo) => {
-
+    
     if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
       setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo })
       setModal(true);
@@ -29,9 +30,9 @@ const ActionColumn = ({ row }) => {
   };
 
   const EditDelete = (codigoFicha, titulo) => {
-
+   
     if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
-      
+    
       if(titulo==='DELETE'){
         const id = row?.cells[0]?.row?.values?.id
         Swal.fire({
@@ -65,7 +66,10 @@ const ActionColumn = ({ row }) => {
       }
 
       if(titulo==='EDITAR'){
+       
+        query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitudByCodigo',sw:'6',codigoFicha: encodeBasicUrl(codigoFicha)}]);
         setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo })
+        setModal(true);
       }
    
     } else {
@@ -88,7 +92,7 @@ const ActionColumn = ({ row }) => {
 };
 const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
-  const {codigoFicha,modal,setModal} = useContext(NotificacionesContext)
+  const {codigoFicha,modal,setModal,itemsConsultarSolicitudByCodigo} = useContext(NotificacionesContext)
  
   
  
@@ -185,6 +189,7 @@ const CarSolicitudeEnviadas = (props) => {
                   return (<><ViewPdf codigoFicha={codigoFicha?.codigoFicha} titulo={codigoFicha?.titulo} /> </>)
                 case 'EDITAR':
                   return (<><FormEditarSolicitud 
+                   itemsConsultarSolicitudByCodigo={itemsConsultarSolicitudByCodigo}
                    idAprendiz={props?.idAprendiz} 
                    itemsDescripcion={props?.itemsDescripcion} 
                    aprendizError={props?.aprendizError} 
@@ -194,6 +199,8 @@ const CarSolicitudeEnviadas = (props) => {
                    childrenAprendiz={props?.childrenAprendiz} 
                    selectedOption={props?.selectedOption} 
                    codigoFicha={codigoFicha?.codigoFicha}
+                   handleClick={props?.handleClick}
+                   datosAprendiz={props?.datosAprendiz}
                     /> </>)
                 default:
                   return (<>{''}</>)

@@ -152,7 +152,7 @@ const EnviarSolicitud = (props) => {
                                                                         aprendizError={itemsOptionAprendiz?.aprendizError}
                                                                         descripcionError={descripcionError}
                                                                         childrenEvidencias={<FormDatosEvidencia/>}
-                                                                        childrenAprendiz={ <FormDatosAprendiz handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} />}
+                                                                        handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} 
                                                                         children={<TopbarSearch data={allApredizDatos}
                                                                         selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}
                                                                         />:null}

@@ -8,6 +8,7 @@ const NotificacionesProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [itemsQueryById, setQueryByIdComite] = useState([]);
     const [itemsQueryByIdAprendiz, setQueryByIdAprendiz] = useState([]);
+    const [itemsConsultarSolicitudByCodigo, setConsultarSolicitudByCodigo] = useState([]);
     const [idSolicitudComite, setIdSolicitud] = useState(0);
     const [idDirectivos, setIdDirectivos] = useState();
     const [status, setStatus] = useState('202');
@@ -109,8 +110,10 @@ const NotificacionesProvider = ({ children }) => {
                                             setConsultarPdf(response);
                                         case 'ConsultarSolicitudSinEnviar':
                                             setConsultarSolicitudSinEnviar(response);
-
                                             break;
+                                            case 'ConsultarSolicitudByCodigo':
+                                            setConsultarSolicitudByCodigo(response); 
+                                            break;         
                                     }
                                 })();
                             }
@@ -276,6 +279,7 @@ const NotificacionesProvider = ({ children }) => {
         itemsSinEnviar,
         activeTab,
         setActiveTab,
+        itemsConsultarSolicitudByCodigo, setConsultarSolicitudByCodigo
     };
 
     return (
