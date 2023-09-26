@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {Row, Col, Tab, Nav, Card } from 'react-bootstrap';
 import FormDatosAprendiz from './FormDatosAprendiz';
 import FormDatosIncidente from './FormDatosIncidente';
@@ -61,6 +61,8 @@ const EnviarSolicitud = (props) => {
         
         //
       };
+      
+ 
     return (
         <React.Fragment>
             <Row>
@@ -141,7 +143,19 @@ const EnviarSolicitud = (props) => {
                                                                     return (
                                                                         <Row>
                                                                         <Col sm="12">
-                                                                        {datosSolicitudes?.length>0 ? <CarSolicitudeEnviadas Solicitudes={datosSolicitudes} sizePerPageList={sizePerPageList}/>:null}
+                                                                        {datosSolicitudes?.length>0 ? 
+                                                                        <CarSolicitudeEnviadas 
+                                                                        Solicitudes={datosSolicitudes}
+                                                                        sizePerPageList={sizePerPageList}
+                                                                        idAprendiz={itemsOptionAprendiz?.idAprendiz}
+                                                                        itemsDescripcion={descripcion}
+                                                                        aprendizError={itemsOptionAprendiz?.aprendizError}
+                                                                        descripcionError={descripcionError}
+                                                                        childrenEvidencias={<FormDatosEvidencia/>}
+                                                                        childrenAprendiz={ <FormDatosAprendiz handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} />}
+                                                                        children={<TopbarSearch data={allApredizDatos}
+                                                                        selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}
+                                                                        />:null}
                                                                         </Col>
                                                                     </Row>
                                                                     ); 

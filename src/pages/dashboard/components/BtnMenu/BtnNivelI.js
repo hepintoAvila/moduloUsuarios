@@ -20,7 +20,6 @@ const BtnNivelI = (props) => {
     query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitudSinEnviar',sw:'5',rol: encodeBasicUrl(user[0].role)}]);
  
   }, [query])
-
  
   useEffect(() => {
     if(itemsSinEnviar?.data?.Solicitudes){
@@ -31,9 +30,7 @@ const BtnNivelI = (props) => {
     }
 
     }, [itemsSinEnviar?.data?.Solicitudes])
- 
- 
-  return (
+   return (
     <>
 
           <Row >

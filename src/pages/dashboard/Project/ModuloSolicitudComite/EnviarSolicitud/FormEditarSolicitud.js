@@ -25,6 +25,8 @@ function contarVerdaderos(array) {
   }
 const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
+    const childrenEvidencias = props.childrenEvidencias || null;
+    const childrenAprendiz = props.childrenAprendiz || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
  
     const {validateError,setError,queryFile,loading,nombrePrograma,descripcion,fallas} = useContext(SearchContext)
@@ -111,20 +113,6 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
               }])
         }
     };
-    /*
-    const onDateChangePropuesta = (date,fechaPropuestaError) => {
-        if (date) {
-            setSelectedDatePropuesta(date);
-            setError({...validateError,fechaPropuestaError:fechaPropuestaError})
-            setItems([{
-                ...items[0], fechaPropuesta:date,
-                idAprendiz:props?.idAprendiz,
-                descripcion:descripcion,
-                nombrePrograma:nombrePrograma
-              }])
-        }
-    };
-    */
     
     const onDateChangeFile = (file,base64String,filesError,base64StringsError) => {
         if (file) {
@@ -179,127 +167,148 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         setItems(objnombrePrograma)
     }, [nombrePrograma]);
 
- 
+ console.log('codigoFicha',props?.codigoFicha)
     return (
         <>
-      {loading ? <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
+            {loading ? (
+                <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect>
+            ) : null}
+            <VerticalForm
+                onSubmit={onSubmit}
+                resolver={schemaResolver}
+                defaultValues={{}}
+                className={classNames('col-4')}>
 
-           <VerticalForm onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{}} className={classNames('col-4')}>
+                <Row className={classNames('zIndex')}>
+                    <Card className={classNames('widget-flat')}>
+                        <Card.Body>
+                        {children}
+                            {!props?.aprendizError ? (
+                                <div className="isinvalid">SELECCIONE EL APRENDIZ</div>
+                            ) : (
+                                null
+                            )}
+                        {childrenAprendiz}
+                        </Card.Body>
+                    </Card>
+                </Row>
+
                 
                 <Row>
                     <Card className={classNames('widget-flat')}>
-
-                        
                         <Card.Body>
-                        {!props?.aprendizError? <div className="isinvalid">SELECCIONE EL APRENDIZ</div>:<div>APRENDIZ:</div>}
-                                    {children}
                             <Row className="align-items-center">
-                                   
-                                    <br/>
-                                    <FormInput
-                                        name="tipoComite"
-                                        label="Seleccione el tipo de falta"
-                                        type="select"
-                                        containerClass="mb-3"
-                                        className="form-select"
-                                        key="tipoComite"
-                                        isInvalid={!validateError.comiteError}
-                                         onChange={(e) => onChangeTipoComite(
-                                            e.target.value,true
-                                          )}
-                                    >
-                                        <option value="ACADEMICO"> ACADEMICO</option>
-                                        <option value="DISCIPLINARIO">DISCIPLINARIO</option>
-                                        <option value="ACADEMICO Y DISCIPLINARIO">ACADEMICO Y DISCIPLINARIO</option>
-                                    </FormInput>
-                                     
-                                    <FormInput
-                                        name="tipoAtencion"
-                                        label="Seleccione la calificación de la falta"
-                                        type="select"
-                                        containerClass="mb-3 font-weight-bold"
-                                        className="form-select"
-                                        key="tipoAtencion"
-                                        isInvalid={!validateError.tipoAtencionError}
-                                        onChange={(e) => onChangeTipoAtencion(
-                                            e.target.value,true
-                                          )}
-                      
-                                    >
-                                        <option>Seleccione...</option>
-                                        <option value="Leve">Leve</option>
-                                        <option value="Grave">Grave</option>
-                                        <option value="Gravísimas">Gravísimas</option>
-                                    </FormInput>
-                                    <div className="mb-3">
-                                        <label>Fecha y Hora de los Hechos</label> <br />
-                                        <HyperDatepicker
-                                            label=''
-                                            name="fechaIncidente"
-                                            hideAddon={true}
-                                            showTimeSelect
-                                            timeFormat="HH:mm"
-                                            tI={60}
-                                            dateFormat="MMMM d, yyyy h:mm aa"
-                                            timeCaption="time"
-                                            className="form-control"
-                                            value={selectedDate}
-                                            onChange={(date) =>
-                                                onDateChangefechaIncidente(date,true)
-                                                }
-                                        />
-                                        
-                                            {!validateError.fechaError ? 
-                                            <div className="isinvalid">
-                                                 SELECCIONE LA FECHA Y HORA HECHOS
-                                                 </div>: ''
-                                             }
-                                       
-                                    </div>
+                                <br />
+                                <FormInput
+                                    name="tipoComite"
+                                    label="Seleccione el tipo de falta"
+                                    type="select"
+                                    containerClass="mb-3"
+                                    className="form-select"
+                                    key="tipoComite"
+                                    isInvalid={!validateError.comiteError}
+                                    onChange={(e) => onChangeTipoComite(e.target.value, true)}>
+                                    <option value="ACADEMICO"> ACADEMICO</option>
+                                    <option value="DISCIPLINARIO">DISCIPLINARIO</option>
+                                    <option value="ACADEMICO Y DISCIPLINARIO">ACADEMICO Y DISCIPLINARIO</option>
+                                </FormInput>
+
+                                <FormInput
+                                    name="tipoAtencion"
+                                    label="Seleccione la calificación de la falta"
+                                    type="select"
+                                    containerClass="mb-3 font-weight-bold"
+                                    className="form-select"
+                                    key="tipoAtencion"
+                                    isInvalid={!validateError.tipoAtencionError}
+                                    onChange={(e) => onChangeTipoAtencion(e.target.value, true)}>
+                                    <option>Seleccione...</option>
+                                    <option value="Leve">Leve</option>
+                                    <option value="Grave">Grave</option>
+                                    <option value="Gravísimas">Gravísimas</option>
+                                </FormInput>
+                                <div className="mb-3">
+                                    <label>Fecha y Hora de los Hechos</label> <br />
+                                    <HyperDatepicker
+                                        label=""
+                                        name="fechaIncidente"
+                                        hideAddon={true}
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        tI={60}
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        timeCaption="time"
+                                        className="form-control"
+                                        value={selectedDate}
+                                        onChange={(date) => onDateChangefechaIncidente(date, true)}
+                                    />
+                                    {!validateError.fechaError ? (
+                                        <div className="isinvalid">SELECCIONE LA FECHA Y HORA HECHOS</div>
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
                             </Row>
                             <Row>
                                 <Col>
-                                         
                                     <Card>
-                                        <Card.Body> 
+                                        <Card.Body>
                                             <FileUploader
                                                 onFileUpload={(e) => {
-                                                const files = Array.from(e);
-                                                
-                                                  const file = files[0];
-                                                  
-                                                  const reader = new FileReader();
-                                                  reader.readAsArrayBuffer(file);
-                                                  // Cuando la lectura del archivo termine
-                                                  reader.onload = function () {
-                                                    // Convertir el contenido del archivo a una cadena base64
-                                                    const base64String = btoa(
-                                                      new Uint8Array(reader.result)
-                                                        .reduce((data, byte) => data + String.fromCharCode(byte), '')
-                                                    );
+                                                    const files = Array.from(e);
 
-                                                    
-                                                    onDateChangeFile(JSON.stringify(file),base64String,true,true)
-                                                }
-                                                
-                                                //
+                                                    const file = files[0];
+
+                                                    const reader = new FileReader();
+                                                    reader.readAsArrayBuffer(file);
+                                                    // Cuando la lectura del archivo termine
+                                                    reader.onload = function () {
+                                                        // Convertir el contenido del archivo a una cadena base64
+                                                        const base64String = btoa(
+                                                            new Uint8Array(reader.result).reduce(
+                                                                (data, byte) => data + String.fromCharCode(byte),
+                                                                ''
+                                                            )
+                                                        );
+
+                                                        onDateChangeFile(
+                                                            JSON.stringify(file),
+                                                            base64String,
+                                                            true,
+                                                            true
+                                                        );
+                                                    };
+
+                                                    //
                                                 }}
                                             />
-                                            {!validateError.filesError && !validateError.base64StringsError ? <div className="isinvalid"><p className="text-white font-13 m-b-30">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
-                                  
+                                            {!validateError.filesError && !validateError.base64StringsError ? (
+                                                <div className="isinvalid">
+                                                    <p className="text-white font-13 m-b-30">
+                                                        CARGUE LA EVIDENCIA EN PDF
+                                                    </p>
+                                                </div>
+                                            ) : (
+                                                <h4 className="header-title mb-3">documento subido</h4>
+                                            )}
                                         </Card.Body>
                                     </Card>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <div className="mb-3">{childrenEvidencias}</div>
                                 </Col>
                             </Row>
                         </Card.Body>
                     </Card>
                 </Row>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <Row>
                     <div className="mb-3 mb-0 text-center btnenviarSolicitud">
                         <Button variant="primary" type="submit" disabled={loading}>
-                            {t('ENVIAR SOLICITUD')}
+                            {t('ACTUALIZAR SOLICITUD')}
                         </Button>
                     </div>
                 </Row>

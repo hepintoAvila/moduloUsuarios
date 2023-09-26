@@ -34,7 +34,6 @@ const ActionColumn = ({ row }) => {
       
       if(titulo==='DELETE'){
         const id = row?.cells[0]?.row?.values?.id
-        
         Swal.fire({
             title: 'Desea eliminar el registro? ' + id,
             showCancelButton: true,
@@ -65,6 +64,9 @@ const ActionColumn = ({ row }) => {
           });
       }
 
+      if(titulo==='EDITAR'){
+        setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo })
+      }
    
     } else {
       Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${row?.cells[1]?.row?.values?.codigoFicha}-${titulo}`);
@@ -87,9 +89,17 @@ const ActionColumn = ({ row }) => {
 const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
   const {codigoFicha,modal,setModal} = useContext(NotificacionesContext)
-
  
-  const datos = props?.Solicitudes|| [];
+  
+ 
+  const datos = props?.Solicitudes|| [{id:1,
+    codigoFicha:'0001',
+    aprendiz:'SR',
+    estado:'SR',
+    fechaHora:'0000-00-00 00 00',
+    fechaHoraAgendada:'0000-00-00 00 00',
+    tipoAtencion:'ST'
+  }];
 
   const columns = [
     {
@@ -137,6 +147,7 @@ const CarSolicitudeEnviadas = (props) => {
   const onClose = () => {
     setModal(false);
 };
+ 
   return (
     <>
 
@@ -154,9 +165,9 @@ const CarSolicitudeEnviadas = (props) => {
                     theadClass="table-light"
                     searchBoxClass="mt-2 mb-3"
                     isSearchable={true}
-                    nametable={props.accion}
+                    nametable={'table1'}
                     titleTable={'HISTORIAL DE INCIDENCIAS'}
-              />}
+  />}
             </Card.Body>
           </Card>
         </Col>
@@ -165,16 +176,25 @@ const CarSolicitudeEnviadas = (props) => {
         <Modal show={modal} fullscreen={codigoFicha?.titulo==='EDITAR'? false:true} onHide={onClose} >
           <Modal.Body>
           <Modal.Header onClick={onClose}>
-                    <h4 className="modal-description">Formulario {codigoFicha?.titulo}</h4>
+                    <h4 className="modal-description">{codigoFicha?.titulo}</h4>
                   </Modal.Header>
             {(() => {
               switch (codigoFicha?.titulo) {
                 case 'EVIDENCIAS':
                 case 'FORMATO':
                   return (<><ViewPdf codigoFicha={codigoFicha?.codigoFicha} titulo={codigoFicha?.titulo} /> </>)
-                  
                 case 'EDITAR':
-                  return (<><FormEditarSolicitud /> </>)
+                  return (<><FormEditarSolicitud 
+                   idAprendiz={props?.idAprendiz} 
+                   itemsDescripcion={props?.itemsDescripcion} 
+                   aprendizError={props?.aprendizError} 
+                   descripcionError={props?.descripcionError} 
+                   children={props?.children} 
+                   childrenEvidencias={props?.childrenEvidencias} 
+                   childrenAprendiz={props?.childrenAprendiz} 
+                   selectedOption={props?.selectedOption} 
+                   codigoFicha={codigoFicha?.codigoFicha}
+                    /> </>)
                 default:
                   return (<>{''}</>)
               }
