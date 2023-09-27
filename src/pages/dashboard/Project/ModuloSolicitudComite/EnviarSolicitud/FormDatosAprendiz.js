@@ -1,26 +1,24 @@
 // @flow
-import React, { useContext, useState }  from 'react';
+import React, { useContext }  from 'react';
  // components
- import { Row, Col } from 'react-bootstrap';
+ import { Row, Col, } from 'react-bootstrap';
 import profileImg from '../../../../../assets/images/users/avatar-3.jpg';
 import FormInput from '../../../components/FormInput';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
-import classNames from 'classnames';
-
+ 
+ 
 const FormDatosAprendiz = (props) => {
-
     const {setNombrePrograma,nombrePrograma,nombreProgramaError,setError,validateError,fallas, setFallas} = useContext(SearchContext)
-
+ 
     const onNombrePrograma = (e) => {
         if (e) {
               setNombrePrograma({nombrePrograma:e,valideNombrePrograma:e?.length===0 ? false : true});
               setError({...validateError,nombreProgramaError:true})
         }
     };
-    
-  
 return (
 <>
+           
                 <Row  className="cardAprendiz text-black">
                     <Col sm={12}>
                         <Row className="align-items-center cardAprendiz">
@@ -205,7 +203,7 @@ return (
                 <Row>
                 {!nombreProgramaError? <div className="isinvalid"><p className="text-white font-14 mb-3"></p></div>:''}   
                </Row>
-         
+              
       
         </>
     );

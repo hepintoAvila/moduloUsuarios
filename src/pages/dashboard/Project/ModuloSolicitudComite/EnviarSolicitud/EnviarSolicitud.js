@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import {Row, Col, Tab, Nav, Card } from 'react-bootstrap';
+import {Row, Col, Tab, Nav, Card, Collapse } from 'react-bootstrap';
 import FormDatosAprendiz from './FormDatosAprendiz';
 import FormDatosIncidente from './FormDatosIncidente';
 import FormDatosEvidencia from './FormDatosEvidencia';
@@ -16,7 +16,7 @@ import HeaderForm from '../Components/HeaderForm';
 const EnviarSolicitud = (props) => {
     
     const {itemsOptionAprendiz,descripcion,descripcionError} = useContext(SearchContext)
-    const {itemsAprendices,query,itemsSolicitudByID,activeTab, setActiveTab} = useContext(NotificacionesContext)
+    const {itemsAprendices,query,itemsSolicitudByID,activeTab, setActiveTab,openFormAprendiz} = useContext(NotificacionesContext)
     const allApredizDatos = itemsAprendices?.data?.Aprendices || [];
  
     const {
@@ -62,7 +62,6 @@ const EnviarSolicitud = (props) => {
         //
       };
       
- 
     return (
         <React.Fragment>
             <Row>
@@ -121,9 +120,13 @@ const EnviarSolicitud = (props) => {
                                                                             <Col lg={6} className="derechaColumnEnviarSolicitud">
                                                                             
                                                                                 <p className="mt-3">{tab.text}</p>
-                                                                               
+                                                                                <Collapse in={openFormAprendiz}> 
+                                                                                <div> 
                                                                                 <FormDatosAprendiz handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} />
+                                                                                </div> 
+                                                                                </Collapse>
                                                                                <br/>
+                                                                               
                                                                                 <FormDatosEvidencia />
                                                                                 
                                                                                </Col>

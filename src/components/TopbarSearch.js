@@ -112,9 +112,9 @@ type TopbarSearchProps = {
 };
 
 const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
-    const {query} = useContext(NotificacionesContext)
+    const {query,setOpenFormAprendiz} = useContext(NotificacionesContext)
     const {setSelectedOptionAprendiz,validateError,setError} = useContext(SearchContext)
-
+    
     const options = props?.data
     const handleTypeSelect = e => {
         const values = options.filter(function(option) {
@@ -144,7 +144,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
 
           
           query('ModuloSolicitudComite','EnviarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'queryByIdAprendiz',sw:4,idAprendiz:encodeBasicUrl(values[0]?.userDetails?.id)}]);
-          
+          setOpenFormAprendiz(true);
           setSelectedOptionAprendiz(detalles);
           setError({...validateError,aprendizError:true})
           return window.location.hash = `/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${values[0]?.userDetails?.id}`;

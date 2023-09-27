@@ -179,7 +179,12 @@ body {
 .fotoUserSw{
   margin-top: -41.5rem !important;
 }
-
+.visible {
+  visibility: visible !important;
+}
+.invisible {
+  visibility: hidden !important;
+}
 .fc, fc-media-screen, fc-direction-ltr, fc-theme-bootstrap {
   height: 39em;
   width: auto;

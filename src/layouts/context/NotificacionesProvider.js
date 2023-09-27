@@ -25,6 +25,7 @@ const NotificacionesProvider = ({ children }) => {
     const [consultarPdf, setConsultarPdf] = useState({});
     const [itemsSinEnviar, setConsultarSolicitudSinEnviar] = useState({});
     const [activeTab, setActiveTab] = useState('Enviar Solicitud');
+    const [openFormAprendiz, setOpenFormAprendiz] = useState(false);
 
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
     const getData = useCallback((queryDatos) => {
@@ -279,7 +280,9 @@ const NotificacionesProvider = ({ children }) => {
         itemsSinEnviar,
         activeTab,
         setActiveTab,
-        itemsConsultarSolicitudByCodigo, setConsultarSolicitudByCodigo
+        itemsConsultarSolicitudByCodigo,
+        setConsultarSolicitudByCodigo,
+        openFormAprendiz, setOpenFormAprendiz
     };
 
     return (

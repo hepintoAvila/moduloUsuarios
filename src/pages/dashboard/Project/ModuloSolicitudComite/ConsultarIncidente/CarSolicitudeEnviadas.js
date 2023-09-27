@@ -44,7 +44,7 @@ const ActionColumn = ({ row }) => {
                 idSolicitud:id,
                 accion: 'ModuloSolicitudComite',
                 opcion: 'deleteSolicitud',
-                tipo: 'deleteSolicitud',
+                obj: 'deleteSolicitud',
                }
                   const queryDatos = datosEvent
                   ? Object.keys(datosEvent)
