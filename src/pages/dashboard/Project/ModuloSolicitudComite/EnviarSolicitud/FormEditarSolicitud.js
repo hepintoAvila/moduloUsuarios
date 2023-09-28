@@ -48,15 +48,53 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     const toggle = () => {
         setOpen((prevState) => !prevState);
     };
+
+    const update = (e,opcion) => {
+        const datosEvent = {
+            idSolicitud:props?.idSolicitud,
+            opcionUpdate:opcion,
+            nombrePrograma,
+            ...fallas[0],
+            e:e,
+            codigoFicha:props?.codigoFicha,
+            accion: 'ModuloSolicitudComite',
+            opcion: 'updateSolicitud',
+            tipo: 'updateSolicitud',
+        }
+        Swal.fire({
+            title: 'Desea actualizar este registro',
+            showCancelButton: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+                  const queryDatos = datosEvent
+                  ? Object.keys(datosEvent)
+                      .map((key) => key + '=' + btoa(datosEvent[key]))
+                      .join('&')
+                  : '';
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Enviado Solicitud...',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })                  
+                  setTimeout(function () {
+                    getData(queryDatos)
+                  }, 2000);
+            }
+          });
+       
+    };
+    
     const deleteDocumento = (id) => {
 
         Swal.fire({
-            title: '' + id==='1' ? 'Desea eliminar los hechos' : 'Desea eliminar el formato de solicitud',
+            title: id==='1' ? 'Desea eliminar los hechos' : 'Desea eliminar el formato de solicitud',
             showCancelButton: true,
           }).then((result) => {
             if (result.isConfirmed) {
              const datosEvent = {
-                idSolicitud:id,
+                idOpcion:id,
                 codigoFicha:props?.codigoFicha,
                 accion: 'ModuloSolicitudComite',
                 opcion: 'deleteSolicitud',
@@ -259,7 +297,9 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                 <i class="mdi mdi-account-check mb-4"></i>
                                 {items[0]?.aprendiz}
                             </label>
-                            {children}
+                            <Row>
+                            <div className="mb-0 col-8">{children}</div><div className="uploadSolicitudAprendiz col-4 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(props?.idAprendiz,'datosAprendiz')}}></i></span></div>
+                            </Row>
                             <Collapse in={openFormAprendiz}>
                                 <div>
                                     {!props?.aprendizError ? (
@@ -276,13 +316,14 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                 <Row>
                     <Card className={classNames('widget-flat')}>
                         <Card.Body>
-                            <Row className="align-items-center">
                                 <br />
                                 <label> Seleccione el tipo de falta:</label>
                                 <label className={classNames('editTitulos')}>
                                     <i class="mdi mdi-account-check"></i>
                                     {items[0]?.tipoComite}
                                 </label>
+                                <Row className="align-items-center">
+                                <div className="mb-0 col-8">
                                 <FormInput
                                     name="tipoComite"
                                     label=""
@@ -295,12 +336,16 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                     <option value="ACADEMICO"> ACADEMICO</option>
                                     <option value="DISCIPLINARIO">DISCIPLINARIO</option>
                                     <option value="ACADEMICO Y DISCIPLINARIO">ACADEMICO Y DISCIPLINARIO</option>
-                                </FormInput>
+                                </FormInput></div><div className="uploadSolicitud col-4 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.tipoComite,'datosTipoComite')}}></i></span></div>
+                                </Row>
+                                <hr />
+                                <Row className="align-items-center">
                                 <label>Seleccione la calificación de la falta:</label>
                                 <label className={classNames('editTitulos')}>
                                     <i class="mdi mdi-account-check"></i>
                                     {items[0]?.tipoAtencion}
                                 </label>
+                                <div className="mb-0 col-8">
                                 <FormInput
                                     name="tipoAtencion"
                                     label=""
@@ -314,13 +359,16 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                     <option value="Leve">Leve</option>
                                     <option value="Grave">Grave</option>
                                     <option value="Gravísimas">Gravísimas</option>
-                                </FormInput>
+                                </FormInput></div><div className="uploadSolicitud col-4 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.tipoAtencion,'datosTipoAtencion')}}></i></span></div>
+                                </Row>
+                                <hr />
+                                <Row className="align-items-center">
                                 <label>Fecha y Hora de los Hechos:</label>
                                 <label className={classNames('editTitulos')}>
                                     <i class="mdi mdi-account-check"></i>
                                     {items[0]?.fechaHora}
                                 </label>
-                                <div className="mb-3">
+                                <div className="mb-0 col-8">
                                     <HyperDatepicker
                                         label=""
                                         name="fechaIncidente"
@@ -333,14 +381,16 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                         className="form-control"
                                         value={selectedDate}
                                         onChange={(date) => onDateChangefechaIncidente(date, true)}
-                                    />
+                                    /></div><div className="uploadSolicitud col-4 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.fechaHora,'datosFechaIncidente')}}></i></span></div>
+                                    <div className="mb-0 col-8">
                                     {!validateError.fechaError ? (
-                                        <div className="isinvalid">SELECCIONE LA FECHA Y HORA HECHOS</div>
+                                        <div className="isinvalid text-100">SELECCIONE LA FECHA Y HORA HECHOS</div>
                                     ) : (
                                         ''
-                                    )}
-                                </div>
-                            </Row>
+                                    )}</div>
+                                    </Row>
+                                
+                           
                             <hr />
 
                             <h5 className="mb-3">Documentos Cargados</h5>
@@ -351,22 +401,12 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                             <Card className="mb-1 shadow-none border">
                                                 <div className="p-2">
                                                     <Row className="align-items-center">
-                                                        <Col className="col-auto">
-                                                            <div className="avatar-sm">
-                                                                <span className="avatar-title bg-primary-lighten text-primary rounded">
-                                                                    {f.ext}
-                                                                </span>
-                                                            </div>
-                                                        </Col>
-                                                        <Col className="col ps-0">
-                                                            <a href="/" className="text-muted font-weight-bold">
-                                                                {f.name}
-                                                            </a>
-                                                            <p className="mb-0">{f.size}</p>
-                                                        </Col>
+
                                                         <Col className="col-auto">
                                                             <a href="/" className="btn btn-link btn-lg text-muted">
-                                                                {f.size === 'Subido' ? (
+                                                                {f.size === '1' ? (
+                                                                    <div className="avatar-sm">
+                                                                    <span className="avatar-title bg-primary-lighten text-primary rounded">
                                                                     <Link
                                                                     to="#"
                                                                     className="custom-accordion-title d-block pt-2 pb-2"
@@ -374,8 +414,11 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                                                     >
                                                                     <i className="mdi mdi-delete-sweep"></i>
                                                                 </Link>
-                                                                    
+                                                                </span>
+                                                            </div>
                                                                 ) : (
+                                                                    <div className="avatar-sm">
+                                                                    <span className="avatar-title bg-primary-lighten text-primary rounded">
                                                                     <Link
                                                                         to="#"
                                                                         className="custom-accordion-title d-block pt-2 pb-2"
@@ -384,9 +427,15 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                                                         aria-expanded={open}>
                                                                         <i className="mdi mdi-file-upload-outline"></i>
                                                                     </Link>
+                                                                    </span>
+                                                                    </div>
                                                                 )}
                                                             </a>
                                                         </Col>
+                                                         <Col className="col ps-0">
+                                                          <p className="mb-0 text-muted font-weight-bold">{f.name}</p>
+                                                        </Col>
+
                                                     </Row>
                                                 </div>
                                             </Card>
@@ -394,6 +443,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                     );
                                 })}
                             </Row>
+                            <hr />
                             <Collapse in={open}>
                                 <Row>
                                     <Col>
@@ -446,20 +496,13 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                         <i class="mdi mdi-account-check"></i>
                                         {items[0]?.descripcion}
                                     </label>
-                                    <div className="mb-3">{childrenEvidencias}</div>
+                                    <div className="mb-4">{childrenEvidencias}</div>
+                                   
                                 </Col>
+                                <div className="mb-0 col-10"></div><div className="uploadSolicitud col-2 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.descripcion,'datosDescripcion')}}></i></span></div>
                             </Row>
                         </Card.Body>
                     </Card>
-                </Row>
-                <br />
-                <br />
-                <Row>
-                    <div className="mb-3 mb-0 text-center btnenviarSolicitud">
-                        <Button variant="primary" type="submit" disabled={loading}>
-                            {t('ACTUALIZAR SOLICITUD')}
-                        </Button>
-                    </div>
                 </Row>
             </VerticalForm>
         </>

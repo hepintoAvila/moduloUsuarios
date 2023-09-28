@@ -173,6 +173,25 @@ body {
   padding: 0em 2.8em;
   font-weight: 900;
 }
+.uploadSolicitud, .uploadSolicitudAprendiz {
+    padding: 0em 0em 0em;
+    cursor: pointer;
+    font-size: revert;
+    margin-top: -2em;
+    &:focus,
+    &:active {
+        border: 0.1em solid #10300563;
+        text-decoration: none;
+        background: $gray-100;
+        transition-duration: .05s;
+    }
+}
+
+.uploadSolicitudAprendiz{
+  margin-top: -0.7em;
+}
+
+
 .fotoUser{
   margin-top: -19.5rem !important;
 }

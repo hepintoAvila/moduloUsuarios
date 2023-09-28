@@ -21,7 +21,7 @@ const ActionColumn = ({ row }) => {
   const toggleSignUp = (codigoFicha, titulo) => {
     
     if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
-      setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo })
+      setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo,idSolicitud: row?.cells[0]?.row?.values?.id})
       setModal(true);
       //Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${codigoFicha}`);
     } else {
@@ -68,7 +68,7 @@ const ActionColumn = ({ row }) => {
       if(titulo==='EDITAR'){
        
         query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitudByCodigo',sw:'6',codigoFicha: encodeBasicUrl(codigoFicha)}]);
-        setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo })
+        setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo,idSolicitud: row?.cells[0]?.row?.values?.id })
         setModal(true);
       }
    
@@ -199,6 +199,7 @@ const CarSolicitudeEnviadas = (props) => {
                    childrenAprendiz={props?.childrenAprendiz} 
                    selectedOption={props?.selectedOption} 
                    codigoFicha={codigoFicha?.codigoFicha}
+                   idSolicitud={codigoFicha?.idSolicitud}
                    handleClick={props?.handleClick}
                    datosAprendiz={props?.datosAprendiz}
                     /> </>)
