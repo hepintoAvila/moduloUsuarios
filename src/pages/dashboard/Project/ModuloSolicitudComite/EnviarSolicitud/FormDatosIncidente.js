@@ -231,7 +231,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                         <option>Seleccione...</option>
                                         <option value="Leve">Leve</option>
                                         <option value="Grave">Grave</option>
-                                        <option value="Gravísimas">Gravísimas</option>
+                                        <option value="Gravisimas">Gravísimas</option>
                                     </FormInput>
                                     <div className="mb-3">
                                         <label>Fecha y Hora de los Hechos</label> <br />

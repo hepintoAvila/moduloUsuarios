@@ -32,6 +32,8 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const childrenEvidencias = props.childrenEvidencias || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [options, setOptions] = useState(0);
+    
     const { openFormAprendiz } = useContext(NotificacionesContext);
     const {getData} = useContext(NotificacionesContext)
     const { validateError, setError, queryFile, loading, nombrePrograma, descripcion, fallas } =
@@ -45,7 +47,8 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     });
     const [open, setOpen] = useState(false);
 
-    const toggle = () => {
+    const toggle = (id) => {
+        setOptions(id)
         setOpen((prevState) => !prevState);
     };
 
@@ -136,46 +139,9 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
 
     const { t } = useTranslation();
     const schemaResolver = yupResolver(yup.object().shape({}));
-    const onSubmit = () => {
-        const obj = Object.values({ ...validateError });
-        let numtrue = contarVerdaderos(obj);
-
-        if (Number(numtrue) === 8) {
-            Swal.fire({
-                position: 'center-start',
-                icon: 'success',
-                title: 'Solicitud Enviada',
-                showConfirmButton: false,
-                timer: 1500,
-            });
-            const datosfiles = {
-                idAprendiz: items[0].idAprendiz,
-                tipoComite: items[0].tipoComite,
-                tipoAtencion: items[0].tipoAtencion,
-                fechaIncidente: items[0].fechaIncidente,
-                accion: 'ModuloSolicitudComite',
-                opcion: 'add_solicitud',
-                tipo: 'EnviarSolicitud',
-                selectedFile: items[0].selectedFile,
-                descripcion: items[0].descripcion,
-                nombrePrograma: items[0].nombrePrograma,
-                ...fallas[0],
-            };
-
-            const queryDatos = datosfiles
-                ? Object.keys(datosfiles)
-                      .map((key) => key + '=' + btoa(datosfiles[key]))
-                      .join('&')
-                : '';
-            queryFile(queryDatos, items[0].base64String);
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'ERROR:: FALTAN CAMPOS POR DILIGENCIAR',
-            });
-        }
-    };
+    
+    
+ 
 
     const onDateChangefechaIncidente = (date, fechaError) => {
         if (date) {
@@ -193,19 +159,32 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         }
     };
 
-    const onDateChangeFile = (file, base64String, filesError, base64StringsError) => {
+    const onDateChangeFile = (file, base64String, filesError, base64StringsError,options) => {
         if (file) {
             setError({ ...validateError, filesError: filesError, base64StringsError: base64StringsError });
-            setItems([
-                {
-                    ...items[0],
-                    selectedFile: file,
-                    base64String: base64String,
-                    idAprendiz: props?.idAprendiz,
-                    descripcion: descripcion,
-                    nombrePrograma: nombrePrograma,
-                },
-            ]);
+            Swal.fire({
+                title: 'Desea subir este documento?',
+                showCancelButton: true,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    const datosfiles = {
+                        codigoFicha:props?.codigoFicha,
+                        idSolicitud:props?.idSolicitud,
+                        options: options,
+                        accion: 'ModuloSolicitudComite',
+                        opcion: 'add_documentos',
+                        tipo: 'add_documentos',
+                        selectedFile: file,
+                    };
+                    const queryDatos = datosfiles
+                    ? Object.keys(datosfiles)
+                          .map((key) => key + '=' + btoa(datosfiles[key]))
+                          .join('&')
+                    : '';
+                    queryFile(queryDatos, base64String);
+ 
+                }
+              });
         }
     };
     const onChangeTipoAtencion = (value, tipoAtencionError) => {
@@ -282,14 +261,13 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         }
     }, [datosAprendiz]);
 
-    //console.log(documentos)
+    //console.log({...items})
     return (
         <>
             {loading ? (
                 <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect>
             ) : null}
             <VerticalForm
-                onSubmit={onSubmit}
                 resolver={schemaResolver}
                 defaultValues={{}}
                 className={classNames('col-4')}>
@@ -358,7 +336,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                     <option>Seleccione...</option>
                                     <option value="Leve">Leve</option>
                                     <option value="Grave">Grave</option>
-                                    <option value="Gravísimas">Gravísimas</option>
+                                    <option value="Gravisimas">Gravísimas</option>
                                 </FormInput></div><div className="uploadSolicitud col-4 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.tipoAtencion,'datosTipoAtencion')}}></i></span></div>
                                 </Row>
                                 <hr />
@@ -403,7 +381,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                                     <Row className="align-items-center">
 
                                                         <Col className="col-auto">
-                                                            <a href="/" className="btn btn-link btn-lg text-muted">
+                                                             
                                                                 {f.size === '1' ? (
                                                                     <div className="avatar-sm">
                                                                     <span className="avatar-title bg-primary-lighten text-primary rounded">
@@ -422,7 +400,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                                                     <Link
                                                                         to="#"
                                                                         className="custom-accordion-title d-block pt-2 pb-2"
-                                                                        onClick={toggle}
+                                                                        onClick={()=>{toggle(f.id)}}
                                                                         aria-controls={'collapse 1'}
                                                                         aria-expanded={open}>
                                                                         <i className="mdi mdi-file-upload-outline"></i>
@@ -430,7 +408,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                                                     </span>
                                                                     </div>
                                                                 )}
-                                                            </a>
+                                                         
                                                         </Col>
                                                          <Col className="col ps-0">
                                                           <p className="mb-0 text-muted font-weight-bold">{f.name}</p>
@@ -469,7 +447,8 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                                                 JSON.stringify(file),
                                                                 base64String,
                                                                 true,
-                                                                true
+                                                                true,
+                                                                options
                                                             );
                                                         };
 
