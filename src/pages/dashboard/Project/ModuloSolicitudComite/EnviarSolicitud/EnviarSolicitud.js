@@ -138,7 +138,11 @@ const EnviarSolicitud = (props) => {
                                                                     <Row>
                                                                      <Col lg={12}>
                                                                         <p className="mt-3">{tab.text}</p>
+
                                                                         <CarHistorialIncidencias/>
+
+                                                                        <CarSolicitudeEnviadas />
+
                                                                     </Col>
                                                                 </Row>
                                                                 );

@@ -1,10 +1,8 @@
 import React from 'react';
 import FormVoz from './FormVoz';
 import FormComite from './FormComite';
-
+const options = JSON.parse(sessionStorage.getItem('OPTIONS'));
 const OpcionsForm = () => {
-    const options = sessionStorage.getItem('OPTIONS');
-    console.log('options',options)
     return (
         <React.Fragment>
             {(() => {

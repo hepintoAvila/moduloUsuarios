@@ -112,9 +112,11 @@ type TopbarSearchProps = {
 };
 
 const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
+
     const {query,setOpenFormAprendiz} = useContext(NotificacionesContext)
     const {setSelectedOptionAprendiz,validateError,setError} = useContext(SearchContext)
     
+
     const options = props?.data
     const handleTypeSelect = e => {
         const values = options.filter(function(option) {

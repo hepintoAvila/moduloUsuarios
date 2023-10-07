@@ -117,6 +117,13 @@ const CarSolicitudeEnviadas = (props) => {
     tipoAtencion:'ST'
   }];
 
+  const {itemsSolicitudByID,query} = useAdminUsuarios()
+
+  const {
+    sizePerPageList
+  } = useContext(DashboardContext);
+  const datos = itemsSolicitudByID?.data?.Solicitudes|| [{}];
+
   const columns = [
     {
       Header: 'ID',
@@ -138,6 +145,7 @@ const CarSolicitudeEnviadas = (props) => {
       sort: true,
     }
     , {
+
       Header: 'Fecha Incidencia',
       accessor: 'fechaHora',
       sort: false,
@@ -147,9 +155,29 @@ const CarSolicitudeEnviadas = (props) => {
       accessor: 'fechaHoraAgendada',
       sort: false,
     },
+      Header: 'Tipo de Atención',
+      accessor: 'tipoAtencion',
+      sort: false,
+    },
     {
-        Header: 'Calificación',
-        accessor: 'tipoAtencion',
+      Header: 'Fecha Hora Hechos',
+      accessor: 'fechaHora',
+      sort: false,
+    },
+    {
+      Header: 'Fecha Hora Propuesta',
+      accessor: 'fechaHoraPropuesta',
+      sort: false,
+    },
+      {
+        Header: 'Fecha Hora Agendada',
+        accessor: 'fechaHoraAgendada',
+        sort: false,
+      },
+      
+      {
+        Header: 'Estado',
+        accessor: 'estado',
         sort: false,
       },
     {
@@ -160,10 +188,17 @@ const CarSolicitudeEnviadas = (props) => {
       Cell: ActionColumn,
     },
   ];
+
   const onClose = () => {
     setModal(false);
 };
  
+
+
+  useEffect(() => {
+    query('ModuloSolicitudComite', 'ConsultarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitudByID',sw:0 }]);
+  }, [query])
+
   return (
     <>
 

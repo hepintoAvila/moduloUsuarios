@@ -1,4 +1,5 @@
 // @flow
+
 import React, {useContext,useEffect,useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import classNames from 'classnames';
@@ -28,7 +29,8 @@ function contarVerdaderos(array) {
 const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
- 
+    const [selectedDatePropuesta, setSelectedDatePropuesta] = useState(new Date());
+    const {validateError,setError,queryFile,loading,nombrePrograma} = useContext(SearchContext)
     const {validateError,setError,queryFile,loading,nombrePrograma,descripcion,fallas} = useContext(SearchContext)
  
     //console.log({...fallas[0]})
@@ -45,6 +47,14 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         base64String:'',
         descripcion:'',
         nombrePrograma:'',
+        fechaPropuesta: '',
+        accion: encodeBasicUrl('ModuloSolicitudComite'),
+        opcion: encodeBasicUrl('add_solicitud'),
+        tipo: encodeBasicUrl('EnviarSolicitud'),
+        selectedFile:'',
+        base64String:'',
+        descripcion:props?.itemsDescripcion?.length===0 ? '':props?.itemsDescripcion,
+        nombrePrograma:nombrePrograma?.length===0 ? '':nombrePrograma,
 
     }]);
  
@@ -57,7 +67,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         const obj = Object.values({...validateError})
         let numtrue = contarVerdaderos(obj)
 
+
         if(Number(numtrue)===8){
+
+        console.log('numtrue',numtrue);
+        if(Number(numtrue)===9){
+
             Swal.fire({
                 position: 'top-center',
                 icon: 'success',
@@ -67,6 +82,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               })
         const datosfiles = 
             {
+
                 idAprendiz:items[0].idAprendiz,
                 tipoComite:items[0].tipoComite,
                 tipoAtencion:items[0].tipoAtencion,
@@ -78,7 +94,6 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 descripcion:items[0].descripcion,
                 nombrePrograma:items[0].nombrePrograma,
                 ...fallas[0],    
-                
             }
            
             const queryDatos = datosfiles
@@ -102,9 +117,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
 
 
       const onDateChangefechaIncidente = (date,fechaError) => {
+
+      const onDateChangefechaIncidente = (date,fechaIncidenteError) => {
+
         if (date) {
             setSelectedDate(date);
-            setError({...validateError,fechaError:fechaError})
+            setError({...validateError,fechaIncidenteError:fechaIncidenteError})
             setItems([{
                 ...items[0], fechaIncidente:date,
                 idAprendiz:props?.idAprendiz,
@@ -113,7 +131,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               }])
         }
     };
-    /*
+
     const onDateChangePropuesta = (date,fechaPropuestaError) => {
         if (date) {
             setSelectedDatePropuesta(date);
@@ -126,8 +144,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               }])
         }
     };
-    */
-    
+
     const onDateChangeFile = (file,base64String,filesError,base64StringsError) => {
         if (file) {
             setError({...validateError,filesError:filesError,base64StringsError:base64StringsError})
@@ -147,9 +164,11 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             setItems([{
                 ...items[0], 
                 tipoAtencion: value,
+
                 idAprendiz:props?.idAprendiz,
                 descripcion:descripcion,
                 nombrePrograma:nombrePrograma
+
               }])
         }
     };
@@ -159,6 +178,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             setItems([{
                 ...items[0], 
                 tipoComite:value,
+
                 idAprendiz:props?.idAprendiz,
                 descripcion:descripcion,
                 nombrePrograma:nombrePrograma
@@ -182,6 +202,10 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     }, [nombrePrograma]);
 
  
+              }])
+        }
+    };
+
     return (
         <>
       {loading ? <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
@@ -218,6 +242,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                     <FormInput
                                         name="tipoAtencion"
                                         label="Seleccione la calificación de la falta"
+                                        label="Seleccione el tipo de Atencion"
                                         type="select"
                                         containerClass="mb-3 font-weight-bold"
                                         className="form-select"
@@ -251,18 +276,44 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                                 }
                                         />
                                         
+
                                             {!validateError.fechaError ? 
+                                            {!validateError.fechaIncidenteError ? 
                                             <div className="isinvalid">
                                                  SELECCIONE LA FECHA Y HORA HECHOS
                                                  </div>: ''
                                              }
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Fecha y Hora Propuesta para Agendar</label> <br />
+                                        <HyperDatepicker
+                                            name="fechaHoraPropuesta"
+                                            hideAddon={true}
+                                            showTimeSelect
+                                            timeFormat="HH:mm"
+                                            tI={60}
+                                            dateFormat="MMMM d, yyyy h:mm aa"
+                                            timeCaption="time"
+                                            className="form-control"
+                                            value={selectedDatePropuesta}
+                                            onChange={(date) =>
+                                                onDateChangePropuesta(date,true)
+                                                }
+                                        />
+                                        
+                                            {!validateError.fechaPropuestaError ? 
+                                            <div className="isinvalid">SELECCIONE LA FECHA Y HORA PROPUESTA</div>: ''}
                                        
+
                                     </div>
                             </Row>
                             <Row>
                                 <Col>
                                          
                                     <Card>
+
+                                    {!validateError.filesError && !validateError.base64StringsError ? <div className="isinvalid"><p className="text-white font-13 m-b-30">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
+                                  
                                         <Card.Body> 
                                             <FileUploader
                                                 onFileUpload={(e) => {

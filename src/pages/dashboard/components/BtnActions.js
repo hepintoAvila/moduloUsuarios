@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { DashboardContext } from '../../../layouts/context/DashboardContext';
 import { useContext } from 'react';
 
-const BtnActions = (props) => {
+const BtnActions = ({props}) => {
     const { itemUrl } = useContext(DashboardContext);
     const popover = (
         <Popover id={`1_${props?.titulo}_2`}>
@@ -24,6 +24,11 @@ const BtnActions = (props) => {
            
                 <Link
                     key={`1_${props?.titulo}_2`}
+
+        <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={props?.key}>
+           
+                <Link
+                    key={props?.key}
                     to={Number(idUrls?.p) > 0 ? url : urlb}
                     className="action-icon "
                     onClick={() => props?.toggleActions(props?.row, props?.titulo)}>

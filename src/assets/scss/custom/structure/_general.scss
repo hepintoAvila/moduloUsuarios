@@ -361,16 +361,21 @@ body {
     cursor: pointer;
   }
 }
- 
+
 @media (min-width: 360px) and (max-width: 740px) {
 
   /* Estilos para pantallas medianas (tablets) */
       .grid_contenedor {
         grid-template-columns: 1fr;
+
         grid-template-rows: repeat(2, 9em);
         margin-top: 12em;
         height: 474px;
         margin-left: 5em;
+        grid-template-rows: repeat(3, 8em);
+        gap: 0em;
+        margin-top: 0em;
+        height: 474px;
         padding: 0em 7em 10em 0em;
     }
     .flexRowContent--header___grid__nivel_2 {
@@ -424,7 +429,6 @@ body {
 .text-btn {
   margin-left: -17.5em;
 }
-
 }
 @media (min-width: 768px) and (max-width: 991px) {
 
@@ -440,6 +444,7 @@ body {
 @media (min-width: 992px) and (max-width: 1199px) {
 
   /* Estilos para pantallas grandes (laptops y escritorios) */
+
 }
 
 @media (min-width: 1200px) {

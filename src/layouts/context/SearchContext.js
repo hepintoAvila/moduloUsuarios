@@ -18,6 +18,7 @@ const SearchProvider = ({ children }) => {
         filesError:false,
         base64StringsError:false,
         descripcionError:false,
+
         nombreProgramaError:false
     });
     const [fallas, setFallas] = useState([{
@@ -31,6 +32,7 @@ const SearchProvider = ({ children }) => {
     const  nombrePrograma=  itemsNombrePrograma?.nombrePrograma;
     const  nombreProgramaError=  itemsNombrePrograma?.valideNombrePrograma;   
     const  descripcion=  itemsDescripcion?.descripcion;
+
     const  descripcionError=  itemsDescripcion?.valideDescripcion? itemsDescripcion?.valideDescripcion:'';
 
   const queryFile = useCallback((queryDatos, dataFile) => {
@@ -67,6 +69,7 @@ const data = {
     setLoading,
     setNombrePrograma,nombreProgramaError,nombrePrograma,
     fallas, setFallas
+    setNombrePrograma,nombreProgramaError,nombrePrograma
 };
 
     return (

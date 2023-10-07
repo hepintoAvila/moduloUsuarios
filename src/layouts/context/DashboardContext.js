@@ -14,16 +14,16 @@ const DashboardProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [signUpModalAdd, setSignUpModalAdd] = useState(false);
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
- 
-  const itemsMenuCallBack = (e) => {
-    let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
+
+  const itemsMenuCallBack = useCallback((e) => {
+   
     if (e===0) {
-    if (userInfo?.tipo.length === 0) {
+      let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
+      if (userInfo?.tipo.length === 0) {
         setitemsMenuPrincipal('Bienvenido');
         setitemsUrl('Inicio');
         setLoading(false)
       }else{
-        console.log('userInfo',userInfo);
         setitemsMenuPrincipal(userInfo?.tipo.replace(/ /g, ""));
          setitemsUrl(userInfo?.menu);
         setLoading(false)

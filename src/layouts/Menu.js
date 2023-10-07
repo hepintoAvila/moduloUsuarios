@@ -119,10 +119,7 @@ type AppMenuProps = {
 
 const AppMenu = ({ menuItems, location }: AppMenuProps) => {
   const { setLoading,setitemsMenuPrincipal,setitemsUrl} = useContext(DashboardContext)
- 
   const menuRef = useRef(null);
-
-
   const [activeMenuItems, setActiveMenuItems] = useState([]);
 
   /*
@@ -193,8 +190,6 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
     setpagesSearch(query.hash);
   }, [urlSearch]);
  
- 
-/*
   let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
   if (userInfo) {
     if (userInfo?.tipo.length === 0) {
@@ -203,7 +198,6 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
       itemsMenuCallBack(userInfo?.tipo.length);
     }
   }
- */
  
     return (
     <>
