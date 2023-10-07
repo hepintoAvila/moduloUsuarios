@@ -106,7 +106,7 @@ const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
   const {codigoFicha,modal,setModal,itemsConsultarSolicitudByCodigo} = useContext(NotificacionesContext)
  
-  
+  /*
  
   const datos = props?.Solicitudes|| [{id:1,
     codigoFicha:'0001',
@@ -116,7 +116,7 @@ const CarSolicitudeEnviadas = (props) => {
     fechaHoraAgendada:'0000-00-00 00 00',
     tipoAtencion:'ST'
   }];
-
+*/
   const {itemsSolicitudByID,query} = useAdminUsuarios()
 
   const {
@@ -154,7 +154,7 @@ const CarSolicitudeEnviadas = (props) => {
       Header: 'Fecha Agendada',
       accessor: 'fechaHoraAgendada',
       sort: false,
-    },
+    },{
       Header: 'Tipo de Atención',
       accessor: 'tipoAtencion',
       sort: false,

@@ -29,7 +29,7 @@ const DashboardProvider = ({ children }) => {
         setLoading(false)
       }
     }
-  };
+  })
  
   const Spinners = () => {
     const sizes = ['sm'];
