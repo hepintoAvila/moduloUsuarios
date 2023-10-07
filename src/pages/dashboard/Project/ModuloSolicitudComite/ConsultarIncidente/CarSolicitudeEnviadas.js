@@ -32,7 +32,19 @@ const ActionColumn = ({ row }) => {
   const EditDelete = (codigoFicha, titulo) => {
    
     if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
-    
+     
+      if (titulo === 'FORMATO') {
+        query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ActualicePdfSolicitud'), obj: 'statusPdf', codigoFicha: encodeBasicUrl(codigoFicha) }]);
+        //ANTES DE ABRIR EL MODAL UPDATE el pdf del formato
+        setTimeout(function () {
+          setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo, idSolicitud: row?.cells[0]?.row?.values?.id })
+          setModal(true);
+        }, 2000);
+
+      } else {
+        setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo, idSolicitud: row?.cells[0]?.row?.values?.id })
+        setModal(true);
+      }
       if(titulo==='DELETE'){
         const id = row?.cells[0]?.row?.values?.id
         Swal.fire({
