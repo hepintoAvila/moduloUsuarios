@@ -58,7 +58,7 @@ export const useGestionMenu = () => {
       }
     }, 2000);
   }, []);
-  console.log('itemsMenu',itemsEditerMenu)
+  //console.log('itemsMenu',itemsEditerMenu)
   return (
     {
       query,

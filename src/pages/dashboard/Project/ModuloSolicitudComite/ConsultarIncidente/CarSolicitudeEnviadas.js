@@ -21,8 +21,26 @@ const ActionColumn = ({ row }) => {
   const toggleSignUp = (codigoFicha, titulo) => {
     
     if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
-      setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo,idSolicitud: row?.cells[0]?.row?.values?.id})
-      setModal(true);
+      if (titulo === 'FORMATO') {
+        query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ActualicePdfSolicitud'), obj: 'statusPdf', codigoFicha: encodeBasicUrl(codigoFicha) }]);
+        //ANTES DE ABRIR EL MODAL UPDATE el pdf del formato
+        Swal.fire({
+          position:'center',
+          icon: 'success',
+          title: 'Enviado Solicitud...',
+          showConfirmButton: false,
+          timer: 1500
+        })  
+        setTimeout(function () {
+          setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo, idSolicitud: row?.cells[0]?.row?.values?.id })
+          setModal(true);
+        }, 2000);
+
+      } else {
+        setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo, idSolicitud: row?.cells[0]?.row?.values?.id })
+        setModal(true);
+      }
+
       //Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${codigoFicha}`);
     } else {
       Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${row?.cells[1]?.row?.values?.codigoFicha}-${titulo}`);
@@ -33,18 +51,6 @@ const ActionColumn = ({ row }) => {
    
     if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
    
-      if (titulo === 'FORMATO') {
-              query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ActualicePdfSolicitud'), obj: 'statusPdf', codigoFicha: encodeBasicUrl(codigoFicha) }]);
-              //ANTES DE ABRIR EL MODAL UPDATE el pdf del formato
-              setTimeout(function () {
-                setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo, idSolicitud: row?.cells[0]?.row?.values?.id })
-                setModal(true);
-              }, 2000);
-      
-            } else {
-              setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo, idSolicitud: row?.cells[0]?.row?.values?.id })
-              setModal(true);
-            }
       if(titulo==='DELETE'){
         const id = row?.cells[0]?.row?.values?.id
         Swal.fire({
