@@ -152,7 +152,7 @@ const ConsultaNotificaciones = (props) => {
     },
     {
       Header: 'Tipo Solicitud',
-      accessor: 'tipoSolicitud ',
+      accessor: 'tipoSolicitud',
       sort: true,
     }
     , {
@@ -161,8 +161,8 @@ const ConsultaNotificaciones = (props) => {
       sort: false,
     },
     {
-      Header: 'Fecha Hora Hechos',
-      accessor: 'fechaHora',
+      Header: 'Fecha Solicitud',
+      accessor: 'fechaSolicitud',
       sort: false,
     },
     {
@@ -171,7 +171,7 @@ const ConsultaNotificaciones = (props) => {
       sort: false,
     },
     {
-      Header: 'Action',
+      Header: 'Acciones',
       accessor: 'action',
       sort: false,
       classes: 'table-action',

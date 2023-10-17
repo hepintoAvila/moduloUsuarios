@@ -159,7 +159,7 @@ const CarSolicitudeEnviadas = (props) => {
         sort: false,
       },
     {
-      Header: 'Action',
+      Header: 'Acciones',
       accessor: 'action',
       sort: false,
       classes: 'table-action',

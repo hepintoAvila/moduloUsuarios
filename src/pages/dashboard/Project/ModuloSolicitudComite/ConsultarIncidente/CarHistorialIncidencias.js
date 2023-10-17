@@ -39,7 +39,7 @@ const CarHistorialIncidencias = (props) => {
     },
     {
       Header: 'Tipo Solicitud',
-      accessor: 'tipoSolicitud ',
+      accessor: 'tipoSolicitud',
       sort: true,
     }
     , {
@@ -48,8 +48,8 @@ const CarHistorialIncidencias = (props) => {
       sort: false,
     },
     {
-      Header: 'Fecha Hora Hechos',
-      accessor: 'fechaHora',
+      Header: 'Fecha Solicitud',
+      accessor: 'fechaSolicitud',
       sort: false,
     },
       {
@@ -64,7 +64,7 @@ const CarHistorialIncidencias = (props) => {
         sort: false,
       },
     {
-      Header: 'Action',
+      Header: 'Acciones',
       accessor: 'action',
       sort: false,
       classes: 'table-action',

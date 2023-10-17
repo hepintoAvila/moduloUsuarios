@@ -101,7 +101,7 @@ const MenuPrincipal = (props) => {
       sort: true,
     },
     {
-      Header: 'Action',
+      Header: 'Acciones',
       accessor: 'action',
       sort: false,
       classes: 'table-action',
