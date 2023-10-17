@@ -144,8 +144,8 @@ const CarSolicitudeEnviadas = (props) => {
       sort: true,
     }
     , {
-      Header: 'Fecha Incidencia',
-      accessor: 'fechaHora',
+      Header: 'Fecha Solicitud',
+      accessor: 'fechaSolicitud',
       sort: false,
     },
     {

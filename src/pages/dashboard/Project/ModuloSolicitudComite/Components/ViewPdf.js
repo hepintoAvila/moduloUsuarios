@@ -50,7 +50,7 @@ const ViewPdf = (props) => {
           console.error("Error al verificar la URL del PDF:", error);
         });
 }, [url]);
-
+console.log('url',url)
  return pdf && (
     <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
       <object
