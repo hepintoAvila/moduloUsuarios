@@ -1,22 +1,28 @@
 import React, { useContext, useEffect } from 'react';
-import {Row, Col, Tab, Nav, Card } from 'react-bootstrap';
+import {Row, Col, Tab, Nav, Card, Collapse } from 'react-bootstrap';
 import FormDatosAprendiz from './FormDatosAprendiz';
 import FormDatosIncidente from './FormDatosIncidente';
 import FormDatosEvidencia from './FormDatosEvidencia';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
 import TopbarSearch from '../../../../../components/TopbarSearch';
-import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import classnames from 'classnames'; 
 import CarHistorialIncidencias from '../ConsultarIncidente/CarHistorialIncidencias';
-import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
-import ConsultaCalendario from './ConsultaCalendario';
+import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
+import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
+import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
+import HeaderForm from '../Components/HeaderForm';
 
 const EnviarSolicitud = (props) => {
+    
     const {itemsOptionAprendiz,descripcion,descripcionError} = useContext(SearchContext)
-    const {itemsAprendices,query} = useAdminUsuarios()
-    const allApredizDatos = itemsAprendices?.data?.aprencices || [];
-
+    const {itemsAprendices,query,itemsSolicitudByID,activeTab, setActiveTab,openFormAprendiz} = useContext(NotificacionesContext)
+    const allApredizDatos = itemsAprendices?.data?.Aprendices || [];
+ 
+    const {
+      sizePerPageList
+    } = useContext(DashboardContext);
+    const datosSolicitudes = itemsSolicitudByID?.data?.Solicitudes|| [];
 
     useEffect(() => {
         query('ModuloSolicitudComite','Aprendiz',[{opcion:encodeBasicUrl('listaAprendices'),obj:'aprendices'}]);
@@ -31,17 +37,31 @@ const EnviarSolicitud = (props) => {
         },
         {
             id: '2',
-            title: 'Solicitudes Enviadas',
+            title: 'Historial del Aprendiz',
             icon: 'mdi mdi-account-circle',
-            text: 'Connsulta el estado de tus solicitudes enviadas',
+            text: 'Consulta el historial del Aprendiz una vez haya sido seleccionado de la opción: enviar solicitus.',
+            
         },
         {
             id: '3',
-            title: 'Historial del Aprendiz',
+            title: 'Solicitudes Enviadas',
             icon: 'mdi mdi-cog-outline',
-            text: 'Consulta el historial del Aprendiz una vez haya sido seleccionado de la opción: enviar solicitus.',
+            text: 'Connsulta el estado de tus solicitudes enviadas',
         },
     ];
+    const queryEnviados = (index) => {
+        if(index===2){
+           query('ModuloSolicitudComite','ConsultarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'ConsultarSolicitudByID',sw:2}]);
+           setActiveTab('Solicitudes Enviadas')
+        }else if(index===0){
+            setActiveTab('Enviar Solicitud')
+        }else{
+            setActiveTab('Historial del Aprendiz')  
+        }
+        
+        //
+      };
+      
     return (
         <React.Fragment>
             <Row>
@@ -49,12 +69,12 @@ const EnviarSolicitud = (props) => {
                     <Card>
                         <Card.Body>
                             <h4 className="header-title mb-3">ADMINISTRADOR DE SOLICITUDES</h4>
-                            <Tab.Container defaultActiveKey="Enviar Solicitud">
+                            <Tab.Container defaultActiveKey={activeTab}>
                                 <Nav variant="tabs">
                                     {tabContents.map((tab, index) => {
                                         return (
                                             <Nav.Item key={index}>
-                                                <Nav.Link href="#" eventKey={tab.title}>
+                                                <Nav.Link href="#" eventKey={tab.title} onSelect={()=>queryEnviados(index)}>
                                                     <i
                                                         className={classnames(
                                                             tab.icon,
@@ -78,11 +98,17 @@ const EnviarSolicitud = (props) => {
                                                             case 0:
                                                                 return (
                                                                 <>
+                                                                        
+                                                                        <Row> 
+                                                                        <Col lg={12}>   
+                                                                        <HeaderForm title={'SOLICITUD DE COMITÉ DE EVALUACIÓN Y SEGUIMIENTO'} />
+                                                                        </Col>
+                                                                        </Row>
+                                                                        
                                                                         <Row>
 
-                                                                            <Col lg={4}>
-                                                                            <p className="mt-3">{''}<br /></p>
-                                                                                <FormDatosIncidente
+                                                                            <Col lg={6}>
+                                                                               <FormDatosIncidente
                                                                                     idAprendiz={itemsOptionAprendiz?.idAprendiz}
                                                                                     itemsDescripcion={descripcion}
                                                                                     aprendizError={itemsOptionAprendiz?.aprendizError}
@@ -91,16 +117,20 @@ const EnviarSolicitud = (props) => {
                                                                                         selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}
                                                                                 /> 
                                                                             </Col>
-                                                                            <Col lg={4}>
-                                                                                <p className="mt-3">{''}<br /></p>
-                                                                                <FormDatosEvidencia />
-                                                                            </Col>
-                                                                            <Col lg={4}>
+                                                                            <Col lg={6} className="derechaColumnEnviarSolicitud">
+                                                                            
                                                                                 <p className="mt-3">{tab.text}</p>
+                                                                                <Collapse in={openFormAprendiz}> 
+                                                                                <div> 
                                                                                 <FormDatosAprendiz handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} />
-                                                                                <ConsultaCalendario />
-                                                                            </Col>
-                                                                             
+                                                                                </div> 
+                                                                                </Collapse>
+                                                                               <br/>
+                                                                               
+                                                                                <FormDatosEvidencia />
+                                                                                
+                                                                               </Col>
+                                                                                           
                                                                         </Row>
                                                                  </>);
                                                                 case 1:
@@ -108,7 +138,11 @@ const EnviarSolicitud = (props) => {
                                                                     <Row>
                                                                      <Col lg={12}>
                                                                         <p className="mt-3">{tab.text}</p>
+
+                                                                        <CarHistorialIncidencias/>
+
                                                                         <CarSolicitudeEnviadas />
+
                                                                     </Col>
                                                                 </Row>
                                                                 );
@@ -116,7 +150,19 @@ const EnviarSolicitud = (props) => {
                                                                     return (
                                                                         <Row>
                                                                         <Col sm="12">
-                                                                        <CarHistorialIncidencias/> 
+                                                                        {datosSolicitudes?.length>0 ? 
+                                                                        <CarSolicitudeEnviadas 
+                                                                        Solicitudes={datosSolicitudes}
+                                                                        sizePerPageList={sizePerPageList}
+                                                                        idAprendiz={itemsOptionAprendiz?.idAprendiz}
+                                                                        itemsDescripcion={descripcion}
+                                                                        aprendizError={itemsOptionAprendiz?.aprendizError}
+                                                                        descripcionError={descripcionError}
+                                                                        childrenEvidencias={<FormDatosEvidencia/>}
+                                                                        handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} 
+                                                                        children={<TopbarSearch data={allApredizDatos}
+                                                                        selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}
+                                                                        />:null}
                                                                         </Col>
                                                                     </Row>
                                                                     ); 

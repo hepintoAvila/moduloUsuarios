@@ -118,11 +118,8 @@ type AppMenuProps = {
 };
 
 const AppMenu = ({ menuItems, location }: AppMenuProps) => {
-  const { itemsMenuCallBack,setLoading} = useContext(DashboardContext)
-
+  const { setLoading,setitemsMenuPrincipal,setitemsUrl} = useContext(DashboardContext)
   const menuRef = useRef(null);
-
-
   const [activeMenuItems, setActiveMenuItems] = useState([]);
 
   /*
@@ -138,9 +135,9 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
    */
 
  
-  const activeMenu = useCallback(() => {
+  const activeMenu = useCallback((setitemsMenuPrincipal,setitemsUrl) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-
+    
     //
     const div = document.getElementById('main-side-menu');
     let matchingMenuItem = null;
@@ -163,12 +160,14 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
       }
       //CLEAR ITESMS
       let itemsurls = location.pathname?.lastIndexOf('dashboard');
-
+     
       if (itemsurls === 1) {
         
         const principal = filtrarURLNumero(menuRef?.current?.baseURI)
         const objSeccion = filtrarURLSeccion(menuRef?.current?.baseURI)
          const obj = {principal, seccion: objSeccion.seccion}
+         setitemsMenuPrincipal(obj?.principal);
+         setitemsUrl(obj.seccion);
         sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ tipo: obj.principal, menu: obj.seccion }));
         setLoading(true)
 
@@ -180,7 +179,7 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
   }, [location.pathname, menuItems, setLoading]);
 
   useEffect(() => {
-    activeMenu();
+    activeMenu(setitemsMenuPrincipal,setitemsUrl);
 
   }, [activeMenu]);
 
@@ -191,8 +190,6 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
     setpagesSearch(query.hash);
   }, [urlSearch]);
  
- 
-
   let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
   if (userInfo) {
     if (userInfo?.tipo.length === 0) {
@@ -201,7 +198,6 @@ const AppMenu = ({ menuItems, location }: AppMenuProps) => {
       itemsMenuCallBack(userInfo?.tipo.length);
     }
   }
- 
  
     return (
     <>

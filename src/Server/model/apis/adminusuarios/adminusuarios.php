@@ -19,15 +19,11 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 		include_spip('inc/utils');
 		include_spip('inc/json');
 		include_spip('inc/autoriser');
-		include_spip('exec/model/apis/claseapi');
-		$login = $GLOBALS['visiteur_session']['login'];
-		$session_password = $GLOBALS['visiteur_session']['pass'];
-		include_spip('inc/auth');
-		$row = auth_informer_login($login);
-		if (!$row['id_auteur']) {
-		return _T('titre_probleme_technique');
-		}
-		switch ($_POST['opcion']) {
+		include_spip('exec/model/sena/claseapi');
+		
+		$opcion = base64_decode($_POST['opcion']);
+		
+		switch ($opcion) {
 			case 'listaUsuarios':
 				$entidad = base64_decode($_POST['entidad']);
 				$DatosAuteurs=array();
@@ -58,34 +54,67 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 					$var = var2js($data);
 					echo $var;						
 			break;
+			
 			case 'add':
-				 
+					$app=new Apis('api_auteurs');
+					$variablesAVerificar=array();
 					$desc=array();
 					$id_ou_options=0;
-					$login = trim(corriger_caracteres($_POST['login']));
-					$mail =$_POST['email'];
-					$res = sql_select("statut, id_auteur, login, email", "api_auteurs", "entidad='".$_POST['entidad']."' AND email=" . sql_quote($mail));
-					$resp = sql_select("login", "api_auteurs", "entidad='".$_POST['entidad']."' AND email=" . sql_quote($mail));					
-					if (!$r = email_valide($mail)or!$res) {
-						$msg[] = array('menssage'=>'ERROR. email no tiene el formato de correo');
-						$var = var2js($msg);	
-						echo $var;
-						//break;
-					}else{
-		
-						$options=array('tipo'=>$_POST['rol'],'entidad'=>$_POST['entidad']);
-						$inscrire_auteur = charger_fonction('inscrire_auteur', 'action');
-						$desc = $inscrire_auteur('', $mail, $login, $options);
-						
-						if (!is_null($desc)) {
-							if($desc['pass']=='I'){$msg[] = array('menssage'=>'ERROR. El Usuario no se pudo guardar!');}else{$msg[] = array('id'=>1,'menssage'=>'Usuario guardado con exito! Su password es:'.$desc['pass'].', y el usuario: '.$desc['login'].'');};
-						  }else{
-							$msg[] = array('menssage'=>'¡ERROR!. El Usuario no se pudo guardar!','status' => '200');
+				
+				 	$email = base64_decode($_POST['email']);
+				 	$login = base64_decode($_POST['login']);
+				 	$rol = base64_decode($_POST['rol']);
+				 	$entidad = base64_decode($_POST['entidad']);
+					$ApiToken     = base64_decode($_POST["ApiToken"]);
+					$Apikey     = base64_decode($_POST["Apikey"]);	
+					$idUsuario = base64_decode($_POST["idUsuario"]);					
+ 						// Crea un array con las variables que deseas verificar
+						$variablesAVerificar = [
+							'idUsuario' => $idUsuario,
+							'email' => $email,
+							'login' => $login,
+							'rol' => $rol,
+							'entidad' => $entidad,
+							'ApiToken' => $ApiToken,
+							'Apikey' => $Apikey,
+						];
+ 
+						$mensajeError = $app->verificarVariables($variablesAVerificar);
+						$validarTokes = $app->verificarApikeyApiToken($Apikey,$ApiToken,$idUsuario);
+						if (($mensajeError !== null) OR (!$validarTokes)){
+							
+						 $mensajeErrors = $mensajeError == '' ? 'Error del Token':$mensajeError;
+						 $arrayMensage[]=array('id'=>1,'message'=>'::ERROR-001:: '.$mensajeErrors.'','status'=>'404');
+							
+						}else{
+								//$res = sql_select("statut, id_auteur, login, email", "api_auteurs", "entidad='".$entidad."' AND email=" . sql_quote($email));
+								
+								 
+								if (!$r = email_valide($email)) {
+									$msg[] = 'WARNING. email no tiene el formato de correo';
+								}else{
+									$options=array('tipo'=>$rol,'entidad'=>$entidad);
+									$inscrire_auteur = charger_fonction('inscrire_auteur', 'action');
+									$desc = $inscrire_auteur('', $email, $login, $options);
+									
+									if (!is_null($desc)) {
+										if($desc['pass']=='I'){
+											$msg[] = 'WARNING. El Usuario no se pudo guardar!';
+											}
+										else{
+											$msg[] = 'Usuario guardado con exito! Su password es:'.$desc['pass'].', y el usuario: '.$desc['login'].'';
+											};
+									  }else{
+										     $msg[] ='¡WARNING!. El Usuario no se pudo guardar!';
+									}	
+								}
+								
+								 
+								$arrayMensage[] = array('message'=>'¡OK!. El Usuario GUARDADO! '.implode(',',$msg).'','status' => '202');
 						}	
-							$var = var2js($msg);	
-							echo $var;						
-						
-					}					
+ 
+				$var = var2js($arrayMensage);
+				echo $var;
 			break;
 			case 'update':
 					$entidad = base64_decode($_POST['entidad']);

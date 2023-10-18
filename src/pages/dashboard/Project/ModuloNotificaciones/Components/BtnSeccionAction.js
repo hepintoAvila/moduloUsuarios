@@ -33,8 +33,8 @@ const BtnSeccionAction = (props,children) => {
                   key={`ACTAS_${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
                   row={props?.obj?.row}
-                  titulo={'ACTAS'}
-                  descripcion={`Registrar Acta`}
+                  titulo={'CONSOLIDADOS'}
+                  descripcion={`En esta sección se pueden registrar los Consolidados y partes del Acta`}
                   icon={'mdi mdi-layers'}
                   opcion={'ACTAS'}
                 /> 

@@ -10,8 +10,6 @@
  *  Pour plus de details voir le fichier COPYING.txt ou l'aide en ligne.   *
 \***************************************************************************/
 
- use Spip\Chiffrer\SpipCles;
-
 if (!defined('_ECRIRE_INC_VERSION')) {
 	return;
 }
@@ -20,39 +18,19 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 		include_spip('inc/filtres');
 		include_spip('inc/utils');
 		include_spip('inc/json');
-		include_spip('exec/model/claseapi');
+		include_spip('exec/model/sena/claseapi');
+		 
 		
-header("Content-Type: application/json");
+		$opcion = base64_decode($_POST['opcion']);	
 
-function exec_apis_dist(){
-
-
-		switch($_POST['accion']) {	
-				case "registrarse":
-					include_spip('exec/model/apis/registrarse/registrarse');		    	    
-				break;
-				case "auteur":
-
-					include_spip('exec/model/apis/consultarusuario/consultarusuario');		    
-				break;
-				case "menu":
-					include_spip('exec/model/apis/menu/menu');		    
-				break;
-				case "AdminUsuarios":
-					include_spip('exec/model/apis/adminusuarios/adminusuarios');	
-				break;
-				case "AdminRoles":
-					include_spip('exec/model/apis/adminroles/adminroles');	
-				break;
-				case "GestionMenu":
-					include_spip('exec/model/apis/gestionmenu/gestionmenu');	
-				break;
-				case "permisos":
-					include_spip('exec/model/apis/permisos/permisos');		        
-				break;
-	
+		switch($opcion) {
+			case 'consultar':
+				include_spip('exec/model/sena/ModuloSolicitudComite/consultarsolicitud');
+			break;
+			case 'AgendarCitas':
+				include_spip('exec/model/sena/ModuloNotificaciones/agendarCitas/addCitas');
+			break;
 		}
-}
+
+													
 ?>
-  
- 

@@ -3,7 +3,6 @@ import axios from 'axios';
 import encodeBasic from '../../utils/encodeBasic';
 import { environments } from '../../environments/environments';
 import config from '../../config';
-
 // content type
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.baseURL = config.API_URL;
@@ -153,7 +152,7 @@ class APICore {
     const user = JSON.parse(userInfo);
     if(user){
     const authOptions = {
-      url: `${environments.baseURL}${url}&Apikey=${encodeBasic(user[0]?.Apikey)}&ApiToken=${encodeBasic(user[0]?.ApiToken)}`,
+      url: `${environments.baseURL}${url}`,
       method: 'GET',
       headers: {
         ...axios.defaults.headers,

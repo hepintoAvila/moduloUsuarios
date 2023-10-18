@@ -20,6 +20,11 @@ const BtnActions = ({props}) => {
     const url = `?p=${idUrls?.p}&q=${q}`;
     const urlb = `/dashboard/${itemUrl}/${tipo?.tipo}`;
     return (
+        <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={`1_${props?.titulo}_2`}>
+           
+                <Link
+                    key={`1_${props?.titulo}_2`}
+
         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={props?.key}>
            
                 <Link

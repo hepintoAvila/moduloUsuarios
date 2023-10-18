@@ -1,99 +1,82 @@
 // @flow
 import React, { useState,useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { Button, Alert } from 'react-bootstrap';
+import { Button} from 'react-bootstrap';
 import Select from 'react-select';
-import { useTranslation } from 'react-i18next';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-//actions
-import { queryFormSend } from '../../../../../redux/actions';
 // components
-import { VerticalForm, FormInput } from '../../../../../components/';
-import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-const Register = (props): React$Element<React$FragmentType> => {
-  const {query,setOpen,open} = useContext(DashboardContext);
-  const [items, setItems] = useState([{
-    login: props?.usuario?.length===1?props?.usuario[0]?.login:'0',
-    email: props?.usuario?.length===1?props?.usuario[0]?.email:'0',
-    rol: props?.usuario?.length===1?props?.usuario[0]?.rol:'0',
-    accion: props?.accion,
-    opcion: props?.opcion,
-    tipo: props?.tipo,
-    entidad:props?.entidad,
-    id: props?.usuario?.length===1?props?.usuario[0]?.id:'0',
-  }]);
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-
-  const { loading, queryForm, error } = useSelector((state) => ({
-    loading: state.Queryform.loading,
-    error: state.Queryform.error,
-    queryForm: state.Queryform.queryForm,
-  }));
-
-  const schemaResolver = yupResolver(
-    yup.object().shape({
-      login: yup.string().required(t('Digite su login')),
-      email: yup.string().required('Please enter Email').email('Please enter valid Email'),
-    })
-  );
-  const onSubmit = () => {
-
-    dispatch(queryFormSend(...items))
-
-    setTimeout(function () {
-      query('AdminUsuarios', 'Usuarios', [{ opcion: 'lista_Usuarios', obj: 'Usuarios'}]);
-      setOpen(open)
-    }, 2000);
-  };
+import { FormInput } from '../../../../../components/';
  
+ 
+import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
+import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
+import Swal from 'sweetalert2';
+const Register = (props): React$Element<React$FragmentType> => {
+  const {
+    getData,
+} = useContext(NotificacionesContext)
+const {setSignUpModalAdd,
+} = useContext(DashboardContext);
+
+  const [items, setItems] = useState([{
+    login: props?.usuario?.length===1? props?.usuario[0]?.login:'',
+    email: props?.usuario?.length===1? props?.usuario[0]?.email:'',
+    rol: props?.usuario?.length===1?props?.usuario[0]?.rol:'',
+    nombres:'',
+    apellidos:'',
+    identificacion:'',
+    telefono:'',
+  }]);
+
+  const Registrarse = (items) => {
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: 'Registro Enviado',
+      showConfirmButton: false,
+      timer: 1500
+    }) 
+    const datosEvent = {
+      ...items[0],
+      accion: 'AdminUsuarios',
+      opcion: 'add',
+      tipo: 'Usuarios',
+  }
+  const queryDatos = datosEvent
+  ? Object.keys(datosEvent)
+      .map((key) => key + '=' + btoa(datosEvent[key]))
+      .join('&')
+  : '';
+ 
+  setTimeout(function () {
+    getData(queryDatos)
+  }, 2000);
+    setSignUpModalAdd(true)
+    return window.location.hash = '#/dashboard/AdminUsuarios/Usuarios';
+  };
+
    return (
     <>
-      {queryForm ? <Redirect to={`/dashboard/${props?.accion}/${props?.tipo}`}></Redirect> : null}
-      <div className="text-center w-75 m-auto">
-        <h4 className="text-dark-50 text-center mt-0 fw-bold">{t(`${props?.textBtn}`)}</h4>
-        <p className="text-muted mb-4">
-          {t(`En esta sección puedes ${props?.textBtn} el registro.`)}
-        </p>
-      </div>
-      {error && (
-        <Alert variant="danger" className="my-2">
-          {error}
-        </Alert>
-      )}
-      <VerticalForm onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{}}>
+ 
+ <form className="formModal">
         <FormInput
-          label={t('login')}
+          label={'login'}
           type="text"
           name="login"
           value={items[0]?.login}
           onChange={(e) => setItems([{
             ...items[0], login: e.target.value,
-            accion: props?.accion,
-            opcion: props?.opcion,
-            tipo: props?.tipo,
-            entidad:props?.entidad,
-            id: items[0]?.id
           }])}
-          placeholder={t('Digite su login')}
+          placeholder={'Digite su login'}
           containerClass={'mb-3'}
         />
         <FormInput
-          label={t('Email')}
+          label={'Email'}
           type="email"
           name="email"
           value={items[0]?.email}
           onChange={(e) => setItems([{
-            ...items[0], email: e.target.value,
-            accion: props?.accion,
-            opcion: props?.opcion,
-            tipo: props?.tipo,
-            entidad:props?.entidad,
-            id: items[0]?.id,
+            ...items[0], email: e.target.value
           }])}
-          placeholder={t('Digite su email')}
+          placeholder={'Digite su email'}
           containerClass={'mb-3'}
         />
         <Select
@@ -103,23 +86,61 @@ const Register = (props): React$Element<React$FragmentType> => {
           classNamePrefix="react-select"
           onChange={(e) => setItems([{
             ...items[0], rol: e.value,
-            accion: props?.accion,
-            opcion: props?.opcion,
-            tipo: props?.tipo,
-            entidad:props?.entidad,
-            id: items[0]?.id,
-          }])}
+             }])}
           options={props?.opcionroles}
           placeholder="Selecione el Rol..."
           selected={props?.roles?.value}
         />
+          <FormInput
+          label={'Nombres'}
+          type="text"
+          name="nombres"
+          value={items[0]?.nombres}
+          onChange={(e) => setItems([{
+            ...items[0], nombres: e.target.value
+          }])}
+          placeholder={'Digite sus nombres'}
+          containerClass={'mb-3'}
+        />
+          <FormInput
+          label={'Apellidos'}
+          type="text"
+          name="apellidos"
+          value={items[0]?.apellidos}
+          onChange={(e) => setItems([{
+            ...items[0], apellidos: e.target.value
+          }])}
+          placeholder={'Digite sus apellidos'}
+          containerClass={'mb-3'}
+        />
+          <FormInput
+          label={'Identificación'}
+          type="text"
+          name="identificacion"
+          value={items[0]?.identificacion}
+          onChange={(e) => setItems([{
+            ...items[0], identificacion: e.target.value
+          }])}
+          placeholder={'Digite sus identificacion'}
+          containerClass={'mb-3'}
+        />  
+            <FormInput
+          label={'Numero del Celular'}
+          type="text"
+          name="telefono"
+          value={items[0]?.telefono}
+          onChange={(e) => setItems([{
+            ...items[0], telefono: e.target.value
+          }])}
+          placeholder={'Digite el número de sus telefono'}
+          containerClass={'mb-3'}
+        />          
         <div className="mb-3 mb-0 text-center">
-          <Button variant="primary" type="submit" disabled={loading}>
-            {t(props?.textBtn)}
-          </Button>
-        </div>
-      </VerticalForm>
 
+        </div>
+      </form>
+      <Button variant="success" type="submit" className="btn btn-success" onClick={() => Registrarse({...items})}>
+        Regitrar Usuarios</Button>
     </>
   );
 };

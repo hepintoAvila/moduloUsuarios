@@ -23,14 +23,9 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 		include_spip('inc/filtres');
 		include_spip('inc/utils');
 		include_spip('inc/json');
- 	   
-	 
-	   $login = $GLOBALS['visiteur_session']['login'];
-		$session_password = $GLOBALS['visiteur_session']['pass'];
-		include_spip('inc/auth');
-		$row = auth_informer_login($login);
 		
-		switch ($_POST['opcion']) {
+		$opcion = base64_decode($_POST['opcion']);
+		switch($opcion) {
 		case 'consultar':
 			$menus=array();
 			$menu=array();
@@ -87,8 +82,12 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 					$i=0;
 					$k++;	
 				 }
-				 
-				if($row['id_auteur']==3){
+ 					//validamos usuarios y contraseña
+				//$session_login = _request('var_login');
+				//$session_password = _request('password');
+				//include_spip('inc/auth');
+				//$row = auth_identifier_login($session_login, $session_password);   				 
+				if (!is_null($menus)) {
 					$ouput = var2js($menus);
 					echo $ouput; 
 				}else{

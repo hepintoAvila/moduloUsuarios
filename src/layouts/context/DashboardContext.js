@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useCallback,useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
@@ -12,8 +12,9 @@ const DashboardProvider = ({ children }) => {
   const [itemsQuery, setItemsQuery] = useState([]);
   const [isLoading, setLoading] = useState([]);
   const [open, setOpen] = useState(false);
-  
+  const [signUpModalAdd, setSignUpModalAdd] = useState(false);
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
+
   const itemsMenuCallBack = useCallback((e) => {
    
     if (e===0) {
@@ -23,14 +24,13 @@ const DashboardProvider = ({ children }) => {
         setitemsUrl('Inicio');
         setLoading(false)
       }else{
-        
         setitemsMenuPrincipal(userInfo?.tipo.replace(/ /g, ""));
          setitemsUrl(userInfo?.menu);
         setLoading(false)
       }
     }
-  }, []);
-
+  })
+ 
   const Spinners = () => {
     const sizes = ['sm'];
     return (
@@ -96,7 +96,30 @@ const AdvertenciaLocalStorage = () => {
 
 
 };
-
+const handleRegresar = (tipo) => {
+    
+  const menuitems = window.location.hash.split('#/')[1]; 
+  const seccion = menuitems.replace(/^dashboard\//, '');
+  const [seccion1] = seccion?.split('/');
+  let url = '';
+  {(() => {
+      switch (tipo) {
+      case 'EnviarSolicitud':
+        url = `/dashboard/${seccion1}/${tipo}`;
+      case 'ConsultaIncidente':
+      case 'ModuloSolicitudComite': 
+      url = `/dashboard/${seccion1}/${tipo}`;
+      case 'ConsultaNotificaciones':
+      case 'AgendarCitas':
+        url = `/dashboard/${seccion1}/${tipo}`;
+      }
+    })()
+  }
+   
+  setitemsMenuPrincipal(seccion1);
+  setitemsUrl(tipo);
+  return window.location.hash=url;
+}
   const data = {
     AdvertenciaLocalStorage,
     itemsMenuCallBack,
@@ -111,7 +134,10 @@ const AdvertenciaLocalStorage = () => {
     Spinners,
     pagesInSearch,
     open,
-    setOpen
+    setOpen,
+    handleRegresar,
+    signUpModalAdd,
+    setSignUpModalAdd
   };
   return (
     <>

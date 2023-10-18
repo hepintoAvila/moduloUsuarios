@@ -18,14 +18,22 @@ const SearchProvider = ({ children }) => {
         filesError:false,
         base64StringsError:false,
         descripcionError:false,
-        fechaPropuestaError:false,
+
         nombreProgramaError:false
     });
+    const [fallas, setFallas] = useState([{
+        faltaAcademica:0,
+        faltaDisciplinaria:0,
+        faltaInasistencias:0,
+        faltaVerbal:0,
+        faltaEscrito:0,
+    }]);
 
     const  nombrePrograma=  itemsNombrePrograma?.nombrePrograma;
     const  nombreProgramaError=  itemsNombrePrograma?.valideNombrePrograma;   
     const  descripcion=  itemsDescripcion?.descripcion;
-    const  descripcionError=  itemsDescripcion?.valideDescripcion;
+
+    const  descripcionError=  itemsDescripcion?.valideDescripcion? itemsDescripcion?.valideDescripcion:'';
 
   const queryFile = useCallback((queryDatos, dataFile) => {
     const infoUsers = sessionStorage.getItem('hyper_user');
@@ -59,6 +67,8 @@ const data = {
     queryFile,
     loading,
     setLoading,
+    setNombrePrograma,nombreProgramaError,nombrePrograma,
+    fallas, setFallas
     setNombrePrograma,nombreProgramaError,nombrePrograma
 };
 

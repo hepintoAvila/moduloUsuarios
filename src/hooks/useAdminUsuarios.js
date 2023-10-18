@@ -10,16 +10,14 @@ export const useAdminUsuarios = () => {
   const [isLoading, setLoading] = useState(false);
   const [itemsAdminUsuarios, setAdminUsuarios] = useState([]);
   const [itemsRoles, setRoles] = useState([]);
+
   const [itemsAgendarCitas, setAgendarCitas] = useState([]);
   const [itemsHistorial, setHistorial] = useState([]);
   const [itemsAprendices, setAprendices] = useState([]);
   const [itemsSolicitudes, setConsultarSolicitud] = useState([]);
   const [itemsSolicitudByID, setConsultarSolicitudByID] = useState([]);
 
-  
 
-  
-  
   //QUERY DE RESPUSTA DE CONSULTAS 
   const query = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
@@ -65,6 +63,7 @@ export const useAdminUsuarios = () => {
                  case 'ConsultarSolicitudByID':
                   setConsultarSolicitudByID(response) 
                break;                   
+
                 }
               })()
             }
@@ -92,6 +91,7 @@ export const useAdminUsuarios = () => {
       itemsAprendices,
       itemsSolicitudes,
       itemsSolicitudByID
+
     }
   )
 }
