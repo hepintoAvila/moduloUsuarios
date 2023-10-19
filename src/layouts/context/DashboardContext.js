@@ -1,9 +1,12 @@
 
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
-
+import ConfirmacionEliminacionStrategy from './ConfirmacionEliminacionStrategy';
+import Swal from 'sweetalert2';
+import { APICore } from '../../helpers/api/apiCore';
+const api = new APICore();
 const DashboardContext = createContext();
 const DashboardProvider = ({ children }) => {
 
@@ -13,6 +16,7 @@ const DashboardProvider = ({ children }) => {
   const [isLoading, setLoading] = useState([]);
   const [open, setOpen] = useState(false);
   const [signUpModalAdd, setSignUpModalAdd] = useState(false);
+  const [itemsUpdate, setItemsUpdate] = useState([]);
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
  
   const itemsMenuCallBack = (e) => {
@@ -96,6 +100,31 @@ const AdvertenciaLocalStorage = () => {
 
 
 };
+    //ELEIMINAR REGISTRO
+    const eliminar = useCallback(
+      (cel) => {
+          let permiso = sessionStorage.getItem('PERMISO');
+          const localPermiso = JSON.parse(permiso);
+          if (localPermiso.delete) {
+              const estrategiaConfirmacion = new ConfirmacionEliminacionStrategy();
+              estrategiaConfirmacion.confirmar(cel, (cel) => {
+                  const url = `accion=${itemUrl}&tipo=${tipo}&opcion=delete&id=${cel}`;
+                  const respuesta = api.sendRequestData(`${url}`);
+                  respuesta
+                      .then(function (resp) {
+                          Swal.fire('' + resp[0].menssage + '');
+                      })
+                      .catch((error) => console.error('Error:', error))
+                      .finally(() => {
+                          setTimeout(function () {}, 5000);
+                      });
+              });
+          } else {
+              Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
+          }
+      },
+      [itemUrl,tipo]
+  );
 const handleRegresar = (tipo) => {
     
   const menuitems = window.location.hash.split('#/')[1]; 
@@ -137,7 +166,9 @@ const handleRegresar = (tipo) => {
     setOpen,
     handleRegresar,
     signUpModalAdd,
-    setSignUpModalAdd
+    setSignUpModalAdd,
+    itemsUpdate, setItemsUpdate,
+    eliminar
   };
   return (
     <>

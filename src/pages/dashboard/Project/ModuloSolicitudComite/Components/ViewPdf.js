@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 //import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 //import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+/*
 function generarCodigoAleatorio(longitud) {
   const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let codigo = "";
@@ -13,9 +14,10 @@ function generarCodigoAleatorio(longitud) {
 
   return codigo;
 }
+*/
 const ViewPdf = (props) => {
-  const codigoAleatorio = generarCodigoAleatorio(8);
-  const [url, setUrl] = useState(`${codigoAleatorio}.pdf`);
+  //const codigoAleatorio = generarCodigoAleatorio(8);
+  const [url, setUrl] = useState('');
   const [pdf, setPdf] = useState(false);
 //const {query} = useContext(NotificacionesContext)
  

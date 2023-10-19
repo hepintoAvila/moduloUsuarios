@@ -16,15 +16,15 @@ const Register = (props): React$Element<React$FragmentType> => {
   const { setOpen, open } = useContext(DashboardContext);
   const {query} = useAdminUsuarios()
   const [items, setItems] = useState([{
-    c: props?.ItemsUpdate?.length === 1 ? props?.ItemsUpdate[0]?.c : '',
-    a: props?.ItemsUpdate?.length === 1 ? props?.ItemsUpdate[0]?.a : '',
-    u: props?.ItemsUpdate?.length === 1 ? props?.ItemsUpdate[0]?.u : '',
-    d: props?.ItemsUpdate?.length === 1 ? props?.ItemsUpdate[0]?.d : '',
-    idpermiso: props?.Idpermiso,
-    accion: props?.accion,
-    opcion: props?.opcion,
-    tipo: props?.tipo,
-    id: props?.ItemsUpdate?.length === 1 ? props?.ItemsUpdate[0]?.id : '',
+    c: props?.ItemsUpdate?.length === 1 ? btoa(props?.ItemsUpdate[0]?.c) : '',
+    a: props?.ItemsUpdate?.length === 1 ? btoa(props?.ItemsUpdate[0]?.a) : '',
+    u: props?.ItemsUpdate?.length === 1 ? btoa(props?.ItemsUpdate[0]?.u) : '',
+    d: props?.ItemsUpdate?.length === 1 ? btoa(props?.ItemsUpdate[0]?.d) : '',
+    idpermiso: btoa(props?.Idpermiso),
+    accion: btoa(props?.accion),
+    opcion: btoa(props?.opcion),
+    tipo: btoa(props?.tipo),
+    id: props?.ItemsUpdate?.length === 1 ? btoa(props?.ItemsUpdate[0]?.id) : '',
   }]);
   const { t } = useTranslation();
   const dispatch = useDispatch();

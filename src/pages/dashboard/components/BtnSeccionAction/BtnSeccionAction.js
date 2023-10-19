@@ -4,7 +4,7 @@ import React from "react";
 import BtnLink from "../BtnLink";
 import BtnActions from "../BtnActions";
 
-const BtnSeccionAction = (props) => {
+const BtnSeccionAction = (props,children) => {
 
   const isbtnLink = props?.obj?.isbtnLink|| 'N';
   const tipo = props?.obj?.tipo || '';
@@ -16,7 +16,7 @@ const BtnSeccionAction = (props) => {
   return (
     <React.Fragment>
       <Modal show={props?.obj?.open} onHide={props?.obj?.toggleSignUp}>
-        <Modal.Body>{props?.children ? props?.children : null}
+        <Modal.Body>{children ? props?.children : null}
         </Modal.Body>
       </Modal>
       <Row>

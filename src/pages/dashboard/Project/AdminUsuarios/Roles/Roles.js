@@ -22,23 +22,30 @@ const ActionColumn = ({ row }) => {
   const {
     eliminar,
     validated,
-    toggle,
+    //toggle,
     setOpen,
     setItemsUpdate,
     open, tipo
   } = useContext(DashboardContext);
-   const toggleSignUp = (id) => {
+
+
+   const toggleSignUp = (id,titulo) => {
+    
+    
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
+    
     if (localPermiso?.update === 'S') {
 
       if(row.cells[0].row.values.id===id)
+      console.log(id,titulo,row.cells[0].row.values.id)
       setItemsUpdate(row?.cells[0]?.row?.values)
-      setOpen(open);
-      toggle()
+      setOpen(!open);
+      //toggle()
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
+    
   };
 
   let permiso = sessionStorage.getItem('PERMISO');
