@@ -102,6 +102,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
 
 
       const onDateChangefechaIncidente = (date,fechaError) => {
+   
         if (date) {
             setSelectedDate(date);
             setError({...validateError,fechaError:fechaError})
@@ -113,20 +114,6 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               }])
         }
     };
-    /*
-    const onDateChangePropuesta = (date,fechaPropuestaError) => {
-        if (date) {
-            setSelectedDatePropuesta(date);
-            setError({...validateError,fechaPropuestaError:fechaPropuestaError})
-            setItems([{
-                ...items[0], fechaPropuesta:date,
-                idAprendiz:props?.idAprendiz,
-                descripcion:descripcion,
-                nombrePrograma:nombrePrograma
-              }])
-        }
-    };
-    */
     
     const onDateChangeFile = (file,base64String,filesError,base64StringsError) => {
         if (file) {
@@ -246,8 +233,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                             timeCaption="time"
                                             className="form-control"
                                             value={selectedDate}
-                                            onChange={(date) =>
-                                                onDateChangefechaIncidente(date,true)
+                                            onChange={(e) => onDateChangefechaIncidente(e,true)
                                                 }
                                         />
                                         

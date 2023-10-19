@@ -57,6 +57,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
             idSolicitud:props?.idSolicitud,
             opcionUpdate:opcion,
             nombrePrograma,
+            ...items[0],
             ...fallas[0],
             e:e,
             codigoFicha:props?.codigoFicha,
@@ -64,6 +65,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
             opcion: 'updateSolicitud',
             tipo: 'updateSolicitud',
         }
+        console.log('datosEvent',datosEvent)
         Swal.fire({
             title: 'Desea actualizar este registro',
             showCancelButton: true,
@@ -143,20 +145,25 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     
  
 
-    const onDateChangefechaIncidente = (date, fechaError) => {
-        if (date) {
-            setSelectedDate(date);
+    const onDateChangefechaIncidente = (e, fechaError) => {
+        
+      
+        if (e) {
+            setSelectedDate(e);
             setError({ ...validateError, fechaError: fechaError });
+
             setItems([
                 {
                     ...items[0],
-                    fechaIncidente: date,
+                    e: `${e}`,
                     idAprendiz: props?.idAprendiz,
                     descripcion: descripcion,
                     nombrePrograma: nombrePrograma,
                 },
             ]);
+           
         }
+      
     };
 
     const onDateChangeFile = (file, base64String, filesError, base64StringsError,options) => {
@@ -243,7 +250,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                     aprendiz: datosAprendiz[0]?.aprendiz,
                     tipoComite: datosAprendiz[0]?.tipoSolicitud,
                     tipoAtencion: datosAprendiz[0]?.tipoAtencion,
-                    fechaIncidente: '',
+                    fechaIncidente: datosAprendiz[0]?.fechaIncidente,
                     fechaHora: datosAprendiz[0]?.fechaHora,
                     accion: 'ModuloSolicitudComite',
                     opcion: 'add_solicitud',
@@ -261,7 +268,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         }
     }, [datosAprendiz]);
 
-    //console.log({...items})
+ console.log({...items[0]})
     return (
         <>
             {loading ? (
@@ -344,7 +351,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                 <label>Fecha y Hora de los Hechos:</label>
                                 <label className={classNames('editTitulos')}>
                                     <i class="mdi mdi-account-check"></i>
-                                    {items[0]?.fechaHora}
+                                    {items[0]?.fechaIncidente}
                                 </label>
                                 <div className="mb-0 col-8">
                                     <HyperDatepicker
@@ -359,7 +366,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                         className="form-control"
                                         value={selectedDate}
                                         onChange={(date) => onDateChangefechaIncidente(date, true)}
-                                    /></div><div className="uploadSolicitud col-4 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.fechaHora,'datosFechaIncidente')}}></i></span></div>
+                                    /></div><div className="uploadSolicitud col-4 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.fechaIncidente,'datosFechaIncidente')}}></i></span></div>
                                     <div className="mb-0 col-8">
                                     {!validateError.fechaError ? (
                                         <div className="isinvalid text-100">SELECCIONE LA FECHA Y HORA HECHOS</div>
