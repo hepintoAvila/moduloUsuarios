@@ -65,7 +65,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
             opcion: 'updateSolicitud',
             tipo: 'updateSolicitud',
         }
-        console.log('datosEvent',datosEvent)
+        //console.log('datosEvent',datosEvent)
         Swal.fire({
             title: 'Desea actualizar este registro',
             showCancelButton: true,
@@ -268,7 +268,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         }
     }, [datosAprendiz]);
 
- console.log({...items[0]})
+ //console.log({...items[0]})
     return (
         <>
             {loading ? (
