@@ -153,9 +153,16 @@ const handleRegresar = (tipo) => {
   return window.location.hash=url;
 }
 const handleOnChange  = (id, opciones) => {
+  let itesms=[]
   setIsChecked(!isChecked);
   setIsCheckedItem(id);
- console.log('id,opciones',id,opciones)
+  let dataInLocalStorage = localStorage.getItem('idsIncidentes');
+  let data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+  let obj = {id}
+  itesms.push(...data,obj)
+  //itesms.push(obj)
+  localStorage.setItem('idsIncidentes', JSON.stringify(itesms));
+  console.log('id,opciones',id,opciones)
 }
   const data = {
     handleOnChange,

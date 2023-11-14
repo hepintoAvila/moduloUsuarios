@@ -7,6 +7,12 @@ const BtnSelect = (props) => {
       <Popover.Body>{props.descripcion}</Popover.Body>
     </Popover>
   );
+  let dataInLocalStorage = localStorage.getItem('idsIncidentes');
+  let data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+  let filtered = data.filter((items) => {
+    return props?.row  === items.id;
+});
+
   return (
         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={props.key}>
           {
@@ -17,7 +23,7 @@ const BtnSelect = (props) => {
               value={props.row}
               name={props.row}
               onClick={() => props.handleOnChange(props.row,props.opcion)}
-              checked={props.isCheckedItem=== props.row? !props.key:false}/>
+              checked={ Number(filtered[0]?.id) > 0 ? true:false}/>
               <label htmlFor="form-check-input" className="form-check-label"></label>
           </div>
           }
