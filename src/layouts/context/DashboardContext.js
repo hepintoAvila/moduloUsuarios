@@ -17,8 +17,11 @@ const DashboardProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [signUpModalAdd, setSignUpModalAdd] = useState(false);
   const [itemsUpdate, setItemsUpdate] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isCheckedItem, setIsCheckedItem] = useState(0);
+
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
- 
+
   const itemsMenuCallBack = (e) => {
     let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
     if (e===0) {
@@ -34,7 +37,7 @@ const DashboardProvider = ({ children }) => {
       }
     }
   };
- 
+
   const Spinners = () => {
     const sizes = ['sm'];
     return (
@@ -126,8 +129,8 @@ const AdvertenciaLocalStorage = () => {
       [itemUrl,tipo]
   );
 const handleRegresar = (tipo) => {
-    
-  const menuitems = window.location.hash.split('#/')[1]; 
+
+  const menuitems = window.location.hash.split('#/')[1];
   const seccion = menuitems.replace(/^dashboard\//, '');
   const [seccion1] = seccion?.split('/');
   let url = '';
@@ -136,7 +139,7 @@ const handleRegresar = (tipo) => {
       case 'EnviarSolicitud':
         url = `/dashboard/${seccion1}/${tipo}`;
       case 'ConsultaIncidente':
-      case 'ModuloSolicitudComite': 
+      case 'ModuloSolicitudComite':
       url = `/dashboard/${seccion1}/${tipo}`;
       case 'ConsultaNotificaciones':
       case 'AgendarCitas':
@@ -144,12 +147,19 @@ const handleRegresar = (tipo) => {
       }
     })()
   }
-   
+
   setitemsMenuPrincipal(seccion1);
   setitemsUrl(tipo);
   return window.location.hash=url;
 }
+const handleOnChange  = (id, opciones) => {
+  setIsChecked(!isChecked);
+  setIsCheckedItem(id);
+ console.log('id,opciones',id,opciones)
+}
   const data = {
+    handleOnChange,
+    isChecked, setIsChecked,isCheckedItem,
     AdvertenciaLocalStorage,
     itemsMenuCallBack,
     setLoading,
@@ -158,7 +168,7 @@ const handleRegresar = (tipo) => {
     setitemsUrl,
     tipo,
     itemUrl,
-    StatusColumn, sizePerPageList, 
+    StatusColumn, sizePerPageList,
     itemsQuery, setItemsQuery,
     Spinners,
     pagesInSearch,

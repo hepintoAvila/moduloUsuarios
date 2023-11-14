@@ -14,6 +14,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 
 
 function contarVerdaderos(array) {
@@ -28,7 +29,7 @@ function contarVerdaderos(array) {
 const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
- 
+    const {convertirFecha } = useContext(NotificacionesContext);
     const {validateError,setError,queryFile,loading,nombrePrograma,descripcion,fallas} = useContext(SearchContext)
  
     //console.log({...fallas[0]})
@@ -70,7 +71,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 idAprendiz:items[0].idAprendiz,
                 tipoComite:items[0].tipoComite,
                 tipoAtencion:items[0].tipoAtencion,
-                fechaIncidente:items[0].fechaIncidente,
+                fechaIncidente:convertirFecha(items[0].fechaIncidente),
                 accion: 'ModuloSolicitudComite',
                 opcion: 'add_solicitud',
                 tipo: 'EnviarSolicitud',

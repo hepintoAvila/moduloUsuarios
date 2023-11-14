@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 // @flow
 import React, {useCallback, useContext, useEffect, useState } from 'react';
-import { Row, Col, Card, Button, Table, Modal, Form } from 'react-bootstrap';
+import { Row, Col, Card, Button, Table, Modal, Form} from 'react-bootstrap';
 import '@fullcalendar/react';
 import classNames from 'classnames';
 // components
@@ -151,7 +152,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     const [dateInfo, setDateInfo] = useState({});
     const [idAgenda, setidAgenda] = useState(0);
 
-    
+
     useEffect(() => {
         const idSolicitud = obtenerNumeroDesdeURL(window.location.hash)
         setIdSolicitud(idSolicitud)
@@ -174,7 +175,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
 
 
     /*
-    on add event 
+    on add event
     */
     const onAddEvent = (data) => {
         Swal.fire({
@@ -183,7 +184,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             title: 'Solicitud Enviada',
             showConfirmButton: false,
             timer: 1500
-          }) 
+          })
         const idsVerdaderos = obtenerIdsVerdaderos(idDirectivos, itemsQueryById?.data?.Directivos);
         const modifiedEvents = [...events];
         const datos = data[0];
@@ -230,7 +231,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             title: 'Solicitud Enviada',
             showConfirmButton: false,
             timer: 1500
-          }) 
+          })
             const datosEvent = {
                 idAgenda: `${idAgenda}`,
                 fechaCita: `${itemsUpdate[0]?.horaCita}`,
@@ -247,17 +248,17 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                         .join('&')
                     : '';
                 getData(queryDatos)
-            }, 2000); 
-    
+            }, 2000);
+
             const modifiedEvents = [...events];
             const idx = modifiedEvents.findIndex((e) => e['id'] === itemsUpdate[0]?.idAgenda);
             modifiedEvents[idx]['title'] = itemsUpdate[0]?.horaCita;
             setEvents(modifiedEvents);
-            toggle(); 
+            toggle();
 
 
     };
- 
+
     const onEliminarEvent = (idAgenda) => {
         Swal.fire({
             position: 'top-center',
@@ -265,7 +266,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             title: 'Solicitud Enviada',
             showConfirmButton: false,
             timer: 1500
-          }) 
+          })
         var modifiedEvents = [...events];
         const idx = modifiedEvents.findIndex((e) => e['id'] ===  idAgenda);
         modifiedEvents.splice(idx, 1);
@@ -282,7 +283,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                     .join('&')
                 : '';
             getData(queryDatos)
-        }, 2000);         
+        }, 2000);
         setEvents(modifiedEvents);
         toggle();
     };
@@ -309,14 +310,14 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
         }
     }, [itemsQueryById, loading]);
     /*
-    
+
         */
     const toggle = () => {
         setModal(!modal);
     };
- 
+
 const onTiempoEstipulado = (value,var2) => {
-  
+
         if (value) {
         const resp = calcularFechaFinal(var2,value)
         setFechaFiinal(resp);
@@ -328,7 +329,7 @@ const onTiempoEstipulado = (value,var2) => {
     }
 };
 const onTiempoInicial = (value,fechaFinal) => {
- 
+
     if (value) {
         const resp = calcularFechaInicial(fechaFinal,value)
         setFechaInicial(resp);
@@ -336,13 +337,13 @@ const onTiempoInicial = (value,fechaFinal) => {
             ...itemsUpdate[0],
             horaCita: value,
             idAgenda:idAgenda
-            
+
         }])
     }
 };
 useEffect(() => {
     setidAgenda(dateInfoUpdate.idAgenda)
-}, [dateInfoUpdate]);    
+}, [dateInfoUpdate]);
 
 
 // console.log('loading',loading);
@@ -355,7 +356,7 @@ useEffect(() => {
                             <Row>
                             <Col lg={8}>
                                     {/* fullcalendar control */}
-                           
+
                                     <Calendar
                                         onDateClick={onDateClick}
                                         onEventClick={onEventClick}
@@ -363,7 +364,7 @@ useEffect(() => {
                                         status={status}
 
                                     />
- 
+
                                 </Col>
                                 <Col lg={4}>
                                     <div className="d-grid">
@@ -383,26 +384,32 @@ useEffect(() => {
 
             {/* add new event modal */}
             {show ? (
-                <AddEditEvent
-                    idSolicitud={idSolicitudComite}
-                    isOpen={show}
-                    onClose={onCloseModal}
-                    isEditable={isEditable}
-                    setIsEditable={setIsEditable}
-                    eventData={eventData}
-                    onAddEvent={onAddEvent}
-                    itemsQueryById={itemsList}
-                    dateInfo={dateInfo}
-                    status={status}
-                />
+
+                                                 <AddEditEvent
+                                                                idSolicitud={idSolicitudComite}
+                                                                isOpen={show}
+                                                                onClose={onCloseModal}
+                                                                isEditable={isEditable}
+                                                                setIsEditable={setIsEditable}
+                                                                eventData={eventData}
+                                                                onAddEvent={onAddEvent}
+                                                                itemsQueryById={itemsList}
+                                                                dateInfo={dateInfo}
+                                                                status={status}
+                                                            />
+
+
             ) : null}
- 
+
             {modal? (<>
                 <Modal show={modal} onHide={toggle}  size="sm-down">
                     <Modal.Header onHide={toggle} closeButton>
                         <h4 className="modal-title">CONFIGURACIÓN DE LA REUNIÓN</h4>
                     </Modal.Header>
                     <Modal.Body>
+
+
+
                         <form  className="formModal">
                             <Row>
                             <ul className="list-unstyled">
@@ -413,7 +420,7 @@ useEffect(() => {
                                         </li>
                                     </ul>
                                 <Col sm={6}>
-    
+
                                     <Form.Group className="mb-3" controlId="horaCita">
                                     <label className="mb-2"><i className="mdi mdi-calendar-range font-13"></i> Fecha y Hora de la Cita</label> <br />
                                     <label className="mb-2">{fechaInicialUptade?fechaInicialUptade:'0000-00-00 00:00'}</label>
@@ -430,7 +437,7 @@ useEffect(() => {
                                 <Col sm={6}>
                                     <Form.Group className="mb-3" controlId="tiempoEstipulado">
                                         <label className="mb-2"><i className="mdi mdi-calendar-range font-13"></i> Tiempo estipulado</label>
- 
+
                                         <FormInput
                                             type="select"
                                             label={fechaFinal?fechaFinal:dateInfoUpdate.end}
@@ -450,7 +457,7 @@ useEffect(() => {
                                     </Form.Group>
                                 </Col>
                                 </Row>
-                                <Row>    
+                                <Row>
                                 <Col md={12}>
                                     <Form.Group className="mb-3" controlId="observaciones">
                                         <label className="mb-2"><i className="mdi mdi-calendar-range font-13"></i> Observaciones</label>
@@ -487,6 +494,8 @@ useEffect(() => {
                         </Row>
                     </Modal.Footer>
                         </form>
+
+
                     </Modal.Body>
 
                 </Modal>

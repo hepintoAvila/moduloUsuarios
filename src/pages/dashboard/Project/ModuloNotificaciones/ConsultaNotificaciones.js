@@ -3,105 +3,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
 import React, { useContext, useEffect, useState } from 'react';
-import { Row, Col, Card, Tab, Nav, } from 'react-bootstrap';
-import classnames from 'classnames'; 
+import { Row, Col, Card, Tab, Nav, Button, } from 'react-bootstrap';
+import classnames from 'classnames';
 //import Swal from 'sweetalert2';
 
 
 import Table from '../../../../components/Table';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import BtnSeccionAction from './Components/BtnSeccionAction';
-import OpcionsForm from './Form/OpcionsForm';
 import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
+import Swal from 'sweetalert2';
 
 const ActionColumn = ({ row }) => {
 
   const {
-    validated,
-    setOpen,
-    setItemsUpdate,
-    open,
-    setitemsMenuPrincipal
+    isChecked,isCheckedItem,
+    validated,handleOnChange
   } = useContext(DashboardContext);
 
-  const toggleSignUp = (id, opciones) => {
 
-    let permiso = sessionStorage.getItem('PERMISO');
-    const localPermiso = JSON.parse(permiso);
-    if (localPermiso?.update === 'N') {
-
-      if (row.cells[0].row.values.id === id)
-        setItemsUpdate(row?.cells[0]?.row?.values)
-      //toggle()
-    } else {
-      sessionStorage.removeItem('OPTIONS')
-
-      const menuitems = window.location.hash.split('#/')[1];
-      const [seccion] = menuitems?.split('/');
-      let obj = {}
-      {
-        (() => {
-          switch (sessionStorage.getItem('OPTIONS')) {
-            case 'AGENDAR':
-              obj = { principal: seccion.length === 0 ? `dashboard/AgendarCitas?p=${id}` : seccion, seccion: `AgendarCitas?p=${id}` }
-              sessionStorage.setItem('ITEM_SELECT', JSON.stringify({
-                tipo: obj.principal, menu: obj.seccion,
-              }));
-              break
-            case 'ACTAS':
-              obj = { principal: seccion.length === 0 ? `dashboard/RegistrarActa?p=${id}` : seccion, seccion: `RegistrarActa?p=${id}` }
-              sessionStorage.setItem('ITEM_SELECT', JSON.stringify({
-                tipo: obj.principal, menu: obj.seccion,
-              }));
-              break
-            case 'DETALLES':
-              obj = { principal: seccion.length === 0 ? `dashboard/AgendarCitas?p=${id}` : seccion, seccion: `ConsultarIncidencia?p=${id}` }
-              sessionStorage.setItem('ITEM_SELECT', JSON.stringify({
-                tipo: obj.principal, menu: obj.seccion,
-              }));
-              break
-            default:
-              setOpen(false);
-              obj = { principal: seccion.length === 0 ? `ModuloNotificaciones/ConsultaNotificaciones` : `ModuloNotificaciones/ConsultaNotificaciones`, seccion: `ModuloNotificaciones/ConsultaNotificaciones` }
-              sessionStorage.setItem('ITEM_SELECT', JSON.stringify({
-                tipo: 'ConsultaNotificaciones', menu: 'ModuloNotificaciones',
-              }));
-
-          }
-        })()
-      }
-
-      //Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
-      const urls = seccion.length === 0 ? `dashboard/${obj.principal}/` + seccion + '' + obj.principal : '/' + seccion + '/' + obj.principal
-      setitemsMenuPrincipal(obj.seccion)
-      return window.location.hash = urls;
-    }
-  };
-
-  const toggleModal = (id, opciones) => {
-
-    sessionStorage.setItem('OPTIONS', opciones)
-    const menuitems = window.location.hash.split('#/')[1];
-    const [seccion] = menuitems?.split('/');
-    console.log(menuitems)
-    const obj = {
-      principal: seccion.length === 0 ? `dashboard/ModuloNotificaciones/ConsultaNotificaciones?p=${id}` : seccion, seccion: `ConsultaNotificaciones?p=${id}`,
-      tipoAnterior: 'dashboard/',
-      menuAnterior: 'dashboard/'
-    }
-    const urls = seccion.length === 0 ? `dashboard/${obj.principal}/` + seccion + '' + obj.principal : '/' + seccion + '/' + obj.principal
-    setitemsMenuPrincipal(seccion)
-    setOpen(!open);
-
-    return window.location.hash = urls;
-  }
   let permiso = sessionStorage.getItem('PERMISO');
   const localPermiso = JSON.parse(permiso);
   const obj = {
-    open,
-    toggleSignUp,
-    toggleModal,
+    isChecked,
+    isCheckedItem,
+    handleOnChange,
     localPermiso,
     validated,
     key: row.cells[0].value,
@@ -110,7 +37,6 @@ const ActionColumn = ({ row }) => {
   return (
     <React.Fragment>
       <BtnSeccionAction obj={obj}>
-        <OpcionsForm />
       </BtnSeccionAction>
     </React.Fragment>
   );
@@ -189,11 +115,24 @@ const ConsultaNotificaciones = (props) => {
     });
     const filteredAgendada = datos?.filter((row) => {
       return row?.estado === 'AGENDADA';
-      });   
+      });
     setSinAgendar(filteredSinAgendar)
     setAgendada(filteredAgendada)
   }, [datos])
-    
+
+  const adjuntarLocalstore = () => {
+
+    // Obtener los datos actuales del localStorage si existen
+    let dataInLocalStorage = localStorage.getItem('Ids');
+    let data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+    const jsonData = JSON.stringify(data);
+
+    if (jsonData.length > 0) {
+      Swal.fire('tiene items seleccionado');
+    } else {
+        Swal.fire('No tiene items seleccionado');
+    }
+};
   return (
     <React.Fragment>
       <Row>
@@ -247,6 +186,19 @@ const ConsultaNotificaciones = (props) => {
                                         />}
                                       </Col>
                                     </Row>
+
+                                    <Row>
+                        <Col sm={10}></Col>{' '}
+                        <Col sm={2}>
+                        {sinAgendar?.length > 0 && <Button
+                                variant="primary"
+                                type="submit"
+                                disabled={false}
+                                onClick={() => adjuntarLocalstore()}>
+                                AGENDAR
+                            </Button>}
+                        </Col>
+                    </Row>
                                   </>);
                               case 1:
                                 return (

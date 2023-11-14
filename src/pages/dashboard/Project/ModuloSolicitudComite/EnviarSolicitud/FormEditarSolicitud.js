@@ -28,13 +28,14 @@ function contarVerdaderos(array) {
     }
     return contador;
 }
+
 const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const childrenEvidencias = props.childrenEvidencias || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [options, setOptions] = useState(0);
     
-    const { openFormAprendiz } = useContext(NotificacionesContext);
+    const { openFormAprendiz,convertirFecha } = useContext(NotificacionesContext);
     const {getData} = useContext(NotificacionesContext)
     const { validateError, setError, queryFile, loading, nombrePrograma, descripcion, fallas } =
         useContext(SearchContext);
@@ -147,7 +148,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
 
     const onDateChangefechaIncidente = (e, fechaError) => {
         
-      
+      console.log(e)
         if (e) {
             setSelectedDate(e);
             setError({ ...validateError, fechaError: fechaError });
@@ -155,7 +156,8 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
             setItems([
                 {
                     ...items[0],
-                    e: `${e}`,
+                    fechaIncidente:convertirFecha(`${e}`),
+                    e: convertirFecha(`${e}`),
                     idAprendiz: props?.idAprendiz,
                     descripcion: descripcion,
                     nombrePrograma: nombrePrograma,

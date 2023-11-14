@@ -1,18 +1,35 @@
-import { Modal, Pagination, Row } from "react-bootstrap";
+import { Pagination, Row } from "react-bootstrap";
 
 import React from "react";
-import BtnActions from "./BtnActions";
+import BtnSelect from "./BtnSelect";
 
-const BtnSeccionAction = (props,children) => {
+const BtnSeccionAction = (props) => {
 
   return (
     <React.Fragment>
-      <Modal show={props?.obj?.open} onHide={props?.obj?.toggleSignUp}>
-        <Modal.Body>{props?.children ? props?.children : null}</Modal.Body>
-      </Modal>
       <Row>
         <Pagination className="pagination-rounded mx-auto" size="sm">
-          <Pagination.Item>
+        <Pagination.Item>
+        <BtnSelect
+                  permisos={'N'}
+                  isCheckedItem={props?.obj?.isCheckedItem}
+                  key={`AGENDAR${props?.obj?.key}`}
+                  handleOnChange={props?.obj?.handleOnChange}
+                  row={props?.obj?.row}
+                  titulo={'AGENDAR'}
+                  isChecked={props?.obj?.isChecked}
+                  descripcion={`Agendar Cita para el Incidente`}
+                  icon={'mdi mdi-calendar-plus'}
+                  opcion={'AGENDAR'}
+                />
+        </Pagination.Item>
+      </Pagination>
+      </Row>
+    </React.Fragment>
+  );
+}
+/*
+         <Pagination.Item>
 
                 <BtnActions
                  url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${props?.obj?.row}`}
@@ -37,8 +54,8 @@ const BtnSeccionAction = (props,children) => {
                   descripcion={`En esta sección se pueden registrar los Consolidados y partes del Acta`}
                   icon={'mdi mdi-layers'}
                   opcion={'ACTAS'}
-                /> 
-          </Pagination.Item>         
+                />
+          </Pagination.Item>
           <Pagination.Item>
                 <BtnActions
                  url={`/dashboard/ModuloSolicitudComite/ConsultarIncidencia?p=${props?.obj?.row}`}
@@ -50,7 +67,7 @@ const BtnSeccionAction = (props,children) => {
                   descripcion={`Ver Detalles`}
                   icon={'mdi mdi-layers-search-outline'}
                   opcion={'DETALLES'}
-                /> 
+                />
           </Pagination.Item>
           <Pagination.Item>
           <BtnActions
@@ -63,7 +80,7 @@ const BtnSeccionAction = (props,children) => {
             descripcion={`Asignar miembros del comité al incidente`}
             icon={'mdi mdi-account-multiple-plus'}
             opcion={'COMITE'}
-          /> 
+          />
           </Pagination.Item>
           <Pagination.Item>
           <BtnActions
@@ -76,11 +93,8 @@ const BtnSeccionAction = (props,children) => {
             descripcion={`Registrar el concepto de miembro del comité`}
             icon={'mdi mdi-account-tie-voice'}
             opcion={'VOZ'}
-          /> 
-</Pagination.Item>         
-      </Pagination>
-      </Row>
-    </React.Fragment>
-  );
-}
+          />
+
+</Pagination.Item>
+*/
 export default BtnSeccionAction;

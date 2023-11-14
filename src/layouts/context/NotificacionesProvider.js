@@ -224,7 +224,18 @@ const NotificacionesProvider = ({ children }) => {
         return fechaEnNuevoFormato;
     }
 
-
+    function convertirFecha(fechaEntrada) {
+        // Crea un objeto Date a partir de la fecha de entrada
+        const fecha = new Date(fechaEntrada);
+      
+        // Obtiene la fecha y hora en formato UTC
+        const fechaUTC = new Date(fecha.getUTCFullYear(), fecha.getUTCMonth(), fecha.getUTCDate(), fecha.getUTCHours(), fecha.getUTCMinutes(), fecha.getUTCSeconds());
+      
+        // Formatea la fecha en el formato '0000-00-00 00:00:00'
+        const fechaFormateada = fechaUTC.toISOString().slice(0, 19).replace('T', ' ');
+      
+        return fechaFormateada;
+      }
     // on event click
     const onEventClick = (arg) => {
         setEventData(arg);
@@ -238,6 +249,7 @@ const NotificacionesProvider = ({ children }) => {
     
     const data = {
         getData,
+        convertirFecha,
         setQueryByIdComite,
         loading,
         setLoading,
