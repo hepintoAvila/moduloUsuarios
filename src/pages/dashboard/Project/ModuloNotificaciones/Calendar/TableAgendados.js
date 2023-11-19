@@ -2,9 +2,9 @@
 import React from 'react';
 import { Card, Table } from 'react-bootstrap';
 import classNames from 'classnames';
-import BtnActions from '../Components/BtnActions';
+import BtnEnviarEmail from './BtnEnviarEmail';
 
-const TableAgendados = ({aprendicesAgendados,handleOneMail }) => {
+const TableAgendados = ({aprendicesAgendados,enviarEmailAprendiz }) => {
 
   return (
     <Card>
@@ -25,17 +25,15 @@ const TableAgendados = ({aprendicesAgendados,handleOneMail }) => {
                     <th scope="row">{id}</th>
                     <td>{name}<br /></td>
                     <td>
-                      <BtnActions
-                        url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${id}`}
-                        permisos={'N'}
-                        key={id}
-                        toggleActions={handleOneMail}
-                        row={id}
-                        titulo={'ENVIAR CORREO'}
-                        descripcion={`Haga clic en este boton para enviar la notificación al Aprendiz`}
-                        icon={'mdi mdi-email-receive-outline'}
-                        opcion={'ENVIAR'}
-                      />
+                    <BtnEnviarEmail
+                          url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${id}`}
+                          key={`${name}`}
+                          row={id}
+                          titulo={'ENVIAR CORREO'}
+                          descripcion={`Haga clic en este boton para enviar la notificación al Aprendiz`}
+                          icon={'mdi mdi-email-receive-outline'}
+                          enviarEmailAprendiz={enviarEmailAprendiz}
+                        />
                     </td>
                   </tr>
                 );

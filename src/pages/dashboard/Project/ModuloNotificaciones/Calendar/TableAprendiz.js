@@ -4,25 +4,14 @@ import { Card, Table } from 'react-bootstrap';
 import classNames from 'classnames';
 
 import { extraerNumero } from './funtions';
-import BtnActions from '../Components/BtnActions';
-import Swal from 'sweetalert2';
+import BtnEnviarEmail from './BtnEnviarEmail';
 
-const TableAprendiz = ({ miembros, setIdDirectivos, setIdSolicitud, events }) => {
+
+
+
+const TableAprendiz = ({ miembros, setIdDirectivos, setIdSolicitud, events,enviarEmailAprendiz}) => {
   const [checkedState, setCheckedState] = useState(new Array(miembros.length).fill(false));
 
-  const handleOneMail = useCallback((id,opcion) => {
-
-    Swal.fire({
-      title: 'Desea notificar via email al Aprendiz?',
-      showCancelButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //borrarCallback(cel);
-        console.log(id,opcion)
-      }
-    });
-
-  }, []);
   const handleOnChange = useCallback((position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
@@ -53,7 +42,7 @@ const TableAprendiz = ({ miembros, setIdDirectivos, setIdSolicitud, events }) =>
             {
               miembros?.map(({ name, id }, index) => {
                 const filtered = events?.filter((item) => extraerNumero(item.title) === parseInt(id, 10));
-                const classBg = filtered.length > 0 ? 'bg-warning' : 'bg-info';
+                const classBg = filtered?.length > 0 ? 'bg-warning' : 'bg-info';
                 return (
                   <tr key={index} className={classNames('text-white', [`${classBg}`])}>
                     <th scope="row">{id}</th>
@@ -69,16 +58,14 @@ const TableAprendiz = ({ miembros, setIdDirectivos, setIdSolicitud, events }) =>
                           onChange={() => handleOnChange(index)}
                         />
                       ) : (
-                        <BtnActions
+                        <BtnEnviarEmail
                           url={`/dashboard/ModuloNotificaciones/AgendarCitas?p=${id}`}
-                          permisos={'N'}
-                          key={`ENVIAR_${id}`}
-                          toggleActions={handleOneMail}
+                          key={`${name}`}
                           row={id}
                           titulo={'ENVIAR CORREO'}
                           descripcion={`Haga clic en este boton para enviar la notificación al Aprendiz`}
                           icon={'mdi mdi-email-receive-outline'}
-                          opcion={'ENVIAR'}
+                          enviarEmailAprendiz={enviarEmailAprendiz}
                         />
                       )}
                     </td>

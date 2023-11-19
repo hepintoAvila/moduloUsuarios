@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 // @flow
-import React, {useContext, useEffect, useState,useCallback } from 'react';
+import React, {useContext, useEffect, useState } from 'react';
 import { Row, Col, Card, Button, Modal, Form,Collapse} from 'react-bootstrap';
 import '@fullcalendar/react';
 import classNames from 'classnames';
@@ -22,7 +22,7 @@ import TableAgendados from './TableAgendados';
 
 
 
-const SidePanel = ({ miembroscomites, setIdDirectivos,setIdSolicitud,events,aprendicesAgendados}) => {
+const SidePanel = ({ miembroscomites, setIdDirectivos,setIdSolicitud,events,aprendicesAgendados,enviarEmailAprendiz}) => {
 
   const [isOpenFirst, setIsOpenFirst] = useState(false);
     const [isOpenSecond, setIsOpenSecond] = useState(false);
@@ -100,13 +100,16 @@ const SidePanel = ({ miembroscomites, setIdDirectivos,setIdSolicitud,events,apre
                                     miembros={data}
                                     setIdDirectivos={setIdDirectivos}
                                     setIdSolicitud={setIdSolicitud}
-                                    events={events}
+                                    enviarEmailAprendiz={enviarEmailAprendiz}
                                 />
                             ) : (
                                 ''
                             )}
                             {aprendicesAgendados?.length > 0 ? (
-                                <TableAgendados aprendicesAgendados={aprendicesAgendados} />
+                                <TableAgendados
+                                aprendicesAgendados={aprendicesAgendados}
+                                enviarEmailAprendiz={enviarEmailAprendiz}
+                                />
                             ) : (
                                 ''
                             )}
@@ -377,7 +380,19 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
     "name": item.aprendiz,
   }));
 
+  const enviarEmailAprendiz = (id) => {
 
+    Swal.fire({
+      title: 'Desea notificar via email al Aprendiz?',
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //borrarCallback(cel);
+        console.log(id)
+      }
+    });
+
+  };
 
 
    return (
@@ -408,6 +423,7 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
                                         setIdSolicitud={setIdSolicitud}
                                         events={events}
                                         aprendicesAgendados={aprendicesAgendados}
+                                        enviarEmailAprendiz={enviarEmailAprendiz}
                                     />
 
                                 </Col>

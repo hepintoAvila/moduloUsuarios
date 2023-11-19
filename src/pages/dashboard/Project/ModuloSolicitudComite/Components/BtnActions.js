@@ -9,7 +9,7 @@ const BtnActions = (props) => {
       <Popover.Body>{props?.descripcion}</Popover.Body>
     </Popover>
   );
- 
+
   return (
         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={`t2_${props?.titulo}_t3`}>
           {
