@@ -90,8 +90,6 @@ const pagesInSearch = () => {
   console.log('query',query)
   return query;
 };
-
-
 const AdvertenciaLocalStorage = () => {
   useEffect(() => {
     const seccionEnLocalStorage = sessionStorage.getItem('hyper_user');
@@ -134,36 +132,53 @@ const handleRegresar = (tipo) => {
   const seccion = menuitems.replace(/^dashboard\//, '');
   const [seccion1] = seccion?.split('/');
   let url = '';
-  {(() => {
+  (() => {
+      // eslint-disable-next-line default-case
       switch (tipo) {
-      case 'EnviarSolicitud':
-        url = `/dashboard/${seccion1}/${tipo}`;
-      case 'ConsultaIncidente':
-      case 'ModuloSolicitudComite':
-      url = `/dashboard/${seccion1}/${tipo}`;
-      case 'ConsultaNotificaciones':
-      case 'AgendarCitas':
-        url = `/dashboard/${seccion1}/${tipo}`;
+          case 'EnviarSolicitud':
+              url = `/dashboard/${seccion1}/${tipo}`;
+              break;
+          case 'ConsultaIncidente':
+          case 'ModuloSolicitudComite':
+              url = `/dashboard/${seccion1}/${tipo}`;
+              break;
+          case 'ConsultaNotificaciones':
+          case 'AgendarCitas':
+              url = `/dashboard/${seccion1}/${tipo}`;
       }
-    })()
-  }
+  })();
+
 
   setitemsMenuPrincipal(seccion1);
   setitemsUrl(tipo);
   return window.location.hash=url;
 }
-const handleOnChange  = (id, opciones) => {
-  let itesms=[]
+const handleOnChange = (id,name) => {
   setIsChecked(!isChecked);
   setIsCheckedItem(id);
-  let dataInLocalStorage = localStorage.getItem('idsIncidentes');
-  let data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
-  let obj = {id}
-  itesms.push(...data,obj)
-  //itesms.push(obj)
-  localStorage.setItem('idsIncidentes', JSON.stringify(itesms));
-  console.log('id,opciones',id,opciones)
-}
+
+  const dataInLocalStorage = localStorage.getItem('idsIncidentes');
+  const data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+  const itemExists = data?.filter((row) => {
+    return row?.id === id;
+    });
+
+
+
+  if (!itemExists[0]?.id) {
+    const newItem = { id,name };
+    const updatedData = [...data, newItem];
+    localStorage.setItem('idsIncidentes', JSON.stringify(updatedData));
+  }else{
+    const itemsDelete = data?.filter((row) => {
+      return row?.id !== id;
+      });
+      localStorage.removeItem('idsIncidentes');
+      localStorage.setItem('idsIncidentes', JSON.stringify(itemsDelete));
+  }
+};
+
+
   const data = {
     handleOnChange,
     isChecked, setIsChecked,isCheckedItem,

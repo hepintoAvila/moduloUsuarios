@@ -15,6 +15,20 @@ import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
 import Swal from 'sweetalert2';
 
+function sumarIdsDelLocalStorage() {
+  // Obtener los datos actuales del localStorage si existen
+  let dataInLocalStorage = localStorage.getItem('idsIncidentes');
+  let data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+
+  // Usar reduce para sumar los valores de la propiedad 'id'
+  const sumaDeIds = data.reduce((acumulador, objeto) => {
+    const valorId = parseInt(objeto.id, 10) || 0; // Asegurarse de que sea un número
+    return acumulador + valorId;
+  }, 0);
+
+  return sumaDeIds;
+}
+
 const ActionColumn = ({ row }) => {
 
   const {
@@ -33,6 +47,7 @@ const ActionColumn = ({ row }) => {
     validated,
     key: row.cells[0].value,
     row: row.cells[0].value,
+    name: row.cells[1].value,
   }
   return (
     <React.Fragment>
@@ -122,17 +137,15 @@ const ConsultaNotificaciones = (props) => {
 
   const adjuntarLocalstore = () => {
 
-    // Obtener los datos actuales del localStorage si existen
-    let dataInLocalStorage = localStorage.getItem('Ids');
-    let data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
-    const jsonData = JSON.stringify(data);
+    const resultado = sumarIdsDelLocalStorage();
 
-    if (jsonData.length > 0) {
-      Swal.fire('tiene items seleccionado');
+    if (Number(resultado) > 0) {
+      return window.location.hash='/dashboard/ModuloNotificaciones/AgendarCitas';
     } else {
         Swal.fire('No tiene items seleccionado');
     }
 };
+
   return (
     <React.Fragment>
       <Row>
@@ -193,7 +206,6 @@ const ConsultaNotificaciones = (props) => {
                         {sinAgendar?.length > 0 && <Button
                                 variant="primary"
                                 type="submit"
-                                disabled={false}
                                 onClick={() => adjuntarLocalstore()}>
                                 AGENDAR
                             </Button>}

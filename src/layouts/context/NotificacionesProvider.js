@@ -1,3 +1,6 @@
+/* eslint-disable no-lone-blocks */
+/* eslint-disable default-case */
+/* eslint-disable no-fallthrough */
 import React, { createContext, useCallback, useState } from 'react';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
@@ -93,9 +96,6 @@ const NotificacionesProvider = ({ children }) => {
                                         case 'queryByIdAprendiz':
                                             setQueryByIdAprendiz(response);
                                             break;
-                                        case 'queryByIdAprendiz':
-                                            setQueryByIdAprendiz(response);
-                                            break;
                                         case 'aprendices':
                                             setAprendices(response);
                                             break;
@@ -113,8 +113,8 @@ const NotificacionesProvider = ({ children }) => {
                                             setConsultarSolicitudSinEnviar(response);
                                             break;
                                             case 'ConsultarSolicitudByCodigo':
-                                            setConsultarSolicitudByCodigo(response); 
-                                            break;         
+                                            setConsultarSolicitudByCodigo(response);
+                                            break;
                                     }
                                 })();
                             }
@@ -145,8 +145,8 @@ const NotificacionesProvider = ({ children }) => {
         const idsVerdaderos = [];
 
         for (let i = 0; i < array1.length; i++) {
-            if (array1[i] === true && array2[i] && array2[i].id) {
-                idsVerdaderos.push(array2[i].id);
+            if (array1[i] === true && array2[i] && array2[i].idDirectivo) {
+                idsVerdaderos.push(array2[i].idDirectivo);
             }
         }
 
@@ -227,13 +227,13 @@ const NotificacionesProvider = ({ children }) => {
     function convertirFecha(fechaEntrada) {
         // Crea un objeto Date a partir de la fecha de entrada
         const fecha = new Date(fechaEntrada);
-      
+
         // Obtiene la fecha y hora en formato UTC
         const fechaUTC = new Date(fecha.getUTCFullYear(), fecha.getUTCMonth(), fecha.getUTCDate(), fecha.getUTCHours(), fecha.getUTCMinutes(), fecha.getUTCSeconds());
-      
+
         // Formatea la fecha en el formato '0000-00-00 00:00:00'
         const fechaFormateada = fechaUTC.toISOString().slice(0, 19).replace('T', ' ');
-      
+
         return fechaFormateada;
       }
     // on event click
@@ -244,9 +244,9 @@ const NotificacionesProvider = ({ children }) => {
         setFechaInicial(arg?.defaultEvents?.start);
         setModal(true);
     };
-    
-    
-    
+
+
+
     const data = {
         getData,
         convertirFecha,

@@ -1,11 +1,23 @@
 /* eslint-disable no-undef */
 // @flow
-import React, { useEffect, useState } from 'react';
+import React, {   useEffect, useState } from 'react';
 import { Modal, Row, Col, Button, Form, Card, Nav, Tab } from 'react-bootstrap';
 import FormInput from '../../../components/FormInput';
 import classNames from 'classnames';
 import DatosAprendiz from './DatosAprendiz';
 
+
+
+function obtenerValorNumerico(cadena) {
+  const regex = /^(\d+)-/;
+  const match = cadena.match(regex);
+
+  if (match) {
+    return parseInt(match[1], 10);
+  } else {
+    return null; // O cualquier otro valor que desees devolver en caso de no haber coincidencia
+  }
+}
 type AddEditEventProps = {
     isOpen?: boolean,
     onClose?: () => void,
@@ -28,35 +40,44 @@ const AddEditEvent = ({
     onUpdateEvent,
     onAddEvent,
     dateInfo,
+    setIdAprendizDatos,
+    datosAprendizDatos,
 }: AddEditEventProps): React$Element<any> => {
-    // event state
+
+  const [items, setItems] = useState([
+    {
+        idSolicitudComite: idSolicitud,
+        observaciones: '',
+        fechaCita: dateInfo,
+        horaCita: '',
+        tiempoEstipulado: '',
+        className: 'bg-warning',
+        title: itemsQueryById[0]?.codigoFicha,
+        hechos: itemsQueryById[0]?.description,
+        reglas: itemsQueryById[0]?.reglas,
+        start: '',
+        end: '',
+    },
+]);
+
     const [validateError, setError] = useState({
         horaCitaError: true,
         horaCitaMenssageError: { message: 'Este campo es requerido' },
         tiempoEstipuladoError: true,
         tiempoEstipuladoMenssageError: { message: 'Este campo es requerido' },
     });
-    //const [fechaSelect, setFechaSelect] = useState('');
-    const [selectTexto, setFechaSelectTexto] = useState('');
 
-    const [items, setItems] = useState([
-        {
-            idSolicitudComite: idSolicitud,
-            observaciones: '',
-            fechaCita: dateInfo,
-            horaCita: '',
-            tiempoEstipulado: '',
-            className: 'bg-warning',
-            title: itemsQueryById?.codigoFicha,
-            start: '',
-            end: '',
-        },
-    ]);
+    const [selectTexto, setFechaSelectTexto] = useState('');
+    const [datosAprendiz, setDatosAprendiz] = useState([]);
+    const [datosAprendizView, setDatosAprendizView] = useState(false);
+
+
     const handleRegistration = () => {
         isEditable ? onUpdateEvent({ ...items }) : onAddEvent({ ...items });
     };
     const onChangeFechaHora = (value, selectTexto) => {
-        setItems([{ ...items[0], horaCita: value, fechaCita: selectTexto }]);
+        setItems([{ ...items[0], horaCita: value, fechaCita: selectTexto,
+          idSolicitud:idSolicitud }]);
         setError({
             ...validateError,
             horaCitaError: items[0]?.horaCita.length > 0 ? false : true,
@@ -72,6 +93,7 @@ const AddEditEvent = ({
                     fechaCita: dateInfo,
                     title: '',
                     end: '',
+                    idSolicitud:idSolicitud
                 },
             ]);
             setError({
@@ -89,8 +111,35 @@ const AddEditEvent = ({
         //setFechaSelect(items[0]?.fechaCita?.date?.toString())
     }, [dateInfo]);
 
+
+
+const hechos = items[0]?.hechos ? items[0]?.hechos : itemsQueryById[0]?.description
+const reglas = items[0]?.reglas ? items[0]?.reglas : itemsQueryById[0]?.reglas
+const title = items[0]?.title ? items[0]?.title : itemsQueryById[0]?.codigoFicha
+
+const aprendiz = items[0]?.aprendiz ? items[0]?.aprendiz : itemsQueryById[0]?.aprendiz
+if(aprendiz){
+  const idAprendiz = obtenerValorNumerico(aprendiz);
+  if(idAprendiz!==0){
+    setIdAprendizDatos(idAprendiz)
+  }
+}
+
+useEffect(() => {
+  const datosAprendiz = datosAprendizDatos?.DatosBasicos;
+  if(datosAprendiz){
+    const obj = {
+      datosAprendiz
+    }
+    setDatosAprendiz(obj)
+    setDatosAprendizView(true)
+  }
+
+
+}, [datosAprendizDatos?.DatosBasicos]);
+
     return (
-        <Modal show={isOpen} onHide={onClose} backdrop="static" keyboard={false}>
+        <Modal show={isOpen} onHide={onClose} backdrop="static" keyboard={false} fullscreen={'lg-down'}>
             <Modal.Header className="pb-2 px-4 border-bottom-0" closeButton>
                 <Modal.Title id="modal-title">
                     <h5> {isEditable ? 'Edit Cita' : 'Nueva Cita'} </h5>
@@ -103,18 +152,19 @@ const AddEditEvent = ({
                             <li className="mb-2">
                                 <p className="text-muted mb-1 font-13">
                                     <h5>CÓDIGO:</h5>
-                                    {itemsQueryById?.codigoFicha}
+                                    {title}
                                 </p>
                             </li>
                             <li className="mb-2">
                                 <p className="text-muted mb-1 font-13">
                                     <h5>Instructor:</h5>
-                                    {itemsQueryById?.instructor}
+
                                 </p>
                             </li>
                             <li className="mb-2">
                                 <p className="text-muted mb-1 font-13">
                                     <h5>Aprendiz:</h5>
+
                                 </p>
                             </li>
                         </ul>
@@ -125,17 +175,14 @@ const AddEditEvent = ({
                             <li className="mb-2">
                                 <p className="text-muted mb-1 font-13">
                                     <h5>Fecha del Incidente:</h5>
-                                    {itemsQueryById?.fechaHora}
+                                    {itemsQueryById[0]?.fechaIncidente}
                                 </p>
                             </li>
                             <li className="mb-2">
-                                <p className="text-muted mb-1 font-13">
-                                    <h5>Fecha Sugerida para la Cita:</h5>
-                                    {itemsQueryById?.fechaHoraAgendada}
-                                </p>
+                                <p className="text-muted mb-1 font-13">{itemsQueryById[0]?.instructor}</p>
                             </li>
                             <li className="mb-2">
-                                <p className="text-muted mb-1 font-13">{itemsQueryById?.aprendiz}</p>
+                                <p className="text-muted mb-1 font-13">{itemsQueryById[0]?.aprendiz}</p>
                             </li>
                         </ul>
                     </Col>
@@ -144,8 +191,7 @@ const AddEditEvent = ({
                 <Tab.Container defaultActiveKey="1">
                     <Row>
                         <Col>
-                            <span className="d-none d-lg-block">DESCRIPCÓN Y EVIDENCIAS</span>
-                            <Card>
+                                <Card>
                                 <Card.Body>
                                     <Nav
                                         as="ul"
@@ -155,20 +201,20 @@ const AddEditEvent = ({
                                             <Nav.Link href="#" eventKey="1" className="nav-link rounded-0">
                                                 <i
                                                     className={classNames(
-                                                        'mdi mdi-book-account-outline',
+                                                      'mdi mdi-book-open-page-variant',
                                                         'font-18'
                                                     )}></i>
-                                                <span className="d-none d-lg-block">FORMULARIO DE LA AGENDA</span>
+                                                <span className="d-none d-lg-block">AGENDAR</span>
                                             </Nav.Link>
                                         </Nav.Item>
                                         <Nav.Item as="li" className="nav-item">
                                             <Nav.Link href="#" eventKey="2" className="nav-link rounded-0">
                                                 <i
                                                     className={classNames(
-                                                        'mdi mdi-book-open-page-variant',
+                                                      'mdi mdi-book-account-outline',
                                                         'font-18'
                                                     )}></i>
-                                                <span className="d-none d-lg-block">DATOS DEL INCIDENTE</span>
+                                                <span className="d-none d-lg-block">APRENDIZ</span>
                                             </Nav.Link>
                                         </Nav.Item>
                                     </Nav>
@@ -252,7 +298,7 @@ const AddEditEvent = ({
                                                                         cols="4"
                                                                         containerClass={'mb-3'}
                                                                         key="hechos"
-                                                                        value={items[0]?.hechos}
+                                                                        value={hechos}
                                                                         onChange={(e) =>
                                                                             setItems([
                                                                                 { ...items[0], hechos: e.target.value },
@@ -273,7 +319,7 @@ const AddEditEvent = ({
                                                                         rows="5"
                                                                         containerClass={'mb-3'}
                                                                         key="reglas"
-                                                                        value={items[0]?.reglas}
+                                                                        value={reglas}
                                                                         onChange={(e) =>
                                                                             setItems([
                                                                                 { ...items[0], reglas: e.target.value },
@@ -309,8 +355,7 @@ const AddEditEvent = ({
                                                     </form>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="2">
-                                                    <h4 className="header-title">Descripción de los Hechos</h4>
-                                                    <DatosAprendiz/>
+                                                      {datosAprendizView &&<DatosAprendiz datosAprendizDatos={datosAprendiz}/>}
                                                 </Tab.Pane>
                                             </Tab.Content>
                                         </Col>

@@ -18,7 +18,7 @@ import FormDatosAprendiz from './FormDatosAprendiz';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 //import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 //import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
-
+/*
 function contarVerdaderos(array) {
     let contador = 0;
     for (let i = 0; i <= array.length; i++) {
@@ -28,17 +28,18 @@ function contarVerdaderos(array) {
     }
     return contador;
 }
-
+*/
 const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const childrenEvidencias = props.childrenEvidencias || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [options, setOptions] = useState(0);
-    
+
     const { openFormAprendiz,convertirFecha } = useContext(NotificacionesContext);
     const {getData} = useContext(NotificacionesContext)
     const { validateError, setError, queryFile, loading, nombrePrograma, descripcion, fallas } =
         useContext(SearchContext);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes || [];
 
     const [documentos, setAttachments] = useState({
@@ -83,15 +84,15 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                     title: 'Enviado Solicitud...',
                     showConfirmButton: false,
                     timer: 1500
-                  })                  
+                  })
                   setTimeout(function () {
                     getData(queryDatos)
                   }, 2000);
             }
           });
-       
+
     };
-    
+
     const deleteDocumento = (id) => {
 
         Swal.fire({
@@ -117,7 +118,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                     title: 'Enviado Solicitud...',
                     showConfirmButton: false,
                     timer: 1500
-                  })                  
+                  })
                   setTimeout(function () {
                     getData(queryDatos)
                   }, 2000);
@@ -140,14 +141,14 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         },
     ]);
 
-    const { t } = useTranslation();
+
     const schemaResolver = yupResolver(yup.object().shape({}));
-    
-    
- 
+
+
+
 
     const onDateChangefechaIncidente = (e, fechaError) => {
-        
+
       console.log(e)
         if (e) {
             setSelectedDate(e);
@@ -163,9 +164,9 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                     nombrePrograma: nombrePrograma,
                 },
             ]);
-           
+
         }
-      
+
     };
 
     const onDateChangeFile = (file, base64String, filesError, base64StringsError,options) => {
@@ -191,7 +192,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                           .join('&')
                     : '';
                     queryFile(queryDatos, base64String);
- 
+
                 }
               });
         }
@@ -376,8 +377,8 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                         ''
                                     )}</div>
                                     </Row>
-                                
-                           
+
+
                             <hr />
 
                             <h5 className="mb-3">Documentos Cargados</h5>
@@ -390,7 +391,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                                     <Row className="align-items-center">
 
                                                         <Col className="col-auto">
-                                                             
+
                                                                 {f.size === '1' ? (
                                                                     <div className="avatar-sm">
                                                                     <span className="avatar-title bg-primary-lighten text-primary rounded">
@@ -417,7 +418,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                                                     </span>
                                                                     </div>
                                                                 )}
-                                                         
+
                                                         </Col>
                                                          <Col className="col ps-0">
                                                           <p className="mb-0 text-muted font-weight-bold">{f.name}</p>
@@ -485,7 +486,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                         {items[0]?.descripcion}
                                     </label>
                                     <div className="mb-4">{childrenEvidencias}</div>
-                                   
+
                                 </Col>
                                 <div className="mb-0 col-10"></div><div className="uploadSolicitud col-2 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.descripcion,'datosDescripcion')}}></i></span></div>
                             </Row>

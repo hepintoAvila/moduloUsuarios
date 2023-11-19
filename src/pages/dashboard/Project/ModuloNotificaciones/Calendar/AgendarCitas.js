@@ -1,87 +1,53 @@
 /* eslint-disable no-undef */
 // @flow
-import React, {useCallback, useContext, useEffect, useState } from 'react';
-import { Row, Col, Card, Button, Table, Modal, Form} from 'react-bootstrap';
+import React, {useContext, useEffect, useState,useCallback } from 'react';
+import { Row, Col, Card, Button, Modal, Form,Collapse} from 'react-bootstrap';
 import '@fullcalendar/react';
 import classNames from 'classnames';
 // components
 
 import Calendar from './Calendar';
 import AddEditEvent from './AddEditEvent';
-
+import { Link } from 'react-router-dom';
 // dummy data
 
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import FormInput from '../../../components/FormInput';
 import Swal from 'sweetalert2';
-//const loadings = (loading) => {loading? <div className=""></div>:''};
+import TableComite from './TableComite';
+import TableAprendiz from './TableAprendiz';
+import { obtenerMesActual,filtrarPorMes} from './funtions';
+import TableAgendados from './TableAgendados';
 
-const TableComite = ({ miembros, setIdDirectivos }) => {
 
-    const [checkedState, setCheckedState] = useState(
-        new Array(miembros.length).fill(false)
-    );
-    const handleOnChange = useCallback((position) => {
-        const updatedCheckedState = checkedState.map((item, index) =>
-            index === position ? !item : item
-        );
-        setCheckedState(updatedCheckedState);
-    }, [checkedState]);
 
-    setIdDirectivos(checkedState);
-    return (
-        <Card>
-            <Card.Body>
-                <Table className="mb-0 tableComite" responsive>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Miembros del Comité</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {miembros?.map(({ correo, nombresApellidos, id }, index) => {
-                            return (
-                                <tr key={index}>
-                                    <th scope="row">{id}</th>
-                                    <td>{nombresApellidos}<br />{correo}</td>
-                                    <td>
-                                        <input type="checkbox"
-                                            id={`custom-checkbox-${index}`}
-                                            name={nombresApellidos}
-                                            value={nombresApellidos}
-                                            checked={checkedState[index]}
-                                            onChange={() => handleOnChange(index)}
-                                        />
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </Table>
-            </Card.Body>
-        </Card>
-    );
-};
-const SidePanel = ({ miembroscomites, setIdDirectivos }) => {
+const SidePanel = ({ miembroscomites, setIdDirectivos,setIdSolicitud,events,aprendicesAgendados}) => {
 
+  const [isOpenFirst, setIsOpenFirst] = useState(false);
+    const [isOpenSecond, setIsOpenSecond] = useState(false);
     // external events
     const externalEvents = [
         {
-            id: 2,
+            id: 1,
             textClass: 'text-warning',
             className: 'bg-warning',
-            title: 'ACADEMICA',
+            title: 'ASIGNAR MIEMBROS DEL COMITE',
         },
         {
-            id: 3,
+            id: 2,
             textClass: 'text-danger',
             className: 'bg-danger',
-            title: 'DISCIPLINARIA',
+            title: 'AGENDAR APRENDICE',
         },
     ];
+
+    const toggleFirst = () => setIsOpenFirst(!isOpenFirst);
+    const toggleSecond = () => setIsOpenSecond(!isOpenSecond);
+
+    const dataInLocalStorage = localStorage.getItem('idsIncidentes');
+    const data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+
 
     return (
         <>
@@ -91,23 +57,63 @@ const SidePanel = ({ miembroscomites, setIdDirectivos }) => {
                 {/* external events */}
                 {externalEvents.map((event, index) => {
                     return (
-                        <div
-                            key={index}
-                            className={classNames('external-event', event.className + '-lighten', event.textClass)}
-                            title={event.title}
-                            data={event.className}>
-                            <i className="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>
-                            {event.title}
-                        </div>
+                        <Link
+                            to="#"
+                            className="custom-accordion-title"
+                            onClick={index === 0 ? toggleFirst : toggleSecond}
+                            aria-controls={'collapse' + index}
+                            aria-expanded={index === 0 ? isOpenFirst : isOpenSecond}>
+                            <div
+                                key={index}
+                                className={classNames('external-event', event.className + '-lighten', event.textClass)}
+                                title={event.title}>
+                                <i className="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>
+                                {event.title}
+                            </div>
+                        </Link>
                     );
                 })}
             </div>
-            {miembroscomites?.length > 0 ? <TableComite
-                miembros={miembroscomites}
-                setIdDirectivos={setIdDirectivos}
-            /> : ''}
-
-
+            <Row>
+                <Collapse in={isOpenFirst}>
+                    <div>
+                        {miembroscomites?.length > 0 ? (
+                            <TableComite
+                                miembros={miembroscomites}
+                                setIdDirectivos={setIdDirectivos}
+                                setIdSolicitud={setIdSolicitud}
+                                events={events}
+                                aprendicesAgendados={aprendicesAgendados}
+                            />
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                </Collapse>
+            </Row>
+            <Row>
+                <Collapse in={isOpenSecond}>
+                    <div>
+                        <div>
+                            {data?.length > 0 ? (
+                                <TableAprendiz
+                                    miembros={data}
+                                    setIdDirectivos={setIdDirectivos}
+                                    setIdSolicitud={setIdSolicitud}
+                                    events={events}
+                                />
+                            ) : (
+                                ''
+                            )}
+                            {aprendicesAgendados?.length > 0 ? (
+                                <TableAgendados aprendicesAgendados={aprendicesAgendados} />
+                            ) : (
+                                ''
+                            )}
+                        </div>
+                    </div>
+                </Collapse>
+            </Row>
         </>
     );
 };
@@ -118,6 +124,7 @@ type CalendarAppState = {
     events?: Array<any>,
     eventData?: any,
     dateInfo?:Array<any>,
+    itemsAgendarCitas?:Array<any>,
 };
 
 const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType> => {
@@ -125,7 +132,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
         obtenerNumeroDesdeURL,
         setIdSolicitud,
         idSolicitudComite,
-        idDirectivos, setIdDirectivos,
+        setIdDirectivos,
         obtenerIdsVerdaderos,
         getData,
         status,
@@ -138,7 +145,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
         setFechaFiinal,
         fechaFinal,
         setFechaInicial, fechaInicialUptade,
-        eventData, setEventData,
+        eventData, setEventData,itemsQueryByIdAprendiz,itemsSolicitudes
     } = useContext(NotificacionesContext)
 
 
@@ -151,33 +158,38 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     const [itemsUpdate, setItemsUpdate] = useState([]);
     const [dateInfo, setDateInfo] = useState({});
     const [idAgenda, setidAgenda] = useState(0);
+    const [idAprendizDatos, setIdAprendizDatos] = useState(0);
+    //const [datosAprendizDatos, setDatosAprendizDatos] = useState(0);
 
-
-    useEffect(() => {
-        const idSolicitud = obtenerNumeroDesdeURL(window.location.hash)
-        setIdSolicitud(idSolicitud)
-        query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'queryByIdComite', sw: 3, idSolicitud: encodeBasicUrl(idSolicitud) }]);
-    }, [query]);
 
     const onCloseModal = () => {
+        setItems([{}])
         setShow(false);
         setEventData({});
         setDateInfo({});
+        return window.location.hash='/dashboard/ModuloNotificaciones/AgendarCitas';
     };
     // on date click
     const onDateClick = (arg) => {
-       setDateInfo(arg?.dateStr);
+      const idSolicitud = obtenerNumeroDesdeURL(window.location.hash)
+      const dataInLocalStorage = localStorage.getItem('comiteSelect');
+      const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+      const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
+      if((idSolicitud>0) && (idsVerdaderos.length>0)){
+        query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'queryByIdComite', sw: 3, idSolicitud: encodeBasicUrl(idSolicitud) }]);
+        setDateInfo(arg?.dateStr);
         setShow(true);
         setIsEditable(false);
 
+       }else{
+        Swal.fire('Verifique los Miembros del Comite o seleccione el Aprendiz!');
+       }
     };
-
-
-
     /*
     on add event
     */
     const onAddEvent = (data) => {
+
         Swal.fire({
             position: 'top-center',
             icon: 'success',
@@ -185,7 +197,9 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             showConfirmButton: false,
             timer: 1500
           })
-        const idsVerdaderos = obtenerIdsVerdaderos(idDirectivos, itemsQueryById?.data?.Directivos);
+          const dataInLocalStorage = localStorage.getItem('comiteSelect');
+          const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+          const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
         const modifiedEvents = [...events];
         const datos = data[0];
 
@@ -197,7 +211,8 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             start: `${datos.fechaCita} ${datos.horaCita}`,
             end: `${datos.fechaCita} 00:00`,
             title: datos.horaCita,
-            observaciones: datos.observaciones,
+            hechos: datos.hechos,
+            reglas: datos.reglas,
             idSolicitudComite: datos.idSolicitudComite,
             idComites: `${idsVerdaderos}`,
             accion: 'ModuloNotificaciones',
@@ -205,6 +220,14 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             tipo: 'addCitas',
             className: 'bg-warning',
         }
+
+        const dataInLocalStorage1 = localStorage.getItem('idsIncidentes');
+        const comiteSelect1 = dataInLocalStorage ? JSON.parse(dataInLocalStorage1) : [];
+        const filteredAgendada = comiteSelect1?.filter((row) => {
+          return row?.id !== datosEvent?.idSolicitudComite;
+          });
+          localStorage.removeItem('idsIncidentes')
+          localStorage.setItem('idsIncidentes', JSON.stringify(filteredAgendada));
         setTimeout(function () {
             const queryDatos = datosEvent
                 ? Object.keys(datosEvent)
@@ -213,12 +236,9 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                 : '';
             getData(queryDatos)
         }, 2000);
-
         modifiedEvents.push(datosEvent);
         setEvents(modifiedEvents);
         onCloseModal();
-
-
     };
 
     /*
@@ -288,18 +308,18 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
         toggle();
     };
 
-
-
     useEffect(() => {
+
         if (!loading) {
-            setItems(itemsQueryById?.data?.Solicitudes)
-            setEvents(itemsQueryById?.data?.Agenda ? itemsQueryById?.data?.Agenda : []);
+            setItems(itemsQueryById?.data?.Solicitudes ? itemsQueryById?.data?.Solicitudes : [])
+            setEvents(state?.itemsAgendarCitas?.data?.Agenda ? state?.itemsAgendarCitas?.data?.Agenda : []);
         } else {
             setItems({
                 id: 1,
                 idSolicitudComite: 0,
-                observaciones: 'SIN REGISTROS',
+                hechos: 'SIN REGISTROS',
                 tiempoEstipulado: '',
+                reglas: '',
                 fechaHoraCita: '',
                 className: '',
                 start: '',
@@ -308,10 +328,8 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                 idComites: '',
             })
         }
-    }, [itemsQueryById, loading]);
-    /*
+    }, [itemsQueryById, loading, state?.itemsAgendarCitas]);
 
-        */
     const toggle = () => {
         setModal(!modal);
     };
@@ -345,8 +363,23 @@ useEffect(() => {
     setidAgenda(dateInfoUpdate.idAgenda)
 }, [dateInfoUpdate]);
 
+useEffect(() => {
+  query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud', sw: '1' }]);
+}, [query])
 
-// console.log('loading',loading);
+// Ejemplo de uso
+const mesActual = obtenerMesActual();
+const incidentesGuardados = filtrarPorMes(events, Number(mesActual));
+
+const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => incidentesGuardados?.includes(parseInt(item.id)))
+  .map(item => ({
+    "id": item.id,
+    "name": item.aprendiz,
+  }));
+
+
+
+
    return (
         <>
             <Row>
@@ -370,8 +403,11 @@ useEffect(() => {
                                     <div className="d-grid">
                                     </div>
                                     <SidePanel
-                                        miembroscomites={itemsQueryById?.data?.Directivos}
+                                        miembroscomites={state?.itemsAgendarCitas?.data?.Directivos}
                                         setIdDirectivos={setIdDirectivos}
+                                        setIdSolicitud={setIdSolicitud}
+                                        events={events}
+                                        aprendicesAgendados={aprendicesAgendados}
                                     />
 
                                 </Col>
@@ -396,13 +432,16 @@ useEffect(() => {
                                                                 itemsQueryById={itemsList}
                                                                 dateInfo={dateInfo}
                                                                 status={status}
+                                                                datosAprendizDatos={itemsQueryByIdAprendiz}
+                                                                setIdAprendizDatos={setIdAprendizDatos}
+                                                                idAprendizDatos={idAprendizDatos}
                                                             />
 
 
             ) : null}
 
             {modal? (<>
-                <Modal show={modal} onHide={toggle}  size="sm-down">
+                <Modal show={modal} onHide={toggle}  size="sm-down" >
                     <Modal.Header onHide={toggle} closeButton>
                         <h4 className="modal-title">CONFIGURACIÓN DE LA REUNIÓN</h4>
                     </Modal.Header>
@@ -457,23 +496,6 @@ useEffect(() => {
                                     </Form.Group>
                                 </Col>
                                 </Row>
-                                <Row>
-                                <Col md={12}>
-                                    <Form.Group className="mb-3" controlId="observaciones">
-                                        <label className="mb-2"><i className="mdi mdi-calendar-range font-13"></i> Observaciones</label>
-                                        <Form.Control
-                                            label="Observaciones"
-                                            type="textarea"
-                                            name="observaciones"
-                                            rows="5"
-                                            containerClass={'mb-3'}
-                                            key="observaciones"
-                                            value={itemsUpdate[0]?.observaciones}
-                                            onChange={(e) => setItemsUpdate([{ ...itemsUpdate[0], observaciones: e.target.value,idAgenda:idAgenda}])}
-                                        />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
                             <Modal.Footer>
                         <Row>
                             <Col xs={4}>

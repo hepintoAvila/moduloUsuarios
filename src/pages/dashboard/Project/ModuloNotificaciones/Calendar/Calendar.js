@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 // @flow
 import React, { useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
@@ -7,6 +8,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import BootstrapTheme from '@fullcalendar/bootstrap';
 import allLocales from '@fullcalendar/core/locales-all'
+import {extraerMes ,extraerTextoDesdeElemento} from './funtions';
 
 type CalendarProps = {
     onDateClick: (value: any) => void,
@@ -15,7 +17,13 @@ type CalendarProps = {
     events: Array<any>,
     status: Boolean,
 };
-
+const handlePrevButtonClick = () => {
+  const fc = document.querySelector('#fc-dom-1');
+  const contenido = extraerTextoDesdeElemento(fc);
+  const mes = extraerMes(`${contenido}`)
+   console.log('Clic en el botón previo',mes);
+   //extraerMes
+};
 const Calendar = ({ onDateClick, onEventClick, events,status }: CalendarProps): React$Element<React$FragmentType> => {
     const [newevents, setEvents] = useState([]);
     /*
@@ -27,7 +35,7 @@ const Calendar = ({ onDateClick, onEventClick, events,status }: CalendarProps): 
     const handleEventClick = (arg) => {
         const modifiedEvents = [...events];
         const idx = modifiedEvents.findIndex((e) => e['id'] === arg.event._def.publicId);
-       
+
         if(idx===1){
             const result = events.filter((item) => item.id===arg.event._def.publicId);
             onEventClick({
@@ -47,21 +55,40 @@ const Calendar = ({ onDateClick, onEventClick, events,status }: CalendarProps): 
                 start:result[0]?.start,
                 end:result[0]?.end,
                 title:result[0]?.title.toString(),
-            }); 
+            });
         }
-        
+
     };
- 
+
+
     useEffect(() => {
-        (events.length > 0 && status==='404') ? setEvents(events.pop()):setEvents(events) 
-    }, [status,events]);   
-     
+        (events.length > 0 && status==='404') ? setEvents(events.pop()):setEvents(events)
+    }, [status,events]);
+
+
+    useEffect(() => {
+      const prevButton = document.querySelector('.fc-prev-button');
+      prevButton.addEventListener('click', handlePrevButtonClick);
+      return () => {
+        prevButton.removeEventListener('click', handlePrevButtonClick);
+      };
+    }, []);
+
+    useEffect(() => {
+      const nextButton = document.querySelector('.fc-next-button');
+       nextButton.addEventListener('click', handlePrevButtonClick);
+      return () => {
+        nextButton.removeEventListener('click', handlePrevButtonClick);
+      }
+
+    }, []);
+
     return (
         <>
             {/* full calendar control */}
             <div id="calendar">
                 <FullCalendar
-                    locales={allLocales} locale={'es'} 
+                    locales={allLocales} locale={'es'}
                     initialView="dayGridMonth"
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin, BootstrapTheme]}
                     handleWindowResize={true}

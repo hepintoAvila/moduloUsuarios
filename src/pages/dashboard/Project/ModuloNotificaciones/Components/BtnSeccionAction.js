@@ -1,10 +1,9 @@
 import { Pagination, Row } from "react-bootstrap";
-
-import React from "react";
 import BtnSelect from "./BtnSelect";
+import React from "react";
+
 
 const BtnSeccionAction = (props) => {
-
   return (
     <React.Fragment>
       <Row>
@@ -21,6 +20,7 @@ const BtnSeccionAction = (props) => {
                   descripcion={`Agendar Cita para el Incidente`}
                   icon={'mdi mdi-calendar-plus'}
                   opcion={'AGENDAR'}
+                  name={props?.obj?.name}
                 />
         </Pagination.Item>
       </Pagination>

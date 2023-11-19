@@ -1,18 +1,24 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-unreachable */
-import React, { useContext } from 'react';
- 
+import React, { useContext, useEffect } from 'react';
+
 import ConsultaNotificaciones from './ConsultaNotificaciones';
 import AgendarCitas from './Calendar/AgendarCitas';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
 import Navbar from '../../components/Navbar';
- 
+import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
+import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
+
 
 const ModuloNotificaciones = (props) => {
   const { tipo,itemUrl } = useContext(DashboardContext)
+  const { itemsAgendarCitas,query } = useContext(NotificacionesContext)
   const { permisos } = usePermisos(tipo);
- 
+  useEffect(() => {
+        query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('AgendarCitas'), obj: 'agendarCitas',tipo:encodeBasicUrl('queryCitas')}]);
+}, []);
+
   return (
     <React.Fragment>
  <Navbar nivel={2} tipo={props.tipo}/>
@@ -33,8 +39,9 @@ const ModuloNotificaciones = (props) => {
                   accion={itemUrl}
                   tipo={tipo}
                   permisos={permisos}
+                  itemsAgendarCitas={itemsAgendarCitas}
                 />
-            </React.Fragment>           
+            </React.Fragment>
           default:
             return (
               <React.Fragment>
