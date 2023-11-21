@@ -381,19 +381,61 @@ const incidentesGuardados = filtrarPorMes(events, Number(mesActual));
 
 const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => incidentesGuardados?.includes(parseInt(item.id)))
   .map(item => ({
-    "id": item.id,
+    "id": Number(item.id),
     "name": item.aprendiz,
+    "email": item.email,
   }));
 
   const enviarEmailAprendiz = (id) => {
 
+    const filteredEmailAprediz = aprendicesAgendados?.filter((row) => {
+      return Number(row?.id)===Number(id)
+    });
+    const email =filteredEmailAprediz[0]?.email
     Swal.fire({
-      title: 'Desea notificar via email?',
+      title: `Notificar a: ${email}`,
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off"
+      },
       showCancelButton: true,
+      confirmButtonText: "Enviar email",
+      showLoaderOnConfirm: true,
+      preConfirm: async (emailEntrada) => {
+        try {
+
+        const datosEvent = {
+            emailEntrada: `${emailEntrada}`,
+            emailAprendiz: `${email}`,
+            idSolicitud: `${id}`,
+            accion: 'ModuloNotificaciones',
+            opcion: 'AgendarCitas',
+            tipo: 'enviarEmailAprendiz',
+        }
+        setTimeout(function () {
+            const queryDatos = datosEvent
+                ? Object.keys(datosEvent)
+                    .map((key) => key + '=' + btoa(datosEvent[key]))
+                    .join('&')
+                : '';
+            getData(queryDatos)
+        }, 2000);
+        } catch (error) {
+          Swal.showValidationMessage(`
+            Request failed: ${error}
+          `);
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
       if (result.isConfirmed) {
-        //borrarCallback(cel);
-        console.log(id)
+        Swal.fire({
+          position: 'top-center',
+          icon: 'success',
+          title: 'Solicitud Enviada',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     });
 

@@ -15,9 +15,10 @@ const BtnSelect = (props) => {
 
   const handleCheckboxChange = useCallback((position) => {
 
-    const { row, handleOnChange,name } = props;
+    const { row, handleOnChange,name,email } = props;
     setIsSelected(!isSelected);
-    handleOnChange(row,name);
+
+    handleOnChange(row,name,email);
   }, [isSelected]);
 
   const popover = (

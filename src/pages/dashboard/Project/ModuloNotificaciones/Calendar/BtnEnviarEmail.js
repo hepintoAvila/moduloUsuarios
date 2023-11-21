@@ -16,7 +16,7 @@ const BtnEnviarEmail = ({titulo,descripcion,name,url,icon,row,enviarEmailAprendi
   return (
         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={`t2_${titulo}_t3`}>
           {
-              <Link key={`${name}`} to={url} className="action-icon " onClick={() => enviarEmailAprendiz(row)}>
+              <Link key={`${name}`} to={url} className="action-icon " onClick={() => enviarEmailAprendiz(Number(row))}>
                 <i className={`${icon} pt-2`}></i>
               </Link>
           }

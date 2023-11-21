@@ -47,6 +47,7 @@ const ActionColumn = ({ row }) => {
     key: row.cells[0].value,
     row: row.cells[0].value,
     name: row.cells[1].value,
+    email: row.cells[2].value,
   }
   return (
     <React.Fragment>
@@ -119,8 +120,8 @@ const ConsultaNotificaciones = (props) => {
       sort: true,
     },
     {
-      Header: 'Aprendiz',
-      accessor: 'aprendiz',
+      Header: 'Email',
+      accessor: 'email',
       sort: true,
     },
     {

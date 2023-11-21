@@ -153,7 +153,7 @@ const handleRegresar = (tipo) => {
   setitemsUrl(tipo);
   return window.location.hash=url;
 }
-const handleOnChange = (id,name) => {
+const handleOnChange = (id,name,email) => {
   setIsChecked(!isChecked);
   setIsCheckedItem(id);
 
@@ -166,7 +166,7 @@ const handleOnChange = (id,name) => {
 
 
   if (!itemExists[0]?.id) {
-    const newItem = { id,name };
+    const newItem = { id,name,email };
     const updatedData = [...data, newItem];
     localStorage.setItem('idsIncidentes', JSON.stringify(updatedData));
   }else{

@@ -21,6 +21,7 @@ const BtnSeccionAction = (props) => {
                   icon={'mdi mdi-calendar-plus'}
                   opcion={'AGENDAR'}
                   name={props?.obj?.name}
+                  email={props?.obj?.email}
                 />
         </Pagination.Item>
       </Pagination>
