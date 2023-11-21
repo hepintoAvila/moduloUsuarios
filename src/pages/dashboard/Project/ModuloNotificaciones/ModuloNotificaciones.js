@@ -19,6 +19,7 @@ const ModuloNotificaciones = (props) => {
         query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('AgendarCitas'), obj: 'agendarCitas',tipo:encodeBasicUrl('queryCitas')}]);
 }, []);
 
+
   return (
     <React.Fragment>
  <Navbar nivel={2} tipo={props.tipo}/>

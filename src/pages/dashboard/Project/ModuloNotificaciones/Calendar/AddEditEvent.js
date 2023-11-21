@@ -50,6 +50,7 @@ const AddEditEvent = ({
         observaciones: '',
         fechaCita: dateInfo,
         horaCita: '',
+        codigoFicha:'',
         tiempoEstipulado: '',
         className: 'bg-warning',
         title: itemsQueryById[0]?.codigoFicha,
@@ -68,23 +69,20 @@ const AddEditEvent = ({
     });
 
     const [selectTexto, setFechaSelectTexto] = useState('');
-    const [datosAprendiz, setDatosAprendiz] = useState([]);
-    const [datosAprendizView, setDatosAprendizView] = useState(false);
-
 
     const handleRegistration = () => {
         isEditable ? onUpdateEvent({ ...items }) : onAddEvent({ ...items });
     };
-    const onChangeFechaHora = (value, selectTexto) => {
+    const onChangeFechaHora = (value, selectTexto,codigoFicha) => {
         setItems([{ ...items[0], horaCita: value, fechaCita: selectTexto,
-          idSolicitud:idSolicitud }]);
+          idSolicitud:idSolicitud,codigoFicha:codigoFicha }]);
         setError({
             ...validateError,
             horaCitaError: items[0]?.horaCita.length > 0 ? false : true,
             horaCitaMenssageError: { message: '' },
         });
     };
-    const onTiempoEstipulado = (value) => {
+    const onTiempoEstipulado = (value,codigoFicha) => {
         if (value) {
             setItems([
                 {
@@ -93,7 +91,8 @@ const AddEditEvent = ({
                     fechaCita: dateInfo,
                     title: '',
                     end: '',
-                    idSolicitud:idSolicitud
+                    idSolicitud:idSolicitud,
+                    codigoFicha:codigoFicha
                 },
             ]);
             setError({
@@ -113,9 +112,10 @@ const AddEditEvent = ({
 
 
 
-const hechos = items[0]?.hechos ? items[0]?.hechos : itemsQueryById[0]?.description
-const reglas = items[0]?.reglas ? items[0]?.reglas : itemsQueryById[0]?.reglas
-const title = items[0]?.title ? items[0]?.title : itemsQueryById[0]?.codigoFicha
+
+
+
+const codigoFicha = items[0]?.codigoFicha ? items[0]?.codigoFicha : itemsQueryById[0]?.codigoFicha
 
 const aprendiz = items[0]?.aprendiz ? items[0]?.aprendiz : itemsQueryById[0]?.aprendiz
 if(aprendiz){
@@ -125,19 +125,27 @@ if(aprendiz){
   }
 }
 
-useEffect(() => {
-  const datosAprendiz = datosAprendizDatos?.DatosBasicos;
-  if(datosAprendiz){
-    const obj = {
-      datosAprendiz
-    }
-    setDatosAprendiz(obj)
-    setDatosAprendizView(true)
-  }
-
-
-}, [datosAprendizDatos?.DatosBasicos]);
-
+/*
+const onChangeHechos = (value, selectTexto,codigoFicha) => {
+    setItems([{ ...items[0], hechos: value, fechaCita: selectTexto,
+        idSolicitud:idSolicitud,codigoFicha:codigoFicha }]);
+        setError({
+          ...validateError,
+          hechosError: items[0]?.hechos.length > 0 ? false : true,
+          hechosMenssageError: { message: '' },
+      });
+};
+const onChangeReglas = (value, selectTexto,codigoFicha) => {
+  setItems([{ ...items[0], reglas: value, fechaCita: selectTexto,
+      idSolicitud:idSolicitud,codigoFicha:codigoFicha }]);
+      setError({
+        ...validateError,
+        reglasError: items[0]?.reglas.length > 0 ? false : true,
+        reglasMenssageError: { message: '' },
+    });
+};
+*/
+console.log('datosAprendizDatos',datosAprendizDatos?.length)
     return (
         <Modal show={isOpen} onHide={onClose} backdrop="static" keyboard={false} fullscreen={'lg-down'}>
             <Modal.Header className="pb-2 px-4 border-bottom-0" closeButton>
@@ -152,7 +160,7 @@ useEffect(() => {
                             <li className="mb-2">
                                 <p className="text-muted mb-1 font-13">
                                     <h5>CÓDIGO:</h5>
-                                    {title}
+                                    {codigoFicha}
                                 </p>
                             </li>
                             <li className="mb-2">
@@ -246,7 +254,7 @@ useEffect(() => {
                                                                     key="horaCita"
                                                                     value={items[0]?.horaCita}
                                                                     onChange={(e) =>
-                                                                        onChangeFechaHora(e.target.value, selectTexto)
+                                                                        onChangeFechaHora(e.target.value, selectTexto,codigoFicha)
                                                                     }
                                                                 />
                                                                 <small className="text-danger">
@@ -268,7 +276,7 @@ useEffect(() => {
                                                                         className="form-control"
                                                                         containerClass={'mb-3'}
                                                                         onChange={(e) =>
-                                                                            onTiempoEstipulado(e.target.value)
+                                                                            onTiempoEstipulado(e.target.value,codigoFicha)
                                                                         }>
                                                                         <option value="">Asignar la Hora Final</option>
                                                                         <option value="15">15 minutos</option>
@@ -298,13 +306,12 @@ useEffect(() => {
                                                                         cols="4"
                                                                         containerClass={'mb-3'}
                                                                         key="hechos"
-                                                                        value={hechos}
+                                                                        value={items[0]?.hechos}
                                                                         onChange={(e) =>
-                                                                            setItems([
-                                                                                { ...items[0], hechos: e.target.value },
-                                                                            ])
+                                                                          setItems({...items,codigoFicha:codigoFicha,hechos:e.target.value})
                                                                         }
                                                                     />
+
                                                                 </Form.Group>
                                                             </Col>
                                                             <Col md={12}>
@@ -319,13 +326,12 @@ useEffect(() => {
                                                                         rows="5"
                                                                         containerClass={'mb-3'}
                                                                         key="reglas"
-                                                                        value={reglas}
+                                                                        value={items[0]?.reglas}
                                                                         onChange={(e) =>
-                                                                            setItems([
-                                                                                { ...items[0], reglas: e.target.value },
-                                                                            ])
+                                                                          setItems({...items,codigoFicha:codigoFicha,reglas: e.target.value})
                                                                         }
                                                                     />
+
                                                                 </Form.Group>
                                                             </Col>
                                                         </Row>
@@ -355,7 +361,7 @@ useEffect(() => {
                                                     </form>
                                                 </Tab.Pane>
                                                 <Tab.Pane eventKey="2">
-                                                      {datosAprendizView &&<DatosAprendiz datosAprendizDatos={datosAprendiz}/>}
+                                                      {Number(datosAprendizDatos?.length) > 0 ? <DatosAprendiz datosAprendizDatos={datosAprendizDatos}/>:''}
                                                 </Tab.Pane>
                                             </Tab.Content>
                                         </Col>

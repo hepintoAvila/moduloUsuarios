@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 // @flow
 import React, {useContext, useEffect, useState } from 'react';
@@ -84,6 +85,7 @@ const SidePanel = ({ miembroscomites, setIdDirectivos,setIdSolicitud,events,apre
                                 setIdSolicitud={setIdSolicitud}
                                 events={events}
                                 aprendicesAgendados={aprendicesAgendados}
+                                enviarEmailAprendiz={enviarEmailAprendiz}
                             />
                         ) : (
                             ''
@@ -147,11 +149,11 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
         dateInfoUpdate,
         setFechaFiinal,
         fechaFinal,
-        setFechaInicial, fechaInicialUptade,
-        eventData, setEventData,itemsQueryByIdAprendiz,itemsSolicitudes
+        setFechaInicial, fechaInicialUptade,itemsAprendices,
+        eventData, setEventData,itemsSolicitudes
     } = useContext(NotificacionesContext)
 
-
+    const allApredizDatos = itemsAprendices?.data?.Aprendices || [];
 
     const [isEditable, setIsEditable] = useState(false);
     const [show, setShow] = useState(false);
@@ -162,7 +164,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     const [dateInfo, setDateInfo] = useState({});
     const [idAgenda, setidAgenda] = useState(0);
     const [idAprendizDatos, setIdAprendizDatos] = useState(0);
-    //const [datosAprendizDatos, setDatosAprendizDatos] = useState(0);
+    const [datosAprendizDatos, setDatosAprendizDatos] = useState(0);
 
 
     const onCloseModal = () => {
@@ -179,7 +181,9 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
       const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
       const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
       if((idSolicitud>0) && (idsVerdaderos.length>0)){
-        query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'queryByIdComite', sw: 3, idSolicitud: encodeBasicUrl(idSolicitud) }]);
+         query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'queryByIdComite', sw: 3, idSolicitud: encodeBasicUrl(idSolicitud) }]);
+        //query('ModuloSolicitudComite','EnviarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'queryByIdAprendiz',sw:4,idAprendiz:encodeBasicUrl(idSolicitud)}]);
+        query('ModuloSolicitudComite','Aprendiz',[{opcion:encodeBasicUrl('listaAprendices'),obj:'aprendices'}]);
         setDateInfo(arg?.dateStr);
         setShow(true);
         setIsEditable(false);
@@ -210,6 +214,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             id: modifiedEvents.length + 1,
             fechaCita: `${datos.fechaCita} ${datos.horaCita}`,
             horaCita: datos.horaCita,
+            codigoFicha: datos.codigoFicha,
             tiempoEstipulado: datos.tiempoEstipulado,
             start: `${datos.fechaCita} ${datos.horaCita}`,
             end: `${datos.fechaCita} 00:00`,
@@ -259,7 +264,6 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                 idAgenda: `${idAgenda}`,
                 fechaCita: `${itemsUpdate[0]?.horaCita}`,
                 tiempoEstipulado: `${itemsUpdate[0]?.tiempoEstipulado}`,
-                observaciones: `${itemsUpdate[0]?.observaciones}`,
                 accion: 'ModuloNotificaciones',
                 opcion: 'AgendarCitas',
                 tipo: 'updateCitas',
@@ -320,6 +324,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             setItems({
                 id: 1,
                 idSolicitudComite: 0,
+                codigoFicha:'',
                 hechos: 'SIN REGISTROS',
                 tiempoEstipulado: '',
                 reglas: '',
@@ -383,7 +388,7 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
   const enviarEmailAprendiz = (id) => {
 
     Swal.fire({
-      title: 'Desea notificar via email al Aprendiz?',
+      title: 'Desea notificar via email?',
       showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -393,6 +398,15 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
     });
 
   };
+  useEffect(() => {
+    if(Number(idAprendizDatos)>0){
+      const filteredAprediz = allApredizDatos?.filter((row) => {
+              return Number(row?.userDetails?.id)===Number(idAprendizDatos)
+        });
+        setDatosAprendizDatos(filteredAprediz)
+    }
+
+}, [idAprendizDatos]);
 
 
    return (
@@ -436,24 +450,21 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
 
             {/* add new event modal */}
             {show ? (
-
-                                                 <AddEditEvent
-                                                                idSolicitud={idSolicitudComite}
-                                                                isOpen={show}
-                                                                onClose={onCloseModal}
-                                                                isEditable={isEditable}
-                                                                setIsEditable={setIsEditable}
-                                                                eventData={eventData}
-                                                                onAddEvent={onAddEvent}
-                                                                itemsQueryById={itemsList}
-                                                                dateInfo={dateInfo}
-                                                                status={status}
-                                                                datosAprendizDatos={itemsQueryByIdAprendiz}
-                                                                setIdAprendizDatos={setIdAprendizDatos}
-                                                                idAprendizDatos={idAprendizDatos}
-                                                            />
-
-
+                <AddEditEvent
+                idSolicitud={idSolicitudComite}
+                isOpen={show}
+                onClose={onCloseModal}
+                isEditable={isEditable}
+                setIsEditable={setIsEditable}
+                eventData={eventData}
+                onAddEvent={onAddEvent}
+                itemsQueryById={itemsList}
+                dateInfo={dateInfo}
+                status={status}
+                datosAprendizDatos={datosAprendizDatos}
+                setIdAprendizDatos={setIdAprendizDatos}
+                idAprendizDatos={idAprendizDatos}
+                />
             ) : null}
 
             {modal? (<>
@@ -499,7 +510,7 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
                                             name="tiempoEstipulado"
                                             className="form-control"
                                             containerClass={'mb-3'}
-                                            onChange={(e) => onTiempoEstipulado(e.target.value,fechaInicialUptade?fechaInicialUptade:'0000-00-00 00:00')}
+                                            onChange={(e) => onTiempoEstipulado(e.target.value,fechaInicialUptade ? fechaInicialUptade:'0000-00-00 00:00')}
                                         >
                                             <option value="">Asignar la Hora Final</option>
                                             <option value="15">15 minutos</option>

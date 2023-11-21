@@ -5,7 +5,7 @@ import FormDatosIncidente from './FormDatosIncidente';
 import FormDatosEvidencia from './FormDatosEvidencia';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
 import TopbarSearch from '../../../../../components/TopbarSearch';
-import classnames from 'classnames'; 
+import classnames from 'classnames';
 import CarHistorialIncidencias from '../ConsultarIncidente/CarHistorialIncidencias';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
@@ -14,11 +14,11 @@ import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
 import HeaderForm from '../Components/HeaderForm';
 
 const EnviarSolicitud = (props) => {
-    
+
     const {itemsOptionAprendiz,descripcion,descripcionError} = useContext(SearchContext)
     const {itemsAprendices,query,itemsSolicitudByID,activeTab, setActiveTab,openFormAprendiz} = useContext(NotificacionesContext)
     const allApredizDatos = itemsAprendices?.data?.Aprendices || [];
- 
+
     const {
       sizePerPageList
     } = useContext(DashboardContext);
@@ -40,7 +40,7 @@ const EnviarSolicitud = (props) => {
             title: 'Historial del Aprendiz',
             icon: 'mdi mdi-account-circle',
             text: 'Consulta el historial del Aprendiz una vez haya sido seleccionado de la opción: enviar solicitus.',
-            
+
         },
         {
             id: '3',
@@ -56,12 +56,12 @@ const EnviarSolicitud = (props) => {
         }else if(index===0){
             setActiveTab('Enviar Solicitud')
         }else{
-            setActiveTab('Historial del Aprendiz')  
+            setActiveTab('Historial del Aprendiz')
         }
-        
+
         //
       };
-      
+
     return (
         <React.Fragment>
             <Row>
@@ -98,13 +98,13 @@ const EnviarSolicitud = (props) => {
                                                             case 0:
                                                                 return (
                                                                 <>
-                                                                        
-                                                                        <Row> 
-                                                                        <Col lg={12}>   
+
+                                                                        <Row>
+                                                                        <Col lg={12}>
                                                                         <HeaderForm title={'SOLICITUD DE COMITÉ DE EVALUACIÓN Y SEGUIMIENTO'} />
                                                                         </Col>
                                                                         </Row>
-                                                                        
+
                                                                         <Row>
 
                                                                             <Col lg={6}>
@@ -115,22 +115,22 @@ const EnviarSolicitud = (props) => {
                                                                                     descripcionError={descripcionError}
                                                                                     children={<TopbarSearch data={allApredizDatos}
                                                                                         selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}
-                                                                                /> 
+                                                                                />
                                                                             </Col>
                                                                             <Col lg={6} className="derechaColumnEnviarSolicitud">
-                                                                            
+
                                                                                 <p className="mt-3">{tab.text}</p>
-                                                                                <Collapse in={openFormAprendiz}> 
-                                                                                <div> 
+                                                                                <Collapse in={openFormAprendiz}>
+                                                                                <div>
                                                                                 <FormDatosAprendiz handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} />
-                                                                                </div> 
+                                                                                </div>
                                                                                 </Collapse>
                                                                                <br/>
-                                                                               
+
                                                                                 <FormDatosEvidencia />
-                                                                                
+
                                                                                </Col>
-                                                                                           
+
                                                                         </Row>
                                                                  </>);
                                                                 case 1:
@@ -146,8 +146,8 @@ const EnviarSolicitud = (props) => {
                                                                     return (
                                                                         <Row>
                                                                         <Col sm="12">
-                                                                        {datosSolicitudes?.length>0 ? 
-                                                                        <CarSolicitudeEnviadas 
+                                                                        {datosSolicitudes?.length>0 ?
+                                                                        <CarSolicitudeEnviadas
                                                                         Solicitudes={datosSolicitudes}
                                                                         sizePerPageList={sizePerPageList}
                                                                         idAprendiz={itemsOptionAprendiz?.idAprendiz}
@@ -155,18 +155,18 @@ const EnviarSolicitud = (props) => {
                                                                         aprendizError={itemsOptionAprendiz?.aprendizError}
                                                                         descripcionError={descripcionError}
                                                                         childrenEvidencias={<FormDatosEvidencia/>}
-                                                                        handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz} 
+                                                                        handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz}
                                                                         children={<TopbarSearch data={allApredizDatos}
                                                                         selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}
                                                                         />:null}
                                                                         </Col>
                                                                     </Row>
-                                                                    ); 
+                                                                    );
                                                                     default:
-                                                                      return(<>{''}</>)                                                              
+                                                                      return(<>{''}</>)
                                                         }
                                                         })()}
-                                                
+
                                                 </Row>
                                             </Tab.Pane>
                                         );
@@ -177,7 +177,7 @@ const EnviarSolicitud = (props) => {
                     </Card>
                 </Col>
             </Row>
-            
+
         </React.Fragment>
     );
 };

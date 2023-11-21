@@ -36,7 +36,6 @@ const ActionColumn = ({ row }) => {
     validated,handleOnChange
   } = useContext(DashboardContext);
 
-
   let permiso = sessionStorage.getItem('PERMISO');
   const localPermiso = JSON.parse(permiso);
   const obj = {
@@ -80,7 +79,40 @@ const ConsultaNotificaciones = (props) => {
     sizePerPageList
   } = useContext(DashboardContext);
   const datos = itemsSolicitudes?.data?.Solicitudes || [{}];
-  const columns = [
+
+  const columnsSinAgendar = [
+    {
+      Header: 'ID',
+      accessor: 'id',
+      sort: true,
+    },
+    {
+      Header: 'Aprendiz',
+      accessor: 'aprendiz',
+      sort: true,
+    },
+    {
+      Header: 'Tipo Solicitud',
+      accessor: 'tipoSolicitud',
+      sort: true,
+    }
+    , {
+      Header: 'Tipo de Atención',
+      accessor: 'tipoAtencion',
+      sort: false,
+    },
+    {
+      Header: 'Fecha Solicitud',
+      accessor: 'fechaSolicitud',
+      sort: false,
+    },
+    {
+      Header: 'Fecha Hora Agendada',
+      accessor: 'fechaHoraAgendada',
+      sort: false,
+    },
+  ];
+  const columnsAgendar = [
     {
       Header: 'ID',
       accessor: 'id',
@@ -119,7 +151,6 @@ const ConsultaNotificaciones = (props) => {
       Cell: ActionColumn,
     },
   ];
-
   useEffect(() => {
     query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud', sw: '1' }]);
   }, [query])
@@ -185,7 +216,7 @@ const ConsultaNotificaciones = (props) => {
                                     <Row>
                                       <Col lg={12}>
                                         {sinAgendar?.length > 0 && <Table
-                                          columns={columns}
+                                          columns={columnsAgendar}
                                           data={sinAgendar}
                                           pageSize={5}
                                           sizePerPageList={sizePerPageList}
@@ -217,7 +248,7 @@ const ConsultaNotificaciones = (props) => {
                                   <Row>
                                     <Col sm="12">
                                     {agendada?.length > 0 && <Table
-                                          columns={columns}
+                                          columns={columnsSinAgendar}
                                           data={agendada}
                                           pageSize={5}
                                           sizePerPageList={sizePerPageList}
