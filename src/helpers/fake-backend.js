@@ -35,7 +35,7 @@ export function configureFakeBackend() {
                       email: response?.data?.Auth?.Email,
                       role: response?.data?.Auth?.Rol,
                       password: response?.data?.Auth?.Password,
-                      token: response?.data?.Auth.TOKEN,
+                      token:api.generateToken(response?.data?.Auth?.Usuario, response?.data?.Auth?.Apikey,'2025'),
                       Apikey: response?.data?.Auth?.Apikey,
                       ApiToken: response?.data?.Auth?.ApiToken,
                       entidad: response?.data?.Auth?.entidad,
