@@ -120,8 +120,8 @@ const ConsultaNotificaciones = (props) => {
       sort: true,
     },
     {
-      Header: 'Email',
-      accessor: 'email',
+      Header: 'Aprendiz',
+      accessor: 'aprendiz',
       sort: true,
     },
     {

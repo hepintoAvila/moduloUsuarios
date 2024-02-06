@@ -308,7 +308,7 @@ console.log('datosAprendizDatos',datosAprendizDatos?.length)
                                                                         key="hechos"
                                                                         value={items[0]?.hechos}
                                                                         onChange={(e) =>
-                                                                          setItems({...items,codigoFicha:codigoFicha,hechos:e.target.value})
+                                                                          setItems([{...items,codigoFicha:codigoFicha,hechos:e.target.value}])
                                                                         }
                                                                     />
 
@@ -328,7 +328,7 @@ console.log('datosAprendizDatos',datosAprendizDatos?.length)
                                                                         key="reglas"
                                                                         value={items[0]?.reglas}
                                                                         onChange={(e) =>
-                                                                          setItems({...items,codigoFicha:codigoFicha,reglas: e.target.value})
+                                                                          setItems([{...items,codigoFicha:codigoFicha,reglas: e.target.value}])
                                                                         }
                                                                     />
 
