@@ -99,14 +99,14 @@ class APICore {
   sendFile = (url, data) => {
     const sendRequest = async () => {
       try {
-        const auth_token = encodeBasic(`${environments.loginAPI}:${environments.passwordAPI}`);
+
         const config = {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
               ...axios.defaults.headers,
               'enctype': 'multipart/form-data',
-              Authorization: `Basic ${auth_token}`,
+              Authorization: `Basic ${encodeBasic(environments.loginAPI, environments.passwordAPI)}`,
           },
       };
       const response = await fetch(`${environments.baseURL}${url}`, config);

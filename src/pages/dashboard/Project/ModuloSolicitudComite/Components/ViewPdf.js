@@ -20,16 +20,16 @@ const ViewPdf = (props) => {
   const [url, setUrl] = useState('');
   const [pdf, setPdf] = useState(false);
 //const {query} = useContext(NotificacionesContext)
- 
+
 
   useEffect(() => {
     {(() => {
       switch (props?.titulo) {
         case 'EVIDENCIAS':
-          setUrl( `https://api.compucel.co/ecrire/exec/model/sena/ModuloIncidentes/pdf/${props?.codigoFicha}.pdf`);
+          setUrl( `http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloIncidentes/pdf/${props?.codigoFicha}.pdf`);
         break
         case 'FORMATO':
-         setUrl(`https://api.compucel.co/ecrire/exec/model/sena/ModuloSolicitudComite/pdf/sc/${props?.codigoFicha}.pdf`) ;
+         setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloSolicitudComite/pdf/sc/${props?.codigoFicha}.pdf`) ;
         break
         default:
           setUrl('');
@@ -38,7 +38,7 @@ const ViewPdf = (props) => {
     })()
     }
   }, [props?.codigoFicha]);
- 
+
   useEffect(() => {
   fetch(url)
         .then(response => {
