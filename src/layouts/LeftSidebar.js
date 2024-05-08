@@ -75,7 +75,7 @@ const LeftSidebar = ({ isCondensed, isLight, hideLogo, hideUserProfile}: LeftSid
             document.removeEventListener('mousedown', handleOtherClick, false);
         };
     }, []);
- 
+
 
     return (
         <React.Fragment>

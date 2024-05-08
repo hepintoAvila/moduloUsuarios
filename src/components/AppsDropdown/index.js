@@ -4,22 +4,20 @@ import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 
 // apps icon
-import slackIcon from './icons/slack.png';
-import bitbucketIcon from './icons/bitbucket.png';
+
 import dribbbleIcon from './icons/dribbble.png';
-import dropboxIcon from './icons/dropbox.png';
 import githubIcon from './icons/github.png';
-import gSuiteIcon from './icons/g-suite.png';
+import help from './icons/help.png';
 
 // get the apps
 const Apps = [
     {
-        name: 'Slack',
-        icon: slackIcon,
+        name: 'Ayuda',
+        icon: help,
         redirectTo: '/',
     },
     {
-        name: 'GitHub',
+        name: 'Acerca De',
         icon: githubIcon,
         redirectTo: '/',
     },
@@ -28,22 +26,16 @@ const Apps = [
         icon: dribbbleIcon,
         redirectTo: '/',
     },
-    {
-        name: 'Bitbucket',
-        icon: bitbucketIcon,
-        redirectTo: '/',
-    },
-    {
-        name: 'Dropbox',
-        icon: dropboxIcon,
-        redirectTo: '/',
-    },
-    {
-        name: 'G Suite',
-        icon: gSuiteIcon,
-        redirectTo: '/',
-    },
 ];
+const AyudaCallBack = (opcion) => {
+
+  console.log('funciona',opcion);
+  /*
+  setIsopen((prevState) => !prevState);
+  if (openLeftMenuCallBack) openLeftMenuCallBack();
+ */
+};
+
 
 type AppsDropdownProps = {};
 
@@ -72,7 +64,7 @@ const AppsDropdown = (props: AppsDropdownProps): React$Element<any> => {
                 to="#"
                 onClick={toggleDropdown}
                 className="nav-link dropdown-toggle arrow-none">
-                <i className="dripicons-view-apps noti-icon"></i>
+                <i className="dripicons-question noti-icon"></i>
             </Dropdown.Toggle>
 
             <Dropdown.Menu className="dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
@@ -81,7 +73,8 @@ const AppsDropdown = (props: AppsDropdownProps): React$Element<any> => {
                         <div className="row g-0" key={idx}>
                             {chunk.map((item, i) => (
                                 <div className="col" key={i}>
-                                    <Link className="dropdown-icon-item" to={item.redirectTo}>
+
+                                    <Link className="dropdown-icon-item" to={item.redirectTo} onClick={AyudaCallBack(i)}>
                                         <img src={item.icon} alt="" />
                                         <span>{item.name}</span>
                                     </Link>

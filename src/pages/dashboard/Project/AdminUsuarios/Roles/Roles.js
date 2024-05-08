@@ -30,11 +30,11 @@ const ActionColumn = ({ row }) => {
 
 
    const toggleSignUp = (id,titulo) => {
-    
-    
+
+
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
-    
+
     if (localPermiso?.update === 'S') {
 
       if(row.cells[0].row.values.id===id)
@@ -45,7 +45,7 @@ const ActionColumn = ({ row }) => {
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
-    
+
   };
 
   let permiso = sessionStorage.getItem('PERMISO');
@@ -98,7 +98,7 @@ const Roles = (props) => {
       sort: true,
     }
     , {
-      Header: 'rol',
+      Header: 'Rol',
       accessor: 'rol',
       sort: false,
     }, {
@@ -146,7 +146,7 @@ const Roles = (props) => {
                     isSortable={true}
                     pagination={true}
                     theadClass="table-light"
-                    searchBoxClass="mt-2 mb-3"
+                    searchBoxClass="mt-0 mb-1"
                     isSearchable={true}
                     nametable={props.accion}
               />) : <PermisoAlert />}
@@ -157,7 +157,6 @@ const Roles = (props) => {
       <Row>
         <Col sm={12}>
           <Card>
-            <Card.Body>
               {/* Sign up Modal */}
               <Modal show={signUpModalAdd} size={'sm'} onHide={setSignUpModalAdd}>
                 <Modal.Body>
@@ -170,7 +169,6 @@ const Roles = (props) => {
                   />
                 </Modal.Body>
               </Modal>
-            </Card.Body>
           </Card>
         </Col>
       </Row>

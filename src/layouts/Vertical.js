@@ -3,7 +3,7 @@
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container} from 'react-bootstrap';
- 
+
 // actions
 import { changeSidebarType, changeSidebarTheme } from '../redux/actions';
 import * as layoutConstants from '../constants/layout';
@@ -13,11 +13,10 @@ import ThemeCustomizer from '../components/ThemeCustomizer';
 import { DashboardProvider } from './context/DashboardContext';
 import { MenuProvider } from './context/MenuContext';
 import { PermisosProvider } from './context/PermisosProvider/PermisosProvider';
+import { ValidadorProvider } from './context/ValidadorContext';
 import { SearchProvider } from './context/SearchContext';
 import { NotificacionesProvider} from './context/NotificacionesProvider';
- 
-// code splitting and lazy loading
-// https://blog.logrocket.com/lazy-loading-components-in-react-16-6-6cea535c0b52
+
 const Topbar = React.lazy(() => import('./Topbar'));
 const LeftSidebar = React.lazy(() => import('./LeftSidebar'));
 const Footer = React.lazy(() => import('./Footer'));
@@ -96,9 +95,10 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
         <MenuProvider>
           <PermisosProvider>
             <SearchProvider>
+            <ValidadorProvider>
             <NotificacionesProvider>
             <div className="wrapper">
-    
+
               <Suspense fallback={loading()}>
                 <LeftSidebar isCondensed={isCondensed} isLight={isLight} hideUserProfile={true} />
               </Suspense>
@@ -131,6 +131,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
               </RightSidebar>
             </Suspense>
             </NotificacionesProvider>
+            </ValidadorProvider>
             </SearchProvider>
           </PermisosProvider>
         </MenuProvider>

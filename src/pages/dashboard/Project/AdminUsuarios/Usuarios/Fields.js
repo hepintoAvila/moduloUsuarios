@@ -139,8 +139,11 @@ const {setSignUpModalAdd,
 
         </div>
       </form>
-      <Button variant="success" type="submit" className="btn btn-success" onClick={() => Registrarse({...items})}>
+      <div className="mb-2 mb-6 text-center">
+      <Button variant="success" type="submit" className="btn btn-success" style={{ marginTop: '25px' }} onClick={() => Registrarse({...items})}>
         Regitrar Usuarios</Button>
+      </div>
+      
     </>
   );
 };

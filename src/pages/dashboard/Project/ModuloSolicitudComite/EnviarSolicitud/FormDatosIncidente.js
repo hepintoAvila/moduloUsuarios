@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'
 import { VerticalForm, FormInput } from '../../../../../components';
 import HyperDatepicker from '../../../../../components/Datepicker';
 import FileUploader from '../../../../../components/FileUploader';
- 
+
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
@@ -31,9 +31,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const {convertirFecha } = useContext(NotificacionesContext);
     const {validateError,setError,queryFile,loading,nombrePrograma,descripcion,fallas} = useContext(SearchContext)
- 
+
     //console.log({...fallas[0]})
-    
+
     const [items, setItems] = useState([{
         idAprendiz: '',
         tipoComite: '',
@@ -48,7 +48,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         nombrePrograma:'',
 
     }]);
- 
+
     const { t } = useTranslation();
     const schemaResolver = yupResolver(
         yup.object().shape({
@@ -66,7 +66,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 showConfirmButton: false,
                 timer: 1500
               })
-        const datosfiles = 
+        const datosfiles =
             {
                 idAprendiz:items[0].idAprendiz,
                 tipoComite:items[0].tipoComite,
@@ -78,10 +78,10 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 selectedFile:items[0].selectedFile,
                 descripcion:items[0].descripcion,
                 nombrePrograma:items[0].nombrePrograma,
-                ...fallas[0],    
-                
+                ...fallas[0],
+
             }
-           
+
             const queryDatos = datosfiles
             ? Object.keys(datosfiles)
               .map((key) => key + '=' + btoa(datosfiles[key]))
@@ -97,13 +97,13 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
 
         }
 
-        
-       
+
+
       };
 
 
       const onDateChangefechaIncidente = (date,fechaError) => {
-   
+
         if (date) {
             setSelectedDate(date);
             setError({...validateError,fechaError:fechaError})
@@ -115,12 +115,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               }])
         }
     };
-    
+
     const onDateChangeFile = (file,base64String,filesError,base64StringsError) => {
         if (file) {
             setError({...validateError,filesError:filesError,base64StringsError:base64StringsError})
             setItems([{
-                ...items[0], 
+                ...items[0],
                 selectedFile:file,
                 base64String:base64String,
                 idAprendiz:props?.idAprendiz,
@@ -133,7 +133,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         if (value) {
             setError({...validateError,tipoAtencionError:tipoAtencionError})
             setItems([{
-                ...items[0], 
+                ...items[0],
                 tipoAtencion: value,
                 idAprendiz:props?.idAprendiz,
                 descripcion:descripcion,
@@ -145,7 +145,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         if (value) {
             setError({...validateError,comiteError:comiteError})
             setItems([{
-                ...items[0], 
+                ...items[0],
                 tipoComite:value,
                 idAprendiz:props?.idAprendiz,
                 descripcion:descripcion,
@@ -155,7 +155,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     };
     useEffect(() => {
         const obj = [{
-            ...items[0], 
+            ...items[0],
             descripcion:descripcion,
         }]
         setItems(obj)
@@ -163,28 +163,28 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
 
     useEffect(() => {
         const objnombrePrograma = [{
-            ...items[0], 
+            ...items[0],
             nombrePrograma:nombrePrograma,
         }]
         setItems(objnombrePrograma)
     }, [nombrePrograma]);
 
- 
+
     return (
         <>
       {loading ? <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
 
            <VerticalForm onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{}} className={classNames('col-4')}>
-                
+
                 <Row>
                     <Card className={classNames('widget-flat')}>
 
-                        
+
                         <Card.Body>
                         {!props?.aprendizError? <div className="isinvalid">SELECCIONE EL APRENDIZ</div>:<div>APRENDIZ:</div>}
                                     {children}
                             <Row className="align-items-center">
-                                   
+
                                     <br/>
                                     <FormInput
                                         name="tipoComite"
@@ -202,7 +202,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                         <option value="DISCIPLINARIO">DISCIPLINARIO</option>
                                         <option value="ACADEMICO Y DISCIPLINARIO">ACADEMICO Y DISCIPLINARIO</option>
                                     </FormInput>
-                                     
+
                                     <FormInput
                                         name="tipoAtencion"
                                         label="Seleccione la calificación de la falta"
@@ -214,7 +214,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                         onChange={(e) => onChangeTipoAtencion(
                                             e.target.value,true
                                           )}
-                      
+
                                     >
                                         <option>Seleccione...</option>
                                         <option value="Leve">Leve</option>
@@ -237,26 +237,26 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                             onChange={(e) => onDateChangefechaIncidente(e,true)
                                                 }
                                         />
-                                        
-                                            {!validateError.fechaError ? 
+
+                                            {!validateError.fechaError ?
                                             <div className="isinvalid">
                                                  SELECCIONE LA FECHA Y HORA HECHOS
                                                  </div>: ''
                                              }
-                                       
+
                                     </div>
                             </Row>
                             <Row>
                                 <Col>
-                                         
+
                                     <Card>
-                                        <Card.Body> 
+                                        <Card.Body>
                                             <FileUploader
                                                 onFileUpload={(e) => {
                                                 const files = Array.from(e);
-                                                
+
                                                   const file = files[0];
-                                                  
+
                                                   const reader = new FileReader();
                                                   reader.readAsArrayBuffer(file);
                                                   // Cuando la lectura del archivo termine
@@ -267,15 +267,15 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                                         .reduce((data, byte) => data + String.fromCharCode(byte), '')
                                                     );
 
-                                                    
+
                                                     onDateChangeFile(JSON.stringify(file),base64String,true,true)
                                                 }
-                                                
+
                                                 //
                                                 }}
                                             />
                                             {!validateError.filesError && !validateError.base64StringsError ? <div className="isinvalid"><p className="text-white font-13 m-b-30">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
-                                  
+
                                         </Card.Body>
                                     </Card>
                                 </Col>
@@ -284,10 +284,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                     </Card>
                 </Row>
                 <br/>
-                <br/>
-                <Row>
-                    <div className="mb-3 mb-0 text-center btnenviarSolicitud">
-                        <Button variant="primary" type="submit" disabled={loading}>
+                <br/>                              
+                <br/>                              
+
+                <Row className=" mb-5">
+                    <div className="mb-3 mb-4 text-center btnenviarSolicitud" style={{marginLeft: "10px", marginTop: "-60px"}}>
+                        <Button variant="primary" type="submit" disabled={loading}> 
                             {t('ENVIAR SOLICITUD')}
                         </Button>
                     </div>

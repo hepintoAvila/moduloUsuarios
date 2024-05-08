@@ -1,10 +1,10 @@
-import { Modal, Pagination, Row } from "react-bootstrap";
+import { Pagination, Row } from "react-bootstrap";
 
 import React from "react";
 import BtnLink from "../BtnLink";
 import BtnActions from "../BtnActions";
 
-const BtnSeccionAction = (props,children) => {
+const BtnActualizarAprendiz = (props) => {
 
   const isbtnLink = props?.obj?.isbtnLink|| 'N';
   const tipo = props?.obj?.tipo || '';
@@ -15,10 +15,7 @@ const BtnSeccionAction = (props,children) => {
 
   return (
     <React.Fragment>
-      <Modal show={props?.obj?.open} onHide={props?.obj?.toggleSignUp}>
-        <Modal.Body>{children ? props?.children : null}
-        </Modal.Body>
-      </Modal>
+
       <Row>
         <Pagination className="pagination-rounded mx-auto" size="sm">
           <Pagination.Item>
@@ -33,6 +30,19 @@ const BtnSeccionAction = (props,children) => {
                   icon={'mdi mdi-square-edit-outline'}
                 />
           </Pagination.Item>
+
+          <Pagination.Item>
+             <BtnActions
+                  permisos={'S'}
+                  key={`SANCIONES${props?.obj?.key}`}
+                  toggleActions={props?.obj?.toggleSanciones}
+                  row={props?.obj?.row}
+                  titulo={'SANCIONES'}
+                  descripcion={`Sanciones ${descripcionbtnaction}`}
+                  icon={'mdi mdi-account-alert'}
+
+                />
+          </Pagination.Item>
           <Pagination.Item>
              <BtnActions
                   permisos={'S'}
@@ -45,7 +55,6 @@ const BtnSeccionAction = (props,children) => {
 
                 />
           </Pagination.Item>
-
  {
         (isbtnLink==='S') ?
         <Pagination.Item>
@@ -67,4 +76,4 @@ const BtnSeccionAction = (props,children) => {
     </React.Fragment>
   );
 }
-export default BtnSeccionAction;
+export default BtnActualizarAprendiz;

@@ -224,16 +224,22 @@ const NotificacionesProvider = ({ children }) => {
     }
 
     function convertirFecha(fechaEntrada) {
-        // Crea un objeto Date a partir de la fecha de entrada
-        const fecha = new Date(fechaEntrada);
+         // Parsear la cadena de fecha
+    var fecha = new Date(fechaEntrada);
 
-        // Obtiene la fecha y hora en formato UTC
-        const fechaUTC = new Date(fecha.getUTCFullYear(), fecha.getUTCMonth(), fecha.getUTCDate(), fecha.getUTCHours(), fecha.getUTCMinutes(), fecha.getUTCSeconds());
+    // Obtener los componentes de la fecha y hora
+    var año = fecha.getFullYear();
+    var mes = ('0' + (fecha.getMonth() + 1)).slice(-2); // Agrega ceros a la izquierda si es necesario
+    var dia = ('0' + fecha.getDate()).slice(-2); // Agrega ceros a la izquierda si es necesario
+    var horas = ('0' + fecha.getHours()).slice(-2); // Agrega ceros a la izquierda si es necesario
+    var minutos = ('0' + fecha.getMinutes()).slice(-2); // Agrega ceros a la izquierda si es necesario
+    var segundos = ('0' + fecha.getSeconds()).slice(-2); // Agrega ceros a la izquierda si es necesario
 
-        // Formatea la fecha en el formato '0000-00-00 00:00:00'
-        const fechaFormateada = fechaUTC.toISOString().slice(0, 19).replace('T', ' ');
+    // Construir la cadena en el formato deseado
+    var fechaFormateada = año + '-' + mes + '-' + dia + ' ' + horas + ':' + minutos + ':' + segundos;
 
-        return fechaFormateada;
+    // Retornar la fecha formateada
+    return fechaFormateada;
       }
     // on event click
     const onEventClick = (arg) => {

@@ -1,7 +1,8 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames';
+import { ValidadorContext } from '../layouts/context/ValidadorContext';
 
 /* Password Input */
 const PasswordInput = ({ name, placeholder, refCallback, errors, register, className }) => {
@@ -70,6 +71,19 @@ const FormInput = ({
 }: FormInputProps): React$Element<React$FragmentType> => {
     // handle input type
     const comp = type === 'textarea' ? 'textarea' : type === 'select' ? 'select' : 'input';
+    const { validateError, setError,setValidado } = useContext(ValidadorContext);
+
+   //setValidado({ ...validateError, name })
+    useEffect(() => {
+
+        setError({
+            ...validateError,
+            name: name,
+            value: errors && errors[name] ? true : false,
+        });
+    }, []);
+
+    console.log('validateError', JSON.stringify({ ...validateError, name }));
 
     return (
         <>

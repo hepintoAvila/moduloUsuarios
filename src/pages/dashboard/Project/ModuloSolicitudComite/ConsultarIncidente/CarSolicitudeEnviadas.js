@@ -6,7 +6,7 @@ import React, { useContext} from 'react';
 import { Row, Col, Card, Modal,  } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
- 
+
 import Table from '../../../../../components/Table';
 
  import ViewPdf from '../Components/ViewPdf';
@@ -14,12 +14,12 @@ import { NotificacionesContext } from '../../../../../layouts/context/Notificaci
 import BtnSeccionPdf from '../../../../../components/BtnSeccionPdf';
 import FormEditarSolicitud from '../EnviarSolicitud/FormEditarSolicitud';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
- 
+
 const ActionColumn = ({ row }) => {
   const { setCodigoFicha, setModal,getData,query } = useContext(NotificacionesContext)
- 
+
   const toggleSignUp = (codigoFicha, titulo) => {
-    
+
     if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
       if (titulo === 'FORMATO') {
         query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ActualicePdfSolicitud'), obj: 'statusPdf', codigoFicha: encodeBasicUrl(codigoFicha) }]);
@@ -30,7 +30,7 @@ const ActionColumn = ({ row }) => {
           title: 'Enviado Solicitud...',
           showConfirmButton: false,
           timer: 1500
-        })  
+        })
         setTimeout(function () {
           setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo, idSolicitud: row?.cells[0]?.row?.values?.id })
           setModal(true);
@@ -44,13 +44,13 @@ const ActionColumn = ({ row }) => {
       //Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${codigoFicha}`);
     } else {
       Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${row?.cells[1]?.row?.values?.codigoFicha}-${titulo}`);
-    }  
+    }
   };
 
   const EditDelete = (codigoFicha, titulo) => {
-   
+
     if (row?.cells[1]?.row?.values?.codigoFicha === codigoFicha) {
-   
+
       if(titulo==='DELETE'){
         const id = row?.cells[0]?.row?.values?.id
         Swal.fire({
@@ -75,7 +75,7 @@ const ActionColumn = ({ row }) => {
                     title: 'Enviado Solicitud...',
                     showConfirmButton: false,
                     timer: 1500
-                  })                  
+                  })
                   setTimeout(function () {
                     getData(queryDatos)
                   }, 2000);
@@ -84,15 +84,15 @@ const ActionColumn = ({ row }) => {
       }
 
       if(titulo==='EDITAR'){
-       
+
         query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitudByCodigo',sw:'6',codigoFicha: encodeBasicUrl(codigoFicha)}]);
         setCodigoFicha({ codigoFicha: codigoFicha, titulo: titulo,idSolicitud: row?.cells[0]?.row?.values?.id })
         setModal(true);
       }
-   
+
     } else {
       Swal.fire(`ESTA EN ESPERA DEL CONCEPTO...${row?.cells[1]?.row?.values?.codigoFicha}-${titulo}`);
-    }  
+    }
   };
   const obj = {
     toggleSignUp,
@@ -103,7 +103,7 @@ const ActionColumn = ({ row }) => {
   }
   return (
     <React.Fragment>
-      <BtnSeccionPdf obj={obj}> 
+      <BtnSeccionPdf obj={obj}>
       </BtnSeccionPdf>
     </React.Fragment>
   );
@@ -111,9 +111,9 @@ const ActionColumn = ({ row }) => {
 const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
   const {codigoFicha,modal,setModal,itemsConsultarSolicitudByCodigo} = useContext(NotificacionesContext)
- 
-  
- 
+
+
+
   const datos = props?.Solicitudes|| [{id:1,
     codigoFicha:'0001',
     aprendiz:'SR',
@@ -169,7 +169,7 @@ const CarSolicitudeEnviadas = (props) => {
   const onClose = () => {
     setModal(false);
 };
- 
+ console.log(datos);
   return (
     <>
 
@@ -206,16 +206,16 @@ const CarSolicitudeEnviadas = (props) => {
                 case 'FORMATO':
                   return (<><ViewPdf codigoFicha={codigoFicha?.codigoFicha} titulo={codigoFicha?.titulo} /> </>)
                 case 'EDITAR':
-                  return (<><FormEditarSolicitud 
+                  return (<><FormEditarSolicitud
                    itemsConsultarSolicitudByCodigo={itemsConsultarSolicitudByCodigo}
-                   idAprendiz={props?.idAprendiz} 
-                   itemsDescripcion={props?.itemsDescripcion} 
-                   aprendizError={props?.aprendizError} 
-                   descripcionError={props?.descripcionError} 
-                   children={props?.children} 
-                   childrenEvidencias={props?.childrenEvidencias} 
-                   childrenAprendiz={props?.childrenAprendiz} 
-                   selectedOption={props?.selectedOption} 
+                   idAprendiz={props?.idAprendiz}
+                   itemsDescripcion={props?.itemsDescripcion}
+                   aprendizError={props?.aprendizError}
+                   descripcionError={props?.descripcionError}
+                   children={props?.children}
+                   childrenEvidencias={props?.childrenEvidencias}
+                   childrenAprendiz={props?.childrenAprendiz}
+                   selectedOption={props?.selectedOption}
                    codigoFicha={codigoFicha?.codigoFicha}
                    idSolicitud={codigoFicha?.idSolicitud}
                    handleClick={props?.handleClick}

@@ -6,7 +6,39 @@ import FormInput from '../../../components/FormInput';
 import classNames from 'classnames';
 import DatosAprendiz from './DatosAprendiz';
 
+function extraerObjeto(datos) {
+  // Función auxiliar para recorrer el objeto
 
+  function buscarObjeto(obj) {
+      for (var clave in obj) {
+          if (typeof obj[clave] === 'object') {
+              // Si encontramos un objeto dentro de otro objeto, llamamos recursivamente a esta función
+              return buscarObjeto(obj[clave]);
+          } else {
+              // Si encontramos un objeto con las claves que necesitamos, lo devolvemos
+              if (
+                  obj.hasOwnProperty('idSolicitudComite') &&
+                  obj.hasOwnProperty('fechaCita') &&
+                  obj.hasOwnProperty('horaCita') &&
+                  obj.hasOwnProperty('codigoFicha') &&
+                  obj.hasOwnProperty('tiempoEstipulado') &&
+                  obj.hasOwnProperty('className') &&
+                  obj.hasOwnProperty('title') &&
+                  obj.hasOwnProperty('start') &&
+                  obj.hasOwnProperty('end') &&
+                  obj.hasOwnProperty('idSolicitud')&&
+                  obj.hasOwnProperty('hechos')&&
+                  obj.hasOwnProperty('reglas')
+              ) {
+                  return obj;
+              }
+          }
+      }
+  }
+
+  // Llamamos a la función auxiliar con el objeto de entrada
+  return buscarObjeto(datos);
+}
 
 function obtenerValorNumerico(cadena) {
   const regex = /^(\d+)-/;
@@ -70,8 +102,11 @@ const AddEditEvent = ({
 
     const [selectTexto, setFechaSelectTexto] = useState('');
 
+
+
     const handleRegistration = () => {
-        isEditable ? onUpdateEvent({ ...items }) : onAddEvent({ ...items });
+    const dataFilter= extraerObjeto(items);
+        isEditable ? onUpdateEvent(dataFilter) : onAddEvent(dataFilter);
     };
     const onChangeFechaHora = (value, selectTexto,codigoFicha) => {
         setItems([{ ...items[0], horaCita: value, fechaCita: selectTexto,
@@ -125,27 +160,18 @@ if(aprendiz){
   }
 }
 
-/*
-const onChangeHechos = (value, selectTexto,codigoFicha) => {
-    setItems([{ ...items[0], hechos: value, fechaCita: selectTexto,
-        idSolicitud:idSolicitud,codigoFicha:codigoFicha }]);
-        setError({
-          ...validateError,
-          hechosError: items[0]?.hechos.length > 0 ? false : true,
-          hechosMenssageError: { message: '' },
-      });
+
+const onChangeHechos = (value, codigoFicha) => {
+  console.log(value);
+    setItems([{ ...items[0], hechos: value, codigoFicha:codigoFicha}]);
+
 };
-const onChangeReglas = (value, selectTexto,codigoFicha) => {
-  setItems([{ ...items[0], reglas: value, fechaCita: selectTexto,
-      idSolicitud:idSolicitud,codigoFicha:codigoFicha }]);
-      setError({
-        ...validateError,
-        reglasError: items[0]?.reglas.length > 0 ? false : true,
-        reglasMenssageError: { message: '' },
-    });
+const onChangeReglas = (value, codigoFicha) => {
+  setItems([{ ...items[0], reglas: value, codigoFicha:codigoFicha}]);
+
 };
-*/
-console.log('datosAprendizDatos',datosAprendizDatos?.length)
+
+console.log({...items});
     return (
         <Modal show={isOpen} onHide={onClose} backdrop="static" keyboard={false} fullscreen={'lg-down'}>
             <Modal.Header className="pb-2 px-4 border-bottom-0" closeButton>
@@ -308,7 +334,8 @@ console.log('datosAprendizDatos',datosAprendizDatos?.length)
                                                                         key="hechos"
                                                                         value={items[0]?.hechos}
                                                                         onChange={(e) =>
-                                                                          setItems([{...items,codigoFicha:codigoFicha,hechos:e.target.value}])
+                                                                          onChangeHechos(e.target.value, codigoFicha)
+
                                                                         }
                                                                     />
 
@@ -328,7 +355,7 @@ console.log('datosAprendizDatos',datosAprendizDatos?.length)
                                                                         key="reglas"
                                                                         value={items[0]?.reglas}
                                                                         onChange={(e) =>
-                                                                          setItems([{...items,codigoFicha:codigoFicha,reglas: e.target.value}])
+                                                                          onChangeReglas(e.target.value, codigoFicha)
                                                                         }
                                                                     />
 

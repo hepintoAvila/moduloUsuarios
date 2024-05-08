@@ -4,19 +4,20 @@
 // @flow
 import React, { useContext, useEffect} from 'react';
 import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
+import { IntlProvider, FormattedMessage } from "react-intl";
 
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import FormAdd from './FormAdd';
 import FormUpdate from './FormUpdate';
- 
+
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import Swal from 'sweetalert2';
 
- 
+
 import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import Table from '../../../components/Table';
- 
+
 const ActionColumn = ({ row }) => {
   const {
     eliminar,
@@ -73,7 +74,7 @@ const Usuarios = (props) => {
   const datos = itemsAdminUsuarios?.data?.auteurs || [];
   const roles = itemsAdminUsuarios?.data?.roles || [];
 
-  
+
   const columns = [
     {
       Header: 'ID',
@@ -81,17 +82,17 @@ const Usuarios = (props) => {
       sort: true,
     },
     {
-      Header: 'Login',
+      Header: 'Usuarios',
       accessor: 'login',
       sort: true,
     },
     {
-      Header: 'Email',
+      Header: 'Correo Electronico',
       accessor: 'email',
       sort: true,
     }
     , {
-      Header: 'Tipo Usuario',
+      Header: 'Rol',
       accessor: 'rol',
       sort: false,
     },
@@ -110,7 +111,7 @@ const Usuarios = (props) => {
     query('AdminUsuarios','Usuarios',[{opcion:btoa('listaUsuarios'),obj:'Usuarios'}]);
   }, [query]);
 
- 
+
   return (
     <>
 
@@ -140,13 +141,15 @@ const Usuarios = (props) => {
                 <Col sm={8}>
                   <div className="text-sm-end">
                     <Button className="btn btn-dataTable mb-2 me-1" onClick={toggleSignUp}>
-                      <i className="mdi mdi-account-plus"></i>
+                      <i className="mdi mdi-account-plus"> Agregar Usuario</i>
                     </Button>
                   </div>
                 </Col>
               </Row>
               {datos?.length > 0 && permisos?.query === 'S' ? (
               localStorage.setItem('roles',JSON.stringify(roles)),
+
+
               <Table
                 columns={columns}
                 data={datos}
@@ -155,15 +158,16 @@ const Usuarios = (props) => {
                 isSortable={true}
                 pagination={true}
                 theadClass="table-light"
-                searchBoxClass="mt-2 mb-3"
+                searchBoxClass="mt-1 mb-2"
                 isSearchable={true}
                 isVisible={true}
                 nametable={props.accion}
                 titulo={'LISTADO DE USUARIOS REGISTRADOS'}
                 permisos={permisos}
                 icons={'dripicons-user'}
-               
-              />) : <PermisoAlert />}
+              />
+
+          ) : <PermisoAlert />}
             </Card.Body>
           </Card>
         </Col>

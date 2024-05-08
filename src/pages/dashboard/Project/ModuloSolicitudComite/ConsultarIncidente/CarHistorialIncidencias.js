@@ -8,19 +8,19 @@ import { NotificacionesContext } from '../../../../../layouts/context/Notificaci
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 //import Swal from 'sweetalert2';
 
- 
+
 import Table from '../../../../../components/Table';
- 
+
 const CarHistorialIncidencias = (props) => {
   //const permisos = props.permisos || {};
 
- 
+
   const {itemsQueryByIdAprendiz} = useContext(NotificacionesContext)
   const {
     sizePerPageList
   } = useContext(DashboardContext);
   const datos = itemsQueryByIdAprendiz?.data?.Solicitudes|| [{}];
- 
+      console.log(datos);
   const columns = [
     {
       Header: 'ID',
@@ -57,7 +57,7 @@ const CarHistorialIncidencias = (props) => {
         accessor: 'fechaHoraAgendada',
         sort: false,
       },
-      
+
       {
         Header: 'Estado',
         accessor: 'estado',
@@ -70,7 +70,7 @@ const CarHistorialIncidencias = (props) => {
       classes: 'table-action',
     },
   ];
- 
+
   return (
     <>
 

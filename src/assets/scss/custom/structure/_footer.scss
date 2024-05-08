@@ -1,7 +1,9 @@
-// 
+//
 // footer.scss
 //
 
+
+//Footer para LOGIN
 .footer {
     border-top: 1px solid rgba($gray-600, 0.2);
     bottom: 0;
@@ -39,6 +41,7 @@
     left: 0;
     border: none;
     text-align: center;
+    margin-top: -35px;
 }
 
 // Layout - Topnav
@@ -79,4 +82,45 @@ body[data-layout="detached"] {
             padding: 0;
         }
     }
+}
+
+//Footer para DASHBOARD
+.footer-dashboard {
+  border-top: 1px solid rgba($gray-600, 0.2);
+  bottom: 0;
+  padding: 19px 24px 20px;
+  position: absolute;
+  right: 0;
+  color: #fff;
+  left: $leftbar-width;
+
+  .footer-links-dashboard {
+      a {
+          color: $gray-600;
+          margin-left: 1.5rem;
+          transition: all .4s;
+          &:hover {
+              color: $gray-900;
+          }
+          &:first-of-type {
+              margin-left: 0;
+          }
+      }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .footer-dashboard {
+      left: 0 !important;
+      text-align: center;
+  }
+}
+
+
+// Used for account authentication pages
+.footer-alt-dashboard {
+  left: 0;
+  border: none;
+  text-align: center;
+  margin-top: -35px;
 }

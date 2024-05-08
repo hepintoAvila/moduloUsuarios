@@ -41,7 +41,6 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         useContext(SearchContext);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes || [];
-
     const [documentos, setAttachments] = useState({
         attachments: [
             { id: 1, name: 'Cargando...', size: '', ext: '.pdf' },
@@ -149,7 +148,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
 
     const onDateChangefechaIncidente = (e, fechaError) => {
 
-      console.log(e)
+  //console.log(e);
         if (e) {
             setSelectedDate(e);
             setError({ ...validateError, fechaError: fechaError });
@@ -253,14 +252,14 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                     aprendiz: datosAprendiz[0]?.aprendiz,
                     tipoComite: datosAprendiz[0]?.tipoSolicitud,
                     tipoAtencion: datosAprendiz[0]?.tipoAtencion,
-                    fechaIncidente: datosAprendiz[0]?.fechaIncidente,
+                    fechaIncidente: datosAprendiz[0]?.fechaSolicitud,
                     fechaHora: datosAprendiz[0]?.fechaHora,
                     accion: 'ModuloSolicitudComite',
                     opcion: 'add_solicitud',
                     tipo: 'EnviarSolicitud',
                     selectedFile: '',
                     base64String: '',
-                    descripcion: datosAprendiz[0]?.description,
+                    descripcion: datosAprendiz[0]?.hechos,
                     nombrePrograma: datosAprendiz[0]?.nombrePrograma,
                     sancionesAprendiz: datosAprendiz[0]?.sancionesAprendiz,
                 },
@@ -321,6 +320,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                     key="tipoComite"
                                     isInvalid={!validateError.comiteError}
                                     onChange={(e) => onChangeTipoComite(e.target.value, true)}>
+                                    <option>Seleccione...</option>
                                     <option value="ACADEMICO"> ACADEMICO</option>
                                     <option value="DISCIPLINARIO">DISCIPLINARIO</option>
                                     <option value="ACADEMICO Y DISCIPLINARIO">ACADEMICO Y DISCIPLINARIO</option>

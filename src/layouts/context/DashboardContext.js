@@ -16,7 +16,8 @@ const DashboardProvider = ({ children }) => {
   const [isLoading, setLoading] = useState([]);
   const [open, setOpen] = useState(false);
   const [signUpModalAdd, setSignUpModalAdd] = useState(false);
-  const [itemsUpdate, setItemsUpdate] = useState([]);
+  const [itemsUpdate, setItemsUpdate] = useState(0);
+  const [opcion, setOpcion] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedItem, setIsCheckedItem] = useState(0);
 
@@ -109,7 +110,7 @@ const AdvertenciaLocalStorage = () => {
           if (localPermiso.delete) {
               const estrategiaConfirmacion = new ConfirmacionEliminacionStrategy();
               estrategiaConfirmacion.confirmar(cel, (cel) => {
-                  const url = `accion=${itemUrl}&tipo=${tipo}&opcion=delete&id=${cel}`;
+                  const url = `accion=${btoa(itemUrl)}&tipo=${btoa(tipo)}&opcion=${btoa('delete')}'&id=${btoa(cel)}`;
                   const respuesta = api.sendRequestData(`${url}`);
                   respuesta
                       .then(function (resp) {
@@ -200,6 +201,7 @@ const handleOnChange = (id,name,email) => {
     signUpModalAdd,
     setSignUpModalAdd,
     itemsUpdate, setItemsUpdate,
+    opcion, setOpcion,
     eliminar
   };
   return (

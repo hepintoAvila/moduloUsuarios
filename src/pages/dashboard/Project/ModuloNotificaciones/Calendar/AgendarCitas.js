@@ -180,7 +180,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
       const dataInLocalStorage = localStorage.getItem('comiteSelect');
       const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
       const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
-      if((idSolicitud>0) && (idsVerdaderos.length>0)){
+      if((idSolicitud>0) && (idsVerdaderos?.length>0)){
          query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'queryByIdComite', sw: 3, idSolicitud: encodeBasicUrl(idSolicitud) }]);
         //query('ModuloSolicitudComite','EnviarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'queryByIdAprendiz',sw:4,idAprendiz:encodeBasicUrl(idSolicitud)}]);
         query('ModuloSolicitudComite','Aprendiz',[{opcion:encodeBasicUrl('listaAprendices'),obj:'aprendices'}]);
@@ -208,20 +208,20 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
           const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
           const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
         const modifiedEvents = [...events];
-        const datos = data[0];
 
+          console.log('data',data);
         const datosEvent = {
-            id: modifiedEvents.length + 1,
-            fechaCita: `${datos.fechaCita} ${datos.horaCita}`,
-            horaCita: datos.horaCita,
-            codigoFicha: datos.codigoFicha,
-            tiempoEstipulado: datos.tiempoEstipulado,
-            start: `${datos.fechaCita} ${datos.horaCita}`,
-            end: `${datos.fechaCita} 00:00`,
-            title: datos.horaCita,
-            hechos: datos.hechos,
-            reglas: datos.reglas,
-            idSolicitudComite: datos.idSolicitudComite,
+            id: modifiedEvents?.length + 1,
+            fechaCita: `${data?.fechaCita} ${data?.horaCita}`,
+            horaCita: data?.horaCita,
+            codigoFicha: data?.codigoFicha,
+            tiempoEstipulado: data?.tiempoEstipulado,
+            start: `${data?.fechaCita} ${data?.horaCita}`,
+            end: `${data?.fechaCita} 00:00`,
+            title: data?.horaCita,
+            hechos: data?.hechos,
+            reglas: data?.reglas,
+            idSolicitudComite: data?.idSolicitudComite,
             idComites: `${idsVerdaderos}`,
             accion: 'ModuloNotificaciones',
             opcion: 'AgendarCitas',
@@ -450,7 +450,7 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
 
 }, [idAprendizDatos]);
 
-
+console.log('itemsList',itemsList)
    return (
         <>
             <Row>

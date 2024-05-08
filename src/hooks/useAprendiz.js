@@ -6,12 +6,10 @@ import encodeBasicUrl from '../utils/encodeBasicUrl';
 import { APICore } from '../helpers/api/apiCore';
 const api = new APICore();
 
-export const useGestionMenu = () => {
-
+export const useAprendiz = () => {
   const [isLoading, setLoading] = useState(false);
-  const [itemsEditerSubMenu, setEditerSubMenu] = useState([]);
-  const [itemsEditerMenu, setEditerMenu] = useState([]);
-
+  const [itemsAprendiz, setAprendiz] = useState([]);
+  //QUERY DE RESPUSTA DE CONSULTAS
   const query = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
     setTimeout(function () {
@@ -28,21 +26,17 @@ export const useGestionMenu = () => {
       let userInfo = sessionStorage.getItem('hyper_user');
       const user = JSON.parse(userInfo);
       if (user) {
-        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}`;
+        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}`;
         const datosMaterial = api.sendRequestData(`${url}`);
-
         datosMaterial?.then(function (response) {
-
           try {
             {
               (() => {
                 switch (datos[0]?.obj) {
-                  case 'Menu':
-                    setEditerMenu(response)
-                    break
-                    case 'SubMenu':
-                        setEditerSubMenu(response)
-                    break
+                  case 'aprendiz':
+                    setAprendiz(response)
+                    break;
+
                 }
               })()
             }
@@ -59,13 +53,11 @@ export const useGestionMenu = () => {
       }
     }, 2000);
   }, []);
- // console.log('itemsMenu',itemsEditerMenu)
   return (
     {
       query,
       isLoading,
-      itemsEditerMenu,
-      itemsEditerSubMenu
+      itemsAprendiz,
     }
   )
 }

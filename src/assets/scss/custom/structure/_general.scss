@@ -16,12 +16,83 @@ body {
 .bg-secundary {
   background-color:rgba(#5eb319, 0.18)  !important;
 }
+
+
+//footer general Login
 .bg-footer {
-  background-color:#5eb319 !important;
+  background-color: #5eb319 !important;
   color: #fff;
   padding: inherit;
-  margin-bottom: -1rem
+  margin-bottom: -1rem;
+  margin-right: -35px;
+  margin-left: -25px;
+  width: calc(100% + 60px); /* Suma de los valores negativos de margen derecho e izquierdo */
+  left: 0;
+  right: 0;
+  position: fixed;
+  bottom: 0;
 }
+
+/* Para cubrir la parte inferior debajo del footer */
+.footer-cover {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px; /* Ajusta la altura según sea necesario */
+  background-color: #5eb319; /* Mismo color de fondo que el footer */
+}
+
+/* Para cubrir el lado derecho */
+.footer-cover-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: auto; /* Establece el lado izquierdo como "auto" para que la propiedad right funcione correctamente */
+  height: 100%; /* Cubre toda la altura de la ventana del navegador */
+  background-color: #5eb319; /* Mismo color de fondo que el footer */
+}
+
+
+
+//footer general Dashboards
+.bg-footer-dashboard {
+  background-color: #5eb319 !important;
+  color: #fff;
+  padding: 20px; /* Agregar relleno interno */
+  margin-bottom: -1rem;
+  margin-right: 0;
+  margin-left: 0;
+  width: 100%; /* Utilizar el ancho completo */
+  left: 0;
+  right: 0;
+  position: fixed;
+  bottom: 0;
+  display: flex; /* Usar flexbox para alinear verticalmente */
+  align-items: center; /* Alinear el contenido verticalmente */
+}
+
+/* Para cubrir la parte inferior debajo del footer */
+.footer-cover {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px; /* Ajusta la altura según sea necesario */
+  background-color: #5eb319; /* Mismo color de fondo que el footer */
+}
+
+/* Para cubrir el lado derecho */
+.footer-cover-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: auto; /* Establece el lado izquierdo como "auto" para que la propiedad right funcione correctamente */
+  height: 100%; /* Cubre toda la altura de la ventana del navegador */
+  background-color: #5eb319; /* Mismo color de fondo que el footer */
+}
+
+
 .bg-header-1 {
   height: 40px; padding: 8px 0; background: #5eb319; color: #fff; box-sizing: border-box; max-width: auto; margin: 0 auto;
 
@@ -93,12 +164,27 @@ body {
 .headerTitulo{
   margin-top: 3rem;
   width: max-content;
-  
+
 }
 .center-text{
   width: max-content;
   padding: 7rem;
   }
+
+.center-text-titulo{
+    width: max-content;
+    text-align: center !important;
+    margin-left: 10px;
+    font-size: 24px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    flex: none;
+    }
+.btnCerrar{
+  margin-left: 1.1rem ;
+  margin-top:  -5px;
+}
 .btnInicio,.btnInicio1 {
   border-color: #c2c5c1;
   background: #5eb319; -webkit-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); -moz-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62);
@@ -160,7 +246,6 @@ body {
   margin-top: 0em;
   overflow: auto;
   position: absolute;
-  z-index: 9999999;
   left: 0em;
 }
 .zIndex{
@@ -220,8 +305,8 @@ body {
   gap: 3px;
 
 }
- 
-	
+
+
 .flexCol--header___grid__nivel_2_col1 {
   padding: 1px;
   border-right: 1px solid #044B92;
@@ -260,7 +345,7 @@ body {
   justify-content: center;
   align-content: center;
   width: 100%; height: 180px;
-  padding: 0 10% 4em; 
+  padding: 0 10% 4em;
   margin: 0 auto;
 }
 
@@ -361,7 +446,7 @@ body {
     cursor: pointer;
   }
 }
- 
+
 @media (min-width: 360px) and (max-width: 740px) {
 
   /* Estilos para pantallas medianas (tablets) */

@@ -66,7 +66,7 @@ const ActionColumn = ({ row }) => {
 const MenuPrincipal = (props) => {
   const {itemsEditerMenu,query} = useGestionMenu()
   const permisos = props.permisos || {};
- 
+
   const {
     sizePerPageList,
     setSignUpModalAdd,
@@ -74,6 +74,7 @@ const MenuPrincipal = (props) => {
     validated,
   } = useContext(DashboardContext);
   const datos =  itemsEditerMenu?.data?.Menus || [];
+ // console.log(itemsEditerMenu);
   const columns = [
     {
       Header: 'ID',
@@ -113,13 +114,12 @@ const MenuPrincipal = (props) => {
     query('GestionMenu', 'GestionMenu', [{ opcion: encodeBasicUrl('consultar'), obj: 'Menu' }]);
   }, [query])
 
-  console.log('itemsEditerMenu',itemsEditerMenu)
+ // console.log('datos',datos)
   return (
     <>
 
       <Row>
         <Col>
-          <Card>
             <Card.Body>
               {datos?.length > 0 && permisos?.query === 'S' ? (<Table
                     columns={columns}
@@ -129,18 +129,17 @@ const MenuPrincipal = (props) => {
                     isSortable={true}
                     pagination={true}
                     theadClass="table-light"
-                    searchBoxClass="mt-2 mb-3"
+                    searchBoxClass="mt-0 mb-1"
                     isSearchable={true}
                     nametable={props.accion}
               />) : <PermisoAlert />}
             </Card.Body>
-          </Card>
         </Col>
       </Row>
       <Row>
         <Col sm={12}>
           <Card>
-            <Card.Body>
+         
               {/* Sign up Modal */}
               <Modal show={signUpModalAdd} size={'sm'} onHide={setSignUpModalAdd}>
                 <Modal.Body>
@@ -153,7 +152,7 @@ const MenuPrincipal = (props) => {
                   />
                 </Modal.Body>
               </Modal>
-            </Card.Body>
+          
           </Card>
         </Col>
       </Row>
