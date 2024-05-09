@@ -65,12 +65,13 @@ const ActionColumn = ({ row }) => {
 };
 const Usuarios = (props) => {
   const permisos = props?.permisos || {};
+  const {itemsAdminUsuarios,query} = useAdminUsuarios()
   const {
     validated,
     signUpModalAdd, setSignUpModalAdd,
     sizePerPageList,
   } = useContext(DashboardContext);
-  const {itemsAdminUsuarios,query} = useAdminUsuarios()
+
   const datos = itemsAdminUsuarios?.data?.auteurs || [];
   const roles = itemsAdminUsuarios?.data?.roles || [];
 

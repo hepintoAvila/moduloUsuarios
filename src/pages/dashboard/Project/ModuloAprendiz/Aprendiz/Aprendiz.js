@@ -254,7 +254,7 @@ const Aprendiz = (props) => {
                 </Col>
                 <Col sm={8}>
                   <div className="text-sm-end">
-                    <Button className="btn btn-dataTable mb-2 me-1" onClick={toggleSignUp}>
+                    <Button className="btn btn-success mb-2 me-1" onClick={toggleSignUp}>
                       <i className="mdi mdi-account-plus" > Agregar Aprendiz</i>
                     </Button>
                   </div>

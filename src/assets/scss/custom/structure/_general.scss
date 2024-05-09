@@ -226,6 +226,33 @@ body {
   margin-top: 1em;
   margin-right: 10em;
 }
+
+
+
+
+.spinner-border {
+  --bs-text-opacity: 1;
+  color: rgba(94, 179, 25, var(--bs-text-opacity)) !important; /* Color personalizado */
+  --bs-spinner-width: 2rem;
+  --bs-spinner-height: 2rem;
+  --bs-spinner-vertical-align: -0.125em;
+  --bs-spinner-border-width: 0.25em;
+  --bs-spinner-animation-speed: 0.75s;
+  --bs-spinner-animation-name: spinner-border;
+  border-right-color: currentcolor;
+  border: var(--bs-spinner-border-width) solid;
+  border-right: var(--bs-spinner-border-width) solid #0000;
+}
+
+.spinner-border, .spinner-grow {
+  animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
+  border-radius: 50%;
+  display: inline-block;
+  height: var(--bs-spinner-height);
+  vertical-align: var(--bs-spinner-vertical-align);
+  width: var(--bs-spinner-width);
+}
+
 .flexRowContent--header___grid__nivel_2 {
   position: relative !important;
   display: grid;

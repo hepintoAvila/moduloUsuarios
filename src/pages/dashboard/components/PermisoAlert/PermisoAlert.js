@@ -7,11 +7,11 @@ const Spinners = () => {
   return (
       <Card>
           <Card.Body>
-              <div className="row">
+              <div className="row" style={{ maxHeight: '200px', marginLeft: '800px' }}>
                   {sizes.map((size, index) => {
                       return (
                           <div key={index} className="col-lg-6">
-                              <Spinner className="text-primary m-2" color="primary" size={size} />
+                              <Spinner  className="spinner-border"   size={size}  />
                           </div>
                       );
                   })}
@@ -24,7 +24,8 @@ const Spinners = () => {
 const PermisoAlert =(props) => {
   return (
   <Suspense fallback={loading()}><Spinners />
-    <Alert variant="danger" className="my-2">
+    <Alert  style={{ background: '#5eb319' }} variant="success" className="my-2">
+    
       <h3>{props.menssage}</h3>
     </Alert>
     </Suspense> )

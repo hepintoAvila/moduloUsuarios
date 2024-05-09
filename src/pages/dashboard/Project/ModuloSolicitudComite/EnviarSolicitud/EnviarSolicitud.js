@@ -61,7 +61,7 @@ const EnviarSolicitud = (props) => {
 
         //
       };
-
+console.log('allApredizDatos',allApredizDatos);
     return (
         <React.Fragment>
             <Row>

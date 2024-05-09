@@ -19,6 +19,7 @@ const FormSanciones = (props) => {
 
     let userInfo = sessionStorage.getItem('hyper_user');
     const user = JSON.parse(userInfo);
+    console.log(itemsAprendiz);
     return (
 
         <React.Fragment>

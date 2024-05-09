@@ -14,7 +14,7 @@ const FormUpdate = (props) => {
         title={props.title}
         validated={props.validated}
         opcion={'update'}
-        textBtn={'Actualizar permisos del Usuario'}
+        textBtn={''}
         ItemsUpdate={[itemsUpdate]}
         Idpermiso={itemsUpdate?.items?.Idpermiso}
       />

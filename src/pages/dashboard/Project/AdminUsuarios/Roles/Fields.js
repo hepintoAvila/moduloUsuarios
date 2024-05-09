@@ -166,7 +166,7 @@ const Register = (props): React$Element<React$FragmentType> => {
             <Col sm={4}>
               <Form.Group className="mb-3 mb-3 mb-3 ">
                 <Button variant="primary" type="submit" disabled={loading}>
-                  {t(props?.textBtn)}
+                    Actualizar Roles
                 </Button>
               </Form.Group>
             </Col>

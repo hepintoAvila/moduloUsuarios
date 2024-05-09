@@ -22,30 +22,22 @@ const ActionColumn = ({ row }) => {
   const {
     eliminar,
     validated,
-    //toggle,
     setOpen,
     setItemsUpdate,
     open, tipo
   } = useContext(DashboardContext);
-
-
-   const toggleSignUp = (id,titulo) => {
-
-
+   const toggleSignUp = (id) => {
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
-
     if (localPermiso?.update === 'S') {
 
       if(row.cells[0].row.values.id===id)
-      console.log(id,titulo,row.cells[0].row.values.id)
       setItemsUpdate(row?.cells[0]?.row?.values)
       setOpen(!open);
-      //toggle()
+
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
-
   };
 
   let permiso = sessionStorage.getItem('PERMISO');
@@ -62,10 +54,7 @@ const ActionColumn = ({ row }) => {
   return (
     <React.Fragment>
       <BtnSeccionAction obj={obj}>
-      <FormUpdate
-          title={`FORMULARIO PARA LA EDICION DE ${tipo?.toUpperCase()}`}
-          validated={validated}
-        />
+
         </BtnSeccionAction>
     </React.Fragment>
   );
@@ -76,9 +65,9 @@ const Roles = (props) => {
   const {itemsRoles,query} = useAdminUsuarios()
   const {
     sizePerPageList,
-    setSignUpModalAdd,
-    signUpModalAdd,
-    validated,
+    setOpen,
+    open,
+
   } = useContext(DashboardContext);
   const datos = itemsRoles?.dataRoles?.roles|| [{}];
   const columns = [
@@ -98,7 +87,7 @@ const Roles = (props) => {
       sort: true,
     }
     , {
-      Header: 'Rol',
+      Header: 'rol',
       accessor: 'rol',
       sort: false,
     }, {
@@ -119,7 +108,7 @@ const Roles = (props) => {
       sort: false,
     },
     {
-      Header: 'Acciones',
+      Header: 'Action',
       accessor: 'action',
       sort: false,
       classes: 'table-action',
@@ -130,7 +119,7 @@ const Roles = (props) => {
   useEffect(() => {
     query('AdminRoles', 'Roles', [{ opcion: encodeBasicUrl('consultar'), obj: 'Roles' }]);
   }, [query])
-
+console.log('open',open);
   return (
     <>
 
@@ -138,7 +127,9 @@ const Roles = (props) => {
         <Col>
           <Card>
             <Card.Body>
-              {datos?.length > 0 && permisos?.query === 'S' ? (<Table
+              {datos?.length > 0 && permisos?.query === 'S' ? (
+
+              <Table
                     columns={columns}
                     data={datos}
                     pageSize={5}
@@ -146,7 +137,7 @@ const Roles = (props) => {
                     isSortable={true}
                     pagination={true}
                     theadClass="table-light"
-                    searchBoxClass="mt-0 mb-1"
+                    searchBoxClass="mt-2 mb-3"
                     isSearchable={true}
                     nametable={props.accion}
               />) : <PermisoAlert />}
@@ -157,18 +148,20 @@ const Roles = (props) => {
       <Row>
         <Col sm={12}>
           <Card>
+            <Card.Body>
               {/* Sign up Modal */}
-              <Modal show={signUpModalAdd} size={'sm'} onHide={setSignUpModalAdd}>
+              <Modal show={open} size={'lg'} onHide={setOpen}>
                 <Modal.Body>
                 <Modal.Header closeButton>
-                    <h4 className="modal-description">GESTIONAR USUARIOS</h4>
+                    <h4 className="modal-description">GESTIONAR ROLES</h4>
                   </Modal.Header>
-                  <FormAdd
-                    title={`GESTIONAR USUARIOS`}
-                    validated={validated}
-                  />
+                  <FormUpdate
+                      title={`FORMULARIO PARA LA EDICION PERMISOS `}
+
+                    />
                 </Modal.Body>
               </Modal>
+            </Card.Body>
           </Card>
         </Col>
       </Row>

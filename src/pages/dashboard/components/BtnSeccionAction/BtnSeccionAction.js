@@ -15,10 +15,6 @@ const BtnSeccionAction = (props,children) => {
 
   return (
     <React.Fragment>
-      <Modal show={props?.obj?.open} onHide={props?.obj?.toggleSignUp}>
-        <Modal.Body>{children ? props?.children : null}
-        </Modal.Body>
-      </Modal>
       <Row>
         <Pagination className="pagination-rounded mx-auto" size="sm">
           <Pagination.Item>

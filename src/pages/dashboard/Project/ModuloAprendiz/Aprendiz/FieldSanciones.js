@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-import { ValidadorContext } from '../../../../../layouts/context/ValidadorContext';
+//import { ValidadorContext } from '../../../../../layouts/context/ValidadorContext';
 
 import Swal from 'sweetalert2';
 const FieldsSanciones = (props): React$Element<React$FragmentType> => {
@@ -72,9 +72,9 @@ const FieldsSanciones = (props): React$Element<React$FragmentType> => {
   );
 
 
-    let validador = localStorage.getItem('VALIDADOR');
+   // let validador = localStorage.getItem('VALIDADOR');
     
-    console.log('validador',validador);
+    //console.log('validador',validador);
     return (
         <>
 

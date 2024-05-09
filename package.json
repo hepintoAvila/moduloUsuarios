@@ -111,7 +111,8 @@
     "@types/crypto-js": "^4.1.1",
     "flow-bin": "^0.153.0",
     "prettier": "2.3.1",
-    "redux-saga-test-plan": "^4.0.1"
+    "redux-saga-test-plan": "^4.0.1",
+    "sass": "^1.77.0"
   },
   "volta": {
     "node": "14.21.3"
