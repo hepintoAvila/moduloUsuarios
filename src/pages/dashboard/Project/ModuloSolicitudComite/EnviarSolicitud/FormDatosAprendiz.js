@@ -121,7 +121,7 @@ const FormDatosAprendiz = (props) => {
                                                 value={`${props?.datosAprendiz?.Academica}`}
                                                 placeholder={`${props?.datosAprendiz?.Academica}`}
                                                 min={`${props?.datosAprendiz?.Academica}`}
-                                                max="100"
+                                                max="1"
                                                 type="number"
                                                 containerClass="mb-3 font-weight-bold me-3"
                                                 className="inputAprendiz"
@@ -148,7 +148,7 @@ const FormDatosAprendiz = (props) => {
                                             value={`${props?.datosAprendiz?.Disciplinaria}`}
                                             placeholder={props?.datosAprendiz?.Disciplinaria}
                                             min={`${props?.datosAprendiz?.Disciplinaria}`}
-                                            max="100"
+                                            max="1"
                                             type="number"
                                             inputmode="numeric"
                                             containerClass="mb-3 font-weight-bold me-3"
@@ -173,7 +173,7 @@ const FormDatosAprendiz = (props) => {
                                             name="faltaInasistencias"
                                             value={`${props?.datosAprendiz?.Inasistencias}`}
                                             min={`${props?.datosAprendiz?.Inasistencias}`}
-                                            max="100"
+                                            max="1"
                                             type="number"
                                             containerClass="mb-3 font-weight-bold me-3"
                                             className="inputAprendiz"
@@ -205,7 +205,7 @@ const FormDatosAprendiz = (props) => {
                                             key="faltaVerbal"
                                             placeholder={props?.datosAprendiz?.Verbal}
                                             min={`${props?.datosAprendiz?.Verbal}`}
-                                            max="100"
+                                            max="1"
                                             onChange={(e) =>
                                                 setFallas([
                                                     {
@@ -233,7 +233,7 @@ const FormDatosAprendiz = (props) => {
                                             key="faltaEscrito"
                                             placeholder={`${props?.datosAprendiz?.Escrito}`}
                                             min={`${props?.datosAprendiz?.Escrito}`}
-                                            max="100"
+                                            max="1"
                                             onChange={(e) =>
                                                 setFallas([
                                                     {

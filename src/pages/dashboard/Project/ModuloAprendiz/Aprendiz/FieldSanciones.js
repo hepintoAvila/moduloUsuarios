@@ -12,7 +12,7 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 
 import Swal from 'sweetalert2';
 const FieldsSanciones = (props): React$Element<React$FragmentType> => {
-    const { getData } = useContext(NotificacionesContext);
+    const { getData ,query} = useContext(NotificacionesContext);
 
     const { setSignUpModalAdd } = useContext(DashboardContext);
       const {objAprendiz}= props;
@@ -53,8 +53,8 @@ const FieldsSanciones = (props): React$Element<React$FragmentType> => {
             : '';
 
         setTimeout(function () {
-            //getData(queryDatos);
-          //query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+            getData(queryDatos);
+          query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
         }, 2000);
         setSignUpModalAdd(true);
         return (window.location.hash = '#/dashboard/ModuloAprendiz/Aprendiz');
@@ -73,7 +73,7 @@ const FieldsSanciones = (props): React$Element<React$FragmentType> => {
 
 
    // let validador = localStorage.getItem('VALIDADOR');
-    
+
     //console.log('validador',validador);
     return (
         <>

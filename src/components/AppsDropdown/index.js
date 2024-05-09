@@ -29,11 +29,7 @@ const Apps = [
 ];
 const AyudaCallBack = (opcion) => {
 
-  console.log('funciona',opcion);
-  /*
-  setIsopen((prevState) => !prevState);
-  if (openLeftMenuCallBack) openLeftMenuCallBack();
- */
+
 };
 
 
