@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 // @flow
 import React, { useEffect, useState } from 'react';
 //import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
@@ -23,6 +24,7 @@ const ViewPdf = (props) => {
 
 
   useEffect(() => {
+    // eslint-disable-next-line no-lone-blocks
     {(() => {
       switch (props?.titulo) {
         case 'EVIDENCIAS':
@@ -37,7 +39,7 @@ const ViewPdf = (props) => {
       }
     })()
     }
-  }, [props?.codigoFicha]);
+  }, [props]);
 
   useEffect(() => {
   fetch(url)

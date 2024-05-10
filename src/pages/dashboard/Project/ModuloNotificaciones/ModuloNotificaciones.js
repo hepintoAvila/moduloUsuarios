@@ -17,7 +17,7 @@ const ModuloNotificaciones = (props) => {
   const { permisos } = usePermisos(tipo);
   useEffect(() => {
         query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('AgendarCitas'), obj: 'agendarCitas',tipo:encodeBasicUrl('queryCitas')}]);
-}, []);
+}, [query]);
 
 
   return (

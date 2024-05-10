@@ -1,11 +1,6 @@
 import React, {  useContext } from 'react';
 import FieldSanciones from './FieldSanciones';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-import { FormInput } from '../../../../../components';
-
-/* custon FormAdd */
-
-
 const FormAddSanciones = (props) => {
 
   const { itemUrl, tipo } = useContext(DashboardContext);

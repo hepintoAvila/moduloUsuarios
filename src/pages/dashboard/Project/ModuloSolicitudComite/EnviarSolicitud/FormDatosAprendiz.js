@@ -1,13 +1,10 @@
 // @flow
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 // components
 import { Row, Col } from 'react-bootstrap';
 import profileImg from '../../../../../assets/images/users/avatar-3.jpg';
 import FormInput from '../../../components/FormInput';
-import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
-
-import { useAprendiz } from '../../../../../hooks/useAprendiz';
 
 const FormDatosAprendiz = (props) => {
     const { setNombrePrograma, nombrePrograma, nombreProgramaError, setError, validateError, fallas, setFallas } =

@@ -1,4 +1,4 @@
-import { Modal, Pagination, Row } from "react-bootstrap";
+import {Pagination, Row } from "react-bootstrap";
 
 import React from "react";
 import BtnLink from "../BtnLink";

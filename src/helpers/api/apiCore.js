@@ -71,20 +71,19 @@ const get = async (url, authOptions) => {
 
 class APICore {
 
-  generateToken = (user, tokenSecret, tokenMaxAge) => {
-    var jwt = require('jsonwebtoken');
-    let token = '';
+   generateToken = (userId, tokenSecret, tokenMaxAge) => {
+    const jwt = require('jsonwebtoken');
+    const expirationTime = Math.floor(Date.now() / 1000) + tokenMaxAge; // Calculating expiration time
+    const payload = { id: userId, exp: expirationTime };
 
-    var u = {
-      id: user.id,
-      exp: Math.floor((Date.now() + tokenMaxAge) / 1000),
-    };
-
-    token = jwt.sign(u, tokenSecret, {
-      expiresIn: 60 * 60 * 24, // expires in 24 hours
-    });
-    return token;
-  }
+    try {
+      const token = jwt.sign(payload, tokenSecret, { expiresIn: tokenMaxAge });
+      return token;
+    } catch (error) {
+      console.error('Error generating token:', error);
+      return null;
+    }
+  };
   getApiKey = () => {
     let userInfo = sessionStorage.getItem('hyper_user');
     const params = {

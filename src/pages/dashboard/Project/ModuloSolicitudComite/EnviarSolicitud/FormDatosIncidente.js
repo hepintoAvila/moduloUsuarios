@@ -13,7 +13,6 @@ import FileUploader from '../../../../../components/FileUploader';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
-import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 
 
@@ -159,7 +158,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             descripcion:descripcion,
         }]
         setItems(obj)
-    }, [descripcion]);
+    }, [descripcion, items]);
 
     useEffect(() => {
         const objnombrePrograma = [{
@@ -167,7 +166,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             nombrePrograma:nombrePrograma,
         }]
         setItems(objnombrePrograma)
-    }, [nombrePrograma]);
+    }, [items, nombrePrograma]);
 
 
     return (
@@ -284,12 +283,12 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                     </Card>
                 </Row>
                 <br/>
-                <br/>                              
-                <br/>                              
+                <br/>
+                <br/>
 
                 <Row className=" mb-5">
                     <div className="mb-3 mb-4 text-center btnenviarSolicitud" style={{marginLeft: "10px", marginTop: "-60px"}}>
-                        <Button variant="primary" type="submit" disabled={loading}> 
+                        <Button variant="primary" type="submit" disabled={loading}>
                             {t('ENVIAR SOLICITUD')}
                         </Button>
                     </div>

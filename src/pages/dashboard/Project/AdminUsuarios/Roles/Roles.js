@@ -9,9 +9,6 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 import FormUpdate from './FormUpdate';
 import Table from '../../../../../components/Table';
 import Swal from 'sweetalert2';
-
-import FormAdd from './FormAdd';
-
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
@@ -24,7 +21,7 @@ const ActionColumn = ({ row }) => {
     validated,
     setOpen,
     setItemsUpdate,
-    open, tipo
+    open,
   } = useContext(DashboardContext);
    const toggleSignUp = (id) => {
     let permiso = sessionStorage.getItem('PERMISO');

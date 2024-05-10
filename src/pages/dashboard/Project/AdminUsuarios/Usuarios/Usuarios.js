@@ -4,8 +4,6 @@
 // @flow
 import React, { useContext, useEffect} from 'react';
 import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
-import { IntlProvider, FormattedMessage } from "react-intl";
-
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import FormAdd from './FormAdd';
 import FormUpdate from './FormUpdate';

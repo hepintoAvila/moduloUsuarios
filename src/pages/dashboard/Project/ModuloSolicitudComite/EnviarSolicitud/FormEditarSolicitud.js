@@ -2,8 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import classNames from 'classnames';
-import { Button, Row, Col, Card, Collapse } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Row, Col, Card, Collapse } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 // components
@@ -16,19 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
 import FormDatosAprendiz from './FormDatosAprendiz';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
-//import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
-//import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
-/*
-function contarVerdaderos(array) {
-    let contador = 0;
-    for (let i = 0; i <= array.length; i++) {
-        if (array[i] === true) {
-            contador++;
-        }
-    }
-    return contador;
-}
-*/
+
 const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const childrenEvidencias = props.childrenEvidencias || null;
@@ -232,7 +219,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
             },
         ];
         setItems(obj);
-    }, [descripcion]);
+    }, [descripcion, items]);
 
     useEffect(() => {
         const objnombrePrograma = [
@@ -242,7 +229,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
             },
         ];
         setItems(objnombrePrograma);
-    }, [nombrePrograma]);
+    }, [items, nombrePrograma]);
 
     useEffect(() => {
         if (datosAprendiz.length === 1) {

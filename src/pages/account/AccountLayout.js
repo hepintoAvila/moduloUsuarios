@@ -3,12 +3,10 @@ import React, { useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-import Logo from '../../assets/images/logo.png';
-//import headerGovco from '../../assets/images/header_govco.png';
 import logo_comite from '../../assets/images/logo_comite.png';
 import headerSena from '../../assets/images/logo-dark.png';
 import logo_comite_white from '../../assets/images/logo_comite_white.png';
+
 type AccountLayoutProps = {
     bottomLinks?: React$Element<any>,
     children?: any,

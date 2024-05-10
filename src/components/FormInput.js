@@ -73,7 +73,7 @@ const FormInput = ({
 
   // handle input type
   const comp = type === 'textarea' ? 'textarea' : type === 'select' ? 'select' : 'input';
-  const { validateError, setError } = useContext(ValidadorContext);
+  //const { validateError, setError } = useContext(ValidadorContext);
 
   // Effect to update input values in state
   useEffect(() => {
@@ -82,7 +82,7 @@ const FormInput = ({
           [name]: '',
       }));
   }, [name]);
-
+ /*
   useEffect(() => {
       setError({
           ...validateError,
@@ -90,18 +90,20 @@ const FormInput = ({
           value: errors && errors[name] ? true : false,
       });
   }, []);
-
+*/
   // Function to handle input change
   const handleInputChange = (e) => {
+    /*
       const { name, value } = e.target;
       setInputValues((prevInputValues) => ({
           ...prevInputValues,
           [name]: value,
       }));
+      */
   };
 
   //console.log('validateError', JSON.stringify({ ...validateError, name }));
-  console.log('Input values', {...inputValues});
+ console.log('Input values', {...inputValues});
 
   return (
       <>
