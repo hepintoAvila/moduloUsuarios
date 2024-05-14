@@ -10,10 +10,10 @@ const BtnAsignarActas = (props) => {
         <Pagination className="pagination-rounded mx-auto" size="sm">
         <Pagination.Item>
         <BtnActions
-          url={`/dashboard/ModuloNotificaciones/ConsultaNotificaciones?p=${props?.obj?.row}`}
+          url={`/dashboard/AdministradorActas/RegistrarActa?p=${props?.obj?.row}`}
           permisos={'N'}
           key={`VOZ_${props?.obj?.key}`}
-          toggleActions={props?.obj?.toggleModal}
+          toggleActions={props?.obj?.handleOnChange}
           row={props?.obj?.row}
           titulo={'Regitrar actas del Comite'}
           descripcion={`Registrar el concepto de miembro del comité`}
