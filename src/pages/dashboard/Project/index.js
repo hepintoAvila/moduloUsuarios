@@ -14,6 +14,7 @@ import ModuloSolicitudComite from './ModuloSolicitudComite/ModuloSolicitudComite
 import ModuloNotificaciones from './ModuloNotificaciones/ModuloNotificaciones';
 import AdministradorActas from './AdministradorActas/AdministradorActas';
 import ModuloAprendiz from './ModuloAprendiz/ModuloAprendiz';
+import ModuloActas from './ModuloActas/ModuloActas';
 
 const ProjectDashboard = () => {
 
@@ -98,6 +99,15 @@ const ProjectDashboard = () => {
                case 'ModuloAprendiz':
                 return <React.Fragment>
                     <ModuloAprendiz
+                      accion={itemUrl}
+                      tipo={tipo}
+                      permisos={permisos}
+                      handleClick={handleClick}
+                    />
+                </React.Fragment>
+               case 'ModuloActas':
+                return <React.Fragment>
+                    <ModuloActas
                       accion={itemUrl}
                       tipo={tipo}
                       permisos={permisos}

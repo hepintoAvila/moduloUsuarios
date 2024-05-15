@@ -62,7 +62,7 @@ body {
   padding: 20px; /* Agregar relleno interno */
   margin-bottom: -1rem;
   margin-right: 0;
-  margin-left: 0;
+  margin-left: 94px;
   width: 100%; /* Utilizar el ancho completo */
   left: 0;
   right: 0;
@@ -360,8 +360,8 @@ body {
 .grid_contenedor {
   position: relative !important;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
   gap: 1em;
   place-items: center;
   /* Equivale a... */
@@ -371,14 +371,16 @@ body {
   /* Equivale a... */
   justify-content: center;
   align-content: center;
-  width: 100%; height: 180px;
-  padding: 0 10% 4em;
-  margin: 0 auto;
+  width: 100%;
+  height: 180px;
+  padding: 0 0 4em;
+  margin-left: -6em;
 }
 
 .grid_btn1,
 .grid_btn2,
-.grid_btn3
+.grid_btn3,
+.grid_btn4
 {
   position: relative !important;
   display: grid;
@@ -402,6 +404,12 @@ body {
   width: 4em !important;
   margin-right: 13em;
 }
+.grid_btn4{
+  padding: 1px;
+  width: 4em !important;
+  margin-right: 10em;
+  margin-left: -2em;
+}
 .btn-primary {
   color: #fff;
   background-color: #afd1a4;
@@ -421,7 +429,7 @@ body {
   font-size: 0.9em;
 }
 .logo_comite_inicio{
-  margin-left: 18em;
+  margin-left: 20.5em;
 }
 .cardAprendiz{
   background-color: #74c95863 !important;

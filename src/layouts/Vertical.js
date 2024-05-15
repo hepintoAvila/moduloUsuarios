@@ -95,7 +95,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
         <MenuProvider>
           <PermisosProvider>
             <SearchProvider>
-            <ValidadorProvider>
+
             <NotificacionesProvider>
             <div className="wrapper">
 
@@ -112,9 +112,9 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
                   <Suspense fallback={loading()}>
                     <Container fluid>
                       <Suspense fallback={loading()}>
-
+                      <ValidadorProvider>
                         <ProjectDashboard />
-
+                        </ValidadorProvider>
                       </Suspense>
                     </Container>
                   </Suspense>
@@ -131,7 +131,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
               </RightSidebar>
             </Suspense>
             </NotificacionesProvider>
-            </ValidadorProvider>
+
             </SearchProvider>
           </PermisosProvider>
         </MenuProvider>
