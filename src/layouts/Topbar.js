@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { getItemStorage } from '../pages/dashboard/components/itemStorage';
 // actions
 import { showRightSidebar } from '../redux/actions';
-
+import AppsDropdown from '../components/AppsDropdown/';
 // components
 import ProfileDropdown from '../components/ProfileDropdown';
 import profilePic from '../assets/images/users/avatar-1.jpg';
@@ -109,6 +109,11 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                                 onClick={handleRightSideBar}>
                                 <i className="dripicons-gear noti-icon"></i>
                             </button>
+                        </li>
+
+                        <li className="dropdown notification-list d-none d-sm-inline-block">
+                        <AppsDropdown />
+
                         </li>
                         <li className="dropdown notification-list">
                             <ProfileDropdown

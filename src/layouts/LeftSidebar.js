@@ -12,8 +12,8 @@ import AppMenu from './Menu';
 
 import logoSm from '../assets/images/logo_sm.png';
 import logoDark from '../assets/images/logo-dark.png';
-import logoDarkSm from '../assets/images/logo_sm_dark.png';
-import logo from '../assets/images/logo.png';
+import logoDarkSm from '../assets/images/logo_comite_white.png'
+import logo from '../assets/images/logo_comite_white.png';
 import profileImg from '../assets/images/users/avatar-1.jpg';
 
 
@@ -75,7 +75,7 @@ const LeftSidebar = ({ isCondensed, isLight, hideLogo, hideUserProfile}: LeftSid
             document.removeEventListener('mousedown', handleOtherClick, false);
         };
     }, []);
- 
+
 
     return (
         <React.Fragment>
@@ -104,12 +104,7 @@ const LeftSidebar = ({ isCondensed, isLight, hideLogo, hideUserProfile}: LeftSid
 
                 {!isCondensed && (
                     <SimpleBar style={{ maxHeight: '100%' }} timeout={500} scrollbarMaxSize={320}>
-                        <SideBarContent
-                            menuClickHandler={() => {}}
-                            isLight={isLight}
-                            hideUserProfile={hideUserProfile}
-                        />
-                    </SimpleBar>
+                   </SimpleBar>
                 )}
                 {isCondensed && <SideBarContent isLight={isLight} hideUserProfile={hideUserProfile} />}
             </div>

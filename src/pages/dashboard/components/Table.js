@@ -25,14 +25,14 @@ const GlobalFilter = ({ preGlobalFilteredRows, globalFilter, setGlobalFilter, se
     return (
         <div className={classNames(searchBoxClass)}>
             <span className="d-flex align-items-center">
-                Search :{' '}
+                Buscar :{' '}
                 <input
                     value={value || ''}
                     onChange={(e) => {
                         setValue(e.target.value);
                         onChange(e.target.value);
                     }}
-                    placeholder={`${count} records...`}
+                    placeholder={`${count} Registros...`}
                     className="form-control w-auto ms-1"
                 />
             </span>
@@ -83,9 +83,9 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
     const isSelectable = props['isSelectable'] || false;
     const isExpandable = props['isExpandable'] || false;
     const titulo = props['titulo'] || '';
-    const icons = props['icons'] || '';  
+    const icons = props['icons'] || '';
 
-    
+
     const dataTable = useTable(
         {
             columns: props['columns'],
@@ -165,9 +165,9 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
                     searchBoxClass={props['searchBoxClass']}
                 />
             )}
-            
-              <div className="col-12 p-2 bg-dataTable text-white"><i className={icons}>  {titulo}</i></div>       
-         
+
+              <div className="col-12 p-2 bg-dataTable text-white"><i className={icons}>  {titulo}</i></div>
+
             <div className="table-responsive">
                 <table
                     {...dataTable.getTableProps()}

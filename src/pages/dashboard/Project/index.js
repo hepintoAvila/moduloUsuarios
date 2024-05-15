@@ -13,6 +13,8 @@ import GestionMenu from './GestionMenu/GestionMenu';
 import ModuloSolicitudComite from './ModuloSolicitudComite/ModuloSolicitudComite';
 import ModuloNotificaciones from './ModuloNotificaciones/ModuloNotificaciones';
 import AdministradorActas from './AdministradorActas/AdministradorActas';
+import ModuloAprendiz from './ModuloAprendiz/ModuloAprendiz';
+import ModuloActas from './ModuloActas/ModuloActas';
 
 const ProjectDashboard = () => {
 
@@ -27,26 +29,23 @@ const ProjectDashboard = () => {
       setitemsUrl(url);
         return window.location.hash = `dashboard/${url}/${url}`
       }else{
-        const menuitems = window.location.hash.split('#/')[1]; 
+        const menuitems = window.location.hash.split('#/')[1];
         const [seccion] = menuitems?.split('/');
-        
-        const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
-        sessionStorage.setItem('ITEM_SELECT', JSON.stringify({ 
-          tipo: obj.principal, 
-          menu: obj.seccion}));
-        const urls = seccion.length===0 ? `dashboard/${url}`:'/'+seccion+'/'+url
 
+        const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
+        sessionStorage.setItem('ITEM_SELECT', JSON.stringify({
+          tipo: obj.principal,
+          menu: obj.seccion}));
         const urltemp = obj.seccion?.split('/');
         setitemsMenuPrincipal(urltemp[1]);
         setitemsUrl(urltemp[0]);
+        const urls = `dashboard/${url}`;
           return window.location.hash = urls;
       }
 
     }
-   
-
   };
- 
+
   return (
     <React.Fragment>
       <Title />
@@ -77,8 +76,8 @@ const ProjectDashboard = () => {
                   tipo={tipo}
                   permisos={permisos}
                   handleClick={handleClick}
-                />  
-            </React.Fragment>    
+                />
+            </React.Fragment>
            case 'ModuloNotificaciones':
             return <React.Fragment>
                 <ModuloNotificaciones
@@ -86,8 +85,8 @@ const ProjectDashboard = () => {
                   tipo={tipo}
                   permisos={permisos}
                   handleClick={handleClick}
-                />  
-            </React.Fragment> 
+                />
+            </React.Fragment>
             case 'AdministradorActas':
               return <React.Fragment>
                   <AdministradorActas
@@ -95,8 +94,26 @@ const ProjectDashboard = () => {
                     tipo={tipo}
                     permisos={permisos}
                     handleClick={handleClick}
-                  />  
-              </React.Fragment>            
+                  />
+              </React.Fragment>
+               case 'ModuloAprendiz':
+                return <React.Fragment>
+                    <ModuloAprendiz
+                      accion={itemUrl}
+                      tipo={tipo}
+                      permisos={permisos}
+                      handleClick={handleClick}
+                    />
+                </React.Fragment>
+               case 'ModuloActas':
+                return <React.Fragment>
+                    <ModuloActas
+                      accion={itemUrl}
+                      tipo={tipo}
+                      permisos={permisos}
+                      handleClick={handleClick}
+                    />
+                </React.Fragment>
           default:
             return (
               <React.Fragment>

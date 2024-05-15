@@ -3,7 +3,6 @@ import axios from 'axios';
 import encodeBasic from '../../utils/encodeBasic';
 import { environments } from '../../environments/environments';
 import config from '../../config';
-
 // content type
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.baseURL = config.API_URL;
@@ -72,20 +71,19 @@ const get = async (url, authOptions) => {
 
 class APICore {
 
-  generateToken = (user, tokenSecret, tokenMaxAge) => {
-    var jwt = require('jsonwebtoken');
-    let token = '';
+   generateToken = (userId, tokenSecret, tokenMaxAge) => {
+    const jwt = require('jsonwebtoken');
+    const expirationTime = Math.floor(Date.now() / 1000) + tokenMaxAge; // Calculating expiration time
+    const payload = { id: userId, exp: expirationTime };
 
-    var u = {
-      id: user.id,
-      exp: Math.floor((Date.now() + tokenMaxAge) / 1000),
-    };
-
-    token = jwt.sign(u, tokenSecret, {
-      expiresIn: 60 * 60 * 24, // expires in 24 hours
-    });
-    return token;
-  }
+    try {
+      const token = jwt.sign(payload, tokenSecret, { expiresIn: tokenMaxAge });
+      return token;
+    } catch (error) {
+      console.error('Error generating token:', error);
+      return null;
+    }
+  };
   getApiKey = () => {
     let userInfo = sessionStorage.getItem('hyper_user');
     const params = {
@@ -100,14 +98,14 @@ class APICore {
   sendFile = (url, data) => {
     const sendRequest = async () => {
       try {
-        const auth_token = encodeBasic(`${environments.loginAPI}:${environments.passwordAPI}`);
+
         const config = {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
               ...axios.defaults.headers,
               'enctype': 'multipart/form-data',
-              Authorization: `Basic ${auth_token}`,
+              Authorization: `Basic ${encodeBasic(environments.loginAPI, environments.passwordAPI)}`,
           },
       };
       const response = await fetch(`${environments.baseURL}${url}`, config);
@@ -153,7 +151,7 @@ class APICore {
     const user = JSON.parse(userInfo);
     if(user){
     const authOptions = {
-      url: `${environments.baseURL}${url}&Apikey=${encodeBasic(user[0]?.Apikey)}&ApiToken=${encodeBasic(user[0]?.ApiToken)}`,
+      url: `${environments.baseURL}${url}`,
       method: 'GET',
       headers: {
         ...axios.defaults.headers,

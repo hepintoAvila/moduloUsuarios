@@ -28,14 +28,14 @@ const GlobalFilter = ({ preGlobalFilteredRows, globalFilter, setGlobalFilter, se
     return (
         <div className={classNames(searchBoxClass)}>
             <span className="d-flex align-items-center">
-                Search :{' '}
+                Buscar :{' '}
                 <input
                     value={value || ''}
                     onChange={(e) => {
                         setValue(e.target.value);
                         onChange(e.target.value);
                     }}
-                    placeholder={`${count} records...`}
+                    placeholder={`${count} Registro...`}
                     className="form-control w-auto ms-1"
                 />
             </span>
@@ -187,7 +187,7 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
                 <Button className="btn btn-dataTable mb-0 me-5 p-2" onClick={toggleSignUp}>
                           <i className="mdi mdi-tray-plus">{titulo}</i>
                         </Button>
-                        </div>       
+                        </div>
                 </>)}
             </div>
 

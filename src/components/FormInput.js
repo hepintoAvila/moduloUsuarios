@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 
@@ -55,113 +55,149 @@ type FormInputProps = {
 };
 
 const FormInput = ({
-    label,
-    type,
-    name,
-    placeholder,
-    register,
-    errors,
-    className,
-    labelClassName,
-    containerClass,
-    refCallback,
-    children,
-    ...otherProps
+  label,
+  type,
+  name,
+  placeholder,
+  register,
+  errors,
+  className,
+  labelClassName,
+  containerClass,
+  refCallback,
+  children,
+  ...otherProps
 }: FormInputProps): React$Element<React$FragmentType> => {
-    // handle input type
-    const comp = type === 'textarea' ? 'textarea' : type === 'select' ? 'select' : 'input';
+  const [inputValues, setInputValues] = useState({});
 
-    return (
-        <>
-            {type === 'hidden' ? (
-                <input type={type} name={name} {...(register ? register(name) : {})} {...otherProps} />
-            ) : (
-                <>
-                    {type === 'password' ? (
-                        <>
-                            <Form.Group className={containerClass}>
-                                {label ? (
-                                    <>
-                                        {' '}
-                                        <Form.Label className={labelClassName}>{label}</Form.Label> {children}{' '}
-                                    </>
-                                ) : null}
-                                <PasswordInput
-                                    name={name}
-                                    placeholder={placeholder}
-                                    refCallback={refCallback}
-                                    errors={errors}
-                                    register={register}
-                                    className={className}
-                                />
+  // handle input type
+  const comp = type === 'textarea' ? 'textarea' : type === 'select' ? 'select' : 'input';
+  //const { validateError, setError } = useContext(ValidadorContext);
 
-                                {errors && errors[name] ? (
-                                    <Form.Control.Feedback type="invalid" className="d-block">
-                                        {errors[name]['message']}
-                                    </Form.Control.Feedback>
-                                ) : null}
-                            </Form.Group>
-                        </>
-                    ) : (
-                        <>
-                            {type === 'checkbox' || type === 'radio' ? (
-                                <>
-                                    <Form.Group className={containerClass}>
-                                        <Form.Check
-                                            type={type}
-                                            label={label}
-                                            name={name}
-                                            id={name}
-                                            ref={(r) => {
-                                                if (refCallback) refCallback(r);
-                                            }}
-                                            className={className}
-                                            isInvalid={errors && errors[name] ? true : false}
-                                            {...(register ? register(name) : {})}
-                                            {...otherProps}
-                                        />
+  // Effect to update input values in state
+  useEffect(() => {
+      setInputValues((prevInputValues) => ({
+          ...prevInputValues,
+          [name]: '',
+      }));
+  }, [name]);
+ /*
+  useEffect(() => {
+      setError({
+          ...validateError,
+          name: name,
+          value: errors && errors[name] ? true : false,
+      });
+  }, []);
+*/
+  // Function to handle input change
+  const handleInputChange = (e) => {
+    /*
+      const { name, value } = e.target;
+      setInputValues((prevInputValues) => ({
+          ...prevInputValues,
+          [name]: value,
+      }));
+      */
+  };
 
-                                        {errors && errors[name] ? (
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors[name]['message']}
-                                            </Form.Control.Feedback>
-                                        ) : null}
-                                    </Form.Group>
-                                </>
-                            ) : (
-                                <Form.Group className={containerClass}>
-                                    {label ? <Form.Label className={labelClassName}>{label}</Form.Label> : null}
+  //console.log('validateError', JSON.stringify({ ...validateError, name }));
+ console.log('Input values', {...inputValues});
 
-                                    <Form.Control
-                                        type={type}
-                                        placeholder={placeholder}
-                                        name={name}
-                                        id={name}
-                                        as={comp}
-                                        ref={(r) => {
-                                            if (refCallback) refCallback(r);
-                                        }}
-                                        className={className}
-                                        isInvalid={errors && errors[name] ? true : false}
-                                        {...(register ? register(name) : {})}
-                                        {...otherProps}
-                                        autoComplete={name}>
-                                        {children ? children : null}
-                                    </Form.Control>
+  return (
+      <>
+          {type === 'hidden' ? (
+              <input type={type} name={name} {...(register ? register(name) : {})} {...otherProps} />
+          ) : (
+              <>
+                  {type === 'password' ? (
+                      <>
+                          <Form.Group className={containerClass}>
+                              {label ? (
+                                  <>
+                                      {' '}
+                                      <Form.Label className={labelClassName}>{label}</Form.Label> {children}{' '}
+                                  </>
+                              ) : null}
+                              <PasswordInput
+                                  name={name}
+                                  placeholder={placeholder}
+                                  refCallback={refCallback}
+                                  errors={errors}
+                                  register={register}
+                                  className={className}
+                                  onChange={handleInputChange}
+                              />
 
-                                    {errors && errors[name] ? (
-                                        <Form.Control.Feedback type="invalid">
-                                            {errors[name]['message']}
-                                        </Form.Control.Feedback>
-                                    ) : null}
-                                </Form.Group>
-                            )}
-                        </>
-                    )}
-                </>
-            )}
-        </>
-    );
+                              {errors && errors[name] ? (
+                                  <Form.Control.Feedback type="invalid" className="d-block">
+                                      {errors[name]['message']}
+                                  </Form.Control.Feedback>
+                              ) : null}
+                          </Form.Group>
+                      </>
+                  ) : (
+                      <>
+                          {type === 'checkbox' || type === 'radio' ? (
+                              <>
+                                  <Form.Group className={containerClass}>
+                                      <Form.Check
+                                          type={type}
+                                          label={label}
+                                          name={name}
+                                          id={name}
+                                          ref={(r) => {
+                                              if (refCallback) refCallback(r);
+                                          }}
+                                          className={className}
+                                          isInvalid={errors && errors[name] ? true : false}
+                                          onChange={handleInputChange}
+                                          {...(register ? register(name) : {})}
+                                          {...otherProps}
+                                      />
+
+                                      {errors && errors[name] ? (
+                                          <Form.Control.Feedback type="invalid">
+                                              {errors[name]['message']}
+                                          </Form.Control.Feedback>
+                                      ) : null}
+                                  </Form.Group>
+                              </>
+                          ) : (
+                              <Form.Group className={containerClass}>
+                                  {label ? <Form.Label className={labelClassName}>{label}</Form.Label> : null}
+
+                                  <Form.Control
+                                      type={type}
+                                      placeholder={placeholder}
+                                      name={name}
+                                      id={name}
+                                      as={comp}
+                                      ref={(r) => {
+                                          if (refCallback) refCallback(r);
+                                      }}
+                                      className={className}
+                                      isInvalid={errors && errors[name] ? true : false}
+                                      onChange={handleInputChange}
+                                      {...(register ? register(name) : {})}
+                                      {...otherProps}
+                                      autoComplete={name}>
+                                      {children ? children : null}
+                                  </Form.Control>
+
+                                  {errors && errors[name] ? (
+                                      <Form.Control.Feedback type="invalid">
+                                          {errors[name]['message']}
+                                      </Form.Control.Feedback>
+                                  ) : null}
+                              </Form.Group>
+                          )}
+                      </>
+                  )}
+              </>
+          )}
+      </>
+  );
 };
 
 export default FormInput;

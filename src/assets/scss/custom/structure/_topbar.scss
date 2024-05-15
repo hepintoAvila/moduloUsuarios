@@ -1,4 +1,4 @@
-// 
+//
 // topbar.scss
 //
 
@@ -32,7 +32,7 @@
     .topbar-menu {
         position: relative;
         z-index: 1;
-        
+
         li {
             float: left;
             max-height: $topbar-height;
@@ -86,7 +86,7 @@
     .react-select__value-container {
         padding: 5px;
     }
-    .react-select__menu { 
+    .react-select__menu {
         margin-top: 0;
     }
     span.search-icon {
@@ -121,6 +121,7 @@
         z-index: 4;
     }
 }
+
 
 /* Notification */
 .notification-list {
@@ -182,7 +183,7 @@
                 font-size: 13px;
             }
         }
-        
+
         .user-msg {
             margin-left: 45px;
             white-space: normal;
@@ -194,6 +195,7 @@
             padding: 7px 20px;
         }
     }
+
 }
 
 .profile-dropdown {
@@ -261,7 +263,7 @@
     .navbar-custom {
         padding-left: 0;
     }
-    
+
     .button-menu-mobile {
         margin: 0;
 
@@ -299,7 +301,7 @@
 }
 
 @include media-breakpoint-down(md) {
-    
+
     .navbar-custom {
         left: 0 !important;
         padding: 0;
@@ -362,7 +364,7 @@
     }
 
     .topbar-menu {
-        
+
         li {
             .show {
                 &.nav-link {
@@ -377,7 +379,7 @@
             background-color: $bg-topbar-dark-search;
             color: $white;
         }
-        .react-select__input { 
+        .react-select__input {
             color: $white;
         }
         span, .react-select__placeholder {

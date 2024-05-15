@@ -48,6 +48,7 @@ const Logout = (): React$Element<any> | React$Element<React$FragmentType> => {
         sessionStorage.removeItem('Categorias');
         sessionStorage.removeItem('TiposCategorias');
         localStorage.removeItem('menuNomina');
+        sessionStorage.removeItem('roles');
         dispatchUser(logoutUser());
 
     }, [dispatchUser]);

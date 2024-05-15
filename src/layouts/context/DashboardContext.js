@@ -1,9 +1,12 @@
 
-import React, { createContext, useState, useCallback,useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
-
+import ConfirmacionEliminacionStrategy from './ConfirmacionEliminacionStrategy';
+import Swal from 'sweetalert2';
+import { APICore } from '../../helpers/api/apiCore';
+const api = new APICore();
 const DashboardContext = createContext();
 const DashboardProvider = ({ children }) => {
 
@@ -12,24 +15,29 @@ const DashboardProvider = ({ children }) => {
   const [itemsQuery, setItemsQuery] = useState([]);
   const [isLoading, setLoading] = useState([]);
   const [open, setOpen] = useState(false);
-  
+  const [signUpModalAdd, setSignUpModalAdd] = useState(false);
+  const [itemsUpdate, setItemsUpdate] = useState(0);
+  const [opcion, setOpcion] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+  const [isCheckedItem, setIsCheckedItem] = useState(0);
+
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
-  const itemsMenuCallBack = useCallback((e) => {
-   
+
+  const itemsMenuCallBack = (e) => {
+    let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
     if (e===0) {
-      let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
-      if (userInfo?.tipo.length === 0) {
+    if (userInfo?.tipo.length === 0) {
         setitemsMenuPrincipal('Bienvenido');
         setitemsUrl('Inicio');
         setLoading(false)
       }else{
-        
+        console.log('userInfo',userInfo);
         setitemsMenuPrincipal(userInfo?.tipo.replace(/ /g, ""));
          setitemsUrl(userInfo?.menu);
         setLoading(false)
       }
     }
-  }, []);
+  };
 
   const Spinners = () => {
     const sizes = ['sm'];
@@ -83,8 +91,6 @@ const pagesInSearch = () => {
   console.log('query',query)
   return query;
 };
-
-
 const AdvertenciaLocalStorage = () => {
   useEffect(() => {
     const seccionEnLocalStorage = sessionStorage.getItem('hyper_user');
@@ -96,8 +102,87 @@ const AdvertenciaLocalStorage = () => {
 
 
 };
+    //ELEIMINAR REGISTRO
+    const eliminar = useCallback(
+      (cel) => {
+          let permiso = sessionStorage.getItem('PERMISO');
+          const localPermiso = JSON.parse(permiso);
+          if (localPermiso.delete) {
+              const estrategiaConfirmacion = new ConfirmacionEliminacionStrategy();
+              estrategiaConfirmacion.confirmar(cel, (cel) => {
+                  const url = `accion=${btoa(itemUrl)}&tipo=${btoa(tipo)}&opcion=${btoa('delete')}'&id=${btoa(cel)}`;
+                  const respuesta = api.sendRequestData(`${url}`);
+                  respuesta
+                      .then(function (resp) {
+                          Swal.fire('' + resp[0].menssage + '');
+                      })
+                      .catch((error) => console.error('Error:', error))
+                      .finally(() => {
+                          setTimeout(function () {}, 5000);
+                      });
+              });
+          } else {
+              Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
+          }
+      },
+      [itemUrl,tipo]
+  );
+const handleRegresar = (tipo) => {
+
+  const menuitems = window.location.hash.split('#/')[1];
+  const seccion = menuitems.replace(/^dashboard\//, '');
+  const [seccion1] = seccion?.split('/');
+  let url = '';
+  (() => {
+      // eslint-disable-next-line default-case
+      switch (tipo) {
+          case 'EnviarSolicitud':
+              url = `/dashboard/${seccion1}/${tipo}`;
+              break;
+          case 'ConsultaIncidente':
+          case 'ModuloSolicitudComite':
+              url = `/dashboard/${seccion1}/${tipo}`;
+              break;
+          case 'ConsultaNotificaciones':
+          case 'AgendarCitas':
+              url = `/dashboard/${seccion1}/${tipo}`;
+      }
+  })();
+
+
+  setitemsMenuPrincipal(seccion1);
+  setitemsUrl(tipo);
+  return window.location.hash=url;
+}
+const handleOnChange = (id,name,email) => {
+  setIsChecked(!isChecked);
+  setIsCheckedItem(id);
+
+  const dataInLocalStorage = localStorage.getItem('idsIncidentes');
+  const data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+  const itemExists = data?.filter((row) => {
+    return row?.id === id;
+    });
+
+
+
+  if (!itemExists[0]?.id) {
+    const newItem = { id,name,email };
+    const updatedData = [...data, newItem];
+    localStorage.setItem('idsIncidentes', JSON.stringify(updatedData));
+  }else{
+    const itemsDelete = data?.filter((row) => {
+      return row?.id !== id;
+      });
+      localStorage.removeItem('idsIncidentes');
+      localStorage.setItem('idsIncidentes', JSON.stringify(itemsDelete));
+  }
+};
+
 
   const data = {
+    handleOnChange,
+    isChecked, setIsChecked,isCheckedItem,
     AdvertenciaLocalStorage,
     itemsMenuCallBack,
     setLoading,
@@ -106,12 +191,18 @@ const AdvertenciaLocalStorage = () => {
     setitemsUrl,
     tipo,
     itemUrl,
-    StatusColumn, sizePerPageList, 
+    StatusColumn, sizePerPageList,
     itemsQuery, setItemsQuery,
     Spinners,
     pagesInSearch,
     open,
-    setOpen
+    setOpen,
+    handleRegresar,
+    signUpModalAdd,
+    setSignUpModalAdd,
+    itemsUpdate, setItemsUpdate,
+    opcion, setOpcion,
+    eliminar
   };
   return (
     <>

@@ -6,6 +6,8 @@ import { groupByFields } from '../utils';
 
 import Avatar2 from '../assets/images/users/avatar-2.jpg';
 import { SearchContext } from '../layouts/context/SearchContext';
+import { NotificacionesContext } from '../layouts/context/NotificacionesProvider';
+import encodeBasicUrl from '../utils/encodeBasicUrl';
 /*
  * get options
  */
@@ -110,7 +112,7 @@ type TopbarSearchProps = {
 };
 
 const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
-
+    const {query,setOpenFormAprendiz} = useContext(NotificacionesContext)
     const {setSelectedOptionAprendiz,validateError,setError} = useContext(SearchContext)
 
     const options = props?.data
@@ -124,22 +126,37 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             Nombres:values[0]?.userDetails?.firstname,
             Apellidos:values[0]?.userDetails?.lastname,
             Identificacion:values[0]?.userDetails?.identificacion,
-            Celular:values[0]?.userDetails?.telefono,
+            Telefono:values[0]?.userDetails?.telefono,
             Email:values[0]?.userDetails?.correo,
+            Municipio:values[0]?.userDetails?.municipio,
+            Direccion:values[0]?.userDetails?.direccion,
+            Disciplinaria:values[0]?.userDetails?.disciplinaria,
+            Academica:values[0]?.userDetails?.academica,
+            Inasistencias:values[0]?.userDetails?.inasistencias,
+            Verbal:values[0]?.userDetails?.verbal,
+            Escrito:values[0]?.userDetails?.escrito,
+            Jornada:values[0]?.userDetails?.jornada,
+            Etapa:values[0]?.userDetails?.etapa,
+            Ficha:values[0]?.userDetails?.fichanum,
+            Rol:values[0]?.userDetails?.rol,
             aprendizError:true
           }
+
+
+          query('ModuloSolicitudComite','EnviarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'queryByIdAprendiz',sw:4,idAprendiz:encodeBasicUrl(values[0]?.userDetails?.id)}]);
+          setOpenFormAprendiz(true);
           setSelectedOptionAprendiz(detalles);
           setError({...validateError,aprendizError:true})
           return window.location.hash = `/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${values[0]?.userDetails?.id}`;
       };
- 
 
+console.log('options',options);
     return (
         <>
             <Select
                 {...props}
                 components={{ Control, MenuList }}
-                placeholder={'Buscar Aprendiz...'}
+                placeholder={'Buscar Aprendiz Sena...'}
                 options={formateOptions(options)}
                 formatOptionLabel={handleFormatOptionLabel}
                 isOptionDisabled={(option) => option.type === 'title'}

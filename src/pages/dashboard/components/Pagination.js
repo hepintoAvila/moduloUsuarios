@@ -13,7 +13,7 @@ const Pagination = ({ tableProps, sizePerPageList }: PaginationProps): React$Ele
     return (
         <>
             <div className="d-lg-flex align-items-center text-center pb-1">
-                <label className="me-1">Display :</label>
+                <label className="me-1">Mostrar :</label>
                 <select
                     value={tableProps.state.pageSize}
                     onChange={(e) => {
@@ -30,14 +30,14 @@ const Pagination = ({ tableProps, sizePerPageList }: PaginationProps): React$Ele
                 </select>
 
                 <span className="mx-3">
-                    Page{' '}
+                    Pagina{' '}
                     <strong>
-                        {tableProps.state.pageIndex + 1} of {tableProps.pageOptions.length}
+                        {tableProps.state.pageIndex + 1} de {tableProps.pageOptions.length}
                     </strong>{' '}
                 </span>
 
                 <span className="d-inline-block align-items-center text-sm-start text-center my-sm-0 my-2">
-                    <label>Go to page : </label>
+                    <label>Ir A La Pagina : </label>
                     <input
                         type="number"
                         defaultValue={tableProps.state.pageIndex + 1}

@@ -28,7 +28,7 @@ const dashboardRoutes = {
     path: '/dashboard',
     name: 'Dashboards',
     icon: 'uil-home-alt',
-    header: 'Navigation',
+    header: 'sx',
     children: [
         {
             path: '/dashboard/project',

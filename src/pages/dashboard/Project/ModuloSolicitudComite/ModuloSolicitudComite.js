@@ -1,20 +1,20 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-unreachable */
 import React  from 'react';
-//import { DashboardContext } from '../../../../layouts/context/DashboardContext';
-//import { usePermisos } from '../../../../hooks/usePermisos';
-import Navbar from '../ModuloNotificaciones/Components/Navbar';
 import MenuSegundo from './Components/MenuSegundo';
 import EnviarSolicitud from './EnviarSolicitud/EnviarSolicitud';
 import ConsultarIncidente from './ConsultarIncidente/ConsultarIncidente';
 import CarHistorialIncidencias from './ConsultarIncidente/CarHistorialIncidencias';
 import ConsultarAprendiz from './ConsultarIncidente/ConsultarAprendiz';
+import Navbar from '../../components/Navbar';
+ 
+ 
  
 
 const ModuloSolicitudComite = (props) => {
   return (
     <React.Fragment>
-       <Navbar handleClick={props.handleClick} nivel={2}/>
+        <Navbar nivel={2} tipo={props.tipo}/>
       {(() => {
         switch (props.tipo) {
           case 'ModuloSolicitudComite':

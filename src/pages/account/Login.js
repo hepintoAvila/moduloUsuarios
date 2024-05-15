@@ -47,8 +47,8 @@ const Login = (): React$Element<any> => {
     */
     const schemaResolver = yupResolver(
         yup.object().shape({
-            username: yup.string().required(t('Please enter Username')),
-            password: yup.string().required(t('Please enter Password')),
+            username: yup.string().required(t('Por favor Ingrese Su Usuario')),
+            password: yup.string().required(t('Por favor Ingrese Su Contraseña')),
         })
     );
     /*
@@ -68,8 +68,8 @@ const Login = (): React$Element<any> => {
             {userLoggedIn || user ? <Redirect to={next ? next : '/'}></Redirect> : null}
             <AccountLayout bottomLinks={<BottomLink />}>
                 <div className="text-center w-75 m-auto">
-                    <h4 className="text-dark-50 text-center mt-0 fw-bold">{t('Ingresar')}</h4>
-                    <p className="text-muted mb-4">{t('Ingrese su usuario y contraseña.')}</p>
+                    <h4 className="text-dark-50 text-center mt-0 fw-bold">{t('Ingresar Plataforma SICES.')}</h4>
+                    <p className="text-muted mb-4">{t(' Usuario y Contraseña Asignados Por El Comite.')}</p>
                 </div>
 
                 {error && (
@@ -86,19 +86,19 @@ const Login = (): React$Element<any> => {
                         label={t('Usuario')}
                         type="text"
                         name="username"
-                        placeholder={t('Enter your Username')}
+                        placeholder={t('Ingresa Tu Usuario')}
                         containerClass={'mb-3'}
                     />
                     <FormInput
-                        label={t('Password')}
+                        label={t('Contraseña')}
                         type="password"
                         name="password"
-                        placeholder={t('Enter your password')}
+                        placeholder={t('Ingresa Tu Contraseña')}
                         containerClass={'mb-3'}></FormInput>
 
                     <div className="mb-3 mb-0 text-center">
                         <Button variant="primary" type="submit" disabled={loading}>
-                            {t('Log In')}
+                            {t('Ingresar')}
                         </Button>
                     </div>
                 </VerticalForm>

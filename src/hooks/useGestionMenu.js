@@ -11,7 +11,7 @@ export const useGestionMenu = () => {
   const [isLoading, setLoading] = useState(false);
   const [itemsEditerSubMenu, setEditerSubMenu] = useState([]);
   const [itemsEditerMenu, setEditerMenu] = useState([]);
- 
+
   const query = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
     setTimeout(function () {
@@ -30,8 +30,9 @@ export const useGestionMenu = () => {
       if (user) {
         const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}`;
         const datosMaterial = api.sendRequestData(`${url}`);
+
         datosMaterial?.then(function (response) {
-          
+
           try {
             {
               (() => {
@@ -58,7 +59,7 @@ export const useGestionMenu = () => {
       }
     }, 2000);
   }, []);
-  console.log('itemsMenu',itemsEditerMenu)
+ // console.log('itemsMenu',itemsEditerMenu)
   return (
     {
       query,

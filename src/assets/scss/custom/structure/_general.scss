@@ -16,17 +16,88 @@ body {
 .bg-secundary {
   background-color:rgba(#5eb319, 0.18)  !important;
 }
+
+
+//footer general Login
 .bg-footer {
-  background-color:#5eb319 !important;
+  background-color: #5eb319 !important;
   color: #fff;
   padding: inherit;
-  margin-bottom: -1rem
+  margin-bottom: -1rem;
+  margin-right: -35px;
+  margin-left: -25px;
+  width: calc(100% + 60px); /* Suma de los valores negativos de margen derecho e izquierdo */
+  left: 0;
+  right: 0;
+  position: fixed;
+  bottom: 0;
 }
+
+/* Para cubrir la parte inferior debajo del footer */
+.footer-cover {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px; /* Ajusta la altura según sea necesario */
+  background-color: #5eb319; /* Mismo color de fondo que el footer */
+}
+
+/* Para cubrir el lado derecho */
+.footer-cover-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: auto; /* Establece el lado izquierdo como "auto" para que la propiedad right funcione correctamente */
+  height: 100%; /* Cubre toda la altura de la ventana del navegador */
+  background-color: #5eb319; /* Mismo color de fondo que el footer */
+}
+
+
+
+//footer general Dashboards
+.bg-footer-dashboard {
+  background-color: #5eb319 !important;
+  color: #fff;
+  padding: 20px; /* Agregar relleno interno */
+  margin-bottom: -1rem;
+  margin-right: 0;
+  margin-left: 94px;
+  width: 100%; /* Utilizar el ancho completo */
+  left: 0;
+  right: 0;
+  position: fixed;
+  bottom: 0;
+  display: flex; /* Usar flexbox para alinear verticalmente */
+  align-items: center; /* Alinear el contenido verticalmente */
+}
+
+/* Para cubrir la parte inferior debajo del footer */
+.footer-cover {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px; /* Ajusta la altura según sea necesario */
+  background-color: #5eb319; /* Mismo color de fondo que el footer */
+}
+
+/* Para cubrir el lado derecho */
+.footer-cover-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: auto; /* Establece el lado izquierdo como "auto" para que la propiedad right funcione correctamente */
+  height: 100%; /* Cubre toda la altura de la ventana del navegador */
+  background-color: #5eb319; /* Mismo color de fondo que el footer */
+}
+
+
 .bg-header-1 {
   height: 40px; padding: 8px 0; background: #5eb319; color: #fff; box-sizing: border-box; max-width: auto; margin: 0 auto;
 
 }
-.form-control .is-invalid, .was-validated .form-control:invalid {
+.form-control .was-validated .form-control:invalid {
   border-color: #fa5c7c;
   padding-right: calc(1.5em + 0.9rem);
   background-repeat: no-repeat;
@@ -35,10 +106,10 @@ body {
 }
 .isinvalid{
   border-color: #ccc5c6;
-  background: rgba(#fa5c7c, 0.75)  !important;
+  background: rgba(#fa5c7c, 0.20)  !important;
   padding-right: calc(1.5em + 0.9rem);
   background-repeat: no-repeat;
-  color: white;
+  color: rgb(92, 89, 89);
   border-radius: 4px;
   background-position: right calc(0.375em + 0.225rem) center;
   background-size: calc(0.75em + 0.45rem) calc(0.75em + 0.45rem);
@@ -73,6 +144,10 @@ body {
 .contenedor{
   margin-top: -13rem;
 }
+.derechaColumnEnviarSolicitud{
+  height: 100%;
+  padding: 0em 0em 1em 2em;
+}
 .headerTitulo, .center-text{
   background-color: var(--muted-1-5);
   font-size: 21px;
@@ -89,12 +164,27 @@ body {
 .headerTitulo{
   margin-top: 3rem;
   width: max-content;
-  
+
 }
 .center-text{
   width: max-content;
   padding: 7rem;
   }
+
+.center-text-titulo{
+    width: max-content;
+    text-align: center !important;
+    margin-left: 10px;
+    font-size: 24px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    flex: none;
+    }
+.btnCerrar{
+  margin-left: 1.1rem ;
+  margin-top:  -5px;
+}
 .btnInicio,.btnInicio1 {
   border-color: #c2c5c1;
   background: #5eb319; -webkit-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); -moz-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62);
@@ -134,7 +224,35 @@ body {
 .btnregresar{
   border-color: #fff;
   margin-top: 1em;
+  margin-right: 10em;
 }
+
+
+
+
+.spinner-border {
+  --bs-text-opacity: 1;
+  color: rgba(94, 179, 25, var(--bs-text-opacity)) !important; /* Color personalizado */
+  --bs-spinner-width: 2rem;
+  --bs-spinner-height: 2rem;
+  --bs-spinner-vertical-align: -0.125em;
+  --bs-spinner-border-width: 0.25em;
+  --bs-spinner-animation-speed: 0.75s;
+  --bs-spinner-animation-name: spinner-border;
+  border-right-color: currentcolor;
+  border: var(--bs-spinner-border-width) solid;
+  border-right: var(--bs-spinner-border-width) solid #0000;
+}
+
+.spinner-border, .spinner-grow {
+  animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
+  border-radius: 50%;
+  display: inline-block;
+  height: var(--bs-spinner-height);
+  vertical-align: var(--bs-spinner-vertical-align);
+  width: var(--bs-spinner-width);
+}
+
 .flexRowContent--header___grid__nivel_2 {
   position: relative !important;
   display: grid;
@@ -152,11 +270,51 @@ body {
   background: #fff; -webkit-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); -moz-box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); box-shadow: 0px 10px 25px -20px rgba(0,0,0,0.62); width: 100%; height: 180px; padding: 0 10% 7rem; margin: 0 auto;
 }
 .btnenviarSolicitud{
-  margin-top: -8em;
+  margin-top: 0em;
   overflow: auto;
   position: absolute;
-  z-index: auto;
-  left: 26em;
+  left: 0em;
+}
+.zIndex{
+  overflow: auto;
+  z-index: 1;
+}
+.editTitulos{
+  font-size: small;
+  color: crimson;
+  padding: 0em 2.8em;
+  font-weight: 900;
+}
+.uploadSolicitud, .uploadSolicitudAprendiz {
+    padding: 0em 0em 0em;
+    cursor: pointer;
+    font-size: revert;
+    margin-top: -2em;
+    &:focus,
+    &:active {
+        border: 0.1em solid #10300563;
+        text-decoration: none;
+        background: $gray-100;
+        transition-duration: .05s;
+    }
+}
+
+.uploadSolicitudAprendiz{
+  margin-top: -0.7em;
+}
+
+
+.fotoUser{
+  margin-top: -19.5rem !important;
+}
+.fotoUserSw{
+  margin-top: -41.5rem !important;
+}
+.visible {
+  visibility: visible !important;
+}
+.invisible {
+  visibility: hidden !important;
 }
 .fc, fc-media-screen, fc-direction-ltr, fc-theme-bootstrap {
   height: 39em;
@@ -174,8 +332,8 @@ body {
   gap: 3px;
 
 }
- 
-	
+
+
 .flexCol--header___grid__nivel_2_col1 {
   padding: 1px;
   border-right: 1px solid #044B92;
@@ -202,8 +360,8 @@ body {
 .grid_contenedor {
   position: relative !important;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
   gap: 1em;
   place-items: center;
   /* Equivale a... */
@@ -213,14 +371,16 @@ body {
   /* Equivale a... */
   justify-content: center;
   align-content: center;
-  width: 100%; height: 180px;
-  padding: 0 10% 4em; 
-  margin: 0 auto;
+  width: 100%;
+  height: 180px;
+  padding: 0 0 4em;
+  margin-left: -6em;
 }
 
 .grid_btn1,
 .grid_btn2,
-.grid_btn3
+.grid_btn3,
+.grid_btn4
 {
   position: relative !important;
   display: grid;
@@ -244,6 +404,12 @@ body {
   width: 4em !important;
   margin-right: 13em;
 }
+.grid_btn4{
+  padding: 1px;
+  width: 4em !important;
+  margin-right: 10em;
+  margin-left: -2em;
+}
 .btn-primary {
   color: #fff;
   background-color: #afd1a4;
@@ -253,41 +419,78 @@ body {
   color: #fff;
   background-color: #313A46;
 }
+.formModal{
+  background-color: #eaeef1;
+  padding: 1em;
+  border: 1px solid #e1d9d9;
+  border-radius: 0.8rem;
+}
+.tableComite {
+  font-size: 0.9em;
+}
+.logo_comite_inicio{
+  margin-left: 20.5em;
+}
+.cardAprendiz{
+  background-color: #74c95863 !important;
+}
+.inputAprendiz{
+  background-color: #74c95863 !important;
+  border: 0.1em solid #74c95863;
+  height: 30px;
+  width: 50px;
+  &:focus,
+  &:active {
+      border: 0.1em solid #74c95863;
+      text-decoration: none;
+  }
+}
+.indicador_novedades{
+  position: sticky;
+  background: #ff0081;
+  bottom: calc(100% + 1em);
+  height: 25px;
+  width: 25px;
+  margin-top: 1.11em;
+  margin-left: -6.4em;
+  box-sizing: content-box;
+  border: 0.25em solid #fafbfe;
+  border-radius: 50%;
+  z-index: 99999 !important;
+  overflow: visible;
+  font-size: 0.7em;
+  color: cornsilk;
+}
+.indicador_novedades_label{
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.9em;
+  padding: 0.7em  0em;
+}
+/*
+.react-datepicker__time-container,
+.react-datepicker__time,
+.react-datepicker__time-box {
+  height: 150px;
+  width: 26em;
+}
+ */
 // Fix event bubbling on iOS devices
 @supports (-webkit-overflow-scrolling: touch) {
   body {
     cursor: pointer;
   }
 }
-@media (max-width: 767px) {
 
-  /* Estilos para pantallas pequeñas */
-  .mensaje {
-      font-size: calc(1.25rem);
-  }
-
-  .grid-container {
-      grid-template-columns: repeat(1, 8fr);
-      grid-template-rows: repeat(1, 286px);
-      gap: 2px;
-  }
-
-  .imgCat {
-      object-fit: cover;
-      padding: 0.1em;
-      height: 17em;
-      width: 24em;
-  }
-}
 @media (min-width: 360px) and (max-width: 740px) {
 
   /* Estilos para pantallas medianas (tablets) */
       .grid_contenedor {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(3, 8em);
-        gap: 0em;
-        margin-top: 0em;
+        grid-template-rows: repeat(2, 9em);
+        margin-top: 12em;
         height: 474px;
+        margin-left: 5em;
         padding: 0em 7em 10em 0em;
     }
     .flexRowContent--header___grid__nivel_2 {
@@ -341,6 +544,7 @@ body {
 .text-btn {
   margin-left: -17.5em;
 }
+
 }
 @media (min-width: 768px) and (max-width: 991px) {
 
@@ -356,8 +560,6 @@ body {
 @media (min-width: 992px) and (max-width: 1199px) {
 
   /* Estilos para pantallas grandes (laptops y escritorios) */
-
-
 }
 
 @media (min-width: 1200px) {

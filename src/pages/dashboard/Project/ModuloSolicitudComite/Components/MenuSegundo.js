@@ -2,13 +2,13 @@
 /* eslint-disable no-unreachable */
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
- 
+
 import avatar1 from '../../../../../assets/images/17.png';
 import avatar2 from '../../../../../assets/images/5.png';
 import avatar3 from '../../../../../assets/images/9.png';
 import MenuBtn from '../../../components/BtnMenu/MenuBtn';
 const MenuSegundo = (props) => {
- 
+
   return (
     <React.Fragment>
            <Row className="justify-content-center">
@@ -24,7 +24,7 @@ const MenuSegundo = (props) => {
                   <div className="grid_btn3 col-xl-3 col-lg-4 col-sm-6">
                     <MenuBtn texto='Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloSolicitudComite/ReporteIncidente'} nivel={2}/>
                   </div>
-                </div> 
+                </div>
         </Col>
       </Row>
     </React.Fragment>

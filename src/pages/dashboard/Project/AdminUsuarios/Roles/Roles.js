@@ -9,9 +9,6 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 import FormUpdate from './FormUpdate';
 import Table from '../../../../../components/Table';
 import Swal from 'sweetalert2';
-
-import FormAdd from './FormAdd';
-
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
@@ -22,10 +19,9 @@ const ActionColumn = ({ row }) => {
   const {
     eliminar,
     validated,
-    toggle,
     setOpen,
     setItemsUpdate,
-    open, tipo
+    open,
   } = useContext(DashboardContext);
    const toggleSignUp = (id) => {
     let permiso = sessionStorage.getItem('PERMISO');
@@ -34,8 +30,8 @@ const ActionColumn = ({ row }) => {
 
       if(row.cells[0].row.values.id===id)
       setItemsUpdate(row?.cells[0]?.row?.values)
-      setOpen(open);
-      toggle()
+      setOpen(!open);
+
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
@@ -55,10 +51,7 @@ const ActionColumn = ({ row }) => {
   return (
     <React.Fragment>
       <BtnSeccionAction obj={obj}>
-      <FormUpdate
-          title={`FORMULARIO PARA LA EDICION DE ${tipo?.toUpperCase()}`}
-          validated={validated}
-        />
+
         </BtnSeccionAction>
     </React.Fragment>
   );
@@ -69,9 +62,9 @@ const Roles = (props) => {
   const {itemsRoles,query} = useAdminUsuarios()
   const {
     sizePerPageList,
-    setSignUpModalAdd,
-    signUpModalAdd,
-    validated,
+    setOpen,
+    open,
+
   } = useContext(DashboardContext);
   const datos = itemsRoles?.dataRoles?.roles|| [{}];
   const columns = [
@@ -123,7 +116,7 @@ const Roles = (props) => {
   useEffect(() => {
     query('AdminRoles', 'Roles', [{ opcion: encodeBasicUrl('consultar'), obj: 'Roles' }]);
   }, [query])
-
+console.log('open',open);
   return (
     <>
 
@@ -131,7 +124,9 @@ const Roles = (props) => {
         <Col>
           <Card>
             <Card.Body>
-              {datos?.length > 0 && permisos?.query === 'S' ? (<Table
+              {datos?.length > 0 && permisos?.query === 'S' ? (
+
+              <Table
                     columns={columns}
                     data={datos}
                     pageSize={5}
@@ -152,15 +147,15 @@ const Roles = (props) => {
           <Card>
             <Card.Body>
               {/* Sign up Modal */}
-              <Modal show={signUpModalAdd} size={'sm'} onHide={setSignUpModalAdd}>
+              <Modal show={open} size={'lg'} onHide={setOpen}>
                 <Modal.Body>
                 <Modal.Header closeButton>
-                    <h4 className="modal-description">GESTIONAR USUARIOS</h4>
+                    <h4 className="modal-description">GESTIONAR ROLES</h4>
                   </Modal.Header>
-                  <FormAdd
-                    title={`GESTIONAR USUARIOS`}
-                    validated={validated}
-                  />
+                  <FormUpdate
+                      title={`FORMULARIO PARA LA EDICION PERMISOS `}
+
+                    />
                 </Modal.Body>
               </Modal>
             </Card.Body>

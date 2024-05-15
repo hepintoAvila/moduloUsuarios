@@ -1,7 +1,10 @@
 // @flow
 import React, { forwardRef } from 'react';
-import DatePicker from 'react-datepicker';
 import classNames from 'classnames';
+import DatePicker,{registerLocale } from 'react-datepicker';
+import es from 'date-fns/locale/es'
+registerLocale("es", es); // register it with the name you want
+
 
 type DatepickerInputProps = {
     onClick?: () => void,
@@ -71,6 +74,7 @@ const HyperDatepicker = (props: HyperDatepickerProps): React$Element<any> => {
         <>
             {/* date picker control */}
             <DatePicker
+                locale="es"
                 customInput={input}
                 timeIntervals={props.tI}
                 className={classNames('form-control', props.inputClass)}
@@ -86,6 +90,7 @@ const HyperDatepicker = (props: HyperDatepickerProps): React$Element<any> => {
                 showTimeSelectOnly={props.showTimeSelectOnly}
                 inline={props.inline}
                 autoComplete="off"
+           
             />
         </>
     );
