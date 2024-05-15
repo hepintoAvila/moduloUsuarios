@@ -6,6 +6,7 @@ const OpcionsForm = () => {
     return (
         <React.Fragment>
             {(() => {
+                // eslint-disable-next-line no-undef
                 switch (options) {
                     case 'COMITE':
                         return (
@@ -13,7 +14,7 @@ const OpcionsForm = () => {
                                <FormComite accion={'ModuloNotificaciones'} tipo={'ConsultaNotificaciones'}/>
                             </React.Fragment>
                         );
-                        
+
                         case 'VOZ':
                         return (
                             <React.Fragment>
@@ -25,7 +26,7 @@ const OpcionsForm = () => {
                               <React.Fragment>
                                 {''}
                                </React.Fragment>
-                    );                    
+                    );
                 }
             })()
             }
