@@ -2,7 +2,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 //import Swal from 'sweetalert2';
 
@@ -17,7 +17,7 @@ const ActionColumnAgendada = ({ row }) => {
 
   const {
     isChecked, isCheckedItem,
-    validated, SelectItmeSolicitud
+    validated
   } = useContext(DashboardContext);
 
   let permiso = sessionStorage.getItem('PERMISO');
@@ -25,7 +25,6 @@ const ActionColumnAgendada = ({ row }) => {
   const obj = {
     isChecked,
     isCheckedItem,
-    SelectItmeSolicitud,
     localPermiso,
     validated,
     key: row.cells[0].value,
@@ -41,6 +40,11 @@ const ActionColumnAgendada = ({ row }) => {
   );
 };
 const ListSolicitudes = (props): React$Element<React$FragmentType> => {
+  const { itemsSolicitudes, query } = useContext(NotificacionesContext)
+  const {
+    sizePerPageList,
+  } = useContext(DashboardContext);
+
   const colAgendar = [
     {
       Header: 'ID',
@@ -81,32 +85,22 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
     },
 
   ];
-  const [agendada, setAgendada] = useState([])
-  const { itemsSolicitudes, query } = useContext(NotificacionesContext)
-  const {
-    sizePerPageList
-  } = useContext(DashboardContext);
+
+
 
   const datos = itemsSolicitudes?.data?.Solicitudes || [{}];
 
   useEffect(() => {
-    query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud', sw: '1' }]);
+         query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud', sw: '8', idActa:btoa(props.idActa)}]);
   }, [query])
-
-  useEffect(() => {
-    const filteredAgendada = datos?.filter((row) => {
-      return row?.estado === 'AGENDADA';
-    });
-    setAgendada(filteredAgendada)
-  }, [datos])
 
   return (
     <>
       <Row>
         <Col sm="12">
-          {agendada?.length > 0 && <Table
+          {datos?.length > 0 && <Table
             columns={colAgendar}
-            data={agendada}
+            data={datos}
             pageSize={5}
             sizePerPageList={sizePerPageList}
             isSortable={true}

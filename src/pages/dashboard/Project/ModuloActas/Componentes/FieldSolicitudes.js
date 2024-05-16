@@ -7,6 +7,7 @@ const FieldSolicitudes = (props) => {
 
   let userInfo = sessionStorage.getItem('hyper_user');
   const user = JSON.parse(userInfo);
+
   return (
     <React.Fragment>
 
@@ -18,7 +19,7 @@ const FieldSolicitudes = (props) => {
         opcion={'solicitudes'}
         textBtn={'Registrar solicitudes'}
         entidad={user[0]?.entidad}
-
+        idActa={props.idActa}
       />
     </React.Fragment>
   );

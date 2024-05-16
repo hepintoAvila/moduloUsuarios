@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext,useEffect } from 'react';
 import FieldSolicitudes from './FieldSolicitudes';
 import { useActas } from '../../../../../hooks/useActas';
@@ -8,16 +9,14 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 const Solicitudes = (props) => {
     const { itemUrl, tipo, itemsUpdate } = useContext(DashboardContext);
     const { itemsActas, query } = useActas();
-
     const datos = itemsActas?.data || [];
     const idActaBuscar = itemsUpdate > 0 ? itemsUpdate : 0;
 
+    let userInfo = sessionStorage.getItem('hyper_user');
+    const user = JSON.parse(userInfo);
     useEffect(() => {
       query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas',idActa: btoa(idActaBuscar)}]);
     }, [query,idActaBuscar]);
-
-    let userInfo = sessionStorage.getItem('hyper_user');
-    const user = JSON.parse(userInfo);
 
     return (
 
@@ -32,6 +31,7 @@ const Solicitudes = (props) => {
                 textBtn={'Registrar solicitudes Comite'}
                 entidad={user[0]?.entidad}
                 objAprendiz={datos[0]}
+                idActa={datos[0]?.idActa}
             />
             : "Cargando solicitudes del comite..."}
         </React.Fragment>

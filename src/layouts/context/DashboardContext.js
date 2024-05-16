@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
+import encodeBasicUrl from '../../utils/encodeBasicUrl';
 import ConfirmacionEliminacionStrategy from './ConfirmacionEliminacionStrategy';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
@@ -21,6 +23,7 @@ const DashboardProvider = ({ children }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedItem, setIsCheckedItem] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [status, setStatus] = useState('202');
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
 
   const itemsMenuCallBack = (e) => {
@@ -88,7 +91,7 @@ const DashboardProvider = ({ children }) => {
 
 const pagesInSearch = () => {
   const query = window.location.hash;
-  console.log('query',query)
+  //console.log('query',query)
   return query;
 };
 const AdvertenciaLocalStorage = () => {
@@ -181,6 +184,38 @@ const handleOnChange = (id,name,email) => {
 
 
 
+    /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
+    const sendData = useCallback((queryDatos) => {
+      const infoUsers = sessionStorage.getItem('hyper_user');
+      const infoUser = JSON.parse(infoUsers);
+      if (Number(infoUser[0]?.id > 0)) {
+          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
+              infoUser[0]?.id
+          )}&Apikey=${encodeBasicUrl(infoUser[0]?.Apikey)}&ApiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}`;
+          const respDatos = api.sendRequestData(url);
+          respDatos
+              ?.then(function (resp) {
+                  if (resp[0].status === '202') {
+                      Swal.fire('' + resp[0].message + '');
+                      setStatus('202');
+                  } else {
+                      Swal.fire('' + resp[0].message + '');
+                      setStatus('404');
+                  }
+
+                  /**setEvents */
+              })
+              .catch((error) => console.error('Error:', error))
+              .finally(() => {
+                  setTimeout(function () {
+                      setLoading(true);
+                  }, 1000);
+              });
+      }
+  }, []);
+
+
+
 const toggleItemSelection = (item) => {
   setSelectedItems(prevSelectedItems => {
     const newSelectedItems = prevSelectedItems.includes(item)
@@ -191,10 +226,48 @@ const toggleItemSelection = (item) => {
 };
 useEffect(() => {
   if (selectedItems.length > 0) {
-    console.log('selectedItems', selectedItems);
+
+    /* OBTENER EL ID DEL ACTA*/
+    const idUrl = pagesInSearch();
+    let url = '#/dashboard/ModuloActas/Actas?p=';
+    const id = idUrl?.replace(url, '');
+    console.log('id',id)
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: 'Registro Enviado',
+      showConfirmButton: false,
+      timer: 1500
+    });
+
+    const datosEvent = {
+      idActa:btoa(id),
+      items: btoa(selectedItems),
+      accion: btoa('ModuloActas'),
+      opcion: btoa('addIds'),
+      tipo: btoa('actas'),
+    };
+
+    const queryDatos = Object.keys(datosEvent)
+    .map((key) => {
+      if (Array.isArray(datosEvent[key])) {
+        return datosEvent[key]
+          .map((item, index) => `${key}[${index}]=${encodeURIComponent(item)}`)
+          .join('&');
+      } else {
+        return `${key}=${encodeURIComponent(datosEvent[key])}`;
+      }
+    })
+    .join('&');
+    sendData(queryDatos)
   }
 }, [selectedItems]);
+
+
   const data = {
+    sendData,
+    status,
+    setStatus,
     handleOnChange,
     toggleItemSelection,
     selectedItems,

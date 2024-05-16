@@ -48,20 +48,20 @@ const ActionColumn = ({ row }) => {
     }
   };
 
-  const toggleSanciones = (id) => {
+  const listarEstudiante = (id) => {
 
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'S') {
-
-      if (row.cells[0].row.values.idAprendiz === id)
-
+      if (row.cells[0].row.values.idActa === id) {
       setItemsUpdate(id);
       setOpen(!open);
       setSignUpModalAdd(true);
       setOpcion('solicitudes');
 
-    } else {
+      }
+
+     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
 
@@ -72,7 +72,7 @@ const ActionColumn = ({ row }) => {
   const obj = {
     open,
     toggleSignUp,
-    toggleSanciones,
+    listarEstudiante,
     localPermiso,
     validated,
     key: row.cells[0].value,
@@ -220,6 +220,7 @@ const Actas = (props) => {
                                     />
                                   </React.Fragment>
                                      case 'solicitudes':
+                                      window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
                                      return <React.Fragment>
                                          <Solicitudes
                                            title={`Asignar ${props?.tipo?.toUpperCase()}`}

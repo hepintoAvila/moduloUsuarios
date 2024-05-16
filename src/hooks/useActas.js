@@ -1,6 +1,5 @@
 /* eslint-disable no-lone-blocks */
 /* eslint-disable default-case */
-
 import { useCallback, useState } from 'react'
 import encodeBasicUrl from '../utils/encodeBasicUrl';
 import { APICore } from '../helpers/api/apiCore';
@@ -36,7 +35,6 @@ export const useActas = () => {
                   case 'actas':
                     setActas(response)
                     break;
-
                 }
               })()
             }

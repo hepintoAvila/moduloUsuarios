@@ -35,7 +35,7 @@ const BtnActualizarAprendiz = (props) => {
              <BtnActions
                   permisos={'S'}
                   key={`SOLICITUDES${props?.obj?.key}`}
-                  toggleActions={props?.obj?.toggleSanciones}
+                  toggleActions={props?.obj?.listarEstudiante}
                   row={props?.obj?.row}
                   titulo={'ASIGNAR SOLICITUDES'}
                   descripcion={`Asignar Solicitudes de casos al acta del comite`}
