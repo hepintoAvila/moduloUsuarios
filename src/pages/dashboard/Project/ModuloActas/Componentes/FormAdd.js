@@ -19,7 +19,7 @@ const FormAdd = (props) => {
         title={props.title}
         validated={props.validated}
         opcion={'add'}
-        textBtn={'Registrar Aprendiz'}
+        textBtn={'Registrar Acta'}
         entidad={user[0]?.entidad}
 
       />

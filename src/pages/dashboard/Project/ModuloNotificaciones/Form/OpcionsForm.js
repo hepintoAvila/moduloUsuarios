@@ -3,6 +3,11 @@ import FormVoz from './FormVoz';
 import FormComite from './FormComite';
 
 const OpcionsForm = () => {
+<<<<<<< HEAD
+=======
+    const options = sessionStorage.getItem('OPTIONS');
+    //console.log('options',options)
+>>>>>>> prod
     return (
         <React.Fragment>
             {(() => {
