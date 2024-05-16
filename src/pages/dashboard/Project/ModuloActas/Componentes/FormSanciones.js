@@ -1,6 +1,6 @@
 import React, { useContext,useEffect } from 'react';
 import FieldSanciones from './FieldSanciones';
-import { useAprendiz } from '../../../../../hooks/useAprendiz';
+import { useActas } from '../../../../../hooks/useActas';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 
 /* custon FormAdd */
@@ -8,18 +8,18 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 const FormSanciones = (props) => {
     const { itemUrl, tipo, itemsUpdate } = useContext(DashboardContext);
 
-    const { itemsAprendiz, query } = useAprendiz();
+    const { itemsActas, query } = useActas();
 
-    const datos = itemsAprendiz?.data || [];
-    const idAprendizABuscar = itemsUpdate > 0 ? itemsUpdate : 0;
+    const datos = itemsActas?.data || [];
+    const idActaBuscar = itemsUpdate > 0 ? itemsUpdate : 0;
 
     useEffect(() => {
-        query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaSanciones'), obj: 'aprendiz', idAprendiz:btoa(idAprendizABuscar)}]);
-    }, [query,idAprendizABuscar]);
+      query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas',idActa: btoa(idActaBuscar)}]);
+    }, [query,idActaBuscar]);
 
     let userInfo = sessionStorage.getItem('hyper_user');
     const user = JSON.parse(userInfo);
-    console.log(itemsAprendiz);
+
     return (
 
         <React.Fragment>

@@ -4,7 +4,7 @@ import FormComite from './FormComite';
 
 const OpcionsForm = () => {
     const options = sessionStorage.getItem('OPTIONS');
-    console.log('options',options)
+    //console.log('options',options)
     return (
         <React.Fragment>
             {(() => {
@@ -15,7 +15,7 @@ const OpcionsForm = () => {
                                <FormComite accion={'ModuloNotificaciones'} tipo={'ConsultaNotificaciones'}/>
                             </React.Fragment>
                         );
-                        
+
                         case 'VOZ':
                         return (
                             <React.Fragment>
@@ -27,7 +27,7 @@ const OpcionsForm = () => {
                               <React.Fragment>
                                 {''}
                                </React.Fragment>
-                    );                    
+                    );
                 }
             })()
             }

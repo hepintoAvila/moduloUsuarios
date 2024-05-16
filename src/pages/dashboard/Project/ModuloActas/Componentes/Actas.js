@@ -12,7 +12,7 @@ import FormSanciones from './FormSanciones';
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import Swal from 'sweetalert2';
 import Table from '../../../components/Table';
-import { useAprendiz } from '../../../../../hooks/useAprendiz';
+import { useActas } from '../../../../../hooks/useActas';
 import BtnActualizarAprendiz from '../../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
 
 
@@ -37,9 +37,8 @@ const ActionColumn = ({ row }) => {
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'S') {
 
-      if (row.cells[0].row.values.idAprendiz === id)
-
-        setItemsUpdate(id);
+      if (row.cells[0].row.values.idActa === id)
+      setItemsUpdate(id);
       setOpen(!open);
       setSignUpModalAdd(true);
       setOpcion('update');
@@ -57,7 +56,7 @@ const ActionColumn = ({ row }) => {
 
       if (row.cells[0].row.values.idAprendiz === id)
 
-        setItemsUpdate(id);
+      setItemsUpdate(id);
       setOpen(!open);
       setSignUpModalAdd(true);
       setOpcion('sanciones');
@@ -83,7 +82,6 @@ const ActionColumn = ({ row }) => {
   return (
     <React.Fragment>
       <BtnActualizarAprendiz obj={obj}>
-
       </BtnActualizarAprendiz>
     </React.Fragment>
   );
@@ -99,43 +97,39 @@ const Actas = (props) => {
     signUpModalAdd, setSignUpModalAdd,
     sizePerPageList,
   } = useContext(DashboardContext);
-  const { itemsAprendiz, query } = useAprendiz()
-  const datos = itemsAprendiz?.data || [];
+  const { itemsActas, query } = useActas()
+
+  const datos = itemsActas?.data || [];
   const [mensajeModal,setMensageModal] = useState('');
   const handleClose = (e) => {
     setSignUpModalAdd(false);
-    query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+    query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
   }
   const columns = [
     {
-      Header: 'idAprendiz',
-      accessor: 'idAprendiz',
+      Header: 'idActa',
+      accessor: 'idActa',
       sort: true,
     },
     {
       Header: 'Nombres',
-      accessor: 'nombres',
+      accessor: 'nombre',
       sort: true,
     },
     {
-      Header: 'Apellidos',
-      accessor: 'apellidos',
+      Header: 'Fecha',
+      accessor: 'fecha',
       sort: true,
     }
     , {
-      Header: 'Identificación',
-      accessor: 'tipoIdentificacion',
+      Header: 'Hora Inicial',
+      accessor: 'horaInicial',
       sort: false,
     },
 
     {
-      Header: 'Telefono',
-      accessor: 'telefono',
-      sort: false,
-    },
-    {
-      Header: 'Correo',
-      accessor: 'correo',
+      Header: 'Hora Final',
+      accessor: 'horaFinal',
       sort: false,
     },
     {
@@ -153,22 +147,22 @@ const Actas = (props) => {
   };
 
   useEffect(() => {
-    query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+    query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
   }, [query]);
 
   useEffect(() => {
     {(() => {
       switch (opcion) {
         case 'update':
-          setMensageModal('Formulario Para Actualizar Aprendiz');
+          setMensageModal('Formulario Para Actualizar Actas');
           break
 
         case 'add':
-          setMensageModal('Formulario Para Registrar Aprendiz');
+          setMensageModal('Formulario Para Registrar Actas');
           break
 
          case 'sanciones':
-          setMensageModal('Formulario Para Registrar Sanciones Aprendiz');
+          setMensageModal('Formulario Para Asignar -- Secretario');
           break
       }
     })()
@@ -255,7 +249,7 @@ const Actas = (props) => {
                 <Col sm={8}>
                   <div className="text-sm-end">
                     <Button className="btn btn-success mb-2 me-1" onClick={toggleSignUp}>
-                      <i className="mdi mdi-account-plus" > Agregar Aprendiz</i>
+                      <i className="mdi mdi-account-plus" > Agregar Acta</i>
                     </Button>
                   </div>
                 </Col>
@@ -274,7 +268,7 @@ const Actas = (props) => {
                   isSearchable={true}
                   isVisible={true}
                   nametable={props.accion}
-                  titulo={'LISTADO DE APRENDIZES REGISTRADOS'}
+                  titulo={'LISTADO DE ACTAS REGISTRADAS'}
                   permisos={permisos}
                   icons={'dripicons-user'}
                 />

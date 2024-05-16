@@ -4,32 +4,24 @@ import { Button } from 'react-bootstrap';
 
 // components
 import { FormInput } from '../../../../../components';
-import { useAprendiz } from '../../../../../hooks/useAprendiz';
+import { useActas } from '../../../../../hooks/useActas';
 
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import Swal from 'sweetalert2';
 const Fields = (props): React$Element<React$FragmentType> => {
     const { getData } = useContext(NotificacionesContext);
-    const {query} = useAprendiz();
+    const {query} = useActas();
     const { setSignUpModalAdd } = useContext(DashboardContext);
-      const {objAprendiz}= props;
+      const {objActa}= props;
     const [items, setItems] = useState([
         {
-            idAprendiz:props?.idAprendiz > 0 ? props?.idAprendiz : 0,
-            nombres:objAprendiz?.nombres?.length > 1 ? objAprendiz?.nombres : '',
-            apellidos:objAprendiz?.apellidos?.length > 1 ? objAprendiz?.apellidos : '',
-            tipoIdentificacion:objAprendiz?.tipoIdentificacion?.length > 1 ? objAprendiz?.tipoIdentificacion : '',
-            identificacion:objAprendiz?.identificacion?.length > 1 ? objAprendiz?.identificacion: '',
-            telefono:objAprendiz?.telefono?.length > 1 ? objAprendiz?.telefono: '',
-            correo:objAprendiz?.correo?.length > 1 ? objAprendiz?.correo: '',
-            direccion:objAprendiz?.direccion?.length > 1 ? objAprendiz?.direccion: '',
-            programaFormacion:objAprendiz?.programaFormacion?.length > 1 ? objAprendiz?.programaFormacion: '',
-            proyectoFormativo:objAprendiz?.proyectoFormativo?.length > 1 ? objAprendiz?.proyectoFormativo: '',
-            jornada:objAprendiz?.jornada?.length > 1 ? objAprendiz?.jornada: '',
-            etapa:objAprendiz?.etapa?.length > 1 ? objAprendiz?.etapa: '',
-            ficha:objAprendiz?.ficha?.length > 1 ? objAprendiz?.ficha: '',
-            municipio:objAprendiz?.municipio?.length > 1 ? objAprendiz?.municipio: '',
+            idActa:props?.idActa > 0 ? props?.idActa : 0,
+            nombre:objActa?.nombre?.length > 1 ? objActa?.nombre : '',
+            fecha:objActa?.fecha?.length > 1 ? objActa?.fecha : '',
+            horaInicial:objActa?.horaInicial?.length > 1 ? objActa?.horaInicial : '',
+            horaFinal:objActa?.horaFinal?.length > 1 ? objActa?.horaFinal: '',
+            secretario:objActa?.secretario?.length > 1 ? objActa?.secretario: '',
             opcion:props?.opcion?.length > 1 ? props?.opcion: '',
 
 
@@ -47,9 +39,9 @@ const Fields = (props): React$Element<React$FragmentType> => {
         });
         const datosEvent = {
             ...items[0],
-            accion: 'ModuloAprendiz',
+            accion: 'ModuloActas',
             opcion: opcion,
-            tipo: 'aprendiz',
+            tipo: 'actas',
         };
 
 
@@ -61,230 +53,96 @@ const Fields = (props): React$Element<React$FragmentType> => {
 
         setTimeout(function () {
             getData(queryDatos);
-            query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+            query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
         }, 2000);
         setSignUpModalAdd(true);
-        return (window.location.hash = '#/dashboard/ModuloAprendiz/Aprendiz');
+        return (window.location.hash = '#/dashboard/ModuloActas/Actas');
     };
-
-
-
 
     return (
         <>
             <form className="formModal">
                 <FormInput
-                    label={'Nombre'}
-                    type="text"
-                    name="nombres"
-                    value={items[0]?.nombres}
+                    label={'NOMBRE DEL COMITÉ O DE LA REUNIÓN'}
+                    type="textarea"
+                    rows="5"
+                    name="nombre"
+                    value={items[0]?.nombre}
                     onChange={(e) =>
                         setItems([
                             {
                                 ...items[0],
-                                nombres: e.target.value,
+                                nombre: e.target.value,
                             },
                         ])
                     }
-                    placeholder={'Digite Su Nombre'}
+                    placeholder={'ACTA DEL COMITÉ DE EVALUACIÓN Y SEGUIMIENTO No.'}
                     containerClass={'mb-3'}
                 />
                 <FormInput
-                    label={'Apellido'}
-                    type="text"
-                    name="apellidos"
-                    value={items[0]?.apellidos}
+                    label={'Fecha'}
+                    type="date"
+                    containerClass={'mb-3'}
+                    name="fecha"
+                    value={items[0]?.fecha}
                     onChange={(e) =>
                         setItems([
                             {
                                 ...items[0],
-                                apellidos: e.target.value,
+                                fecha: e.target.value,
                             },
                         ])
                     }
-                    placeholder={'Digite Su Apellido'}
-                    containerClass={'mb-3'}
+                    placeholder={'Digite la Fecha'}
+
                 />
                 <FormInput
-                    label={'Tipo Identificacion'}
-                    type="text"
-                    name="tipoIdentificacion"
-                    value={items[0]?.tipoIdentificacion}
+                    label={'Hora Inicial'}
+                    type="time"
+                    name="horaInicial"
+                    value={items[0]?.horaInicial}
                     onChange={(e) =>
                         setItems([
                             {
                                 ...items[0],
-                                tipoIdentificacion: e.target.value,
+                                horaInicial: e.target.value,
                             },
                         ])
                     }
-                    placeholder={'Digite Su Tipo Identificacion'}
+                    placeholder={'Digite la Hora Inicial'}
                     containerClass={'mb-3'}
                 />
 
                 <FormInput
-                    label={'Identificacion'}
-                    type="text"
-                    name="identificacion"
-                    value={items[0]?.identificacion}
+                    label={'Hora Final'}
+                    type="time"
+                    name="horaFinal"
+                    value={items[0]?.horaFinal}
                     onChange={(e) =>
                         setItems([
                             {
                                 ...items[0],
-                                identificacion: e.target.value,
+                                horaFinal: e.target.value,
                             },
                         ])
                     }
-                    placeholder={'Digite Su Identificacion'}
+                    placeholder={'Digite la Hora Final'}
                     containerClass={'mb-3'}
                 />
                 <FormInput
-                    label={'Telefono'}
+                    label={'Secretario'}
                     type="text"
-                    name="telefono"
-                    value={items[0]?.telefono}
+                    name="secretario"
+                    value={items[0]?.secretario}
                     onChange={(e) =>
                         setItems([
                             {
                                 ...items[0],
-                                telefono: e.target.value,
+                                secretario: e.target.value,
                             },
                         ])
                     }
-                    placeholder={'Digite Su Telefono'}
-                    containerClass={'mb-3'}
-                />
-
-                <FormInput
-                    label={'Correo'}
-                    type="email"
-                    name="correo"
-                    value={items[0]?.correo}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                correo: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite Su Correo'}
-                    containerClass={'mb-3'}
-                />
-
-                <FormInput
-                    label={'Direccion'}
-                    type="text"
-                    name="direccion"
-                    value={items[0]?.direccion}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                direccion: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite Su Direccion'}
-                    containerClass={'mb-3'}
-                />
-
-                <FormInput
-                    label={'Programa Formacion'}
-                    type="text"
-                    name="programaFormacion"
-                    value={items[0]?.programaFormacion}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                programaFormacion: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite Su Correo'}
-                    containerClass={'mb-3'}
-                />
-
-                <FormInput
-                    label={'Proyecto Formativo'}
-                    type="text"
-                    name="proyectoFormativo"
-                    value={items[0]?.proyectoFormativo}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                proyectoFormativo: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite Su Proyecto Formativo'}
-                    containerClass={'mb-3'}
-                />
-
-                <FormInput
-                    label={'Jornada'}
-                    type="text"
-                    name="jornada"
-                    value={items[0]?.jornada}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                jornada: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite Su Jornada'}
-                    containerClass={'mb-3'}
-                />
-                <FormInput
-                    label={'Etapa'}
-                    type="text"
-                    name="etapa"
-                    value={items[0]?.etapa}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                etapa: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite Su Etapa'}
-                    containerClass={'mb-3'}
-                />
-                <FormInput
-                    label={'Ficha'}
-                    type="text"
-                    name="ficha"
-                    value={items[0]?.ficha}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                ficha: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite Su Ficha'}
-                    containerClass={'mb-3'}
-                />
-                <FormInput
-                    label={'Municipio'}
-                    type="text"
-                    name="municipio"
-                    value={items[0]?.municipio}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                municipio: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite Su Municipio'}
+                    placeholder={'Digite el nombre de la secretario'}
                     containerClass={'mb-3'}
                 />
                 <div className="mb-3 mb-0 text-center"></div>
@@ -297,7 +155,7 @@ const Fields = (props): React$Element<React$FragmentType> => {
                 className="btn btn-success"
                 style={{ marginTop: '25px' }}
                 onClick={() => Registrarse({ ...items },props?.opcion)}>
-                Registrar Aprendiz
+                Registrar Acta
             </Button>
 
             </div>
