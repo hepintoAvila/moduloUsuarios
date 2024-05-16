@@ -15,8 +15,8 @@ const FormAddSanciones = (props) => {
         tipo={tipo}
         title={props.title}
         validated={props.validated}
-        opcion={'sanciones'}
-        textBtn={'Registrar Sanciones Aprendiz'}
+        opcion={'solicitudes'}
+        textBtn={'Registrar solicitudes'}
         entidad={user[0]?.entidad}
 
       />

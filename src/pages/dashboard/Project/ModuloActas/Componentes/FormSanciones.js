@@ -23,18 +23,18 @@ const FormSanciones = (props) => {
     return (
 
         <React.Fragment>
-           {datos[0]?.idAprendiz > 0 ?
+           {datos[0]?.idActa> 0 ?
             <FieldSanciones
                 accion={itemUrl}
                 tipo={tipo}
                 title={props.title}
                 validated={props.validated}
                 opcion={'editarSanciones'}
-                textBtn={'Registrar Sanciones Aprendiz'}
+                textBtn={'Registrar solicitudes Comite'}
                 entidad={user[0]?.entidad}
                 objAprendiz={datos[0]}
             />
-            : "Cargando Sanciones Aprendiz..."}
+            : "Cargando solicitudes del comite..."}
         </React.Fragment>
     );
 };

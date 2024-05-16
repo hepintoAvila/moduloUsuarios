@@ -59,7 +59,7 @@ const ActionColumn = ({ row }) => {
       setItemsUpdate(id);
       setOpen(!open);
       setSignUpModalAdd(true);
-      setOpcion('sanciones');
+      setOpcion('solicitudes');
 
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
@@ -161,7 +161,7 @@ const Actas = (props) => {
           setMensageModal('Formulario Para Registrar Actas');
           break
 
-         case 'sanciones':
+         case 'solicitudes':
           setMensageModal('Formulario Para Asignar -- Secretario');
           break
       }
@@ -219,10 +219,10 @@ const Actas = (props) => {
                                       validated={validated}
                                     />
                                   </React.Fragment>
-                                     case 'sanciones':
+                                     case 'solicitudes':
                                      return <React.Fragment>
                                          <FormSanciones
-                                           title={`REGISTRAR Sanciones ${props?.tipo?.toUpperCase()}`}
+                                           title={`Asignar ${props?.tipo?.toUpperCase()}`}
                                            validated={validated}
                                          />
                                        </React.Fragment>

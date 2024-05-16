@@ -34,11 +34,11 @@ const BtnActualizarAprendiz = (props) => {
           <Pagination.Item>
              <BtnActions
                   permisos={'S'}
-                  key={`SANCIONES${props?.obj?.key}`}
+                  key={`SOLICITUDES${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSanciones}
                   row={props?.obj?.row}
-                  titulo={'SANCIONES'}
-                  descripcion={`Sanciones ${descripcionbtnaction}`}
+                  titulo={'ASIGNAR SOLICITUDES'}
+                  descripcion={`Asignar Solicitudes de casos al acta del comite`}
                   icon={'mdi mdi-account-alert'}
 
                 />
