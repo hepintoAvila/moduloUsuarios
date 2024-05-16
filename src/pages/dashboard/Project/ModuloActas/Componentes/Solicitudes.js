@@ -1,13 +1,12 @@
 import React, { useContext,useEffect } from 'react';
-import FieldSanciones from './FieldSanciones';
+import FieldSolicitudes from './FieldSolicitudes';
 import { useActas } from '../../../../../hooks/useActas';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 
 /* custon FormAdd */
 
-const FormSanciones = (props) => {
+const Solicitudes = (props) => {
     const { itemUrl, tipo, itemsUpdate } = useContext(DashboardContext);
-
     const { itemsActas, query } = useActas();
 
     const datos = itemsActas?.data || [];
@@ -24,7 +23,7 @@ const FormSanciones = (props) => {
 
         <React.Fragment>
            {datos[0]?.idActa> 0 ?
-            <FieldSanciones
+            <FieldSolicitudes
                 accion={itemUrl}
                 tipo={tipo}
                 title={props.title}
@@ -38,4 +37,4 @@ const FormSanciones = (props) => {
         </React.Fragment>
     );
 };
-export default FormSanciones;
+export default Solicitudes;

@@ -20,7 +20,7 @@ const DashboardProvider = ({ children }) => {
   const [opcion, setOpcion] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedItem, setIsCheckedItem] = useState(0);
-
+  const [selectedItems, setSelectedItems] = useState([]);
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
 
   const itemsMenuCallBack = (e) => {
@@ -180,8 +180,24 @@ const handleOnChange = (id,name,email) => {
 };
 
 
+
+const toggleItemSelection = (item) => {
+  setSelectedItems(prevSelectedItems => {
+    const newSelectedItems = prevSelectedItems.includes(item)
+      ? prevSelectedItems.filter(i => i !== item)
+      : [...prevSelectedItems, item];
+      return newSelectedItems;
+  });
+};
+useEffect(() => {
+  if (selectedItems.length > 0) {
+    console.log('selectedItems', selectedItems);
+  }
+}, [selectedItems]);
   const data = {
     handleOnChange,
+    toggleItemSelection,
+    selectedItems,
     isChecked, setIsChecked,isCheckedItem,
     AdvertenciaLocalStorage,
     itemsMenuCallBack,

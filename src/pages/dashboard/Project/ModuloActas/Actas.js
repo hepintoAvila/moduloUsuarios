@@ -5,15 +5,15 @@
 // @flow
 import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
-import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-import FormAdd from './FormAdd';
-import FormUpdate from './FormUpdate';
-import FormSanciones from './FormSanciones';
-import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
+import { DashboardContext } from '../../../../layouts/context/DashboardContext';
+import FormAdd from './Componentes/FormAdd';
+import FormUpdate from './Componentes/FormUpdate';
+import Solicitudes from './Componentes/Solicitudes';
+import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 import Swal from 'sweetalert2';
-import Table from '../../../components/Table';
-import { useActas } from '../../../../../hooks/useActas';
-import BtnActualizarAprendiz from '../../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
+import Table from '../../components/Table';
+import { useActas } from '../../../../hooks/useActas';
+import BtnActualizarAprendiz from '../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
 
 
 
@@ -181,7 +181,7 @@ const Actas = (props) => {
                   <Card>
                     <Card.Body>
                       {/* Sign up Modal */}
-                      <Modal show={signUpModalAdd} onHide={setSignUpModalAdd} onClose={handleClose}>
+                      <Modal show={signUpModalAdd} onHide={setSignUpModalAdd} onClose={handleClose} size={'lg'}>
                         <Modal.Header>
                           <div className="center-text-titulo">
                             <Modal.Title>
@@ -221,7 +221,7 @@ const Actas = (props) => {
                                   </React.Fragment>
                                      case 'solicitudes':
                                      return <React.Fragment>
-                                         <FormSanciones
+                                         <Solicitudes
                                            title={`Asignar ${props?.tipo?.toUpperCase()}`}
                                            validated={validated}
                                          />

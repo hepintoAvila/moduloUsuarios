@@ -1,7 +1,7 @@
 import React, {  useContext } from 'react';
-import FieldSanciones from './FieldSanciones';
+import ListSolicitudes from './ListSolicitudes';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-const FormAddSanciones = (props) => {
+const FieldSolicitudes = (props) => {
 
   const { itemUrl, tipo } = useContext(DashboardContext);
 
@@ -10,7 +10,7 @@ const FormAddSanciones = (props) => {
   return (
     <React.Fragment>
 
-      <FieldSanciones
+      <ListSolicitudes
         accion={itemUrl}
         tipo={tipo}
         title={props.title}
@@ -23,4 +23,4 @@ const FormAddSanciones = (props) => {
     </React.Fragment>
   );
 }
-export default FormAddSanciones;
+export default FieldSolicitudes;

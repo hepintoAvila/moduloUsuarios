@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
 import Navbar from '../../components/Navbar';
-import Actas from './Componentes/Actas'
+import Actas from './Actas'
 
 
 const ModuloActas = () => {
