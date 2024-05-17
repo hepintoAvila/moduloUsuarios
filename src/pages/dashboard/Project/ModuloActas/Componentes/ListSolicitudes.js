@@ -65,7 +65,7 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
 
   const colAgendar = [
     {
-      Header: 'ID',
+      Header: 'No',
       accessor: 'id',
       sort: true,
     },

@@ -68,7 +68,23 @@ const ActionColumn = ({ row }) => {
     }
 
    };
+   const registrarAsistentes = (id,titulo) => {
+    let permiso = sessionStorage.getItem('PERMISO');
+    const localPermiso = JSON.parse(permiso);
+    if (localPermiso?.update === 'S') {
+      if (row.cells[0].row.values.idActa === id) {
+      setItemsUpdate(id);
+      setOpen(!open);
+      setSignUpModalAdd(true);
+      setOpcion('Asistentes');
+      setOpcionBusqueda(titulo);
+      }
 
+     } else {
+      Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
+    }
+
+   };
   let permiso = sessionStorage.getItem('PERMISO');
   const localPermiso = JSON.parse(permiso);
   const isbtnLink = 'S';
@@ -76,6 +92,7 @@ const ActionColumn = ({ row }) => {
     open,
     toggleSignUp,
     listarEstudiante,
+    registrarAsistentes,
     localPermiso,
     validated,
     key: row.cells[0].value,
@@ -166,8 +183,14 @@ const Actas = (props) => {
           break
 
          case 'solicitudes':
-          setMensageModal('Formulario Para Asignar -- Secretario');
+          setMensageModal('Formulario Para Asignar Solicitudes');
           break
+          case 'Asistentes':
+            setMensageModal('Formulario Para Asignar Asistentes');
+            break
+            case 'Actas':
+              setMensageModal('Formulario Para Registrar Actas');
+              break
       }
     })()
   }
@@ -187,18 +210,37 @@ const Actas = (props) => {
                       {/* Sign up Modal */}
                       <Modal show={signUpModalAdd} onHide={setSignUpModalAdd} onClose={handleClose} size={'lg'}>
                         <Modal.Header>
-                          <div className="center-text-titulo">
-                            <Modal.Title>
-                              {mensajeModal}
-                              </Modal.Title>
-                          </div>
-
-                          <Button
+                        <Row>
+                          <Col sm={11}>
+                          <Row>
+                           <div className="editTitulos">{mensajeModal}</div>
+                          </Row>
+                          <Row>
+                          <div className="headerActas">
+                           <div className="flexRowContent--header_actas___grid__col_1">
+                           <div className="mb-1"><small className="header_actas_titulos">{'NOMBRE DEL COMITÉ O DE LA REUNIÓN:  '}</small>{mensajeModal}</div>
+                            </div>
+                            <div className="flexRowContent--header_actas___grid__col_3">
+                           <div className="mb-1"><small className="header_actas_titulos">{'CIUDAD Y FECHA:'}</small><br/>{'Bucaramanga, septiembre 13 de 2023'}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'HORA INICIO:'}</small><br/>{'8:00 am'}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'HORA FIN:'}</small><br/>{'9:00 am'}</div>
+                           </div>
+                           <div className="flexRowContent--header_actas___grid__col_2">
+                           <div className="mb-1"><small className="header_actas_titulos">{'LUGAR Y/O ENLACE:'}</small><br/>{'Centro de Servicios Empresariales y Turísticos, Auditorio Polivalente'}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'DIRECCIÓN GENERAL / REGIONAL / CENTRO'}</small><br/>{'Centro de Servicios Empresariales y Turísticos'}</div>
+                           </div>
+                            </div>
+                          </Row>
+                          </Col>
+                          <Col sm={1}>
+                           <Button
                             variant="success"
                             type="submit"
                             className="btnCerrar"
-                            onClick={handleClose}>X</Button>
-
+                            style={{ marginLeft: '1em',marginTop: '0em', width:'0.5em',height:'1.5em'}}
+                            onClick={handleClose}><div style={{ marginLeft: '-0.4em',marginTop: '-0.5em'}}>X</div> </Button>
+                            </Col>
+                        </Row>
                         </Modal.Header>
 
 
@@ -241,6 +283,11 @@ const Actas = (props) => {
                                           permisos={permisos}
                                         />
                                      </React.Fragment>
+                                    case 'Asistentes':
+                                      window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
+                                     return <React.Fragment>
+                                         {'xxx'}
+                                       </React.Fragment>
                                 default:
 
                                   return (

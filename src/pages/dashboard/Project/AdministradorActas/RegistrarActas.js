@@ -5,9 +5,7 @@ import React from 'react';
 //import { usePermisos } from '../../../../hooks/usePermisos';
 import { Row, Col, Card, Tab, Nav, Button } from 'react-bootstrap';
 import classnames from 'classnames';
-import DatosBasicos from './FormActas/DatosBasicos';
-import Reglas from './FormActas/Reglas';
-import DecisionComite from './FormActas/DecisionComite';
+
 import Recordatorio from './FormActas/Recordatorio';
 
 //const { tipo } = useContext(DashboardContext)

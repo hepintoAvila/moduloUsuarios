@@ -53,6 +53,18 @@ const BtnActas = (props) => {
 
                 />
           </Pagination.Item>
+          <Pagination.Item>
+             <BtnActions
+                  permisos={'S'}
+                  key={`ASISTENCIAS${props?.obj?.key}`}
+                  toggleActions={props?.obj?.registrarAsistentes}
+                  row={props?.obj?.row}
+                  titulo={'ASISTENCIAS'}
+                  descripcion={`Registro de Asistencia y Aprobación del Acta`}
+                  icon={'mdi mdi-account-details'}
+
+                />
+          </Pagination.Item>
           {
         (isbtnLink==='S') ?
         <Pagination.Item>
