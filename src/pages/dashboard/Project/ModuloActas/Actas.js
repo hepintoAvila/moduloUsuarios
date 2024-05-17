@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import Table from '../../components/Table';
 import { useActas } from '../../../../hooks/useActas';
 import BtnActas from './Componentes/BtnActas';
+import FieldAsistencia from './Componentes/FieldAsistencia';
 import RegistrarActas from '../AdministradorActas/RegistrarActas';
 
 
@@ -27,24 +28,34 @@ const ActionColumn = ({ row }) => {
     setItemsUpdate,
     setSignUpModalAdd,
     open, setOpcion,
-    setOpcionBusqueda
+    setOpcionBusqueda,
+    setObjActas
   } = useContext(DashboardContext);
 
 
 
 
   const toggleSignUp = (id) => {
+    const objActas = {
+      id      : row.cells[0].row.values.idActa,
+      fecha      : row.cells[0].row.values.fecha,
+      horaFinal  : row.cells[0].row.values.horaFinal,
+      horaInicial: row.cells[0].row.values.horaInicial,
+      idActa     : row.cells[0].row.values.idActa,
+      nombre     : row.cells[0].row.values.nombre,
+     }
 
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'S') {
 
       if (row.cells[0].row.values.idActa === id)
+
       setItemsUpdate(id);
       setOpen(!open);
       setSignUpModalAdd(true);
       setOpcion('update');
-
+      setObjActas(objActas);
 
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
@@ -52,6 +63,15 @@ const ActionColumn = ({ row }) => {
   };
 
   const listarEstudiante = (id,titulo) => {
+    const objActas = {
+      id      : row.cells[0].row.values.idActa,
+      fecha      : row.cells[0].row.values.fecha,
+      horaFinal  : row.cells[0].row.values.horaFinal,
+      horaInicial: row.cells[0].row.values.horaInicial,
+      idActa     : row.cells[0].row.values.idActa,
+      nombre     : row.cells[0].row.values.nombre,
+     }
+
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'S') {
@@ -61,6 +81,8 @@ const ActionColumn = ({ row }) => {
       setSignUpModalAdd(true);
       setOpcion('solicitudes');
       setOpcionBusqueda(titulo);
+      setObjActas(objActas);
+
       }
 
      } else {
@@ -69,6 +91,14 @@ const ActionColumn = ({ row }) => {
 
    };
    const registrarAsistentes = (id,titulo) => {
+    const objActas = {
+      id      : row.cells[0].row.values.idActa,
+      fecha      : row.cells[0].row.values.fecha,
+      horaFinal  : row.cells[0].row.values.horaFinal,
+      horaInicial: row.cells[0].row.values.horaInicial,
+      idActa     : row.cells[0].row.values.idActa,
+      nombre     : row.cells[0].row.values.nombre,
+     }
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'S') {
@@ -78,6 +108,7 @@ const ActionColumn = ({ row }) => {
       setSignUpModalAdd(true);
       setOpcion('Asistentes');
       setOpcionBusqueda(titulo);
+      setObjActas(objActas);
       }
 
      } else {
@@ -109,19 +140,20 @@ const ActionColumn = ({ row }) => {
 };
 const Actas = (props) => {
   const {
-    setOpcion, opcion, itemsUpdate,opcionBusqueda
+    objActas,setOpcion, opcion, itemsUpdate,opcionBusqueda
   } = useContext(DashboardContext);
 
   const permisos = props?.permisos || {};
   const {
     validated,
     signUpModalAdd, setSignUpModalAdd,
-    sizePerPageList,
+    sizePerPageList,objDatosAprendiz
   } = useContext(DashboardContext);
   const { itemsActas, query } = useActas()
 
   const datos = itemsActas?.data || [];
   const [mensajeModal,setMensageModal] = useState('');
+
   const handleClose = (e) => {
     setSignUpModalAdd(false);
     query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
@@ -175,27 +207,27 @@ const Actas = (props) => {
     {(() => {
       switch (opcion) {
         case 'update':
-          setMensageModal('Formulario Para Actualizar Actas');
+          setMensageModal('Formulario para Actualizar Actas');
           break
 
         case 'add':
-          setMensageModal('Formulario Para Registrar Actas');
+          setMensageModal('Formulario para Registrar Actas');
           break
 
          case 'solicitudes':
-          setMensageModal('Formulario Para Asignar Solicitudes');
+          setMensageModal('Formulario para Asignar Solicitudes');
           break
           case 'Asistentes':
-            setMensageModal('Formulario Para Asignar Asistentes');
+            setMensageModal('Formulario para Asignar Asistentes');
             break
             case 'Actas':
-              setMensageModal('Formulario Para Registrar Actas');
+              setMensageModal('Formulario para Registrar Actas');
               break
       }
     })()
   }
   }, [opcion]);
-
+console.log('objDatosAprendiz',objDatosAprendiz)
   return (
     <>
 
@@ -218,12 +250,12 @@ const Actas = (props) => {
                           <Row>
                           <div className="headerActas">
                            <div className="flexRowContent--header_actas___grid__col_1">
-                           <div className="mb-1"><small className="header_actas_titulos">{'NOMBRE DEL COMITÉ O DE LA REUNIÓN:  '}</small>{mensajeModal}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'NOMBRE DEL COMITÉ O DE LA REUNIÓN:  '}</small>{objActas.nombre ? objActas.nombre:''}</div>
                             </div>
                             <div className="flexRowContent--header_actas___grid__col_3">
-                           <div className="mb-1"><small className="header_actas_titulos">{'CIUDAD Y FECHA:'}</small><br/>{'Bucaramanga, septiembre 13 de 2023'}</div>
-                           <div className="mb-1"><small className="header_actas_titulos">{'HORA INICIO:'}</small><br/>{'8:00 am'}</div>
-                           <div className="mb-1"><small className="header_actas_titulos">{'HORA FIN:'}</small><br/>{'9:00 am'}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'CIUDAD Y FECHA:'}</small><br/>{'Bucaramanga,'}{objActas.fecha ? objActas.fecha:''}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'HORA INICIO:'}</small><br/>{objActas.horaInicial? objActas.horaInicial:''}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'HORA FIN:'}</small><br/>{objActas.horaFinal? objActas.horaFinal:''}</div>
                            </div>
                            <div className="flexRowContent--header_actas___grid__col_2">
                            <div className="mb-1"><small className="header_actas_titulos">{'LUGAR Y/O ENLACE:'}</small><br/>{'Centro de Servicios Empresariales y Turísticos, Auditorio Polivalente'}</div>
@@ -231,6 +263,27 @@ const Actas = (props) => {
                            </div>
                             </div>
                           </Row>
+                          {opcion ==='Actas' ?
+                          <Row>
+                            <div className="headerActas_datos_estudiantes">
+                            <div className="flexRowContent--header_actas___grid__col_1">
+                           <div className="mb-1"><small className="header_actas_titulos">{'APRENDIZ:'}      </small>{objDatosAprendiz.nombres}{' '}{objDatosAprendiz.apellidos}</div>
+                           </div>
+                           <div className="flexRowContent--header_actas___grid__col_3">
+                           <div className="mb-1"><small className="header_actas_titulos">{'TIPO DOCUMENTO:'}</small><br/>{objDatosAprendiz.tipoIdentificacion}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'No. DOCUMENTO IDENTIDAD:'}</small><br/>{objDatosAprendiz.identificacion}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'ESPECIALIDAD'}</small><br/>{objDatosAprendiz.proyectoFormativo}</div>
+                           </div>
+                            </div>
+                            <div className="headerActas_datos_estudiantes">
+                           <div className="flexRowContent--header_actas___grid__col_3">
+                           <div className="mb-1"><small className="header_actas_titulos">{'FICHA:'}</small><br/>{objDatosAprendiz.ficha? objDatosAprendiz.ficha: '00000'+objDatosAprendiz.id}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'EMAIL'}</small><br/>{objDatosAprendiz.correo}</div>
+                           <div className="mb-1"><small className="header_actas_titulos">{'PROGRAMA'}</small><br/>{objDatosAprendiz.programaFormacion}</div>
+                           </div>
+                            </div>
+                          </Row>
+                          :''}
                           </Col>
                           <Col sm={1}>
                            <Button
@@ -286,6 +339,12 @@ const Actas = (props) => {
                                     case 'Asistentes':
                                       window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
                                      return <React.Fragment>
+                                       <FieldAsistencia
+                                          accion={'ModuloActas'}
+                                          tipo={props?.tipo}
+                                          permisos={permisos}
+                                        />
+
                                          {'xxx'}
                                        </React.Fragment>
                                 default:

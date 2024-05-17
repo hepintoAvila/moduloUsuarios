@@ -6,6 +6,7 @@ import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
 import encodeBasicUrl from '../../utils/encodeBasicUrl';
 import ConfirmacionEliminacionStrategy from './ConfirmacionEliminacionStrategy';
+import { useAprendiz } from '../../hooks/useAprendiz';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
 const api = new APICore();
@@ -24,6 +25,9 @@ const DashboardProvider = ({ children }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedItem, setIsCheckedItem] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [objAprendiz, setObjAprendiz] = useState([]);
+  const [objActas, setObjActas] = useState({});
+  const [objDatosAprendiz, setObjDatosAprendiz] = useState({});
   const [status, setStatus] = useState('202');
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
 
@@ -265,6 +269,35 @@ useEffect(() => {
 }, [selectedItems]);
 
 
+const {itemsAprendiz,query} = useAprendiz()
+useEffect(() => {
+  if(objAprendiz?.aprendiz?.length > 0){
+ const partes = objAprendiz?.aprendiz.split('-');
+ const datos = itemsAprendiz?.data || [];
+ const datosTask = datos?.filter((t) => t.idAprendiz === partes[0]);
+
+ const objDatosAprendiz ={
+   id:datosTask[0]?.idAprendiz,
+   nombres:datosTask[0]?.nombres,
+   apellidos:datosTask[0]?.apellidos,
+   correo:datosTask[0]?.correo,
+   telefono:datosTask[0]?.telefono,
+   identificacion:datosTask[0]?.identificacion,
+   programaFormacion:datosTask[0]?.programaFormacion,
+   proyectoFormativo:datosTask[0]?.proyectoFormativo,
+   tipoIdentificacion:datosTask[0]?.tipoIdentificacion
+ }
+ setObjDatosAprendiz(objDatosAprendiz)
+}
+
+
+}, [objAprendiz]);
+useEffect(() => {
+  query('ModuloAprendiz','aprendiz',[{opcion:btoa('listaAprendiz'),obj:'aprendiz'}]);
+}, [query]);
+
+
+
   const data = {
     sendData,
     status,
@@ -294,7 +327,8 @@ useEffect(() => {
     opcion, setOpcion,
     eliminar,
     opcionBusqueda,
-    setOpcionBusqueda
+    setOpcionBusqueda,
+    objActas, setObjActas,setObjAprendiz,objDatosAprendiz
   };
   return (
     <>

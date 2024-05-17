@@ -328,6 +328,11 @@ body {
   margin-top: 1em;
   padding: 0em 0em 0em;
 }
+.headerActas_datos_estudiantes{
+  margin-left: 3em;
+  margin-top: 0em;
+  padding: 0em 0em 0em;
+}
 .header_actas_titulos{
   font-size: small;
   align-content: left;
@@ -348,10 +353,13 @@ body {
 }
 
 .editTitulos{
+
   font-size: small;
   color: crimson;
   padding: 0em 2.8em;
   font-weight: 900;
+  align-content: left;
+  align-content: left;
 }
 .uploadSolicitud, .uploadSolicitudAprendiz {
     padding: 0em 0em 0em;

@@ -18,10 +18,11 @@ const ActionColumnAgendada = ({ row }) => {
     isChecked, isCheckedItem,
     validated,opcionBusqueda,
     setItemsUpdate,setOpen,open,setSignUpModalAdd,
-    setOpcion
+    setOpcion,setObjAprendiz
   } = useContext(DashboardContext);
 
   const toggleSignUp = (id) => {
+     const objDatosAprendiz = {aprendiz:row.cells[0].row.values.aprendiz }
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'S') {
@@ -31,6 +32,7 @@ const ActionColumnAgendada = ({ row }) => {
       setOpen(!open);
       setSignUpModalAdd(true);
       setOpcion('Actas');
+      setObjAprendiz(objDatosAprendiz);
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
