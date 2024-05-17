@@ -9,7 +9,7 @@ import DatosBasicos from './FormActas/DatosBasicos';
 import Reglas from './FormActas/Reglas';
 import DecisionComite from './FormActas/DecisionComite';
 import Recordatorio from './FormActas/Recordatorio';
- 
+
 //const { tipo } = useContext(DashboardContext)
 //const { permisos } = usePermisos(tipo);
 
@@ -25,44 +25,53 @@ const RegistrarActas  = () => {
                                     <Nav.Item as="li" className="nav-item">
                                         <Nav.Link href="#" eventKey="1" className="nav-link rounded-0">
                                             <i className={classnames('mdi mdi-book-account-outline', 'font-18')}></i>
-                                            <span className="d-none d-lg-block">DATOS BÁSICOS DEL ACTA</span>
+                                            <span className="d-none d-lg-block">Hechos</span>
                                         </Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item as="li" className="nav-item">
                                         <Nav.Link href="#" eventKey="2" className="nav-link rounded-0">
                                             <i className={classnames('mdi mdi-book-open-page-variant', 'font-18')}></i>
-                                            <span className="d-none d-lg-block">REGLAS</span>
+                                            <span className="d-none d-lg-block">Contemplación del Caso</span>
                                         </Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item as="li">
                                         <Nav.Link href="#" eventKey="3" className="nav-link rounded-0">
                                             <i className={classnames('mdi mdi-book-open-variant', 'font-18')}></i>
-                                            <span className="d-none d-lg-block">DESCISIÓN COMITÉ</span>
+                                            <span className="d-none d-lg-block">Frente a los hechos</span>
                                         </Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item as="li">
                                         <Nav.Link href="#" eventKey="4" className="nav-link rounded-0">
                                             <i className={classnames('mdi mdi-book-plus-multiple', 'font-18')}></i>
-                                            <span className="d-none d-lg-block">RECORDATORIO</span>
+                                            <span className="d-none d-lg-block">Recomendación del Caso</span>
+                                        </Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item as="li">
+                                        <Nav.Link href="#" eventKey="5" className="nav-link rounded-0">
+                                            <i className={classnames('mdi mdi-book-plus-multiple', 'font-18')}></i>
+                                            <span className="d-none d-lg-block">COMPROMISOS</span>
                                         </Nav.Link>
                                     </Nav.Item>
                                 </Nav>
 
                                 <Row>
-                                    <Col lg={8}>
+                                    <Col lg={12}>
                                         <Tab.Content>
                                             <Tab.Pane eventKey="1">
-                                              <DatosBasicos/>
+                                            <Recordatorio id={"1"} titulo={'Hechos:'}/>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="2">
-                                            <Reglas/>
+                                            <Recordatorio id={"2"} titulo={'Contemplación del Caso:'}/>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="3">
-                                            <DecisionComite/>
+                                            <Recordatorio id={"3"} titulo={'Frente a los hechos:'}/>
                                             </Tab.Pane>
                                             <Tab.Pane eventKey="4">
-                                            <Recordatorio/>
-                                            </Tab.Pane>                                           
+                                            <Recordatorio id={"4"} titulo={'Recomendación del Caso:'}/>
+                                            </Tab.Pane>
+                                            <Tab.Pane eventKey="5">
+                                            <Recordatorio id={"5"} titulo={'Compromisos:'}/>
+                                            </Tab.Pane>
                                         </Tab.Content>
 
                                     </Col>
@@ -81,7 +90,7 @@ const RegistrarActas  = () => {
                     </Col>
                 </Row>
             </Tab.Container>
-    
+
             </React.Fragment>
   );
 };

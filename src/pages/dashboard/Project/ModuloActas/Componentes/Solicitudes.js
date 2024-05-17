@@ -14,8 +14,10 @@ const Solicitudes = (props) => {
 
     let userInfo = sessionStorage.getItem('hyper_user');
     const user = JSON.parse(userInfo);
+
     useEffect(() => {
-      query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas',idActa: btoa(idActaBuscar)}]);
+
+      query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas',id: idActaBuscar}]);
     }, [query,idActaBuscar]);
 
     return (
@@ -23,6 +25,7 @@ const Solicitudes = (props) => {
         <React.Fragment>
            {datos[0]?.idActa> 0 ?
             <FieldSolicitudes
+                opcionBusqueda={props.opcionBusqueda}
                 accion={itemUrl}
                 tipo={tipo}
                 title={props.title}
@@ -31,7 +34,7 @@ const Solicitudes = (props) => {
                 textBtn={'Registrar solicitudes Comite'}
                 entidad={user[0]?.entidad}
                 objAprendiz={datos[0]}
-                idActa={datos[0]?.idActa}
+                idActa={idActaBuscar}
             />
             : "Cargando solicitudes del comite..."}
         </React.Fragment>

@@ -12,6 +12,7 @@ const FieldSolicitudes = (props) => {
     <React.Fragment>
 
       <ListSolicitudes
+        opcionBusqueda={props.opcionBusqueda}
         accion={itemUrl}
         tipo={tipo}
         title={props.title}

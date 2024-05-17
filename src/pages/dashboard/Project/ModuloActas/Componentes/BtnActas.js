@@ -1,16 +1,14 @@
 import { Pagination, Row } from "react-bootstrap";
 
 import React from "react";
-import BtnLink from "../BtnLink";
-import BtnActions from "../BtnActions";
+import BtnLink from "../../../components/BtnLink";
+import BtnActions from "../../../components/BtnActions";
 
-const BtnActualizarAprendiz = (props) => {
+const BtnActas = (props) => {
 
   const isbtnLink = props?.obj?.isbtnLink|| 'N';
   const tipo = props?.obj?.tipo || '';
-  const descripcionbtnLink = props?.obj?.descripcionbtnLink || '';
   const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
-  const titulobtnLink =props?.obj?.titulobtnLink || '';
   const urlbtnLink =props?.obj?.urlbtnLink || '';
 
   return (
@@ -55,6 +53,22 @@ const BtnActualizarAprendiz = (props) => {
 
                 />
           </Pagination.Item>
+          {
+        (isbtnLink==='S') ?
+        <Pagination.Item>
+        <BtnLink
+            permisos={'S'}
+            key={`${tipo}_${props?.obj?.row}`}
+            row={props?.obj?.row}
+            url={urlbtnLink}
+            titulo={`GENERAR PDF`}
+            descripcion={`Genere el Acta en formato pdf`}
+            icon={'mdi mdi-file-pdf-box'}
+          />
+           </Pagination.Item>
+
+        :''
+      }
           <Pagination.Item>
              <BtnActions
                   permisos={'S'}
@@ -67,25 +81,10 @@ const BtnActualizarAprendiz = (props) => {
 
                 />
           </Pagination.Item>
- {
-        (isbtnLink==='S') ?
-        <Pagination.Item>
-        <BtnLink
-            permisos={'S'}
-            key={`${tipo}_${props?.obj?.row}`}
-            row={props?.obj?.row}
-            url={urlbtnLink}
-            titulo={`${titulobtnLink}`}
-            descripcion={`${descripcionbtnLink}`}
-            icon={'mdi mdi-account-cash'}
-          />
-           </Pagination.Item>
 
-        :''
-      }
       </Pagination>
       </Row>
     </React.Fragment>
   );
 }
-export default BtnActualizarAprendiz;
+export default BtnActas;

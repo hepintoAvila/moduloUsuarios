@@ -13,7 +13,8 @@ import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 import Swal from 'sweetalert2';
 import Table from '../../components/Table';
 import { useActas } from '../../../../hooks/useActas';
-import BtnActualizarAprendiz from '../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
+import BtnActas from './Componentes/BtnActas';
+import RegistrarActas from '../AdministradorActas/RegistrarActas';
 
 
 
@@ -25,7 +26,8 @@ const ActionColumn = ({ row }) => {
     setOpen,
     setItemsUpdate,
     setSignUpModalAdd,
-    open, setOpcion
+    open, setOpcion,
+    setOpcionBusqueda
   } = useContext(DashboardContext);
 
 
@@ -43,13 +45,13 @@ const ActionColumn = ({ row }) => {
       setSignUpModalAdd(true);
       setOpcion('update');
 
+
     } else {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
   };
 
-  const listarEstudiante = (id) => {
-
+  const listarEstudiante = (id,titulo) => {
     let permiso = sessionStorage.getItem('PERMISO');
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'S') {
@@ -58,7 +60,7 @@ const ActionColumn = ({ row }) => {
       setOpen(!open);
       setSignUpModalAdd(true);
       setOpcion('solicitudes');
-
+      setOpcionBusqueda(titulo);
       }
 
      } else {
@@ -69,6 +71,7 @@ const ActionColumn = ({ row }) => {
 
   let permiso = sessionStorage.getItem('PERMISO');
   const localPermiso = JSON.parse(permiso);
+  const isbtnLink = 'S';
   const obj = {
     open,
     toggleSignUp,
@@ -78,17 +81,18 @@ const ActionColumn = ({ row }) => {
     key: row.cells[0].value,
     row: row.cells[0].value,
     eliminar,
+    isbtnLink,
   }
   return (
     <React.Fragment>
-      <BtnActualizarAprendiz obj={obj}>
-      </BtnActualizarAprendiz>
+      <BtnActas obj={obj}>
+      </BtnActas>
     </React.Fragment>
   );
 };
 const Actas = (props) => {
   const {
-    setOpcion, opcion, itemsUpdate
+    setOpcion, opcion, itemsUpdate,opcionBusqueda
   } = useContext(DashboardContext);
 
   const permisos = props?.permisos || {};
@@ -223,10 +227,20 @@ const Actas = (props) => {
                                       window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
                                      return <React.Fragment>
                                          <Solicitudes
+                                         opcionBusqueda={opcionBusqueda}
                                            title={`Asignar ${props?.tipo?.toUpperCase()}`}
                                            validated={validated}
                                          />
                                        </React.Fragment>
+                                   case 'Actas':
+                                    window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
+                                   return <React.Fragment>
+                                       <RegistrarActas
+                                          accion={'ModuloActas'}
+                                          tipo={props?.tipo}
+                                          permisos={permisos}
+                                        />
+                                     </React.Fragment>
                                 default:
 
                                   return (

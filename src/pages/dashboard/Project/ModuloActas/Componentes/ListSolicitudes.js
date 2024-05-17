@@ -4,9 +4,7 @@
 // @flow
 import React, { useContext, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-//import Swal from 'sweetalert2';
-
-
+import Swal from 'sweetalert2';
 import Table from '../../../../../components/Table';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
@@ -15,14 +13,32 @@ import BtnSeccionAction from './BtnSeccionAction';
 
 const ActionColumnAgendada = ({ row }) => {
 
+
   const {
     isChecked, isCheckedItem,
-    validated
+    validated,opcionBusqueda,
+    setItemsUpdate,setOpen,open,setSignUpModalAdd,
+    setOpcion
   } = useContext(DashboardContext);
 
+  const toggleSignUp = (id) => {
+    let permiso = sessionStorage.getItem('PERMISO');
+    const localPermiso = JSON.parse(permiso);
+    if (localPermiso?.update === 'S') {
+
+      if (row.cells[0].row.values.idActa === id)
+      setItemsUpdate(id);
+      setOpen(!open);
+      setSignUpModalAdd(true);
+      setOpcion('Actas');
+    } else {
+      Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
+    }
+  };
   let permiso = sessionStorage.getItem('PERMISO');
   const localPermiso = JSON.parse(permiso);
   const obj = {
+    toggleSignUp,
     isChecked,
     isCheckedItem,
     localPermiso,
@@ -31,7 +47,9 @@ const ActionColumnAgendada = ({ row }) => {
     row: row.cells[0].value,
     name: row.cells[1].value,
     email: row.cells[2].value,
+    opcionBusqueda
   }
+
   return (
     <React.Fragment>
       <BtnSeccionAction obj={obj}>
@@ -91,8 +109,13 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
   const datos = itemsSolicitudes?.data?.Solicitudes || [{}];
 
   useEffect(() => {
-         query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud', sw: '8', idActa:btoa(props.idActa)}]);
-  }, [query])
+          if(props.opcionBusqueda==='ASIGNAR'){
+            query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud', sw: '8', idActa:btoa(props.idActa)}]);
+          }else{
+            query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitud', sw: '9', idActa:btoa(props.idActa)}]);
+          }
+
+  }, [query,props.opcionBusqueda])
 
   return (
     <>

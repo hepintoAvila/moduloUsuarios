@@ -9,7 +9,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 //import { usePermisos } from '../../../../hooks/usePermisos';
 import SimpleMDEReact from 'react-simplemde-editor';
 import './easymde.min.css';
-const Recordatorio = () => {
+const Recordatorio = ({id,titulo}) => {
   const delay = 1000;
   const options = {
       autosave: {
@@ -17,30 +17,25 @@ const Recordatorio = () => {
           uniqueId: 1
       },
   };
-    //const { tipo,itemUrl } = useContext(DashboardContext)
-
-    //const { permisos } = usePermisos(tipo);
-
     return (
         <React.Fragment>
             <Row>
-
                 <Col lg={12}>
                     <Card>
                         <Card.Body>
                             <Form.Group as={Row} className="mb-3">
-                                <Form.Label htmlFor="descripcion" column md={3}>
-                                    Descripción del Recordatorio:
+                                <Form.Label htmlFor="descripcion" column md={12}>
+                                    {titulo}
                                 </Form.Label>
-                                <Col md={9}>
-                                <SimpleMDEReact id={2} options={options} delay={delay}/>
+                                <Col md={12}>
+                                <SimpleMDEReact id={id} options={options} delay={delay}/>
                                 </Col>
                             </Form.Group>
                         </Card.Body>
 
                     </Card>
                 </Col>
-                
+
             </Row>
         </React.Fragment>
     );

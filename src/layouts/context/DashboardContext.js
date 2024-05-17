@@ -20,6 +20,7 @@ const DashboardProvider = ({ children }) => {
   const [signUpModalAdd, setSignUpModalAdd] = useState(false);
   const [itemsUpdate, setItemsUpdate] = useState(0);
   const [opcion, setOpcion] = useState('');
+  const [opcionBusqueda, setOpcionBusqueda] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedItem, setIsCheckedItem] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -291,7 +292,9 @@ useEffect(() => {
     setSignUpModalAdd,
     itemsUpdate, setItemsUpdate,
     opcion, setOpcion,
-    eliminar
+    eliminar,
+    opcionBusqueda,
+    setOpcionBusqueda
   };
   return (
     <>
