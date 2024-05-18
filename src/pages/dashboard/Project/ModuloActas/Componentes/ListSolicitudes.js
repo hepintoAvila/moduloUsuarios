@@ -17,18 +17,19 @@ const ActionColumnAgendada = ({ row }) => {
   const {
     isChecked, isCheckedItem,
     validated,opcionBusqueda,
-    setItemsUpdate,setOpen,open,setSignUpModalAdd,
+    setIdSolicitud,setOpen,open,setSignUpModalAdd,
     setOpcion,setObjAprendiz
   } = useContext(DashboardContext);
 
   const toggleSignUp = (id) => {
      const objDatosAprendiz = {aprendiz:row.cells[0].row.values.aprendiz }
     let permiso = sessionStorage.getItem('PERMISO');
+
     const localPermiso = JSON.parse(permiso);
     if (localPermiso?.update === 'S') {
 
-      if (row.cells[0].row.values.idActa === id)
-      setItemsUpdate(id);
+      if (row.cells[0].row.values.id === id)
+      setIdSolicitud(id);
       setOpen(!open);
       setSignUpModalAdd(true);
       setOpcion('Actas');
@@ -118,7 +119,6 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
           }
 
   }, [query,props.opcionBusqueda])
-
   return (
     <>
       <Row>

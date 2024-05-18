@@ -12,7 +12,7 @@ import AdminUsuarios from './AdminUsuarios/AdminUsuarios';
 import GestionMenu from './GestionMenu/GestionMenu';
 import ModuloSolicitudComite from './ModuloSolicitudComite/ModuloSolicitudComite';
 import ModuloNotificaciones from './ModuloNotificaciones/ModuloNotificaciones';
-import AdministradorActas from './AdministradorActas/AdministradorActas';
+import AdministradorActas from './ModuloActas/AdministradorActas/AdministradorActas';
 import ModuloAprendiz from './ModuloAprendiz/ModuloAprendiz';
 import ModuloActas from './ModuloActas/ModuloActas';
 

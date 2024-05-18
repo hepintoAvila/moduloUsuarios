@@ -29,6 +29,7 @@ const DashboardProvider = ({ children }) => {
   const [objActas, setObjActas] = useState({});
   const [objDatosAprendiz, setObjDatosAprendiz] = useState({});
   const [status, setStatus] = useState('202');
+  const [idSolicitud, setIdSolicitud] = useState(0);
   const [itemsAsistentes, setItemsAsistentes] = useState([
     {
         nombresApellidos:'',
@@ -345,7 +346,8 @@ useEffect(() => {
     opcionBusqueda,
     setOpcionBusqueda,
     objActas, setObjActas,setObjAprendiz,objDatosAprendiz,
-    itemsAsistentes, setItemsAsistentes
+    itemsAsistentes, setItemsAsistentes,
+    idSolicitud, setIdSolicitud
   };
   return (
     <>

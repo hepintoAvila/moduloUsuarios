@@ -15,10 +15,11 @@ import Table from '../../components/Table';
 import { useActas } from '../../../../hooks/useActas';
 import BtnActas from './Componentes/BtnActas';
 import FieldAsistencia from './Componentes/FieldAsistencia';
-import RegistrarActas from '../AdministradorActas/RegistrarActas';
+import AdministradorActas from './AdministradorActas/AdministradorActas';
 
-
-
+function decodeHTMLEntities(str) {
+  return new DOMParser().parseFromString(str, "text/html").body.textContent;
+}
 
 const ActionColumn = ({ row }) => {
   const {
@@ -147,12 +148,14 @@ const Actas = (props) => {
   const {
     validated,
     signUpModalAdd, setSignUpModalAdd,
-    sizePerPageList,objDatosAprendiz
+    sizePerPageList,objDatosAprendiz,idSolicitud
   } = useContext(DashboardContext);
-  const { itemsActas, query } = useActas()
+  const { itemsConceptos,itemsActas, query } = useActas()
 
+  const conseptos = itemsConceptos?.data || [];
   const datos = itemsActas?.data || [];
   const [mensajeModal,setMensageModal] = useState('');
+  const [objConceptos,setConceptos] = useState({});
 
   const handleClose = (e) => {
     setSignUpModalAdd(false);
@@ -228,6 +231,24 @@ const Actas = (props) => {
   }
   }, [opcion]);
 
+
+  useEffect(() => {
+    query('ModuloActas', 'actas', [{ opcion: btoa('listarConceptos'), obj: 'listarConceptos',idActa: btoa(itemsUpdate),idSolicitud:btoa(idSolicitud)}]);
+  }, [query,props]);
+
+  useEffect(() => {
+
+    if(itemsUpdate>0){
+      const objConceptos = {
+        hechos:decodeHTMLEntities(conseptos[0]?.hechos),
+        contemplacion:decodeHTMLEntities(conseptos[0]?.contemplacion),
+        frenteHechos:decodeHTMLEntities(conseptos[0]?.frenteHechos),
+        recomendacion:decodeHTMLEntities(conseptos[0]?.recomendacion),
+        compromisos:decodeHTMLEntities(conseptos[0]?.compromisos),
+      }
+    setConceptos(objConceptos)
+    }
+  }, [conseptos,itemsUpdate]);
   return (
     <>
 
@@ -329,13 +350,20 @@ const Actas = (props) => {
                                        </React.Fragment>
                                    case 'Actas':
                                     window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
-                                   return <React.Fragment>
-                                       <RegistrarActas
-                                          accion={'ModuloActas'}
-                                          tipo={props?.tipo}
-                                          permisos={permisos}
-                                        />
-                                     </React.Fragment>
+                                   return  <React.Fragment>
+                                   {objConceptos ? (
+                                     <AdministradorActas
+                                       accion="ModuloActas"
+                                       tipo={props?.tipo}
+                                       permisos={permisos}
+                                       idActa={itemsUpdate}
+                                       idSolicitud={idSolicitud}
+                                       objConceptos={objConceptos}
+                                     />
+                                   ) : (
+                                     'cargando'
+                                   )}
+                                 </React.Fragment>
                                     case 'Asistentes':
                                       window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
                                      return <React.Fragment>

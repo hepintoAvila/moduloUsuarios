@@ -13,6 +13,7 @@ import { NotificacionesContext } from '../../../../../layouts/context/Notificaci
 import Swal from 'sweetalert2';
 const FormAsistencia = (props): React$Element<React$FragmentType> => {
   const { getData } = useContext(NotificacionesContext);
+
     const {
       setSignUpModalAdd,
       itemsAsistentes,
