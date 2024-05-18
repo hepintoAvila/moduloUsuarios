@@ -29,6 +29,22 @@ const DashboardProvider = ({ children }) => {
   const [objActas, setObjActas] = useState({});
   const [objDatosAprendiz, setObjDatosAprendiz] = useState({});
   const [status, setStatus] = useState('202');
+  const [itemsAsistentes, setItemsAsistentes] = useState([
+    {
+        nombresApellidos:'',
+        documento:'',
+        contratista:'',
+        otroContratista:'',
+        dependencia:'',
+        email:'',
+        telefono:'',
+        autorizacion:'',
+        firmaDigital:'',
+        nombresDigital:'',
+
+
+    },
+]);
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
 
   const itemsMenuCallBack = (e) => {
@@ -328,7 +344,8 @@ useEffect(() => {
     eliminar,
     opcionBusqueda,
     setOpcionBusqueda,
-    objActas, setObjActas,setObjAprendiz,objDatosAprendiz
+    objActas, setObjActas,setObjAprendiz,objDatosAprendiz,
+    itemsAsistentes, setItemsAsistentes
   };
   return (
     <>

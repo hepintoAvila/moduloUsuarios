@@ -29,6 +29,7 @@ const NotificacionesProvider = ({ children }) => {
     const [itemsSinEnviar, setConsultarSolicitudSinEnviar] = useState({});
     const [activeTab, setActiveTab] = useState('Enviar Solicitud');
     const [openFormAprendiz, setOpenFormAprendiz] = useState(false);
+    const [openFormAsistente, setConsultarAsistentes] = useState([]);
 
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
     const getData = useCallback((queryDatos) => {
@@ -111,9 +112,13 @@ const NotificacionesProvider = ({ children }) => {
                                         case 'ConsultarSolicitudSinEnviar':
                                             setConsultarSolicitudSinEnviar(response);
                                             break;
-                                            case 'ConsultarSolicitudByCodigo':
+                                        case 'ConsultarSolicitudByCodigo':
                                             setConsultarSolicitudByCodigo(response);
                                             break;
+                                        case 'ConsultarAsistentes':
+                                            setConsultarAsistentes(response);
+                                            break;
+                                       ;
                                     }
                                 })();
                             }
@@ -299,7 +304,8 @@ const NotificacionesProvider = ({ children }) => {
         setActiveTab,
         itemsConsultarSolicitudByCodigo,
         setConsultarSolicitudByCodigo,
-        openFormAprendiz, setOpenFormAprendiz
+        openFormAprendiz, setOpenFormAprendiz,
+        openFormAsistente
     };
 
     return (

@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import Select from 'react-select';
 import { FormInput } from '../../../../../components';
-
+import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 const SelectContratista = (props) => {
-  const [items, setItems] = useState([{ contratista: '' }]);
+  const {
+    itemsAsistentes,
+    setItemsAsistentes
+   } = useContext(DashboardContext);
   const [showInput, setShowInput] = useState(false);
   const [otroValor, setOtroValor] = useState('');
 
   const handleSelectChange = (selectedOption) => {
-    setItems([{ ...props.items, contratista: selectedOption.label }]);
+    setItemsAsistentes([{ ...itemsAsistentes[0], contratista: selectedOption.label }]);
     if (selectedOption.id === 3) {
       setShowInput(true);
     } else {
@@ -19,7 +22,7 @@ const SelectContratista = (props) => {
 
   const handleInputChange = (e) => {
     setOtroValor(e.target.value);
-    setItems([{ ...props.items, contratista: e.target.value }]);
+    setItemsAsistentes([{ ...itemsAsistentes[0], otroContratista: e.target.value }]);
   };
 
   const options = [
@@ -39,14 +42,14 @@ const SelectContratista = (props) => {
         onChange={handleSelectChange}
         options={options}
         placeholder="Seleccione el contratista..."
-        value={options.find(option => option.label === items[0].contratista)}
+        value={options.find(option => option.label === itemsAsistentes[0].contratista)}
       />
       {showInput && (
          <FormInput
          label={'Digite el otro tipo'}
          type="textarea"
          rows="2"
-         name="nombresApellidos"
+         name="otroContratista"
          value={otroValor}
          onChange={handleInputChange}
          placeholder={'Especifique otro valor'}

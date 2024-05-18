@@ -227,7 +227,7 @@ const Actas = (props) => {
     })()
   }
   }, [opcion]);
-console.log('objDatosAprendiz',objDatosAprendiz)
+
   return (
     <>
 
@@ -343,9 +343,8 @@ console.log('objDatosAprendiz',objDatosAprendiz)
                                           accion={'ModuloActas'}
                                           tipo={props?.tipo}
                                           permisos={permisos}
+                                          idActa={itemsUpdate}
                                         />
-
-                                         {'xxx'}
                                        </React.Fragment>
                                 default:
 

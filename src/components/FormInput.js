@@ -1,5 +1,5 @@
 // @flow
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 
@@ -68,42 +68,8 @@ const FormInput = ({
   children,
   ...otherProps
 }: FormInputProps): React$Element<React$FragmentType> => {
-  const [inputValues, setInputValues] = useState({});
 
-  // handle input type
   const comp = type === 'textarea' ? 'textarea' : type === 'select' ? 'select' : 'input';
-  //const { validateError, setError } = useContext(ValidadorContext);
-
-  // Effect to update input values in state
-  useEffect(() => {
-      setInputValues((prevInputValues) => ({
-          ...prevInputValues,
-          [name]: '',
-      }));
-  }, [name]);
- /*
-  useEffect(() => {
-      setError({
-          ...validateError,
-          name: name,
-          value: errors && errors[name] ? true : false,
-      });
-  }, []);
-*/
-  // Function to handle input change
-  const handleInputChange = (e) => {
-    /*
-      const { name, value } = e.target;
-      setInputValues((prevInputValues) => ({
-          ...prevInputValues,
-          [name]: value,
-      }));
-      */
-  };
-
-  //console.log('validateError', JSON.stringify({ ...validateError, name }));
- console.log('Input values', {...inputValues});
-
   return (
       <>
           {type === 'hidden' ? (
@@ -126,8 +92,7 @@ const FormInput = ({
                                   errors={errors}
                                   register={register}
                                   className={className}
-                                  onChange={handleInputChange}
-                              />
+                                />
 
                               {errors && errors[name] ? (
                                   <Form.Control.Feedback type="invalid" className="d-block">
@@ -151,7 +116,6 @@ const FormInput = ({
                                           }}
                                           className={className}
                                           isInvalid={errors && errors[name] ? true : false}
-                                          onChange={handleInputChange}
                                           {...(register ? register(name) : {})}
                                           {...otherProps}
                                       />
@@ -178,7 +142,6 @@ const FormInput = ({
                                       }}
                                       className={className}
                                       isInvalid={errors && errors[name] ? true : false}
-                                      onChange={handleInputChange}
                                       {...(register ? register(name) : {})}
                                       {...otherProps}
                                       autoComplete={name}>
