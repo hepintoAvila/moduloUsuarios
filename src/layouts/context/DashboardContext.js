@@ -39,6 +39,7 @@ const DashboardProvider = ({ children }) => {
         dependencia:'',
         email:'',
         telefono:'',
+        planta:'',
         autorizacion:'',
         firmaDigital:'',
         nombresDigital:'',

@@ -59,6 +59,9 @@ const FormAsistencia = (props): React$Element<React$FragmentType> => {
     const handleSelectChangeAuto = (selectedOption) => {
       setItemsAsistentes([{ ...itemsAsistentes[0], autorizacion: selectedOption.label }]);
     };
+    const handleSelectChangePlanta = (selectedOption) => {
+      setItemsAsistentes([{ ...itemsAsistentes[0], planta: selectedOption.label }]);
+    };
 
     return (
         <>
@@ -147,6 +150,17 @@ const FormAsistencia = (props): React$Element<React$FragmentType> => {
                     }
                     placeholder={'TELÉFONO/EXT.SENA'}
                     containerClass={'mb-3'}
+                />
+                <Select
+                  type="select"
+                  name="planta"
+                  className="react-select"
+                  classNamePrefix="react-select"
+                  onChange={handleSelectChangePlanta}
+                  options={optionsAutorizacion}
+                  value={optionsAutorizacion.find(option => option.label === itemsAsistentes[0].planta)}
+                  placeholder="Selecione si es de planta..."
+                  selected={''}
                 />
                  <Select
                   type="select"
