@@ -6,6 +6,10 @@ import { NotificacionesContext } from '../../../../../layouts/context/Notificaci
 import { useActas } from '../../../../../hooks/useActas'
 import Recordatorio from '../AdministradorActas/FormActas/Recordatorio'
 import Swal from 'sweetalert2';
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+function decodeHTMLEntities(str) {
+  return new DOMParser().parseFromString(str, "text/html").body.textContent;
+}
 
 const RegistrarActas = (props) => {
     const { getData } = useContext(NotificacionesContext);
@@ -50,7 +54,7 @@ const RegistrarActas = (props) => {
             tipo: 'actas',
           };
           const queryDatos = Object.keys(datosEvent)
-          .map((key) => key + '=' + btoa(datosEvent[key]))
+          .map((key) => key + '=' + encodeBasicUrl(datosEvent[key]))
           .join('&');
           if(datosEvent?.idConcepto>0) {
                 getData(queryDatos);
@@ -102,17 +106,14 @@ const RegistrarActas = (props) => {
 
       if(conceptos?.length>0){
         setRecordatorios({
-          1: conceptos[0]?.hechos,
-          2: conceptos[0]?.contemplacion,
-          3: conceptos[0]?.frenteHechos,
-          4: conceptos[0]?.recomendacion,
-          5: conceptos[0]?.compromisos,
+          1: decodeHTMLEntities(conceptos[0]?.hechos),
+          2: decodeHTMLEntities(conceptos[0]?.contemplacion),
+          3: decodeHTMLEntities(conceptos[0]?.frenteHechos),
+          4: decodeHTMLEntities(conceptos[0]?.recomendacion),
+          5: decodeHTMLEntities(conceptos[0]?.compromisos),
       })
       }
     }, [conceptos]);
-
-    console.log('itemsUpdate',recordatorios)
-
     return (
   <React.Fragment>
             <Tab.Container defaultActiveKey="1">

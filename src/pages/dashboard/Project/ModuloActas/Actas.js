@@ -249,6 +249,7 @@ const Actas = (props) => {
     setConceptos(objConceptos)
     }
   }, [conseptos,itemsUpdate]);
+
   return (
     <>
 
