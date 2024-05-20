@@ -16,7 +16,7 @@ import { useActas } from '../../../../hooks/useActas';
 import BtnActas from './Componentes/BtnActas';
 import FieldAsistencia from './Componentes/FieldAsistencia';
 import AdministradorActas from './AdministradorActas/AdministradorActas';
-
+import PdfDropdown from './Componentes/PdfDropdown/PdfDropdown'
 function decodeHTMLEntities(str) {
   return new DOMParser().parseFromString(str, "text/html").body.textContent;
 }
@@ -268,6 +268,7 @@ const Actas = (props) => {
                           <Col sm={11}>
                           <Row>
                            <div className="editTitulos">{mensajeModal}</div>
+
                           </Row>
                           <Row>
                           <div className="headerActas">
@@ -307,13 +308,33 @@ const Actas = (props) => {
                           </Row>
                           :''}
                           </Col>
-                          <Col sm={1}>
-                           <Button
-                            variant="success"
-                            type="submit"
-                            className="btnCerrar"
-                            style={{ marginLeft: '1em',marginTop: '0em', width:'0.5em',height:'1.5em'}}
-                            onClick={handleClose}><div style={{ marginLeft: '-0.4em',marginTop: '-0.5em'}}>X</div> </Button>
+                            <Col sm={1}>
+                              <Row>
+                                <Col sm={6}>
+                                  <div className="editTitulos" style={{
+                                      marginLeft: '-6em',
+                                      marginTop: '0em',
+                                      width: '1.5em',
+                                      height: '1.9em',
+                                      backgroundColor: '#5eb319',
+                                      color: 'white',
+                                      border: 'none',
+                                      borderRadius: '0.25em',
+                                      display: 'flex',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      cursor: 'pointer',
+                                  }}><PdfDropdown /></div>
+                                </Col>
+                                <Col sm={6}>
+                                  <Button
+                                    variant="success"
+                                    type="submit"
+                                    className="btnCerrar"
+                                    style={{ marginLeft: '-2em', marginTop: '0em', width: '1.5em', height: '1.5em' }}
+                                    onClick={handleClose}><div style={{ marginLeft: '-0.4em', marginTop: '-0.5em' }}>X</div> </Button>
+                                </Col>
+                              </Row>
                             </Col>
                         </Row>
                         </Modal.Header>
