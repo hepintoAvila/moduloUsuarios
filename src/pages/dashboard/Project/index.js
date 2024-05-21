@@ -27,7 +27,7 @@ const ProjectDashboard = () => {
       if(nivel===1){
       setitemsMenuPrincipal(url);
       setitemsUrl(url);
-        return window.location.hash = `dashboard/${url}/${url}`
+        return window.location.hash = `dashboard/${url}`
       }else{
         const menuitems = window.location.hash.split('#/')[1];
         const [seccion] = menuitems?.split('/');

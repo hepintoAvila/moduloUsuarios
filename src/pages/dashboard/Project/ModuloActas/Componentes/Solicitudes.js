@@ -3,6 +3,7 @@ import React, { useContext,useEffect } from 'react';
 import FieldSolicitudes from './FieldSolicitudes';
 import { useActas } from '../../../../../hooks/useActas';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
+import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 
 /* custon FormAdd */
 
@@ -36,7 +37,7 @@ const Solicitudes = (props) => {
                 objAprendiz={datos[0]}
                 idActa={idActaBuscar}
             />
-            : "Cargando solicitudes del comite..."}
+            : <PermisoAlert/>}
         </React.Fragment>
     );
 };

@@ -5,6 +5,8 @@ import React, { useContext } from 'react';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../../hooks/usePermisos';
 import RegistrarActas from './RegistrarActas';
+import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
+
 const AdministradorActas = (props) => {
 
   const { tipo,itemUrl } = useContext(DashboardContext)
@@ -22,7 +24,7 @@ const AdministradorActas = (props) => {
                   idActa={props.idActa}
                   idSolicitud={props.idSolicitud}
                   objConceptos={props.objConceptos}
-                />):''}
+                />):<PermisoAlert/>}
     </React.Fragment>
   );
 };

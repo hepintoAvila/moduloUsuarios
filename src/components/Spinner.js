@@ -24,6 +24,7 @@ const Spinner = (props: SpinnerProps): React$Element<any> => {
         <Tag
             role="status"
             className={classNames(
+
                 { 'spinner-border': props.type === 'bordered', 'spinner-grow': props.type === 'grow' },
                 [`text-${color}`],
                 { [`avatar-${size}|`]: size },

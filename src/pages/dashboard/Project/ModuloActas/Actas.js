@@ -140,13 +140,11 @@ const ActionColumn = ({ row }) => {
   );
 };
 const Actas = (props) => {
-  const {
-    objActas,setOpcion, opcion, itemsUpdate,opcionBusqueda
-  } = useContext(DashboardContext);
 
   const permisos = props?.permisos || {};
   const {
-    validated,
+    validated, setDropdownImprimir,
+    objActas,setOpcion, opcion, itemsUpdate,opcionBusqueda,
     signUpModalAdd, setSignUpModalAdd,
     sizePerPageList,objDatosAprendiz,idSolicitud
   } = useContext(DashboardContext);
@@ -158,8 +156,10 @@ const Actas = (props) => {
   const [objConceptos,setConceptos] = useState({});
 
   const handleClose = (e) => {
+    setDropdownImprimir(false)
     setSignUpModalAdd(false);
     query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
+   //return window.location.hash =  `#/dashboard/ModuloActas/Actas?p=${e}`;
   }
   const columns = [
     {
@@ -324,7 +324,7 @@ const Actas = (props) => {
                                       justifyContent: 'center',
                                       alignItems: 'center',
                                       cursor: 'pointer',
-                                  }}><PdfDropdown /></div>
+                                  }}><PdfDropdown itemsUpdate={itemsUpdate} /></div>
                                 </Col>
                                 <Col sm={6}>
                                   <Button
@@ -344,8 +344,9 @@ const Actas = (props) => {
                             {(() => {
                               switch (opcion) {
                                 case 'update':
-
+                                  window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
                                 return <React.Fragment>
+
                                     <FormUpdate
                                       idAprendiz={itemsUpdate}
                                       title={`FORMULARIO PARA LA EDICION DE ${props?.tipo?.toUpperCase()}`}
@@ -383,7 +384,7 @@ const Actas = (props) => {
                                        objConceptos={objConceptos}
                                      />
                                    ) : (
-                                     'cargando'
+                                    <PermisoAlert />
                                    )}
                                  </React.Fragment>
                                     case 'Asistentes':
@@ -426,7 +427,7 @@ const Actas = (props) => {
               </Row>
               {datos?.length > 0 ?
 
-                <Table
+               <Table
                   columns={columns}
                   data={datos}
                   pageSize={25}

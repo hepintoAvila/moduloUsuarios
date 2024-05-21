@@ -1,35 +1,26 @@
 /* eslint-disable jsx-a11y/alt-text */
-// @flow
+// eslint-disable-next-line no-lone-blocks
+
 import React, { useEffect, useState } from 'react';
-//import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
-//import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
-/*
-function generarCodigoAleatorio(longitud) {
-  const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let codigo = "";
 
-  for (let i = 0; i < longitud; i++) {
-      const indice = Math.floor(Math.random() * caracteres.length);
-      codigo += caracteres.charAt(indice);
-  }
-
-  return codigo;
-}
-*/
 const ViewPdf = (props) => {
-  //const codigoAleatorio = generarCodigoAleatorio(8);
   const [url, setUrl] = useState('');
   const [pdf, setPdf] = useState(false);
-//const {query} = useContext(NotificacionesContext)
-
 
   useEffect(() => {
+
     // eslint-disable-next-line no-lone-blocks
     {(() => {
-      switch (props?.titulo) {
-        case 'PDF':
-         setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/${props?.idActa}.pdf`) ;
+      switch (props?.tipo) {
+        case 'actas':
+         setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/Actas_${props?.idActa}.pdf`) ;
         break
+        case 'aprendices':
+          setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/listaAprendiz${props?.idActa}.pdf`) ;
+         break
+         case 'asistencia':
+          setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/${props?.idActa}.pdf`) ;
+         break
         default:
           setUrl('');
         break
@@ -51,7 +42,7 @@ const ViewPdf = (props) => {
           console.error("Error al verificar la URL del PDF:", error);
         });
 }, [url]);
-console.log('url',url)
+
  return pdf && (
     <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
       <object

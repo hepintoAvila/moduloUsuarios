@@ -5,6 +5,7 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 /* custon FormUpdate */
 import Fields from './Fields';
 import { useActas } from '../../../../../hooks/useActas';
+import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 
 
 
@@ -22,7 +23,7 @@ const datosTask = datos?.filter((t) => t.idActa === idActaABuscar);
 useEffect(() => {
   query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
 }, [query]);
-console.log('idActaABuscar',idActaABuscar)
+//console.log('idActaABuscar',idActaABuscar)
   return (
   <React.Fragment>
        {datosTask[0]?.idActa > 0 ?
@@ -39,7 +40,7 @@ console.log('idActaABuscar',idActaABuscar)
         objActa={datosTask[0]}
         Idpermiso={itemsUpdate?.items?.Idpermiso}
       />
-      : "Cargando Datos del Acta..."}
+      :<PermisoAlert/>}
   </React.Fragment>
     );
 }

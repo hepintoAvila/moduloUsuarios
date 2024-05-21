@@ -10,6 +10,7 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import BtnSeccionAction from './BtnSeccionAction';
+import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 
 const ActionColumnAgendada = ({ row }) => {
 
@@ -61,7 +62,7 @@ const ActionColumnAgendada = ({ row }) => {
   );
 };
 const ListSolicitudes = (props): React$Element<React$FragmentType> => {
-  const { itemsSolicitudes, query } = useContext(NotificacionesContext)
+  const {itemsSolicitudes, query } = useContext(NotificacionesContext)
   const {
     sizePerPageList,
   } = useContext(DashboardContext);
@@ -119,11 +120,14 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
           }
 
   }, [query,props.opcionBusqueda])
+
+
+
   return (
     <>
       <Row>
         <Col sm="12">
-          {datos?.length > 0 && <Table
+          {datos?.length > 0 ? <Table
             columns={colAgendar}
             data={datos}
             pageSize={5}
@@ -135,7 +139,7 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
             isSearchable={true}
             nametable={'table_1'}
             titleTable={'LISTADO DE NOTIFICACIONES'}
-          />}
+          />:<PermisoAlert/>}
         </Col>
       </Row>
 

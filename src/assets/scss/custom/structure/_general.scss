@@ -240,6 +240,7 @@ body {
   --bs-spinner-animation-speed: 0.75s;
   --bs-spinner-animation-name: spinner-border;
   border-right-color: currentcolor;
+  background: transparent  !important;
   border: var(--bs-spinner-border-width) solid;
   border-right: var(--bs-spinner-border-width) solid #0000;
 }
@@ -305,6 +306,7 @@ body {
   margin-bottom: 1em;
   font-size: 0.8em;
 }
+
 .flexRowContent--header_actas___grid__col_3 {
   position: relative !important;
   display: grid;

@@ -18,6 +18,8 @@ const DashboardProvider = ({ children }) => {
   const [itemsQuery, setItemsQuery] = useState([]);
   const [isLoading, setLoading] = useState([]);
   const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownImprimir, setDropdownImprimir] = useState(false);
   const [signUpModalAdd, setSignUpModalAdd] = useState(false);
   const [itemsUpdate, setItemsUpdate] = useState(0);
   const [opcion, setOpcion] = useState('');
@@ -240,6 +242,7 @@ const handleOnChange = (id,name,email) => {
 
 
 const toggleItemSelection = (item) => {
+
   setSelectedItems(prevSelectedItems => {
     const newSelectedItems = prevSelectedItems.includes(item)
       ? prevSelectedItems.filter(i => i !== item)
@@ -247,6 +250,8 @@ const toggleItemSelection = (item) => {
       return newSelectedItems;
   });
 };
+
+
 useEffect(() => {
   if (selectedItems.length > 0) {
 
@@ -254,6 +259,7 @@ useEffect(() => {
     const idUrl = pagesInSearch();
     let url = '#/dashboard/ModuloActas/Actas?p=';
     const id = idUrl?.replace(url, '');
+
     console.log('id',id)
     Swal.fire({
       position: 'top-center',
@@ -262,7 +268,6 @@ useEffect(() => {
       showConfirmButton: false,
       timer: 1500
     });
-
     const datosEvent = {
       idActa:btoa(id),
       items: btoa(selectedItems),
@@ -315,7 +320,6 @@ useEffect(() => {
 }, [query]);
 
 
-
   const data = {
     sendData,
     status,
@@ -348,7 +352,9 @@ useEffect(() => {
     setOpcionBusqueda,
     objActas, setObjActas,setObjAprendiz,objDatosAprendiz,
     itemsAsistentes, setItemsAsistentes,
-    idSolicitud, setIdSolicitud
+    idSolicitud, setIdSolicitud,
+    dropdownOpen, setDropdownOpen,
+    dropdownImprimir, setDropdownImprimir
   };
   return (
     <>
