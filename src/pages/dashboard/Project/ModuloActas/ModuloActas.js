@@ -12,7 +12,7 @@ import { NotificacionesContext } from '../../../../layouts/context/Notificacione
 
 const ModuloActas = () => {
 
- const { tipo, itemUrl, setDropdownImprimir} = useContext(DashboardContext)
+ const { tipo, itemUrl,setDropdownImprimir} = useContext(DashboardContext)
   const handleClose = (idActa) => {
     setDropdownImprimir(true);
     return window.location.hash = `#/dashboard/ModuloActas/Actas?p=${idActa}`;

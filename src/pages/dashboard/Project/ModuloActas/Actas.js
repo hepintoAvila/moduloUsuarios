@@ -239,14 +239,16 @@ const Actas = (props) => {
   useEffect(() => {
 
     if(itemsUpdate>0){
-      const objConceptos = {
+
+      setConceptos(objConceptos => ({
+        ...objConceptos,
         hechos:decodeHTMLEntities(conseptos[0]?.hechos),
         contemplacion:decodeHTMLEntities(conseptos[0]?.contemplacion),
         frenteHechos:decodeHTMLEntities(conseptos[0]?.frenteHechos),
         recomendacion:decodeHTMLEntities(conseptos[0]?.recomendacion),
         compromisos:decodeHTMLEntities(conseptos[0]?.compromisos),
-      }
-    setConceptos(objConceptos)
+    }));
+
     }
   }, [conseptos,itemsUpdate]);
 
