@@ -5,10 +5,7 @@ import React, {useContext, useEffect, useState } from 'react';
 import { Row, Col, Card, Button, Modal, Form,Collapse} from 'react-bootstrap';
 import '@fullcalendar/react';
 import classNames from 'classnames';
-// components
 
-import Calendar from './Calendar';
-import AddEditEvent from './AddEditEvent';
 import { Link } from 'react-router-dom';
 // dummy data
 
@@ -16,12 +13,18 @@ import { NotificacionesContext } from '../../../../../layouts/context/Notificaci
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import FormInput from '../../../components/FormInput';
 import Swal from 'sweetalert2';
+
+
+import { obtenerMesActual,filtrarPorMes} from './funtions';
+
+
+// components
+
+import Calendar from './Calendar';
+import AddEditEvent from './AddEditEvent';
+import TableAgendados from './TableAgendados';
 import TableComite from './TableComite';
 import TableAprendiz from './TableAprendiz';
-import { obtenerMesActual,filtrarPorMes} from './funtions';
-import TableAgendados from './TableAgendados';
-
-
 
 const SidePanel = ({ miembroscomites, setIdDirectivos,setIdSolicitud,events,aprendicesAgendados,enviarEmailAprendiz}) => {
 

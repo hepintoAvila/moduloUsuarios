@@ -1,17 +1,22 @@
 import React, { useContext, useEffect } from 'react';
 import {Row, Col, Tab, Nav, Card, Collapse } from 'react-bootstrap';
+import { SearchContext } from '../../../../../layouts/context/SearchContext';
+import classnames from 'classnames';
+
 import FormDatosAprendiz from './FormDatosAprendiz';
 import FormDatosIncidente from './FormDatosIncidente';
 import FormDatosEvidencia from './FormDatosEvidencia';
-import { SearchContext } from '../../../../../layouts/context/SearchContext';
+import HeaderForm from '../Components/HeaderForm';
 import TopbarSearch from '../../../../../components/TopbarSearch';
-import classnames from 'classnames';
 import CarHistorialIncidencias from '../ConsultarIncidente/CarHistorialIncidencias';
+
+
+
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
-import HeaderForm from '../Components/HeaderForm';
+
 
 const EnviarSolicitud = (props) => {
 

@@ -8,18 +8,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
+
+import Swal from 'sweetalert2';
+import { useActas } from '../../../../hooks/useActas';
+
+
 import FormAdd from './Componentes/FormAdd';
 import FormUpdate from './Componentes/FormUpdate';
 import Solicitudes from './Componentes/Solicitudes';
 import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
-import Swal from 'sweetalert2';
 import Table from '../../components/Table';
-import { useActas } from '../../../../hooks/useActas';
 import BtnActas from './Componentes/BtnActas';
 import FieldAsistencia from './Componentes/FieldAsistencia';
 import AdministradorActas from './AdministradorActas/AdministradorActas';
 import PdfDropdown from './Componentes/PdfDropdown/PdfDropdown'
 import ExcelGenerator from './Componentes/ExcelGenerator';
+
+
+
+
 function decodeHTMLEntities(str) {
   return new DOMParser().parseFromString(str, "text/html").body.textContent;
 }

@@ -6,17 +6,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
+
+import Swal from 'sweetalert2';
+
+import { useAprendiz } from '../../../../../hooks/useAprendiz';
+
+import Table from '../../../components/Table';
 import FormAdd from './FormAdd';
 import FormUpdate from './FormUpdate';
 import FormSanciones from './FormSanciones';
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
-import Swal from 'sweetalert2';
-import Table from '../../../components/Table';
-import { useAprendiz } from '../../../../../hooks/useAprendiz';
 import BtnActualizarAprendiz from '../../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
-
-
-
 
 const ActionColumn = ({ row }) => {
   const {
