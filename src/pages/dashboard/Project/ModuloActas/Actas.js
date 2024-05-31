@@ -456,9 +456,9 @@ const Actas = (props) => {
                 </Col>
                 <Col sm={2}>
                  <div className="text-sm-end">
-                    <Button className="btn btn-success mb-2 me-1" onClick={()=>imprimeConsolidado()}>
+                   { selectedItemsConsolidados?.length>0 ?<Button className="btn btn-success mb-2 me-1" onClick={()=>imprimeConsolidado()}>
                       <i className="mdi mdi-account-plus" >Consolidado</i>
-                    </Button>
+                    </Button>:''}
                   </div>
                 </Col>
               </Row>

@@ -10,6 +10,7 @@ export const useActas = () => {
   const [isLoading, setLoading] = useState(false);
   const [itemsActas, setActas] = useState([]);
   const [itemsConceptos, setActasConceptos] = useState([]);
+  const [itemsConsolidads, setConsolidado] = useState([]);
   const [status, setStatus] = useState('202');
   //QUERY DE RESPUSTA DE CONSULTAS
   const query = useCallback((itemUrl, tipo, opcion) => {
@@ -40,6 +41,9 @@ export const useActas = () => {
                     break;
                   case 'actas':
                     setActas(response)
+                    break;
+                    case 'generarConsolidado':
+                    setConsolidado(response)
                     break;
                 }
               })()
@@ -94,7 +98,8 @@ export const useActas = () => {
       isLoading,
       itemsActas,
       itemsConceptos,
-      getDataConceptos
+      getDataConceptos,
+      itemsConsolidads
     }
   )
 }
