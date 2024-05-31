@@ -27,6 +27,8 @@ const DashboardProvider = ({ children }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedItem, setIsCheckedItem] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItemsConsolidados, setSelectedItemsConsolidados] = useState([]);
+  const [itemsConsolidados, setItemsConsolidados] = useState([]);
   const [objAprendiz, setObjAprendiz] = useState([]);
   const [objActas, setObjActas] = useState({});
   const [objDatosAprendiz, setObjDatosAprendiz] = useState({});
@@ -209,7 +211,7 @@ const handleOnChange = (id,name,email) => {
 
 
 
-    /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
+    /*GETDATA PARA ENVIAR DATOS DEL FOMULARIO */
     const sendData = useCallback((queryDatos) => {
       const infoUsers = sessionStorage.getItem('hyper_user');
       const infoUser = JSON.parse(infoUsers);
@@ -239,7 +241,26 @@ const handleOnChange = (id,name,email) => {
       }
   }, []);
 
-
+    /*GETDATA PARA GENERAR CONSOLIDADOS */
+    const getConsolidado = useCallback((queryDatos) => {
+      const infoUsers = sessionStorage.getItem('hyper_user');
+      const infoUser = JSON.parse(infoUsers);
+      if (Number(infoUser[0]?.id > 0)) {
+          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
+              infoUser[0]?.id
+          )}&Apikey=${encodeBasicUrl(infoUser[0]?.Apikey)}&ApiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}`;
+          const respDatos = api.sendRequestData(url);
+          respDatos
+              ?.then(function (resp) {
+                try {
+                    setItemsConsolidados(resp)
+                } catch (error) {
+                  console.error(error);
+                }
+                  /**setEvents */
+              });
+      }
+  }, []);
 
 const toggleItemSelection = (item) => {
 
@@ -250,7 +271,61 @@ const toggleItemSelection = (item) => {
       return newSelectedItems;
   });
 };
+const toggleItemConsolidados = (item) => {
 
+  setSelectedItemsConsolidados(prevSelectedItems => {
+    const newSelectedItems = prevSelectedItems.includes(item)
+      ? prevSelectedItems.filter(i => i !== item)
+      : [...prevSelectedItems, item];
+      return newSelectedItems;
+  });
+};
+
+const jsonConsolidados = useCallback((selectedItems) => {
+  if (selectedItems.length > 0) {
+
+    /* OBTENER EL ID DEL ACTA*/
+    const idUrl = pagesInSearch();
+    let url = '#/dashboard/ModuloActas/Actas?p=';
+    const id = idUrl?.replace(url, '');
+
+    console.log('id',id)
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: 'Registro Enviado',
+      showConfirmButton: false,
+      timer: 1500
+    });
+    const datosEvent = {
+      items: btoa(selectedItems),
+      accion: btoa('ModuloActas'),
+      opcion: btoa('generarConsolidado'),
+      tipo: btoa('actas'),
+    };
+
+    const queryDatos = Object.keys(datosEvent)
+    .map((key) => {
+      if (Array.isArray(datosEvent[key])) {
+        return datosEvent[key]
+          .map((item, index) => `${key}[${index}]=${encodeURIComponent(item)}`)
+          .join('&');
+      } else {
+        return `${key}=${encodeURIComponent(datosEvent[key])}`;
+      }
+    })
+    .join('&');
+
+   getConsolidado(queryDatos)
+    console.log('resp',itemsConsolidados)
+
+      return itemsConsolidados;
+  }else{
+
+    Swal.fire('SELECCIONE UNO O MAS ACTAS PARA GENERAR EL REPORTE');
+  }
+
+}, [itemsConsolidados]);
 
 useEffect(() => {
   if (selectedItems.length > 0) {
@@ -326,6 +401,9 @@ useEffect(() => {
     setStatus,
     handleOnChange,
     toggleItemSelection,
+    toggleItemConsolidados,
+    selectedItemsConsolidados,
+    jsonConsolidados,
     selectedItems,
     isChecked, setIsChecked,isCheckedItem,
     AdvertenciaLocalStorage,

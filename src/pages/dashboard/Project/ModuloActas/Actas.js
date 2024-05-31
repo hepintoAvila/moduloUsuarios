@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable default-case */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -17,6 +19,7 @@ import BtnActas from './Componentes/BtnActas';
 import FieldAsistencia from './Componentes/FieldAsistencia';
 import AdministradorActas from './AdministradorActas/AdministradorActas';
 import PdfDropdown from './Componentes/PdfDropdown/PdfDropdown'
+import ExcelGenerator from './Componentes/ExcelGenerator';
 function decodeHTMLEntities(str) {
   return new DOMParser().parseFromString(str, "text/html").body.textContent;
 }
@@ -62,6 +65,7 @@ const ActionColumn = ({ row }) => {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
   };
+
 
   const listarEstudiante = (id,titulo) => {
     const objActas = {
@@ -146,7 +150,7 @@ const Actas = (props) => {
     validated, setDropdownImprimir,
     objActas,setOpcion, opcion, itemsUpdate,opcionBusqueda,
     signUpModalAdd, setSignUpModalAdd,
-    sizePerPageList,objDatosAprendiz,idSolicitud
+    sizePerPageList,objDatosAprendiz,idSolicitud,open,setOpen,selectedItemsConsolidados
   } = useContext(DashboardContext);
   const { itemsConceptos,itemsActas, query } = useActas()
 
@@ -161,6 +165,12 @@ const Actas = (props) => {
     query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
    //return window.location.hash =  `#/dashboard/ModuloActas/Actas?p=${e}`;
   }
+  const imprimeConsolidado = () => {
+     setOpen(!open);
+     setSignUpModalAdd(true);
+     setOpcion('Consolidado');
+
+ };
   const columns = [
     {
       Header: 'idActa',
@@ -252,6 +262,9 @@ const Actas = (props) => {
     }
   }, [conseptos,itemsUpdate]);
 
+
+
+
   return (
     <>
 
@@ -273,6 +286,7 @@ const Actas = (props) => {
 
                           </Row>
                           <Row>
+                          {opcion !== 'Consolidado' ?
                           <div className="headerActas">
                            <div className="flexRowContent--header_actas___grid__col_1">
                            <div className="mb-1"><small className="header_actas_titulos">{'NOMBRE DEL COMITÉ O DE LA REUNIÓN:  '}</small>{objActas.nombre ? objActas.nombre:''}</div>
@@ -286,7 +300,7 @@ const Actas = (props) => {
                            <div className="mb-1"><small className="header_actas_titulos">{'LUGAR Y/O ENLACE:'}</small><br/>{'Centro de Servicios Empresariales y Turísticos, Auditorio Polivalente'}</div>
                            <div className="mb-1"><small className="header_actas_titulos">{'DIRECCIÓN GENERAL / REGIONAL / CENTRO'}</small><br/>{'Centro de Servicios Empresariales y Turísticos'}</div>
                            </div>
-                            </div>
+                            </div>:'GENERE EL CONSOLIDADO'}
                           </Row>
                           {opcion ==='Actas' ?
                           <Row>
@@ -313,6 +327,7 @@ const Actas = (props) => {
                             <Col sm={1}>
                               <Row>
                                 <Col sm={6}>
+                                {opcion !== 'Consolidado' ?
                                   <div className="editTitulos" style={{
                                       marginLeft: '-6em',
                                       marginTop: '0em',
@@ -326,15 +341,16 @@ const Actas = (props) => {
                                       justifyContent: 'center',
                                       alignItems: 'center',
                                       cursor: 'pointer',
-                                  }}><PdfDropdown itemsUpdate={itemsUpdate} /></div>
+                                  }}><PdfDropdown itemsUpdate={itemsUpdate} /></div>:''}
                                 </Col>
                                 <Col sm={6}>
+                                {opcion !== 'Consolidado' ?
                                   <Button
                                     variant="success"
                                     type="submit"
                                     className="btnCerrar"
                                     style={{ marginLeft: '-2em', marginTop: '0em', width: '1.5em', height: '1.5em' }}
-                                    onClick={handleClose}><div style={{ marginLeft: '-0.4em', marginTop: '-0.5em' }}>X</div> </Button>
+                                    onClick={handleClose}><div style={{ marginLeft: '-0.4em', marginTop: '-0.5em' }}>X</div> </Button>:''}
                                 </Col>
                               </Row>
                             </Col>
@@ -399,6 +415,18 @@ const Actas = (props) => {
                                           idActa={itemsUpdate}
                                         />
                                        </React.Fragment>
+                                    case 'Consolidado':
+                                      window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
+                                     return <React.Fragment>
+                                       <ExcelGenerator
+                                          accion={'ModuloActas'}
+                                          tipo={props?.tipo}
+                                          permisos={permisos}
+                                          idActa={itemsUpdate}
+                                          selectedItems={selectedItemsConsolidados}
+
+                                        />
+                                       </React.Fragment>
                                 default:
 
                                   return (
@@ -417,12 +445,19 @@ const Actas = (props) => {
                 </Col>
               </Row>
               <Row>
-                <Col sm={4}>
-                </Col>
                 <Col sm={8}>
+                </Col>
+                <Col sm={2}>
                   <div className="text-sm-end">
                     <Button className="btn btn-success mb-2 me-1" onClick={toggleSignUp}>
                       <i className="mdi mdi-account-plus" > Agregar Acta</i>
+                    </Button>
+                  </div>
+                </Col>
+                <Col sm={2}>
+                 <div className="text-sm-end">
+                    <Button className="btn btn-success mb-2 me-1" onClick={()=>imprimeConsolidado()}>
+                      <i className="mdi mdi-account-plus" >Consolidado</i>
                     </Button>
                   </div>
                 </Col>

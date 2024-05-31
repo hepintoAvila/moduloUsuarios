@@ -1,15 +1,21 @@
 import { Pagination, Row } from "react-bootstrap";
 
-import React from "react";
-import BtnLink from "../../../components/BtnLink";
+import React, { useContext } from "react";
+
 import BtnActions from "../../../components/BtnActions";
+import { DashboardContext } from "../../../../../layouts/context/DashboardContext";
 
 const BtnActas = (props) => {
 
-  const isbtnLink = props?.obj?.isbtnLink|| 'N';
-  const tipo = props?.obj?.tipo || '';
+
   const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
-  const urlbtnLink =props?.obj?.urlbtnLink || '';
+
+  const { selectedItemsConsolidados, toggleItemConsolidados } = useContext(DashboardContext);
+
+  const handleCheckboxConsolidados = () => {
+    toggleItemConsolidados(props?.obj?.key);
+  };
+
 
   return (
     <React.Fragment>
@@ -66,20 +72,6 @@ const BtnActas = (props) => {
                 />
           </Pagination.Item>
           {
-        (isbtnLink==='S') ?
-        <Pagination.Item>
-        <BtnLink
-            permisos={'S'}
-            key={`${tipo}_${props?.obj?.row}`}
-            row={props?.obj?.row}
-            url={urlbtnLink}
-            titulo={`GENERAR PDF`}
-            descripcion={`Genere el Acta en formato pdf`}
-            icon={'mdi mdi-file-pdf-box'}
-          />
-           </Pagination.Item>
-
-        :''
       }
           <Pagination.Item>
              <BtnActions
@@ -93,7 +85,13 @@ const BtnActas = (props) => {
 
                 />
           </Pagination.Item>
-
+          <Pagination.Item>
+            <input
+              type="checkbox"
+              checked={selectedItemsConsolidados.includes(props?.obj?.key)}
+              onChange={handleCheckboxConsolidados}
+            />
+          </Pagination.Item>
       </Pagination>
       </Row>
     </React.Fragment>
