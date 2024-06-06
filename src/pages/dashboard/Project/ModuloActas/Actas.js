@@ -43,9 +43,6 @@ const ActionColumn = ({ row }) => {
     setObjActas
   } = useContext(DashboardContext);
 
-
-
-
   const toggleSignUp = (id) => {
     const objActas = {
       id      : row.cells[0].row.values.idActa,
@@ -72,7 +69,6 @@ const ActionColumn = ({ row }) => {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
   };
-
 
   const listarEstudiante = (id,titulo) => {
     const objActas = {

@@ -184,30 +184,27 @@ const handleRegresar = (tipo) => {
   setitemsUrl(tipo);
   return window.location.hash=url;
 }
-const handleOnChange = (id,name,email) => {
+const handleOnChange = (id, name, email) => {
   setIsChecked(!isChecked);
   setIsCheckedItem(id);
 
   const dataInLocalStorage = localStorage.getItem('idsIncidentes');
   const data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
-  const itemExists = data?.filter((row) => {
-    return row?.id === id;
-    });
 
+  const itemExists = data.find((row) => row.id === id);
 
-
-  if (!itemExists[0]?.id) {
-    const newItem = { id,name,email };
+  if (!itemExists) {
+    // Agregar el nuevo ítem si no existe
+    const newItem = { id, name, email };
     const updatedData = [...data, newItem];
     localStorage.setItem('idsIncidentes', JSON.stringify(updatedData));
-  }else{
-    const itemsDelete = data?.filter((row) => {
-      return row?.id !== id;
-      });
-      localStorage.removeItem('idsIncidentes');
-      localStorage.setItem('idsIncidentes', JSON.stringify(itemsDelete));
+  } else {
+    // Remover el ítem si ya existe
+    const updatedData = data.filter((row) => row.id !== id);
+    localStorage.setItem('idsIncidentes', JSON.stringify(updatedData));
   }
 };
+
 
 
 
@@ -280,7 +277,9 @@ const toggleItemConsolidados = (item) => {
       return newSelectedItems;
   });
 };
-
+const handleCheckboxNotificaciones= (key) => {
+  toggleItemConsolidados(key);
+};
 const jsonConsolidados = useCallback((selectedItems) => {
   if (selectedItems.length > 0) {
 
@@ -402,6 +401,7 @@ useEffect(() => {
     handleOnChange,
     toggleItemSelection,
     toggleItemConsolidados,
+    handleCheckboxNotificaciones,
     selectedItemsConsolidados,
     jsonConsolidados,
     selectedItems,

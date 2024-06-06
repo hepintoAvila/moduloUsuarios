@@ -234,6 +234,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
 
         const dataInLocalStorage1 = localStorage.getItem('idsIncidentes');
         const comiteSelect1 = dataInLocalStorage ? JSON.parse(dataInLocalStorage1) : [];
+
         const filteredAgendada = comiteSelect1?.filter((row) => {
           return row?.id !== datosEvent?.idSolicitudComite;
           });
