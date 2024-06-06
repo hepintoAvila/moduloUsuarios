@@ -11,7 +11,7 @@ import classnames from 'classnames';
 import Table from '../../../../components/Table';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import BtnSeccionAction from './Components/BtnSeccionAction';
-import BtnAsignarActas from './Components/BtnAsignarActas';
+
 import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
 import Swal from 'sweetalert2';
@@ -57,33 +57,7 @@ const ActionColumn = ({ row }) => {
     </React.Fragment>
   );
 };
-const ActionColumnAgendada = ({ row }) => {
 
-  const {
-    isChecked,isCheckedItem,
-    validated,handleOnChange
-  } = useContext(DashboardContext);
-
-  let permiso = sessionStorage.getItem('PERMISO');
-  const localPermiso = JSON.parse(permiso);
-  const obj = {
-    isChecked,
-    isCheckedItem,
-    handleOnChange,
-    localPermiso,
-    validated,
-    key: row.cells[0].value,
-    row: row.cells[0].value,
-    name: row.cells[1].value,
-    email: row.cells[2].value,
-  }
-  return (
-    <React.Fragment>
-      <BtnAsignarActas obj={obj}>
-      </BtnAsignarActas>
-    </React.Fragment>
-  );
-};
 const ConsultaNotificaciones = (props) => {
   const [sinAgendar,setSinAgendar] = useState([])
   const [agendada,setAgendada] = useState([])
@@ -119,6 +93,10 @@ const ConsultaNotificaciones = (props) => {
       Header: 'Aprendiz',
       accessor: 'aprendiz',
       sort: true,
+    },{
+      Header: 'Instructor',
+      accessor: 'instructor',
+      sort: true,
     },
     {
       Header: 'Tipo Solicitud',
@@ -139,13 +117,6 @@ const ConsultaNotificaciones = (props) => {
       Header: 'Fecha Hora Agendada',
       accessor: 'fechaHoraAgendada',
       sort: false,
-    },
-    {
-      Header: 'Acciones',
-      accessor: 'action',
-      sort: false,
-      classes: 'table-action',
-      Cell: ActionColumnAgendada,
     },
 
   ];

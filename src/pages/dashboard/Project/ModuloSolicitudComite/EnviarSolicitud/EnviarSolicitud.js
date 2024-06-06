@@ -31,7 +31,7 @@ const EnviarSolicitud = (props) => {
 
     useEffect(() => {
         query('ModuloSolicitudComite','Aprendiz',[{opcion:encodeBasicUrl('listaAprendices'),obj:'aprendices'}]);
-      }, [query]);
+      }, []);
 
       const tabContents = [
         {
@@ -66,7 +66,7 @@ const EnviarSolicitud = (props) => {
 
         //
       };
-console.log('allApredizDatos',allApredizDatos);
+
     return (
         <React.Fragment>
             <Row>

@@ -6,10 +6,10 @@ const SearchContext = createContext();
 const SearchProvider = ({ children }) => {
     const [itemsOptionAprendiz, setSelectedOptionAprendiz] = useState('none');
     const [itemsEnvioSolicitud, setSelectedEnvioSolicitud] = useState([]);
-    const [itemsDescripcion, setDescripcion] = useState([]);
-    const [itemsNombrePrograma, setNombrePrograma] = useState([]);
-    const [loading, setLoading] = useState(false); 
-    
+    const [itemsDescripcion, setDescripcion] = useState('');
+    const [itemsNombrePrograma, setNombrePrograma] = useState('');
+    const [loading, setLoading] = useState(false);
+
     const [validateError, setError] = useState({
         comiteError:false,
         tipoAtencionError:false,
@@ -29,14 +29,14 @@ const SearchProvider = ({ children }) => {
     }]);
 
     const  nombrePrograma=  itemsNombrePrograma?.nombrePrograma;
-    const  nombreProgramaError=  itemsNombrePrograma?.valideNombrePrograma;   
+    const  nombreProgramaError=  itemsNombrePrograma?.valideNombrePrograma;
     const  descripcion=  itemsDescripcion?.descripcion;
     const  descripcionError=  itemsDescripcion?.valideDescripcion? itemsDescripcion?.valideDescripcion:'';
 
   const queryFile = useCallback((queryDatos, dataFile) => {
     const infoUsers = sessionStorage.getItem('hyper_user');
     const infoUser =  JSON.parse(infoUsers)
- 
+
     if(Number(infoUser[0]?.id>0)){
     const url = `${queryDatos}&idUsuario=${btoa(infoUser[0]?.id)}&entidad=${btoa(infoUser[0]?.entidad)}&ApiToken=${btoa(infoUser[0]?.ApiToken)}&Apikey=${btoa(infoUser[0]?.Apikey)}`;
     const datosMaterial = api.sendFile(url, dataFile);

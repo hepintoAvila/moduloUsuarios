@@ -169,7 +169,6 @@ const CarSolicitudeEnviadas = (props) => {
   const onClose = () => {
     setModal(false);
 };
- console.log(datos);
   return (
     <>
 

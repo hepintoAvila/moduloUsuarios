@@ -13,16 +13,15 @@ import FileUploader from '../../../../../components/FileUploader';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
-import FormDatosAprendiz from './FormDatosAprendiz';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 
 const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
-    const children = props.children || null;
+
     const childrenEvidencias = props.childrenEvidencias || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [options, setOptions] = useState(0);
 
-    const { openFormAprendiz,convertirFecha } = useContext(NotificacionesContext);
+    const { convertirFecha } = useContext(NotificacionesContext);
     const {getData} = useContext(NotificacionesContext)
     const { validateError, setError, queryFile, loading, nombrePrograma, descripcion, fallas } =
         useContext(SearchContext);
@@ -129,10 +128,6 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
 
 
     const schemaResolver = yupResolver(yup.object().shape({}));
-
-
-
-
     const onDateChangefechaIncidente = (e, fechaError) => {
 
   //console.log(e);
@@ -212,26 +207,6 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         }
     };
     useEffect(() => {
-        const obj = [
-            {
-                ...items[0],
-                descripcion: descripcion,
-            },
-        ];
-        setItems(obj);
-    }, [descripcion, items]);
-
-    useEffect(() => {
-        const objnombrePrograma = [
-            {
-                ...items[0],
-                nombrePrograma: nombrePrograma,
-            },
-        ];
-        setItems(objnombrePrograma);
-    }, [items, nombrePrograma]);
-
-    useEffect(() => {
         if (datosAprendiz.length === 1) {
             const objet = [
                 {
@@ -257,7 +232,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         }
     }, [datosAprendiz]);
 
- //console.log({...items[0]})
+console.log('descripcion',descripcion)
     return (
         <>
             {loading ? (
@@ -267,26 +242,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                 resolver={schemaResolver}
                 defaultValues={{}}
                 className={classNames('col-4')}>
-                            <label className={classNames('editTitulos')}>
-                                <i class="mdi mdi-account-check mb-4"></i>
-                                {items[0]?.aprendiz}
-                            </label>
-                            <Row>
-                            <div className="mb-0 col-8">{children}</div><div className="uploadSolicitudAprendiz col-4 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(props?.idAprendiz,'datosAprendiz')}}></i></span></div>
-                            </Row>
-                            <Collapse in={openFormAprendiz}>
-                                <div>
-                                    {!props?.aprendizError ? (
-                                        <div className="isinvalid">SELECCIONE EL APRENDIZ</div>
-                                    ) : null}
-                                    <FormDatosAprendiz
-                                        handleClick={props.handleClick}
-                                        datosAprendiz={props.datosAprendiz}
-                                        swEdit={1}
-                                        edit={items}
-                                    />
-                                </div>
-                            </Collapse>
+
                 <Row>
                     <Card className={classNames('widget-flat')}>
                         <Card.Body>
@@ -475,7 +431,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                                     <div className="mb-4">{childrenEvidencias}</div>
 
                                 </Col>
-                                <div className="mb-0 col-10"></div><div className="uploadSolicitud col-2 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(items[0]?.descripcion,'datosDescripcion')}}></i></span></div>
+                                <div className="mb-0 col-10"></div><div className="uploadSolicitud col-2 avatar-sm"><span className="avatar-title bg-primary-lighten text-primary rounded"><i className="mdi dripicons-cloud-upload" onClick={()=>{update(descripcion,'datosDescripcion')}}></i></span></div>
                             </Row>
                         </Card.Body>
                     </Card>

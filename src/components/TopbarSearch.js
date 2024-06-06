@@ -150,7 +150,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
           return window.location.hash = `/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${values[0]?.userDetails?.id}`;
       };
 
-console.log('options',options);
+//console.log('options',options);
     return (
         <>
             <Select
