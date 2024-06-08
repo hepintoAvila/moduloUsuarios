@@ -12,16 +12,13 @@ import { NotificacionesContext } from '../../../../layouts/context/Notificacione
 
 const ModuloActas = () => {
 
- const { tipo, itemUrl,setDropdownImprimir} = useContext(DashboardContext)
-  const handleClose = (idActa) => {
-    setDropdownImprimir(true);
-    return window.location.hash = `#/dashboard/ModuloActas/Actas?p=${idActa}`;
-};
+ const { tipo, itemUrl} = useContext(DashboardContext)
+
 
   const { obtenerNumeroDesdeURL } = useContext(NotificacionesContext)
   const { permisos } = usePermisos(tipo);
   const idActa = obtenerNumeroDesdeURL(window.location.hash)
-  //console.log('imprimir',tipo,idActa,itemUrl);
+//onsole.log('imprimir',tipo,idActa,itemUrl);
   return (
     <React.Fragment>
       <Navbar nivel={2} tipo={tipo} />
@@ -41,12 +38,7 @@ const ModuloActas = () => {
             return <React.Fragment>
               <Row style={{ marginTop: '-5em' }}>
               <Col sm={2}>
-                  <Button
-                    variant="success"
-                    type="submit"
-                    className="btnCerrar"
-                    style={{ marginLeft: '0em', marginTop: '0em', width: '1.5em', height: '1.5em' }}
-                    onClick={()=>handleClose(idActa)}><div style={{ marginLeft: '-0.4em', marginTop: '-0.5em' }}>X</div></Button>
+
                 </Col>
                 <Col sm={10}>
                 </Col>

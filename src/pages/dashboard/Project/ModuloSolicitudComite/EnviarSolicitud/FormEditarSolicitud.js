@@ -232,7 +232,7 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         }
     }, [datosAprendiz]);
 
-console.log('descripcion',descripcion)
+//console.log('descripcion',descripcion)
     return (
         <>
             {loading ? (

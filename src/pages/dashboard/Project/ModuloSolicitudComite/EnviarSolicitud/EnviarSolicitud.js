@@ -103,7 +103,6 @@ const EnviarSolicitud = (props) => {
                                                             case 0:
                                                                 return (
                                                                 <>
-
                                                                         <Row>
                                                                         <Col lg={12}>
                                                                         <HeaderForm title={'SOLICITUD DE COMITÉ DE EVALUACIÓN Y SEGUIMIENTO'} />

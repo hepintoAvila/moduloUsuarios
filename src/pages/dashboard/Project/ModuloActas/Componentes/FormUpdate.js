@@ -27,9 +27,10 @@ const FormUpdate = (props) => {
         clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
       };
   }, [itemsActas]);
+  console.log('localState[0] ',localState )
     return (
         <React.Fragment>
-            {localState[0] ? (
+            {localState?.length>0 ? (
                 <Fields
                     idActa={idActaABuscar}
                     accion={itemUrl}

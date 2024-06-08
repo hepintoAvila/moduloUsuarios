@@ -23,6 +23,7 @@ import FieldAsistencia from './Componentes/FieldAsistencia';
 import AdministradorActas from './AdministradorActas/AdministradorActas';
 import PdfDropdown from './Componentes/PdfDropdown/PdfDropdown'
 import ExcelGenerator from './Componentes/ExcelGenerator';
+import ViewPdf from './Componentes/ViewPdf';
 
 
 
@@ -150,7 +151,7 @@ const Actas = (props) => {
 
   const permisos = props?.permisos || {};
   const {
-    validated, setDropdownImprimir,
+    validated, setDropdownImprimir,urlpdf,
     objActas,setOpcion, opcion, itemsUpdate,opcionBusqueda,
     signUpModalAdd, setSignUpModalAdd,
     sizePerPageList,objDatosAprendiz,idSolicitud,open,setOpen,selectedItemsConsolidados
@@ -330,7 +331,7 @@ const Actas = (props) => {
                             <Col sm={1}>
                               <Row>
                                 <Col sm={6}>
-                                {opcion !== 'Consolidado' ?
+                                {opcion !== 'Consolidado'?
                                   <div className="editTitulos" style={{
                                       marginLeft: '-6em',
                                       marginTop: '0em',
@@ -347,7 +348,7 @@ const Actas = (props) => {
                                   }}><PdfDropdown itemsUpdate={itemsUpdate} /></div>:''}
                                 </Col>
                                 <Col sm={6}>
-                                {opcion !== 'Consolidado' ?
+                                {(opcion !== 'Consolidado') ?
                                   <Button
                                     variant="success"
                                     type="submit"
@@ -376,7 +377,6 @@ const Actas = (props) => {
                                   </React.Fragment>
 
                                 case 'add':
-
                                 return <React.Fragment>
                                     <FormAdd
                                       title={`REGISTRAR ${props?.tipo?.toUpperCase()}`}
@@ -430,6 +430,21 @@ const Actas = (props) => {
 
                                         />
                                        </React.Fragment>
+                                       case 'Imprimir':
+                                      window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
+                                     return (
+                                      <React.Fragment>
+                                        {urlpdf &&
+                                             <ViewPdf
+                                                 accion={'ModuloActas'}
+                                                 url={urlpdf}
+                                                 tipo={props?.tipo}
+                                                 permisos={permisos}
+                                                 idActa={itemsUpdate}
+                                             />
+                                          }
+                                         </React.Fragment>
+                                     );
                                 default:
 
                                   return (

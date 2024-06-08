@@ -33,6 +33,7 @@ const DashboardProvider = ({ children }) => {
   const [objActas, setObjActas] = useState({});
   const [objDatosAprendiz, setObjDatosAprendiz] = useState({});
   const [status, setStatus] = useState('202');
+  const [urlpdf, setUrl] = useState('');
   const [idSolicitud, setIdSolicitud] = useState(0);
   const [itemsAsistentes, setItemsAsistentes] = useState([
     {
@@ -432,7 +433,8 @@ useEffect(() => {
     itemsAsistentes, setItemsAsistentes,
     idSolicitud, setIdSolicitud,
     dropdownOpen, setDropdownOpen,
-    dropdownImprimir, setDropdownImprimir
+    dropdownImprimir, setDropdownImprimir,
+    urlpdf, setUrl
   };
   return (
     <>

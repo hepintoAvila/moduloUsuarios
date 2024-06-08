@@ -1,5 +1,6 @@
+/* eslint-disable no-lone-blocks */
 // @flow
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 
@@ -11,10 +12,10 @@ import help from './icons/help.png';
 import { DashboardContext } from '../../../../../../layouts/context/DashboardContext';
 
 const PdfDropdown  = (props) => {
-  const {
+ const {
     setDropdownOpen,
     dropdownOpen,
-    dropdownImprimir,
+    dropdownImprimir,setOpcion,setUrl
     //setDropdownImprimir
   } = useContext(DashboardContext);
 // get the apps
@@ -23,16 +24,20 @@ const Apps = [
       name: 'Lista de asistencia',
       icon: help,
       redirectTo: `/dashboard/ModuloActas/Actas/imprimir/asistencia?p=${props?.itemsUpdate}`,
+      tipo:'asistencia'
   },
   {
       name: 'Lista de Aprendices',
       icon: githubIcon,
       redirectTo: `/dashboard/ModuloActas/Actas/imprimir/aprendices?p=${props?.itemsUpdate}`,
+      tipo:'aprendices'
   },
   {
       name: 'Actas',
       icon: dribbbleIcon,
       redirectTo: `/dashboard/ModuloActas/Actas/imprimir/actas?p=${props?.itemsUpdate}`,
+      tipo:'actas'
+
   },
 ]
     const apps = Apps || [];
@@ -48,7 +53,32 @@ const Apps = [
      */
     const toggleDropdown = ({ dropdownOpen: boolean }) => {
         setDropdownOpen(!dropdownOpen);
+
+
     };
+
+      const handleClick = (tipo) => {
+
+        {(() => {
+          switch (tipo) {
+            case 'actas':
+             setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/Actas_${props?.itemsUpdate}.pdf`) ;
+            break
+            case 'aprendices':
+              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/listaAprendiz${props?.itemsUpdate}.pdf`) ;
+             break
+             case 'asistencia':
+              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/${props?.itemsUpdate}.pdf`) ;
+             break
+            default:
+              setUrl('');
+            break
+          }
+        })()
+        setOpcion('Imprimir');
+      }
+      };
+
 
     return (<>
        <Dropdown show={dropdownOpen} onToggle={toggleDropdown}>
@@ -69,7 +99,7 @@ const Apps = [
                             {chunk.map((item, i) => (
                                 <div className="col" key={i}>
 
-                                    <Link className="dropdown-icon-item" to={item.redirectTo}>
+                                    <Link className="dropdown-icon-item" to={item.redirectTo} onClick={()=>handleClick(item.tipo)}>
                                         <img src={item.icon} alt="" />
                                         <span>{item.name}</span>
                                     </Link>

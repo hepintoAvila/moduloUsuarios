@@ -9,6 +9,9 @@ import { useActas } from '../../../../../hooks/useActas';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import Swal from 'sweetalert2';
+function decodeHTMLEntities(str) {
+  return new DOMParser().parseFromString(str, "text/html").body.textContent;
+}
 const Fields = (props): React$Element<React$FragmentType> => {
     const { getData } = useContext(NotificacionesContext);
     const {query} = useActas();
@@ -22,6 +25,7 @@ const Fields = (props): React$Element<React$FragmentType> => {
             horaInicial:objActa?.horaInicial?.length > 1 ? objActa?.horaInicial : '',
             horaFinal:objActa?.horaFinal?.length > 1 ? objActa?.horaFinal: '',
             secretario:objActa?.secretario?.length > 1 ? objActa?.secretario: '',
+            presentacion:objActa?.presentacion?.length > 1 ? objActa?.presentacion: '',
             opcion:props?.opcion?.length > 1 ? props?.opcion: '',
 
 
@@ -146,6 +150,23 @@ const Fields = (props): React$Element<React$FragmentType> => {
                     containerClass={'mb-3'}
                 />
                 <div className="mb-3 mb-0 text-center"></div>
+                <FormInput
+                    label={'Presentación'}
+                    type="textarea"
+                    rows="5"
+                    name="presentacion"
+                    value={items[0]?.presentacion}
+                    onChange={(e) =>
+                        setItems([
+                            {
+                                ...items[0],
+                                presentacion: decodeHTMLEntities(e.target.value),
+                            },
+                        ])
+                    }
+                    placeholder={'PRESENTACION'}
+                    containerClass={'mb-3'}
+                />
             </form>
 
             <div className="mb-6 mb-2 text-center">
