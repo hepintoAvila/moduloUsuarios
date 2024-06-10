@@ -40,6 +40,8 @@ export const useActas = () => {
                     setActasConceptos(response)
                     break;
                   case 'actas':
+                  case 'listActasInactivas':
+                  case 'updateInactivas':
                     setActas(response)
                     break;
                     case 'generarConsolidado':

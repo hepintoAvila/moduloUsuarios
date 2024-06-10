@@ -110,7 +110,39 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
 
 
 
-  const datos = itemsSolicitudes?.data?.Solicitudes || [{}];
+  const datos = itemsSolicitudes?.data?.Solicitudes || [
+    {
+        "id": "1",
+        "idAprendiz": "0",
+        "aprendiz": "SIN REGISTROS",
+        "email": "",
+        "instructor": "",
+        "tipoSolicitud": "",
+        "codigoFicha": "",
+        "tipoAtencion": "",
+        "fechaSolicitud": "",
+        "fechaIncidente": "",
+        "hechos": "",
+        "nombrePrograma": "",
+        "fechaHoraAgendada": "",
+        "estado": "",
+        "attachments": [
+            {
+                "id": 1,
+                "name": "#Evidencias: 1",
+                "size": "1",
+                "ext": ".pdf"
+            }
+        ],
+        "sancionesAprendiz": {
+            "disciplinaria": "9",
+            "academica": "2",
+            "inasistencias": "3",
+            "verbal": "1",
+            "escrito": "1"
+        }
+    }
+];
 
   useEffect(() => {
           if(props.opcionBusqueda==='ASIGNAR'){
@@ -122,7 +154,7 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
   }, [query,props.opcionBusqueda])
 
 
-
+console.log('datos',datos)
   return (
     <>
       <Row>

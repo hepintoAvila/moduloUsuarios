@@ -2,15 +2,16 @@
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { createContext, useState, useEffect, useCallback, useRef } from 'react';
+import React, { createContext, useState, useEffect, useCallback} from 'react';
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
 import encodeBasicUrl from '../../utils/encodeBasicUrl';
-import ConfirmacionEliminacionStrategy from './ConfirmacionEliminacionStrategy';
+
 import { useAprendiz } from '../../hooks/useAprendiz';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
+import ConfirmacionEnviarActaPapeleray from './ConfirmacionEnviarActaPapeleray';
 const api = new APICore();
 const DashboardContext = createContext();
 const DashboardProvider = ({ children }) => {
@@ -24,6 +25,7 @@ const DashboardProvider = ({ children }) => {
   const [dropdownImprimir, setDropdownImprimir] = useState(false);
   const [signUpModalAdd, setSignUpModalAdd] = useState(false);
   const [itemsUpdate, setItemsUpdate] = useState(0);
+  const [itemActa, setItemsActa] = useState(0);
   const [opcion, setOpcion] = useState('');
   const [opcionBusqueda, setOpcionBusqueda] = useState('');
   const [isChecked, setIsChecked] = useState(false);
@@ -141,7 +143,7 @@ const AdvertenciaLocalStorage = () => {
           let permiso = sessionStorage.getItem('PERMISO');
           const localPermiso = JSON.parse(permiso);
           if (localPermiso.delete) {
-              const estrategiaConfirmacion = new ConfirmacionEliminacionStrategy();
+              const estrategiaConfirmacion = new ConfirmacionEnviarActaPapeleray();
               estrategiaConfirmacion.confirmar(cel, (cel) => {
                   const url = `accion=${btoa(itemUrl)}&tipo=${btoa(tipo)}&opcion=${btoa('delete')}'&id=${btoa(cel)}`;
                   const respuesta = api.sendRequestData(`${url}`);
@@ -489,7 +491,8 @@ useEffect(() => {
     dropdownOpen, setDropdownOpen,
     dropdownImprimir, setDropdownImprimir,
     urlpdf, setUrl,
-     query
+     query,
+     itemActa, setItemsActa
   };
   return (
     <>

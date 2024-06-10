@@ -9,6 +9,7 @@ import Navbar from '../../components/Navbar';
 import ViewPdf from './Componentes/ViewPdf';
 import Actas from './Actas'
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
+import PapeleraActas from './PapeleraActas';
 
 const ModuloActas = () => {
 
@@ -32,6 +33,14 @@ const ModuloActas = () => {
                 permisos={permisos}
               />
             </React.Fragment>
+         case 'PapeleraActas':
+          return <React.Fragment>
+            <PapeleraActas
+              accion={itemUrl}
+              tipo={tipo}
+              permisos={permisos}
+            />
+          </React.Fragment>
           case 'asistencia':
           case 'aprendices':
           case 'actas':
