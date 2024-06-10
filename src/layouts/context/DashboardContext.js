@@ -1,6 +1,8 @@
+/* eslint-disable default-case */
+/* eslint-disable no-lone-blocks */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useEffect, useCallback, useRef } from 'react';
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
@@ -35,7 +37,7 @@ const DashboardProvider = ({ children }) => {
   const [status, setStatus] = useState('202');
   const [urlpdf, setUrl] = useState('');
   const [idSolicitud, setIdSolicitud] = useState(0);
-  const [itemsAsistentes, setItemsAsistentes] = useState([
+   const [itemsAsistentes, setItemsAsistentes] = useState([
     {
         nombresApellidos:'',
         documento:'',
@@ -259,7 +261,58 @@ const handleOnChange = (id, name, email) => {
               });
       }
   }, []);
+    /*QUERY PARA CONSULTAR DATOS */
+    const query = useCallback((itemUrl, tipo, opcion) => {
+      setLoading(true);
+      setTimeout(function () {
+          let varibles;
+          let datos = opcion;
+          if (opcion) {
+              var queryString = datos[0]
+                  ? Object.keys(datos[0])
+                        .map((key) => key + '=' + datos[0][key])
+                        .join('&')
+                  : '';
+              varibles = queryString;
+          }
+          let userInfo = sessionStorage.getItem('hyper_user');
+          const user = JSON.parse(userInfo);
 
+          if (user) {
+              const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&rol=${encodeBasicUrl(user[0]?.role)}&Apikey=${encodeBasicUrl(user[0]?.Apikey)}&ApiToken=${encodeBasicUrl(user[0]?.ApiToken)}`;
+              const datosMaterial = api.sendRequestData(`${url}`);
+              datosMaterial
+                  ?.then(function (response) {
+                      try {
+                          {
+                              (() => {
+                                  switch (datos[0]?.obj) {
+                                      case 'changePassword':
+                                        if (response.status === '202') {
+                                          Swal.fire('' + response.message + '');
+                                          setStatus('202');
+                                      } else {
+                                          Swal.fire('' + response.message + '');
+                                          setStatus('404');
+                                      }
+                                      break;
+                                     ;
+                                  }
+                              })();
+                          }
+                      } catch (error) {
+                          console.error(error);
+                      }
+                  })
+                  .catch((error) => console.error('Error:', error))
+                  .finally(() => {
+                      setTimeout(function () {
+                          setLoading(false);
+                      }, 1000);
+                  });
+          }
+      }, 2000);
+  }, []);
 const toggleItemSelection = (item) => {
 
   setSelectedItems(prevSelectedItems => {
@@ -367,7 +420,7 @@ useEffect(() => {
 }, [selectedItems]);
 
 
-const {itemsAprendiz,query} = useAprendiz()
+const {itemsAprendiz,queryAprendiz} = useAprendiz()
 useEffect(() => {
   if(objAprendiz?.aprendiz?.length > 0){
  const partes = objAprendiz?.aprendiz.split('-');
@@ -387,12 +440,13 @@ useEffect(() => {
  }
  setObjDatosAprendiz(objDatosAprendiz)
 }
-
-
 }, [objAprendiz]);
+
 useEffect(() => {
-  query('ModuloAprendiz','aprendiz',[{opcion:btoa('listaAprendiz'),obj:'aprendiz'}]);
-}, [query]);
+  queryAprendiz('ModuloAprendiz','aprendiz',[{opcion:btoa('listaAprendiz'),obj:'aprendiz'}]);
+}, [queryAprendiz]);
+
+
 
 
   const data = {
@@ -434,7 +488,8 @@ useEffect(() => {
     idSolicitud, setIdSolicitud,
     dropdownOpen, setDropdownOpen,
     dropdownImprimir, setDropdownImprimir,
-    urlpdf, setUrl
+    urlpdf, setUrl,
+     query
   };
   return (
     <>

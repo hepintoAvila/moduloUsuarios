@@ -1,13 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable default-case */
 /* eslint-disable no-fallthrough */
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback,useState } from 'react';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
 import encodeBasicUrl from '../../utils/encodeBasicUrl';
 const api = new APICore();
 const NotificacionesContext = createContext();
+
 const NotificacionesProvider = ({ children }) => {
+
     const [loading, setLoading] = useState(true);
     const [itemsQueryById, setQueryByIdComite] = useState([]);
     const [itemsQueryByIdAprendiz, setQueryByIdAprendiz] = useState([]);
@@ -257,6 +260,7 @@ const NotificacionesProvider = ({ children }) => {
 
 
 
+
     const data = {
         getData,
         convertirFecha,
@@ -305,7 +309,9 @@ const NotificacionesProvider = ({ children }) => {
         itemsConsultarSolicitudByCodigo,
         setConsultarSolicitudByCodigo,
         openFormAprendiz, setOpenFormAprendiz,
-        openFormAsistente
+        openFormAsistente,
+
+
     };
 
     return (

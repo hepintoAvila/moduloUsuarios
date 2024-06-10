@@ -10,7 +10,7 @@ export const useAprendiz = () => {
   const [isLoading, setLoading] = useState(false);
   const [itemsAprendiz, setAprendiz] = useState([]);
   //QUERY DE RESPUSTA DE CONSULTAS
-  const query = useCallback((itemUrl, tipo, opcion) => {
+  const queryAprendiz = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
     setTimeout(function () {
       let varibles;
@@ -55,7 +55,7 @@ export const useAprendiz = () => {
   }, []);
   return (
     {
-      query,
+      queryAprendiz,
       isLoading,
       itemsAprendiz,
     }

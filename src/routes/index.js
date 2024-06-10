@@ -12,7 +12,7 @@ const Logout = React.lazy(() => import('../pages/account/Logout'));
 const Register = React.lazy(() => import('../pages/account/Register'));
 const Queryform = React.lazy(() => import('../pages/dashboard/Project'));
 const ForgetPassword = React.lazy(() => import('../pages/account/ForgetPassword'));
-const LockScreen = React.lazy(() => import('../pages/account/LockScreen'));
+const LockScreenInicio = React.lazy(() => import('../pages/dashboard/Project/ModuloActas/Componentes/CambiarPassword'));
 const ProjectDashboard = React.lazy(() => import('../pages/dashboard/Project'));
 
 // root routes
@@ -35,7 +35,13 @@ const dashboardRoutes = {
             name: 'Project',
             component: ProjectDashboard,
             route: PrivateRoute,
-        }
+        },
+        {
+          path: '/dashboard/lock-screen',
+          name: 'Project',
+          component: LockScreenInicio,
+          route: PrivateRoute,
+      }
     ],
 };
 
@@ -99,12 +105,6 @@ const authRoutes = [
         path: '/account/forget-password',
         name: 'Forget Password',
         component: ForgetPassword,
-        route: Route,
-    },
-    {
-        path: '/account/lock-screen',
-        name: 'Lock Screen',
-        component: LockScreen,
         route: Route,
     },
 ];

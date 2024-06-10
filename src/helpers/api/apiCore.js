@@ -156,6 +156,7 @@ class APICore {
       headers: {
         ...axios.defaults.headers,
         Authorization: `Basic ${encodeBasic(environments.loginAPI, environments.passwordAPI)}`,
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
       },
     };
     return get(url, authOptions);
@@ -170,6 +171,7 @@ class APICore {
         Url: `${environments.baseURL}&${url}&username=${encodeBasic(username)}`,
         ...axios.defaults.headers,
         Authorization: `Basic ${encodeBasic(username, password)}`,
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
       },
     };
     return get(url, authOptions);

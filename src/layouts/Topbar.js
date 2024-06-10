@@ -26,9 +26,9 @@ const ProfileMenus = [
         redirectTo: '/',
     },
     {
-        label: 'Bloquear Pantalla',
+        label: 'Cambiar Password',
         icon: 'mdi mdi-lock-outline',
-        redirectTo: '/account/lock-screen',
+        redirectTo: '/dashboard/CambiarPassword',
     },
     {
         label: 'Salir de la Plataforma',
