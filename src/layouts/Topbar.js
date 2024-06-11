@@ -16,6 +16,7 @@ import logo from '../assets/images/logo-light.png';
 
 //constants
 import * as layoutConstants from '../constants/layout';
+import Title from '../pages/dashboard/components/Title';
 
 
 // get the profilemenu
@@ -90,6 +91,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
 
 
             <div className={`navbar-custom ${navbarCssClasses} `}>
+
                 <div className={containerCssClasses}>
                     {!hideLogo && (
                         <Link to="/" className="topnav-logo">
@@ -102,7 +104,14 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         </Link>
                     )}
 
-                    <ul className="list-unstyled topbar-menu float-end mb-0">
+                     <ul className="list-unstyled topbar-menu float-end mb-0">
+                    <li className="notification-list">
+                            <span
+                                className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none position-title-top"
+                                >
+                                 <Title/>
+                            </span>
+                        </li>
                         <li className="notification-list">
                             <button
                                 className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
@@ -110,10 +119,8 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                                 <i className="dripicons-gear noti-icon"></i>
                             </button>
                         </li>
-
                         <li className="dropdown notification-list d-none d-sm-inline-block">
                         <AppsDropdown />
-
                         </li>
                         <li className="dropdown notification-list">
                             <ProfileDropdown
@@ -124,7 +131,6 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                             />
                         </li>
                     </ul>
-
                     {/* toggle for vertical layout */}
                     {layoutType === layoutConstants.LAYOUT_VERTICAL && (
                         <button className="button-menu-mobile open-left disable-btn" onClick={handleLeftMenuCallBack}>

@@ -17,7 +17,11 @@ body {
   background-color:rgba(#5eb319, 0.18)  !important;
 }
 
-
+.container
+{
+ min-height: 100vh;
+ margin-top: 5em !important;
+ }
 //footer general Login
 .bg-footer {
   background-color: #5eb319 !important;
@@ -170,7 +174,13 @@ body {
   width: max-content;
   padding: 7rem;
   }
-
+  .btnenagendar{
+    overflow: auto;
+    margin-top: -75em;
+    position: relative;
+    margin-left: 75em;
+    background-color: #5eb319;
+  }
 .center-text-titulo{
     width: max-content;
     text-align: center !important;
@@ -206,8 +216,9 @@ body {
 
 }
 .btn-menu{
-  margin-left: -7.5em;
+  margin-left: -5.5em;
   margin-top: 1em;
+  margin-top: 0em;
 }
 .text-btn{
   font-size: $font-size-base;
@@ -349,6 +360,7 @@ body {
   position: absolute;
   left: 0em;
 }
+
 .zIndex{
   overflow: auto;
   z-index: 1;
@@ -439,7 +451,7 @@ body {
   position: relative !important;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   gap: 1em;
   place-items: center;
   /* Equivale a... */
@@ -449,10 +461,17 @@ body {
   /* Equivale a... */
   justify-content: center;
   align-content: center;
-  width: 100%;
+  width: 90%;
   height: 180px;
   padding: 0 0 4em;
-  margin-left: -6em;
+
+  .row-btns-nivelI{
+    padding: 1em 1em 2em 32em;
+    margin-top: 15em;
+    position: relative;
+    width: 100%;
+    margin-right:8em;
+  }
 }
 
 .grid_btn1,
@@ -508,6 +527,9 @@ body {
 }
 .logo_comite_inicio{
   margin-left: 20.5em;
+  padding: 1em;
+  margin-bottom: 3em;
+  margin-top:7em;
 }
 .cardAprendiz{
   background-color: #74c95863 !important;
@@ -529,8 +551,8 @@ body {
   bottom: calc(100% + 1em);
   height: 25px;
   width: 25px;
-  margin-top: 1.11em;
-  margin-left: -6.4em;
+  margin-top: 0.11em;
+  margin-left: -4.4em;
   box-sizing: content-box;
   border: 0.25em solid #fafbfe;
   border-radius: 50%;
@@ -561,7 +583,11 @@ body {
 }
 
 @media (min-width: 360px) and (max-width: 740px) {
-
+  .container
+  {
+   min-height: 100vh;
+   margin-top: 5em !important;
+   }
   /* Estilos para pantallas medianas (tablets) */
       .grid_contenedor {
         grid-template-columns: 1fr;
@@ -570,6 +596,7 @@ body {
         height: 474px;
         margin-left: 5em;
         padding: 0em 7em 10em 0em;
+
     }
     .flexRowContent--header___grid__nivel_2 {
       position: relative !important;
@@ -593,6 +620,7 @@ body {
     .container
      {
       min-height: 100vh;
+      margin-top: 5em !important;
       }
       .bg-footer {
         background-color: #5eb319 !important;
@@ -615,9 +643,11 @@ body {
     width: 22em;
     padding: 0em 0em 0em 9em;
 }
+
 .btn-menu {
-  margin-left: -24.5em;
+  margin-left: -5.5em;
   margin-top: 1em;
+  margin-top: 0em;
 }
 .text-btn {
   margin-left: -17.5em;

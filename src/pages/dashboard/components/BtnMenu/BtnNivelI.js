@@ -9,7 +9,7 @@ import avatar3 from '../../../../assets/images/12.png';
 import avatar4 from '../../../../assets/images/9.png';
 import MenuBtn from '../../components/BtnMenu/MenuBtn';
 import logo_comite from '../../../../assets/images/logo_comite.png';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row,Card } from 'react-bootstrap';
 import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
 
@@ -35,7 +35,10 @@ const BtnNivelI = (props) => {
    return (
     <>
 
-          <Row >
+      <Row  className="row-btns-nivelI justify-content-center">
+      <Card>
+          <Card.Body>
+          <Row>
           <div className="grid_contenedor ">
             <Col lg={12}>
             <div className="grid_btn1 col-xl-3 col-lg-4 col-sm-6"></div>
@@ -43,17 +46,14 @@ const BtnNivelI = (props) => {
                   <div className="logo_comite_inicio"><img src={`${logo_comite}`} height="150"/></div>
               </div>
             <div className="grid_btn3 col-xl-3 col-lg-4 col-sm-6"></div>
-
             </Col>
             </div>
-
           </Row>
-
-
         <Row className="justify-content-center">
+          <br/>
         <Col lg={12}>
         <div className="grid_contenedor">
-        <div className="grid_btn1 col-xl-3 col-lg-4 col-sm-6">
+        <div className="grid_btn1 col-xl-3 col-lg-4 col-sm-6 row-btns-nivelI">
 
             <div className="grid_contenedor">
               <div className="grid_btn1 col-xl-3 col-lg-4 col-sm-6">
@@ -77,6 +77,10 @@ const BtnNivelI = (props) => {
             </div>
             </div>
           </Col>
+        </Row>
+        </Card.Body>
+        </Card>
+
         </Row>
 
       </> );

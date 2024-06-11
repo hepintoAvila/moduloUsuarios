@@ -3,7 +3,7 @@
 import React, { useContext } from 'react';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
-import Navbar from '../../components/Navbar';
+//import Navbar from '../../components/Navbar';
 import Aprendiz from '../ModuloAprendiz/Aprendiz/Aprendiz'
 
 
@@ -15,7 +15,7 @@ const ModuloAprendiz = () => {
 
   return (
     <React.Fragment>
-      <Navbar nivel={2} tipo={tipo}/>
+
       {(() => {
         switch (tipo) {
           case 'Aprendiz':

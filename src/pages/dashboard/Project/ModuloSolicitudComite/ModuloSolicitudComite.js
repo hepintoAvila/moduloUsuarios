@@ -7,14 +7,14 @@ import ConsultarIncidente from './ConsultarIncidente/ConsultarIncidente';
 import CarHistorialIncidencias from './ConsultarIncidente/CarHistorialIncidencias';
 import ConsultarAprendiz from './ConsultarIncidente/ConsultarAprendiz';
 import Navbar from '../../components/Navbar';
- 
- 
- 
+
+
+
 
 const ModuloSolicitudComite = (props) => {
   return (
     <React.Fragment>
-        <Navbar nivel={2} tipo={props.tipo}/>
+
       {(() => {
         switch (props.tipo) {
           case 'ModuloSolicitudComite':
@@ -24,21 +24,21 @@ const ModuloSolicitudComite = (props) => {
            case 'EnviarSolicitud':
             return <React.Fragment>
               <EnviarSolicitud handleClick={props.handleClick}/>
-            </React.Fragment>   
+            </React.Fragment>
             case 'ConsultarIncidencia':
               return <React.Fragment>
                 <ConsultarIncidente/>
-              </React.Fragment>  
-              case 'ConsultaIncidente':  
+              </React.Fragment>
+              case 'ConsultaIncidente':
                 return <React.Fragment>
                   <CarHistorialIncidencias/>
-                </React.Fragment> 
-               case 'ConsultarAprendiz':  
+                </React.Fragment>
+               case 'ConsultarAprendiz':
                return <React.Fragment>
                  <ConsultarAprendiz/>
-               </React.Fragment>                                           
+               </React.Fragment>
           default:
-            
+
             return (
               <React.Fragment>
                 {''}

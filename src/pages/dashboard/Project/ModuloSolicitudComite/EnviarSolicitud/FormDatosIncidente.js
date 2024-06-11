@@ -155,7 +155,13 @@ useEffect(() => {
       {loading ? <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
 
            <VerticalForm onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{}} className={classNames('col-4')}>
-
+           <Row className=" mb-5">
+                    <div className="mb-3 mb-4 text-center btnenviarSolicitud" style={{marginLeft: "400px", marginTop: "-80px"}}>
+                        <Button variant="primary" type="submit" disabled={loading}>
+                            {t('ENVIAR SOLICITUD')}
+                        </Button>
+                    </div>
+                </Row>
                 <Row>
                     <Card className={classNames('widget-flat')}>
 
@@ -268,13 +274,7 @@ useEffect(() => {
                 <br/>
                 <br/>
 
-                <Row className=" mb-5">
-                    <div className="mb-3 mb-4 text-center btnenviarSolicitud" style={{marginLeft: "10px", marginTop: "-60px"}}>
-                        <Button variant="primary" type="submit" disabled={loading}>
-                            {t('ENVIAR SOLICITUD')}
-                        </Button>
-                    </div>
-                </Row>
+
             </VerticalForm>
         </>
     );

@@ -11,7 +11,7 @@ import ModuloActas from '../ModuloActas';
 import BtnNivelI from '../../../components/BtnMenu/BtnNivelI';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../../hooks/usePermisos';
-import Title from '../../../components/Title';
+
 import CambiarPassword from './CambiarPassword';
 
 //import {filtrarURLNumero,filtrarURLSeccion} from '../../../helpers/menu';
@@ -49,7 +49,7 @@ const MenuModuloPrincipal= () => {
 
   return (
     <React.Fragment>
-      <Title />
+
       {(() => {
         switch (itemUrl) {
           case 'AdminUsuarios':

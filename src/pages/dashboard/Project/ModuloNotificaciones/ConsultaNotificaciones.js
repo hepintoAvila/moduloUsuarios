@@ -48,7 +48,7 @@ const ConsultaNotificaciones = (props) => {
   ];
   const { itemsSolicitudes, query } = useContext(NotificacionesContext);
 
-  const { sizePerPageList, selectedItemsConsolidados } = useContext(DashboardContext);
+  const { sizePerPageList } = useContext(DashboardContext);
   const datos = itemsSolicitudes?.data?.Solicitudes || [{}];
 
   const columnsSinAgendar = [
@@ -159,6 +159,8 @@ const ConsultaNotificaciones = (props) => {
     }
 }, [selectedItemsConsolidados]);
 */
+
+
   return (
     <React.Fragment>
       <Row>
@@ -186,10 +188,12 @@ const ConsultaNotificaciones = (props) => {
                             case 0:
                               return (
                                 <>
-                                  <Row>
+
                                     <Col lg={12}>
+
                                       {sinAgendar?.length > 0 ? (
-                                        <Table
+
+                                        <><Table
                                           columns={columnsAgendar}
                                           data={sinAgendar}
                                           pageSize={5}
@@ -200,24 +204,13 @@ const ConsultaNotificaciones = (props) => {
                                           searchBoxClass="mt-2 mb-3"
                                           isSearchable={true}
                                           nametable={'table_2'}
-                                          titleTable={'LISTADO DE NOTIFICACIONES'}
-                                        />
+                                          titleTable={'LISTADO DE NOTIFICACIONES'} />
+                                  {<Button variant="primary" type="submit" onClick={adjuntarLocalstore} className="btnenagendar">AGENDAR</Button>}</>
                                       ) : (
                                         <PermisoAlert />
                                       )}
                                     </Col>
-                                  </Row>
-                                  <Row>
-                                    <Col sm={10}></Col>
-                                    <Col sm={2}>
-                                      {sinAgendar?.length > 0 && (
-                                        <Button variant="primary" type="submit" onClick={adjuntarLocalstore}>
-                                          AGENDAR
-                                        </Button>
-                                      )}
-                                    </Col>
-                                  </Row>
-                                </>
+                                 </>
                               );
                             case 1:
                               return (

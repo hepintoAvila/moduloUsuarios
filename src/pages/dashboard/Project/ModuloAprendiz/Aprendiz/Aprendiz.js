@@ -99,12 +99,12 @@ const Aprendiz = (props) => {
     signUpModalAdd, setSignUpModalAdd,
     sizePerPageList,
   } = useContext(DashboardContext);
-  const { itemsAprendiz, query } = useAprendiz()
+  const { itemsAprendiz, queryAprendiz } = useAprendiz()
   const datos = itemsAprendiz?.data || [];
   const [mensajeModal,setMensageModal] = useState('');
   const handleClose = (e) => {
     setSignUpModalAdd(false);
-    query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+    queryAprendiz('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
   }
   const columns = [
     {
@@ -153,8 +153,8 @@ const Aprendiz = (props) => {
   };
 
   useEffect(() => {
-    query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
-  }, [query]);
+    queryAprendiz('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+  }, [queryAprendiz]);
 
   useEffect(() => {
     {(() => {

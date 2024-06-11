@@ -5,7 +5,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 //import { useHistory } from 'react-router-dom';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
-import Navbar from '../../components/Navbar';
+
 import ViewPdf from './Componentes/ViewPdf';
 import Actas from './Actas'
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
@@ -22,7 +22,7 @@ const ModuloActas = () => {
 //onsole.log('imprimir',tipo,idActa,itemUrl);
   return (
     <React.Fragment>
-      <Navbar nivel={2} tipo={tipo} />
+
       {(() => {
         switch (tipo) {
           case 'Actas':

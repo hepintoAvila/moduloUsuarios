@@ -222,8 +222,8 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             start: `${data?.fechaCita} ${data?.horaCita}`,
             end: `${data?.fechaCita} 00:00`,
             title: data?.horaCita,
-            hechos: data?.hechos,
-            reglas: data?.reglas,
+           // hechos: data?.hechos,
+           // reglas: data?.reglas,
             idSolicitudComite: data?.idSolicitudComite,
             idComites: `${idsVerdaderos}`,
             accion: 'ModuloNotificaciones',
@@ -329,9 +329,9 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                 id: 1,
                 idSolicitudComite: 0,
                 codigoFicha:'',
-                hechos: 'SIN REGISTROS',
+                //hechos: 'SIN REGISTROS',
                 tiempoEstipulado: '',
-                reglas: '',
+                //reglas: '',
                 fechaHoraCita: '',
                 className: '',
                 start: '',
@@ -454,7 +454,7 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
 
 }, [idAprendizDatos]);
 
-console.log('itemsList',itemsList)
+///console.log('itemsList',itemsList)
    return (
         <>
             <Row>

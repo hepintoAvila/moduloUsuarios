@@ -6,7 +6,6 @@ import ConsultaNotificaciones from './ConsultaNotificaciones';
 import AgendarCitas from './Calendar/AgendarCitas';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
-import Navbar from '../../components/Navbar';
 import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
 
@@ -22,7 +21,7 @@ const ModuloNotificaciones = (props) => {
 
   return (
     <React.Fragment>
- <Navbar nivel={2} tipo={props.tipo}/>
+
       {(() => {
         switch (tipo) {
           case 'ConsultaNotificaciones':
@@ -35,7 +34,7 @@ const ModuloNotificaciones = (props) => {
             </React.Fragment>
            case 'AgendarCitas':
             return <React.Fragment>
-              <Navbar tipo={tipo} nivel={2}/>
+
               <AgendarCitas
                   accion={itemUrl}
                   tipo={tipo}
