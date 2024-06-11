@@ -65,10 +65,10 @@ const Apps = [
              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/Actas_${props?.itemsUpdate}.pdf`) ;
             break
             case 'aprendices':
-              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/listaAprendiz${props?.itemsUpdate}.pdf`) ;
+              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/aprendices_${props?.itemsUpdate}.pdf`) ;
              break
              case 'asistencia':
-              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/${props?.itemsUpdate}.pdf`) ;
+              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/asistencia${props?.itemsUpdate}.pdf`) ;
              break
             default:
               setUrl('');

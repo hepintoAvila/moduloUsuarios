@@ -47,7 +47,6 @@ const FormAsistencia = (props): React$Element<React$FragmentType> => {
         setTimeout(function () {
           console.log('queryDatos',datosEvent)
             getData(queryDatos);
-            //query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
         }, 2000);
         setSignUpModalAdd(true);
     };

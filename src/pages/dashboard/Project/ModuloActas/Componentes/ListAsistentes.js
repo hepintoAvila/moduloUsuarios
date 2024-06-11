@@ -130,7 +130,7 @@ const ListAsistentes = (props): React$Element<React$FragmentType> => {
   const datos = openFormAsistente?.data || [{}];
 
   useEffect(() => {
-    query('ModuloActas', 'actas', [{ opcion: encodeBasicUrl('ConsultarAsistentes'), obj: 'ConsultarAsistentes'}]);
+    query('ModuloActas', 'actas', [{ opcion: encodeBasicUrl('ConsultarAsistentes'), obj: 'ConsultarAsistentes',idActa:btoa(props?.idActa)}]);
   }, [query])
 
   return (

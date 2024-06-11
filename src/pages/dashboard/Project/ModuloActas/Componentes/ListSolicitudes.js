@@ -154,7 +154,7 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
   }, [query,props.opcionBusqueda])
 
 
-console.log('datos',datos)
+//onsole.log('datos',datos)
   return (
     <>
       <Row>
