@@ -13,7 +13,7 @@ import { loginUser } from '../../redux/actions';
 import { useQuery } from '../../hooks/';
 
 // components
-import { VerticalForm, FormInput } from '../../components/';
+import { VerticalForm, FormInputAcout } from '../../components/';
 
 import AccountLayout from './AccountLayout';
 
@@ -82,19 +82,19 @@ const Login = (): React$Element<any> => {
                     onSubmit={onSubmit}
                     resolver={schemaResolver}
                     defaultValues={{ username: '', password: '' }}>
-                    <FormInput
+                    <FormInputAcout
                         label={t('Usuario')}
                         type="text"
                         name="username"
                         placeholder={t('Ingresa Tu Usuario')}
                         containerClass={'mb-3'}
                     />
-                    <FormInput
+                    <FormInputAcout
                         label={t('Contraseña')}
                         type="password"
                         name="password"
                         placeholder={t('Ingresa Tu Contraseña')}
-                        containerClass={'mb-3'}></FormInput>
+                        containerClass={'mb-3'}></FormInputAcout>
 
                     <div className="mb-3 mb-0 text-center">
                         <Button variant="primary" type="submit" disabled={loading}>
