@@ -109,10 +109,16 @@ const FormAsistencia = (props): React$Element<React$FragmentType> => {
             tipo: 'actas',
         };
         const queryDatos = datosEvent
-            ? Object.keys(datosEvent)
-                  .map((key) => key + '=' + btoa(datosEvent[key]))
-                  .join('&')
-            : '';
+        ? Object.entries(datosEvent)
+            .map(([key, value]) => {
+              // Eliminar comillas simples de los valores si existen
+              const cleanValue = value.replace(/'/g, '');
+              // Codificar el valor limpio en base64
+              const encodedValue = btoa(cleanValue);
+              return `${key}=${encodedValue}`;
+            })
+            .join('&')
+        : '';
 
         setTimeout(function () {
           console.log('queryDatos',datosEvent)
@@ -148,7 +154,7 @@ const FormAsistencia = (props): React$Element<React$FragmentType> => {
                   <div className="mb-3 mb-0 text-center"></div>
                   <FormInput
                   label={'No. DOCUMENTO'}
-                  type="text"
+                  type="number"
                   name="documento"
                   value={items[0]?.documento}
                   onChange={handleChange('documento')}
@@ -182,13 +188,14 @@ const FormAsistencia = (props): React$Element<React$FragmentType> => {
               <div className="mb-3 mb-0 text-center"></div>
               <FormInput
                   label={'TELÉFONO/EXT.SENA'}
-                  type="text"
+                  type="number"
                   name="telefono"
                   value={items[0]?.telefono}
                   onChange={handleChange('telefono')}
                   placeholder={'TELÉFONO/EXT.SENA'}
                   containerClass={`mb-3 ${errors.telefono?.hasSpecialChar || errors.telefono?.isEmpty ? 'bg-alert' : ''}`}
                 />
+                <div className="mb-3 mb-0 text-left">ES DE PLANTA?</div>
                 <Select
                   type="select"
                   name="planta"
@@ -200,7 +207,8 @@ const FormAsistencia = (props): React$Element<React$FragmentType> => {
                   placeholder="Selecione si es de planta..."
                   selected={''}
                 />
-                <div className="mb-3 mb-0 text-center"></div>
+                <br/>
+                <div className="mb-3 mb-0 text-left">AUTORIZACION</div>
                  <Select
                   type="select"
                   name="autorizacion"

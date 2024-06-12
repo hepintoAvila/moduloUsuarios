@@ -65,10 +65,16 @@ const Fields = (props): React$Element<React$FragmentType> => {
 
 
         const queryDatos = datosEvent
-            ? Object.keys(datosEvent)
-                  .map((key) => key + '=' + btoa(datosEvent[key]))
-                  .join('&')
-            : '';
+        ? Object.entries(datosEvent)
+            .map(([key, value]) => {
+              // Eliminar comillas simples de los valores si existen
+              const cleanValue = value.replace(/'/g, '');
+              // Codificar el valor limpio en base64
+              const encodedValue = btoa(cleanValue);
+              return `${key}=${encodedValue}`;
+            })
+            .join('&')
+        : '';
 
         setTimeout(function () {
             getData(queryDatos);
@@ -77,7 +83,7 @@ const Fields = (props): React$Element<React$FragmentType> => {
         setSignUpModalAdd(true);
         return (window.location.hash = '#/dashboard/ModuloActas/Actas');
     };
-console.log('errors',errors)
+
     return (
         <>
             <form className="formModal">

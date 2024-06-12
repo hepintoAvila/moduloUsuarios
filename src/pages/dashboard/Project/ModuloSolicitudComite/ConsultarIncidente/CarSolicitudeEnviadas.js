@@ -64,11 +64,17 @@ const ActionColumn = ({ row }) => {
                 opcion: 'deleteSolicitud',
                 obj: 'deleteSolicitud',
                }
-                  const queryDatos = datosEvent
-                  ? Object.keys(datosEvent)
-                      .map((key) => key + '=' + btoa(datosEvent[key]))
-                      .join('&')
-                  : '';
+               const queryDatos = datosEvent
+               ? Object.entries(datosEvent)
+                   .map(([key, value]) => {
+                     // Eliminar comillas simples de los valores si existen
+                     const cleanValue = value.replace(/'/g, '');
+                     // Codificar el valor limpio en base64
+                     const encodedValue = btoa(cleanValue);
+                     return `${key}=${encodedValue}`;
+                   })
+                   .join('&')
+               : '';
                   Swal.fire({
                     position: 'top-center',
                     icon: 'success',

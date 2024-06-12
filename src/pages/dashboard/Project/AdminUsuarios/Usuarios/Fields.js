@@ -4,8 +4,8 @@ import { Button} from 'react-bootstrap';
 import Select from 'react-select';
 // components
 import { FormInput } from '../../../../../components/';
- 
- 
+
+
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import Swal from 'sweetalert2';
@@ -33,19 +33,26 @@ const {setSignUpModalAdd,
       title: 'Registro Enviado',
       showConfirmButton: false,
       timer: 1500
-    }) 
+    })
     const datosEvent = {
       ...items[0],
       accion: 'AdminUsuarios',
       opcion: 'add',
       tipo: 'Usuarios',
   }
+
   const queryDatos = datosEvent
-  ? Object.keys(datosEvent)
-      .map((key) => key + '=' + btoa(datosEvent[key]))
+  ? Object.entries(datosEvent)
+      .map(([key, value]) => {
+        // Eliminar comillas simples de los valores si existen
+        const cleanValue = value.replace(/'/g, '');
+        // Codificar el valor limpio en base64
+        const encodedValue = btoa(cleanValue);
+        return `${key}=${encodedValue}`;
+      })
       .join('&')
   : '';
- 
+
   setTimeout(function () {
     getData(queryDatos)
   }, 2000);
@@ -55,7 +62,7 @@ const {setSignUpModalAdd,
 
    return (
     <>
- 
+
  <form className="formModal">
         <FormInput
           label={'login'}
@@ -123,7 +130,7 @@ const {setSignUpModalAdd,
           }])}
           placeholder={'Digite sus identificacion'}
           containerClass={'mb-3'}
-        />  
+        />
             <FormInput
           label={'Numero del Celular'}
           type="text"
@@ -134,7 +141,7 @@ const {setSignUpModalAdd,
           }])}
           placeholder={'Digite el número de sus telefono'}
           containerClass={'mb-3'}
-        />          
+        />
         <div className="mb-3 mb-0 text-center">
 
         </div>
@@ -143,7 +150,7 @@ const {setSignUpModalAdd,
       <Button variant="success" type="submit" className="btn btn-success" style={{ marginTop: '25px' }} onClick={() => Registrarse({...items})}>
         Regitrar Usuarios</Button>
       </div>
-      
+
     </>
   );
 };

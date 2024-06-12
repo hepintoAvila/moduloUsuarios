@@ -46,11 +46,17 @@ const FieldsSanciones = (props): React$Element<React$FragmentType> => {
         };
           console.log(datosEvent);
 
-        const queryDatos = datosEvent
-            ? Object.keys(datosEvent)
-                  .map((key) => key + '=' + btoa(datosEvent[key]))
-                  .join('&')
-            : '';
+          const queryDatos = datosEvent
+          ? Object.entries(datosEvent)
+              .map(([key, value]) => {
+                // Eliminar comillas simples de los valores si existen
+                const cleanValue = value.replace(/'/g, '');
+                // Codificar el valor limpio en base64
+                const encodedValue = btoa(cleanValue);
+                return `${key}=${encodedValue}`;
+              })
+              .join('&')
+          : '';
 
         setTimeout(function () {
             getData(queryDatos);

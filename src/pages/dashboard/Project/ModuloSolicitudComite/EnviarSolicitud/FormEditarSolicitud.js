@@ -58,11 +58,17 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
             showCancelButton: true,
           }).then((result) => {
             if (result.isConfirmed) {
-                  const queryDatos = datosEvent
-                  ? Object.keys(datosEvent)
-                      .map((key) => key + '=' + btoa(datosEvent[key]))
-                      .join('&')
-                  : '';
+              const queryDatos = datosEvent
+              ? Object.entries(datosEvent)
+                  .map(([key, value]) => {
+                    // Eliminar comillas simples de los valores si existen
+                    const cleanValue = value.replace(/'/g, '');
+                    // Codificar el valor limpio en base64
+                    const encodedValue = btoa(cleanValue);
+                    return `${key}=${encodedValue}`;
+                  })
+                  .join('&')
+              : '';
                   Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -92,11 +98,17 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                 opcion: 'deleteSolicitud',
                 obj: 'deleteFile',
                }
-                  const queryDatos = datosEvent
-                  ? Object.keys(datosEvent)
-                      .map((key) => key + '=' + btoa(datosEvent[key]))
-                      .join('&')
-                  : '';
+               const queryDatos = datosEvent
+               ? Object.entries(datosEvent)
+                   .map(([key, value]) => {
+                     // Eliminar comillas simples de los valores si existen
+                     const cleanValue = value.replace(/'/g, '');
+                     // Codificar el valor limpio en base64
+                     const encodedValue = btoa(cleanValue);
+                     return `${key}=${encodedValue}`;
+                   })
+                   .join('&')
+               : '';
                   Swal.fire({
                     position: 'center',
                     icon: 'success',

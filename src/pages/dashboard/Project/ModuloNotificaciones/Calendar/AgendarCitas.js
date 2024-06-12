@@ -241,11 +241,17 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
           localStorage.removeItem('idsIncidentes')
           localStorage.setItem('idsIncidentes', JSON.stringify(filteredAgendada));
         setTimeout(function () {
-            const queryDatos = datosEvent
-                ? Object.keys(datosEvent)
-                    .map((key) => key + '=' + btoa(datosEvent[key]))
-                    .join('&')
-                : '';
+          const queryDatos = datosEvent
+          ? Object.entries(datosEvent)
+              .map(([key, value]) => {
+                // Eliminar comillas simples de los valores si existen
+                const cleanValue = value.replace(/'/g, '');
+                // Codificar el valor limpio en base64
+                const encodedValue = btoa(cleanValue);
+                return `${key}=${encodedValue}`;
+              })
+              .join('&')
+          : '';
             getData(queryDatos)
         }, 2000);
         modifiedEvents.push(datosEvent);
@@ -273,11 +279,17 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                 tipo: 'updateCitas',
             }
             setTimeout(function () {
-                const queryDatos = datosEvent
-                    ? Object.keys(datosEvent)
-                        .map((key) => key + '=' + btoa(datosEvent[key]))
-                        .join('&')
-                    : '';
+              const queryDatos = datosEvent
+              ? Object.entries(datosEvent)
+                  .map(([key, value]) => {
+                    // Eliminar comillas simples de los valores si existen
+                    const cleanValue = value.replace(/'/g, '');
+                    // Codificar el valor limpio en base64
+                    const encodedValue = btoa(cleanValue);
+                    return `${key}=${encodedValue}`;
+                  })
+                  .join('&')
+              : '';
                 getData(queryDatos)
             }, 2000);
 
@@ -308,11 +320,17 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             tipo: 'deleteCitas',
         }
         setTimeout(function () {
-            const queryDatos = datosEvent
-                ? Object.keys(datosEvent)
-                    .map((key) => key + '=' + btoa(datosEvent[key]))
-                    .join('&')
-                : '';
+          const queryDatos = datosEvent
+          ? Object.entries(datosEvent)
+              .map(([key, value]) => {
+                // Eliminar comillas simples de los valores si existen
+                const cleanValue = value.replace(/'/g, '');
+                // Codificar el valor limpio en base64
+                const encodedValue = btoa(cleanValue);
+                return `${key}=${encodedValue}`;
+              })
+              .join('&')
+          : '';
             getData(queryDatos)
         }, 2000);
         setEvents(modifiedEvents);
@@ -417,11 +435,17 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
             tipo: 'enviarEmailAprendiz',
         }
         setTimeout(function () {
-            const queryDatos = datosEvent
-                ? Object.keys(datosEvent)
-                    .map((key) => key + '=' + btoa(datosEvent[key]))
-                    .join('&')
-                : '';
+          const queryDatos = datosEvent
+          ? Object.entries(datosEvent)
+              .map(([key, value]) => {
+                // Eliminar comillas simples de los valores si existen
+                const cleanValue = value.replace(/'/g, '');
+                // Codificar el valor limpio en base64
+                const encodedValue = btoa(cleanValue);
+                return `${key}=${encodedValue}`;
+              })
+              .join('&')
+          : '';
             getData(queryDatos)
         }, 2000);
         } catch (error) {

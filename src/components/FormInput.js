@@ -111,7 +111,30 @@ const FormInput = ({
                               ) : null}
                           </Form.Group>
                       </>
-                  ) : (
+                  ) : type === 'number' ? (
+                  <Form.Group className={containerClass}>
+                    {label && <Form.Label className={labelClassName}>{label}</Form.Label>}
+                    <Form.Control
+                      type="number"
+                      placeholder={placeholder}
+                      name={name}
+                      id={name}
+                      ref={(r) => {
+                        if (refCallback) refCallback(r);
+                      }}
+                      className={className}
+                      isInvalid={errors && errors[name] ? true : false}
+                      value={otherProps.value}
+                      onChange={handleChange}
+                      {...(register ? register(name) : {})}
+                      {...otherProps}
+                      autoComplete={name}
+                    >
+                      {children ? children : null}
+                    </Form.Control>
+                    {/* Manejo de errores y otros feedback */}
+                  </Form.Group>
+                ) : (
                       <>
                           {type === 'checkbox' || type === 'radio' ? (
                               <Form.Group className={containerClass}>
