@@ -62,13 +62,13 @@ const Apps = [
         {(() => {
           switch (tipo) {
             case 'actas':
-             setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/Actas_${props?.itemsUpdate}.pdf`) ;
+             setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/evidenciActas_${props?.itemsUpdate}.pdf`) ;
             break
             case 'aprendices':
-              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/aprendices_${props?.itemsUpdate}.pdf`) ;
+              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/evidenciaAprendices_${props?.itemsUpdate}.pdf`) ;
              break
              case 'asistencia':
-              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/asistencia${props?.itemsUpdate}.pdf`) ;
+              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/evidenciAsistencia_${props?.itemsUpdate}.pdf`) ;
              break
             default:
               setUrl('');
