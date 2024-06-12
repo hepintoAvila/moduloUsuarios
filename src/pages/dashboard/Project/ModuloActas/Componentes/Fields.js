@@ -9,11 +9,14 @@ import { useActas } from '../../../../../hooks/useActas';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import Swal from 'sweetalert2';
-function decodeHTMLEntities(str) {
-  return new DOMParser().parseFromString(str, "text/html").body.textContent;
-}
+import { useSecurity } from '../../../../../layouts/context/SecurityProvider';
+
+
 const Fields = (props): React$Element<React$FragmentType> => {
-    const { getData } = useContext(NotificacionesContext);
+  const { errors,checkSpecialChars } = useSecurity(); // Usamos el hook useSecurity
+
+
+  const { getData } = useContext(NotificacionesContext);
     const {query} = useActas();
     const { setSignUpModalAdd } = useContext(DashboardContext);
       const {objActa}= props;
@@ -31,6 +34,18 @@ const Fields = (props): React$Element<React$FragmentType> => {
 
         },
     ]);
+    const handleChange = (field) => (e) => {
+      const value = e.target.value;
+      checkSpecialChars(field, value);
+      setItems((prevItems) => {
+        const newItems = [...prevItems];
+        newItems[0] = {
+          ...newItems[0],
+          [field]: value,
+        };
+        return newItems;
+      });
+    };
 
     const Registrarse = (items,opcion) => {
 
@@ -62,44 +77,31 @@ const Fields = (props): React$Element<React$FragmentType> => {
         setSignUpModalAdd(true);
         return (window.location.hash = '#/dashboard/ModuloActas/Actas');
     };
-
+console.log('errors',errors)
     return (
         <>
             <form className="formModal">
-                <FormInput
-                    label={'NOMBRE DEL COMITÉ O DE LA REUNIÓN'}
-                    type="textarea"
-                    rows="5"
-                    name="nombre"
-                    value={items[0]?.nombre}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                nombre: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'ACTA DEL COMITÉ DE EVALUACIÓN Y SEGUIMIENTO No.'}
-                    containerClass={'mb-3'}
+              <FormInput
+                  label={'NOMBRE DEL COMITÉ O DE LA REUNIÓN'}
+                  type="textarea"
+                  rows="5"
+                  name="nombre"
+                  value={items[0]?.nombre}
+                  onChange={handleChange('nombre')}
+                  placeholder={'ACTA DEL COMITÉ DE EVALUACIÓN Y SEGUIMIENTO No.'}
+                  containerClass={`mb-3 ${errors.nombre?.hasSpecialChar || errors.nombre?.isEmpty ? 'bg-alert' : ''}`}
                 />
-                <FormInput
-                    label={'Fecha'}
-                    type="date"
-                    containerClass={'mb-3'}
-                    name="fecha"
-                    value={items[0]?.fecha}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                fecha: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite la Fecha'}
-
-                />
+ <div className="mb-3 mb-0 text-center"></div>
+                  <FormInput
+                        label={'Fecha'}
+                        type="date"
+                        name="fecha"
+                        value={items[0]?.fecha}
+                        onChange={handleChange('fecha')}
+                        placeholder={'Digite la Fecha'}
+                        containerClass={`mb-3 ${errors.fecha?.hasSpecialChar || errors.fecha?.isEmpty ? 'bg-alert' : ''}`}
+                      />
+      <div className="mb-3 mb-0 text-center"></div>
                 <FormInput
                     label={'Hora Inicial'}
                     type="time"
@@ -113,10 +115,10 @@ const Fields = (props): React$Element<React$FragmentType> => {
                             },
                         ])
                     }
-                    placeholder={'Digite la Hora Inicial'}
+                    placeholder={'Digite la Hora Final'}
                     containerClass={'mb-3'}
                 />
-
+      <div className="mb-3 mb-0 text-center"></div>
                 <FormInput
                     label={'Hora Final'}
                     type="time"
@@ -133,40 +135,28 @@ const Fields = (props): React$Element<React$FragmentType> => {
                     placeholder={'Digite la Hora Final'}
                     containerClass={'mb-3'}
                 />
+                <div className="mb-3 mb-0 text-center"></div>
                 <FormInput
-                    label={'Secretario'}
-                    type="text"
-                    name="secretario"
-                    value={items[0]?.secretario}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                secretario: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite el nombre de la secretario'}
-                    containerClass={'mb-3'}
+                  label={'Secretario'}
+                  type="text"
+                   name="secretario"
+                  value={items[0]?.secretario}
+                  onChange={handleChange('secretario')}
+                  placeholder={'Secretario.'}
+                  containerClass={`mb-3 ${errors.secretario?.secretario || errors.secretario?.isEmpty ? 'bg-alert' : ''}`}
                 />
                 <div className="mb-3 mb-0 text-center"></div>
                 <FormInput
-                    label={'Presentación'}
-                    type="textarea"
-                    rows="5"
-                    name="presentacion"
-                    value={items[0]?.presentacion}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                presentacion: decodeHTMLEntities(e.target.value),
-                            },
-                        ])
-                    }
-                    placeholder={'PRESENTACION'}
-                    containerClass={'mb-3'}
+                  label={'PRESENTACION'}
+                  type="textarea"
+                  rows="5"
+                  name="presentacion"
+                  value={items[0]?.presentacion}
+                  onChange={handleChange('presentacion')}
+                  placeholder={'PRESENTACION.'}
+                  containerClass={`mb-3 ${errors.presentacion?.hasSpecialChar || errors.presentacion?.isEmpty ? 'bg-alert' : ''}`}
                 />
+
             </form>
 
             <div className="mb-6 mb-2 text-center">

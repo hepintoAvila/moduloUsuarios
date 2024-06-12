@@ -1,20 +1,16 @@
-import React, { useState,useContext } from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { FormInput } from '../../../../../components';
 import FileUploader from '../../../../../components/FileUploader';
-import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 
-const SelectTipoFirma = () => {
-  const {
-    itemsAsistentes,
-    setItemsAsistentes
-   } = useContext(DashboardContext);
+const SelectTipoFirma = (props) => {
+
 
   const [showInput, setShowInput] = useState(false);
   const [otroValor, setOtroValor] = useState('');
 
   const handleSelectChange = (selectedOption) => {
-    setItemsAsistentes([{ ...itemsAsistentes[0], firmaDigital: selectedOption.label }]);
+    props.setItems([{ ...props.items[0], firmaDigital: selectedOption.label }]);
     if (selectedOption.id === 2) {
       setShowInput(true);
     } else {
@@ -25,7 +21,7 @@ const SelectTipoFirma = () => {
 
   const handleInputChange = (e) => {
     setOtroValor(e.target.value);
-    setItemsAsistentes([{ ...itemsAsistentes[0], nombresDigital: e.target.value }]);
+    props.setItems([{ ...props.items[0], nombresDigital: e.target.value }]);
   };
 
   const options = [
@@ -44,7 +40,7 @@ const SelectTipoFirma = () => {
         onChange={handleSelectChange}
         options={options}
         placeholder="Seleccione el Tipo de Firma..."
-        value={options.find(option => option.label === itemsAsistentes[0].firmaDigital)}
+        value={options.find(option => option.label === props.items[0].firmaDigital)}
       />
       {!showInput ? (
         <FormInput

@@ -16,8 +16,8 @@ import FormAdd from './FormAdd';
 import FormUpdate from './FormUpdate';
 import FormSanciones from './FormSanciones';
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
-import BtnActualizarAprendiz from '../../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
-
+//import BtnActualizarAprendiz from '../../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
+/*
 const ActionColumn = ({ row }) => {
   const {
     eliminar,
@@ -88,6 +88,7 @@ const ActionColumn = ({ row }) => {
     </React.Fragment>
   );
 };
+*/
 const Aprendiz = (props) => {
   const {
     setOpcion, opcion, itemsUpdate
@@ -137,13 +138,6 @@ const Aprendiz = (props) => {
       Header: 'Correo',
       accessor: 'correo',
       sort: false,
-    },
-    {
-      Header: 'Acciones',
-      accessor: 'action',
-      sort: false,
-      classes: 'table-action',
-      Cell: ActionColumn,
     },
   ];
   const toggleSignUp = () => {

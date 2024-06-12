@@ -210,9 +210,9 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
           const dataInLocalStorage = localStorage.getItem('comiteSelect');
           const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
           const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
-        const modifiedEvents = [...events];
+          const modifiedEvents = [...events];
 
-          console.log('data',data);
+
         const datosEvent = {
             id: modifiedEvents?.length + 1,
             fechaCita: `${data?.fechaCita} ${data?.horaCita}`,

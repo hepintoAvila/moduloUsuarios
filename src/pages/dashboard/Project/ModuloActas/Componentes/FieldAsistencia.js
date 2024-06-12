@@ -10,6 +10,8 @@ const FieldAsistencia = (props) => {
 
   const { itemUrl, tipo } = useContext(DashboardContext);
 
+
+
   let userInfo = sessionStorage.getItem('hyper_user');
   const user = JSON.parse(userInfo);
   const tabContents = [

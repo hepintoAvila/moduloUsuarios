@@ -17,6 +17,7 @@ import { PermisosProvider } from './context/PermisosProvider/PermisosProvider';
 import { ValidadorProvider } from './context/ValidadorContext';
 import { SearchProvider } from './context/SearchContext';
 import { NotificacionesProvider } from './context/NotificacionesProvider';
+import { SecurityProvider } from './context/SecurityProvider';
 const Topbar = React.lazy(() => import('./Topbar'));
 const LeftSidebar = React.lazy(() => import('./LeftSidebar'));
 const Footer = React.lazy(() => import('./Footer'));
@@ -93,6 +94,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
 
   return (
     <>
+    <SecurityProvider>
       <DashboardProvider>
         <MenuProvider>
           <PermisosProvider>
@@ -135,6 +137,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
           </PermisosProvider>
         </MenuProvider>
       </DashboardProvider>
+      </SecurityProvider>
     </>
   );
 };

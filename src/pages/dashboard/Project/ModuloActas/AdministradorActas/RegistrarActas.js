@@ -7,11 +7,13 @@ import { useActas } from '../../../../../hooks/useActas'
 import Recordatorio from '../AdministradorActas/FormActas/Recordatorio'
 import Swal from 'sweetalert2';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+
 function decodeHTMLEntities(str) {
   return new DOMParser().parseFromString(str, "text/html").body.textContent;
 }
 
 const RegistrarActas = (props) => {
+
     const { getData } = useContext(NotificacionesContext);
     const { itemsConceptos, query } = useActas()
     const conceptos = itemsConceptos?.data || [];
@@ -71,17 +73,20 @@ const RegistrarActas = (props) => {
   }, [enviar,idConcepto]);
 
     const handleSave = (id) => {
+
         Swal.fire({
-            position: 'top-center',
-            icon: 'success',
-            title: 'Registro Enviado',
-            showConfirmButton: false,
-            timer: 1500,
-        });
-        setEnviar(!enviar)
-        setidConcepto(id);
-        localStorage.removeItem('idConcepto');
-        localStorage.setItem('idConcepto', JSON.stringify(id));
+          position: 'top-center',
+          icon: 'success',
+          title: 'Registro Enviado',
+          showConfirmButton: false,
+          timer: 1500,
+      });
+      setEnviar(!enviar)
+      setidConcepto(id);
+      localStorage.removeItem('idConcepto');
+      localStorage.setItem('idConcepto', JSON.stringify(id));
+
+
 
     };
 
@@ -114,6 +119,8 @@ const RegistrarActas = (props) => {
       })
       }
     }, [conceptos]);
+
+
     return (
   <React.Fragment>
             <Tab.Container defaultActiveKey="1">
