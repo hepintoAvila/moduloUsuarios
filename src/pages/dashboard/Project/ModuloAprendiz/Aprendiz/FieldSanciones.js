@@ -50,9 +50,9 @@ const FieldsSanciones = (props): React$Element<React$FragmentType> => {
           ? Object.entries(datosEvent)
               .map(([key, value]) => {
                 // Eliminar comillas simples de los valores si existen
-                const cleanValue = value.replace(/'/g, '');
+                //const cleanValue = value.replace(/'/g, '');
                 // Codificar el valor limpio en base64
-                const encodedValue = btoa(cleanValue);
+                const encodedValue = btoa(value);
                 return `${key}=${encodedValue}`;
               })
               .join('&')
