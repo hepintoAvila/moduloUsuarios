@@ -95,13 +95,6 @@ const Usuarios = (props) => {
       accessor: 'rol',
       sort: false,
     },
-    {
-      Header: 'Acciones',
-      accessor: 'action',
-      sort: false,
-      classes: 'table-action',
-      Cell: ActionColumn,
-    },
   ];
   const toggleSignUp = () => {
     {permisos?.add === 'S' ? setSignUpModalAdd(!signUpModalAdd) : Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION')}
