@@ -250,8 +250,18 @@ body {
   margin-top: 1em;
   margin-right: 10em;
 }
+.swal-style-p {
+  font-size: 1.2em; /* Tamaño de fuente más grande */
+  font-weight: bold; /* Texto en negrita */
+  display: block; /* Asegura que cada etiqueta esté en su propia línea */
+  margin-bottom: 10px; /* Espaciado debajo de cada etiqueta */
+  color: #5eb319; /* Color del texto */
+}
 
-
+.swal-confirm-button-class {
+  background-color: #5eb319 !important; /* Color de fondo del botón */
+  color: white !important; /* Color del texto del botón */
+}
 
 
 .spinner-border {
