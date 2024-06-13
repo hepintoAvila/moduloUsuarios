@@ -404,6 +404,7 @@ useEffect(() => {
       accion: btoa('ModuloActas'),
       opcion: btoa('addIds'),
       tipo: btoa('actas'),
+      opcionBusqueda: btoa(opcionBusqueda),
     };
 
     const queryDatos = Object.keys(datosEvent)

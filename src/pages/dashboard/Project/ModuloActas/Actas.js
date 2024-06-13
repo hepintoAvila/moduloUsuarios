@@ -462,27 +462,9 @@ const Actas = (props) => {
                   </Card>
                 </Col>
               </Row>
-              <Row>
-                <Col sm={8}>
-                </Col>
-                <Col sm={2}>
-                  <div className="text-sm-end">
-                    <Button className="btn btn-success mb-2 me-1" onClick={toggleSignUp}>
-                      <i className="mdi mdi-account-plus" > Agregar Acta</i>
-                    </Button>
-                  </div>
-                </Col>
-                <Col sm={2}>
-                 <div className="text-sm-end">
-                   { selectedItemsConsolidados?.length>0 ?<Button className="btn btn-success mb-2 me-1" onClick={()=>imprimeConsolidado()}>
-                      <i className="mdi mdi-account-plus" >Consolidado</i>
-                    </Button>:''}
-                  </div>
-                </Col>
-              </Row>
               {datos?.length > 0 ?
 
-               <Table
+               <><Table
                   columns={columns}
                   data={datos}
                   pageSize={25}
@@ -496,8 +478,13 @@ const Actas = (props) => {
                   nametable={props.accion}
                   titulo={'LISTADO DE ACTAS REGISTRADAS'}
                   permisos={permisos}
-                  icons={'dripicons-user'}
-                />
+                  icons={'dripicons-user'} /><Button className="btn btn-success mb-2 me-1 btn-grid-actas" onClick={toggleSignUp}>
+                    <i className="mdi mdi-account-plus"> Agregar Acta</i>
+                  </Button><div className="text-sm-end">
+                   { selectedItemsConsolidados?.length>0 ?<Button className="btn btn-success mb-2 me-1 btn-grid-consolidado" onClick={()=>imprimeConsolidado()}>
+                      <i className="mdi mdi-account-plus" >Consolidado</i>
+                    </Button>:''}
+                  </div></>
                 : <PermisoAlert />}
             </Card.Body>
           </Card>
