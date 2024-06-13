@@ -10,7 +10,8 @@ export const useAdminUsuarios = () => {
   const [isLoading, setLoading] = useState(false);
   const [itemsAdminUsuarios, setAdminUsuarios] = useState([]);
   const [itemsRoles, setRoles] = useState([]);
-  //QUERY DE RESPUSTA DE CONSULTAS 
+
+  //QUERY DE RESPUSTA DE CONSULTAS
   const query = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
     setTimeout(function () {
@@ -40,7 +41,8 @@ export const useAdminUsuarios = () => {
                   case 'Roles':
                     setRoles(response)
                     break;
-                 
+
+
                 }
               })()
             }
@@ -63,6 +65,7 @@ export const useAdminUsuarios = () => {
       isLoading,
       itemsAdminUsuarios,
       itemsRoles,
+
     }
   )
 }

@@ -101,13 +101,7 @@ const MenuPrincipal = (props) => {
       accessor: 'status',
       sort: true,
     },
-    {
-      Header: 'Acciones',
-      accessor: 'action',
-      sort: false,
-      classes: 'table-action',
-      Cell: ActionColumn,
-    },
+
   ];
 
   useEffect(() => {
@@ -139,7 +133,7 @@ const MenuPrincipal = (props) => {
       <Row>
         <Col sm={12}>
           <Card>
-         
+
               {/* Sign up Modal */}
               <Modal show={signUpModalAdd} size={'sm'} onHide={setSignUpModalAdd}>
                 <Modal.Body>
@@ -152,7 +146,7 @@ const MenuPrincipal = (props) => {
                   />
                 </Modal.Body>
               </Modal>
-          
+
           </Card>
         </Col>
       </Row>

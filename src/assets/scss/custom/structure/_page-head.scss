@@ -1,4 +1,4 @@
-// 
+//
 // page-head.scss
 //
 
@@ -19,9 +19,16 @@
 
     .breadcrumb {
         padding-top: 8px;
-    }
-}
 
+    }
+
+}
+.position-title-top{
+  margin-right: -10em;
+  width: 50em;
+  position: relative;
+  margin-top:13em;
+}
 .page-title-box-sm {
     .page-title {
         line-height: 1 !important;

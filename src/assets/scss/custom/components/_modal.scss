@@ -1,4 +1,4 @@
-// 
+//
 // modal.scss
 //
 
@@ -11,6 +11,7 @@
 .modal-full-width {
     width: 95%;
     max-width: none;
+
 }
 
 // Modal Positions
@@ -43,6 +44,7 @@
     &.show {
         .modal-right, .modal-left {
             transform: translate(0,0) !important;
+
         }
     }
 }
@@ -78,6 +80,7 @@
 
     .modal-header,.modal-footer {
         border: none;
+
     }
 
     .btn-close {
@@ -90,4 +93,5 @@
 .modal-open {
     padding-right: 0px !important;
     padding-left: 0px !important;
+
 }

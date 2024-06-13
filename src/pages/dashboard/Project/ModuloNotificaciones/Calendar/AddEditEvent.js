@@ -26,9 +26,7 @@ function extraerObjeto(datos) {
                   obj.hasOwnProperty('title') &&
                   obj.hasOwnProperty('start') &&
                   obj.hasOwnProperty('end') &&
-                  obj.hasOwnProperty('idSolicitud')&&
-                  obj.hasOwnProperty('hechos')&&
-                  obj.hasOwnProperty('reglas')
+                  obj.hasOwnProperty('idSolicitud')
               ) {
                   return obj;
               }
@@ -86,8 +84,8 @@ const AddEditEvent = ({
         tiempoEstipulado: '',
         className: 'bg-warning',
         title: itemsQueryById[0]?.codigoFicha,
-        hechos: itemsQueryById[0]?.description,
-        reglas: itemsQueryById[0]?.reglas,
+        //hechos: itemsQueryById[0]?.description,
+        //reglas: itemsQueryById[0]?.reglas,
         start: '',
         end: '',
     },
@@ -160,7 +158,7 @@ if(aprendiz){
   }
 }
 
-
+/*
 const onChangeHechos = (value, codigoFicha) => {
   console.log(value);
     setItems([{ ...items[0], hechos: value, codigoFicha:codigoFicha}]);
@@ -170,7 +168,7 @@ const onChangeReglas = (value, codigoFicha) => {
   setItems([{ ...items[0], reglas: value, codigoFicha:codigoFicha}]);
 
 };
-
+*/
 console.log({...items});
     return (
         <Modal show={isOpen} onHide={onClose} backdrop="static" keyboard={false} fullscreen={'lg-down'}>
@@ -319,48 +317,8 @@ console.log({...items});
                                                                     </small>
                                                                 </Form.Group>
                                                             </Col>
-                                                            <Col md={12}>
-                                                                <Form.Group className="mb-3" controlId="hechos">
-                                                                    <label className="mb-2">
-                                                                        <i className="mdi mdi-calendar-range font-13"></i>{' '}
-                                                                        Hechos
-                                                                    </label>
-                                                                    <FormInput
-                                                                        type="textarea"
-                                                                        name="hechos"
-                                                                        rows="5"
-                                                                        cols="4"
-                                                                        containerClass={'mb-3'}
-                                                                        key="hechos"
-                                                                        value={items[0]?.hechos}
-                                                                        onChange={(e) =>
-                                                                          onChangeHechos(e.target.value, codigoFicha)
 
-                                                                        }
-                                                                    />
 
-                                                                </Form.Group>
-                                                            </Col>
-                                                            <Col md={12}>
-                                                                <Form.Group className="mb-3" controlId="reglas">
-                                                                    <label className="mb-2">
-                                                                        <i className="mdi mdi-calendar-range font-13"></i>{' '}
-                                                                        Reglas
-                                                                    </label>
-                                                                    <FormInput
-                                                                        type="textarea"
-                                                                        name="reglas"
-                                                                        rows="5"
-                                                                        containerClass={'mb-3'}
-                                                                        key="reglas"
-                                                                        value={items[0]?.reglas}
-                                                                        onChange={(e) =>
-                                                                          onChangeReglas(e.target.value, codigoFicha)
-                                                                        }
-                                                                    />
-
-                                                                </Form.Group>
-                                                            </Col>
                                                         </Row>
 
                                                         <Row>

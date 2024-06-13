@@ -1,26 +1,28 @@
 import React, {  useContext } from 'react';
-import FieldSanciones from './FieldSanciones';
+import ListSolicitudes from './ListSolicitudes';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-const FormAddSanciones = (props) => {
+const FieldSolicitudes = (props) => {
 
   const { itemUrl, tipo } = useContext(DashboardContext);
 
   let userInfo = sessionStorage.getItem('hyper_user');
   const user = JSON.parse(userInfo);
+
   return (
     <React.Fragment>
 
-      <FieldSanciones
+      <ListSolicitudes
+        opcionBusqueda={props.opcionBusqueda}
         accion={itemUrl}
         tipo={tipo}
         title={props.title}
         validated={props.validated}
-        opcion={'sanciones'}
-        textBtn={'Registrar Sanciones Aprendiz'}
+        opcion={'solicitudes'}
+        textBtn={'Registrar solicitudes'}
         entidad={user[0]?.entidad}
-
+        idActa={props.idActa}
       />
     </React.Fragment>
   );
 }
-export default FormAddSanciones;
+export default FieldSolicitudes;

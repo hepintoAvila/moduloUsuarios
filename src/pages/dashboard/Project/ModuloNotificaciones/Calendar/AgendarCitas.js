@@ -5,10 +5,7 @@ import React, {useContext, useEffect, useState } from 'react';
 import { Row, Col, Card, Button, Modal, Form,Collapse} from 'react-bootstrap';
 import '@fullcalendar/react';
 import classNames from 'classnames';
-// components
 
-import Calendar from './Calendar';
-import AddEditEvent from './AddEditEvent';
 import { Link } from 'react-router-dom';
 // dummy data
 
@@ -16,12 +13,18 @@ import { NotificacionesContext } from '../../../../../layouts/context/Notificaci
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import FormInput from '../../../components/FormInput';
 import Swal from 'sweetalert2';
+
+
+import { obtenerMesActual,filtrarPorMes} from './funtions';
+
+
+// components
+
+import Calendar from './Calendar';
+import AddEditEvent from './AddEditEvent';
+import TableAgendados from './TableAgendados';
 import TableComite from './TableComite';
 import TableAprendiz from './TableAprendiz';
-import { obtenerMesActual,filtrarPorMes} from './funtions';
-import TableAgendados from './TableAgendados';
-
-
 
 const SidePanel = ({ miembroscomites, setIdDirectivos,setIdSolicitud,events,aprendicesAgendados,enviarEmailAprendiz}) => {
 
@@ -207,9 +210,9 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
           const dataInLocalStorage = localStorage.getItem('comiteSelect');
           const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
           const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
-        const modifiedEvents = [...events];
+          const modifiedEvents = [...events];
 
-          console.log('data',data);
+
         const datosEvent = {
             id: modifiedEvents?.length + 1,
             fechaCita: `${data?.fechaCita} ${data?.horaCita}`,
@@ -219,8 +222,8 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             start: `${data?.fechaCita} ${data?.horaCita}`,
             end: `${data?.fechaCita} 00:00`,
             title: data?.horaCita,
-            hechos: data?.hechos,
-            reglas: data?.reglas,
+           // hechos: data?.hechos,
+           // reglas: data?.reglas,
             idSolicitudComite: data?.idSolicitudComite,
             idComites: `${idsVerdaderos}`,
             accion: 'ModuloNotificaciones',
@@ -231,17 +234,24 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
 
         const dataInLocalStorage1 = localStorage.getItem('idsIncidentes');
         const comiteSelect1 = dataInLocalStorage ? JSON.parse(dataInLocalStorage1) : [];
+
         const filteredAgendada = comiteSelect1?.filter((row) => {
           return row?.id !== datosEvent?.idSolicitudComite;
           });
           localStorage.removeItem('idsIncidentes')
           localStorage.setItem('idsIncidentes', JSON.stringify(filteredAgendada));
         setTimeout(function () {
-            const queryDatos = datosEvent
-                ? Object.keys(datosEvent)
-                    .map((key) => key + '=' + btoa(datosEvent[key]))
-                    .join('&')
-                : '';
+          const queryDatos = datosEvent
+          ? Object.entries(datosEvent)
+              .map(([key, value]) => {
+                // Eliminar comillas simples de los valores si existen
+                //const cleanValue = value.replace(/'/g, '');
+                // Codificar el valor limpio en base64
+                const encodedValue = btoa(value);
+                return `${key}=${encodedValue}`;
+              })
+              .join('&')
+          : '';
             getData(queryDatos)
         }, 2000);
         modifiedEvents.push(datosEvent);
@@ -269,11 +279,17 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                 tipo: 'updateCitas',
             }
             setTimeout(function () {
-                const queryDatos = datosEvent
-                    ? Object.keys(datosEvent)
-                        .map((key) => key + '=' + btoa(datosEvent[key]))
-                        .join('&')
-                    : '';
+              const queryDatos = datosEvent
+              ? Object.entries(datosEvent)
+                  .map(([key, value]) => {
+                    // Eliminar comillas simples de los valores si existen
+                    //const cleanValue = value.replace(/'/g, '');
+                    // Codificar el valor limpio en base64
+                    const encodedValue = btoa(value);
+                    return `${key}=${encodedValue}`;
+                  })
+                  .join('&')
+              : '';
                 getData(queryDatos)
             }, 2000);
 
@@ -304,11 +320,17 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             tipo: 'deleteCitas',
         }
         setTimeout(function () {
-            const queryDatos = datosEvent
-                ? Object.keys(datosEvent)
-                    .map((key) => key + '=' + btoa(datosEvent[key]))
-                    .join('&')
-                : '';
+          const queryDatos = datosEvent
+          ? Object.entries(datosEvent)
+              .map(([key, value]) => {
+                // Eliminar comillas simples de los valores si existen
+                //const cleanValue = value.replace(/'/g, '');
+                // Codificar el valor limpio en base64
+                const encodedValue = btoa(value);
+                return `${key}=${encodedValue}`;
+              })
+              .join('&')
+          : '';
             getData(queryDatos)
         }, 2000);
         setEvents(modifiedEvents);
@@ -325,9 +347,9 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
                 id: 1,
                 idSolicitudComite: 0,
                 codigoFicha:'',
-                hechos: 'SIN REGISTROS',
+                //hechos: 'SIN REGISTROS',
                 tiempoEstipulado: '',
-                reglas: '',
+                //reglas: '',
                 fechaHoraCita: '',
                 className: '',
                 start: '',
@@ -413,11 +435,17 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
             tipo: 'enviarEmailAprendiz',
         }
         setTimeout(function () {
-            const queryDatos = datosEvent
-                ? Object.keys(datosEvent)
-                    .map((key) => key + '=' + btoa(datosEvent[key]))
-                    .join('&')
-                : '';
+          const queryDatos = datosEvent
+          ? Object.entries(datosEvent)
+              .map(([key, value]) => {
+                // Eliminar comillas simples de los valores si existen
+                //const cleanValue = value.replace(/'/g, '');
+                // Codificar el valor limpio en base64
+                const encodedValue = btoa(value);
+                return `${key}=${encodedValue}`;
+              })
+              .join('&')
+          : '';
             getData(queryDatos)
         }, 2000);
         } catch (error) {
@@ -450,7 +478,7 @@ const aprendicesAgendados = itemsSolicitudes?.data?.Solicitudes?.filter(item => 
 
 }, [idAprendizDatos]);
 
-console.log('itemsList',itemsList)
+///console.log('itemsList',itemsList)
    return (
         <>
             <Row>

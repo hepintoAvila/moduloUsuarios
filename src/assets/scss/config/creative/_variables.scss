@@ -12,7 +12,7 @@ $gray-200: #eef2f7;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
 $gray-500: #adb5bd !default;
-$gray-600: #98a6ad;
+$gray-600: #5EB319;
 $gray-700: #919ca7;
 $gray-800: #343a40 !default;
 $gray-900: #474d56;
@@ -336,7 +336,6 @@ $container-max-widths: (
 // scss-docs-end container-max-widths
 
 @include _assert-ascending($container-max-widths, "$container-max-widths");
-
 
 // Grid columns
 //
@@ -1233,7 +1232,7 @@ $modal-dialog-margin-y-sm-up:       1.75rem;
 $modal-title-line-height:           $line-height-base;
 
 $modal-content-color:               null;
-$modal-content-bg:                  $white;
+$modal-content-bg:                 lighten($gray-300,5%);
 $modal-content-border-color:        transparent;
 $modal-content-border-width:        0;
 $modal-content-border-radius:       0.2rem;

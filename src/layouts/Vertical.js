@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 // @flow
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useCallback,  useEffect,  useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container} from 'react-bootstrap';
 
@@ -15,8 +16,8 @@ import { MenuProvider } from './context/MenuContext';
 import { PermisosProvider } from './context/PermisosProvider/PermisosProvider';
 import { ValidadorProvider } from './context/ValidadorContext';
 import { SearchProvider } from './context/SearchContext';
-import { NotificacionesProvider} from './context/NotificacionesProvider';
-
+import { NotificacionesProvider } from './context/NotificacionesProvider';
+import { SecurityProvider } from './context/SecurityProvider';
 const Topbar = React.lazy(() => import('./Topbar'));
 const LeftSidebar = React.lazy(() => import('./LeftSidebar'));
 const Footer = React.lazy(() => import('./Footer'));
@@ -36,7 +37,6 @@ type VerticalLayoutState = {
 
 const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
   const dispatch = useDispatch();
-
   const { leftSideBarTheme, leftSideBarType } = useSelector((state) => ({
     layoutWidth: state.Layout.layoutWidth,
     leftSideBarTheme: state.Layout.leftSideBarTheme,
@@ -89,23 +89,24 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
 
   const isCondensed = leftSideBarType === layoutConstants.LEFT_SIDEBAR_TYPE_CONDENSED;
   const isLight = leftSideBarTheme === layoutConstants.LEFT_SIDEBAR_THEME_LIGHT;
+
+
+
   return (
     <>
+    <SecurityProvider>
       <DashboardProvider>
         <MenuProvider>
           <PermisosProvider>
             <SearchProvider>
-
             <NotificacionesProvider>
             <div className="wrapper">
-
               <Suspense fallback={loading()}>
                 <LeftSidebar isCondensed={isCondensed} isLight={isLight} hideUserProfile={true} />
               </Suspense>
               <div className="content-page">
 
                 <div className="content">
-
                   <Suspense fallback={loading()}>
                     <Topbar openLeftMenuCallBack={openMenu} hideLogo={true} />
                   </Suspense>
@@ -113,7 +114,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
                     <Container fluid>
                       <Suspense fallback={loading()}>
                       <ValidadorProvider>
-                        <ProjectDashboard />
+                     <ProjectDashboard/>
                         </ValidadorProvider>
                       </Suspense>
                     </Container>
@@ -136,6 +137,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
           </PermisosProvider>
         </MenuProvider>
       </DashboardProvider>
+      </SecurityProvider>
     </>
   );
 };

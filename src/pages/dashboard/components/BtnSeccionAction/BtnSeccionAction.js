@@ -29,18 +29,7 @@ const BtnSeccionAction = (props,children) => {
                   icon={'mdi mdi-square-edit-outline'}
                 />
           </Pagination.Item>
-          <Pagination.Item>
-             <BtnActions
-                  permisos={'S'}
-                  key={`ELIMINAR_${props?.obj?.key}`}
-                  toggleActions={props?.obj?.eliminar}
-                  row={props?.obj?.row}
-                  titulo={'ELIMINAR'}
-                  descripcion={`Eliminar ${descripcionbtnaction}`}
-                  icon={'mdi mdi-delete'}
 
-                />
-          </Pagination.Item>
 
  {
         (isbtnLink==='S') ?

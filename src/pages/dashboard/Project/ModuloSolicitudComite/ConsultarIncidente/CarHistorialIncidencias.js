@@ -20,7 +20,7 @@ const CarHistorialIncidencias = (props) => {
     sizePerPageList
   } = useContext(DashboardContext);
   const datos = itemsQueryByIdAprendiz?.data?.Solicitudes|| [{}];
-      console.log(datos);
+
   const columns = [
     {
       Header: 'ID',

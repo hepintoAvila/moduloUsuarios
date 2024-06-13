@@ -7,6 +7,7 @@
 .dataTables_wrapper {
     &.container-fluid {
         padding: 0;
+        margin-top: 0.5em;
     }
 }
 
@@ -55,7 +56,7 @@ table.dataTable {
 
         > tr.selected, >tr>.selected {
             background-color: $primary;
-            
+
             td {
                 border-color: $primary;
             }
@@ -79,11 +80,11 @@ table.dataTable {
 }
 
 .bg-dataTable{
-    background-color:#98a6ad;
+    background-color:#5EB319;
 
 }
 .btn-dataTable{
-    background-color:#98a6ad;
+    background-color:#5EB319;
 
 }
 // Responsive data table
@@ -136,7 +137,7 @@ div.dt-button-info {
         display: inline-block;
         font-size: 1.5rem;
     }
- 
+
     li.paginate_button {
         display: none;
     }
@@ -165,12 +166,12 @@ div.dt-button-info {
 div.dataTables_wrapper {
     div.dataTables_filter{
       text-align: right;
-  
+
       @media (max-width: 767px){
         text-align: center;
       }
-  
-  
+
+
       input{
         margin-left: 0.5em;
         margin-right: 0;
@@ -178,7 +179,7 @@ div.dataTables_wrapper {
     }
 }
 
-div.table-responsive > 
+div.table-responsive >
 div.dataTables_wrapper {
     > div.row > div[class^="col-"]:last-child {
         padding-right: 0;

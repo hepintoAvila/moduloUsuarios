@@ -28,6 +28,7 @@ function contarVerdaderos(array) {
 const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [enviar, setEnviar] = useState(false);
     const {convertirFecha } = useContext(NotificacionesContext);
     const {validateError,setError,queryFile,loading,nombrePrograma,descripcion,fallas} = useContext(SearchContext)
 
@@ -43,8 +44,8 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         tipo: 'EnviarSolicitud',
         selectedFile:'',
         base64String:'',
-        descripcion:'',
-        nombrePrograma:'',
+        descripcion:descripcion,
+        nombrePrograma:nombrePrograma,
 
     }]);
 
@@ -54,6 +55,57 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         })
       );
       const onSubmit = () => {
+        setEnviar(!enviar)
+      };
+
+
+      const onDateChangefechaIncidente = (date,fechaError) => {
+
+        if (date) {
+            setSelectedDate(date);
+            setError({...validateError,fechaError:fechaError})
+            setItems([{
+                ...items[0],
+                 fechaIncidente:date,
+                idAprendiz:props?.idAprendiz
+              }])
+        }
+    };
+
+    const onDateChangeFile = (file,base64String,filesError,base64StringsError) => {
+        if (file) {
+            setError({...validateError,filesError:filesError,base64StringsError:base64StringsError})
+            setItems([{
+                ...items[0],
+                selectedFile:file,
+                base64String:base64String,
+                idAprendiz:props?.idAprendiz,
+              }])
+        }
+    };
+    const onChangeTipoAtencion= (value,tipoAtencionError) => {
+        if (value) {
+            setError({...validateError,tipoAtencionError:tipoAtencionError})
+            setItems([{
+                ...items[0],
+                tipoAtencion: value,
+                idAprendiz:props?.idAprendiz,
+              }])
+        }
+    };
+        const onChangeTipoComite= (value,comiteError) => {
+        if (value) {
+            setError({...validateError,comiteError:comiteError})
+            setItems([{
+                ...items[0],
+                tipoComite:value,
+                idAprendiz:props?.idAprendiz
+              }])
+        }
+    };
+
+useEffect(() => {
+      if(enviar) {
         const obj = Object.values({...validateError})
         let numtrue = contarVerdaderos(obj)
 
@@ -75,18 +127,18 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 opcion: 'add_solicitud',
                 tipo: 'EnviarSolicitud',
                 selectedFile:items[0].selectedFile,
-                descripcion:items[0].descripcion,
-                nombrePrograma:items[0].nombrePrograma,
+                descripcion:descripcion,
+                nombrePrograma:nombrePrograma,
                 ...fallas[0],
 
             }
-
+            console.log('datosfiles',datosfiles);
             const queryDatos = datosfiles
             ? Object.keys(datosfiles)
               .map((key) => key + '=' + btoa(datosfiles[key]))
               .join('&')
             : '';
-            queryFile(queryDatos, items[0].base64String)
+           queryFile(queryDatos, items[0].base64String)
         }else{
             Swal.fire({
                 icon: 'error',
@@ -95,86 +147,21 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
               })
 
         }
-
-
-
-      };
-
-
-      const onDateChangefechaIncidente = (date,fechaError) => {
-
-        if (date) {
-            setSelectedDate(date);
-            setError({...validateError,fechaError:fechaError})
-            setItems([{
-                ...items[0], fechaIncidente:date,
-                idAprendiz:props?.idAprendiz,
-                descripcion:descripcion,
-                nombrePrograma:nombrePrograma
-              }])
-        }
-    };
-
-    const onDateChangeFile = (file,base64String,filesError,base64StringsError) => {
-        if (file) {
-            setError({...validateError,filesError:filesError,base64StringsError:base64StringsError})
-            setItems([{
-                ...items[0],
-                selectedFile:file,
-                base64String:base64String,
-                idAprendiz:props?.idAprendiz,
-                descripcion:descripcion,
-                nombrePrograma:nombrePrograma
-              }])
-        }
-    };
-    const onChangeTipoAtencion= (value,tipoAtencionError) => {
-        if (value) {
-            setError({...validateError,tipoAtencionError:tipoAtencionError})
-            setItems([{
-                ...items[0],
-                tipoAtencion: value,
-                idAprendiz:props?.idAprendiz,
-                descripcion:descripcion,
-                nombrePrograma:nombrePrograma
-              }])
-        }
-    };
-        const onChangeTipoComite= (value,comiteError) => {
-        if (value) {
-            setError({...validateError,comiteError:comiteError})
-            setItems([{
-                ...items[0],
-                tipoComite:value,
-                idAprendiz:props?.idAprendiz,
-                descripcion:descripcion,
-                nombrePrograma:nombrePrograma
-              }])
-        }
-    };
-    useEffect(() => {
-        const obj = [{
-            ...items[0],
-            descripcion:descripcion,
-        }]
-        setItems(obj)
-    }, [descripcion, items]);
-
-    useEffect(() => {
-        const objnombrePrograma = [{
-            ...items[0],
-            nombrePrograma:nombrePrograma,
-        }]
-        setItems(objnombrePrograma)
-    }, [items, nombrePrograma]);
-
+      }
+}, [enviar]);
 
     return (
         <>
       {loading ? <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect> : null}
 
            <VerticalForm onSubmit={onSubmit} resolver={schemaResolver} defaultValues={{}} className={classNames('col-4')}>
-
+           <Row className=" mb-5">
+                    <div className="mb-3 mb-4 text-center btnenviarSolicitud" style={{marginLeft: "400px", marginTop: "-80px"}}>
+                        <Button variant="primary" type="submit" disabled={loading}>
+                            {t('ENVIAR SOLICITUD')}
+                        </Button>
+                    </div>
+                </Row>
                 <Row>
                     <Card className={classNames('widget-flat')}>
 
@@ -194,7 +181,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                         key="tipoComite"
                                         isInvalid={!validateError.comiteError}
                                          onChange={(e) => onChangeTipoComite(
-                                            e.target.value,true
+                                            e.target.value,true,
                                           )}
                                     >
                                         <option value="ACADEMICO"> ACADEMICO</option>
@@ -209,6 +196,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                                         containerClass="mb-3 font-weight-bold"
                                         className="form-select"
                                         key="tipoAtencion"
+
                                         isInvalid={!validateError.tipoAtencionError}
                                         onChange={(e) => onChangeTipoAtencion(
                                             e.target.value,true
@@ -286,13 +274,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                 <br/>
                 <br/>
 
-                <Row className=" mb-5">
-                    <div className="mb-3 mb-4 text-center btnenviarSolicitud" style={{marginLeft: "10px", marginTop: "-60px"}}>
-                        <Button variant="primary" type="submit" disabled={loading}>
-                            {t('ENVIAR SOLICITUD')}
-                        </Button>
-                    </div>
-                </Row>
+
             </VerticalForm>
         </>
     );

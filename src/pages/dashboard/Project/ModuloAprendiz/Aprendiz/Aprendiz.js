@@ -6,18 +6,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
+
+import Swal from 'sweetalert2';
+
+import { useAprendiz } from '../../../../../hooks/useAprendiz';
+
+import Table from '../../../components/Table';
 import FormAdd from './FormAdd';
 import FormUpdate from './FormUpdate';
 import FormSanciones from './FormSanciones';
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
-import Swal from 'sweetalert2';
-import Table from '../../../components/Table';
-import { useAprendiz } from '../../../../../hooks/useAprendiz';
-import BtnActualizarAprendiz from '../../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
-
-
-
-
+//import BtnActualizarAprendiz from '../../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
+/*
 const ActionColumn = ({ row }) => {
   const {
     eliminar,
@@ -88,6 +88,7 @@ const ActionColumn = ({ row }) => {
     </React.Fragment>
   );
 };
+*/
 const Aprendiz = (props) => {
   const {
     setOpcion, opcion, itemsUpdate
@@ -99,12 +100,12 @@ const Aprendiz = (props) => {
     signUpModalAdd, setSignUpModalAdd,
     sizePerPageList,
   } = useContext(DashboardContext);
-  const { itemsAprendiz, query } = useAprendiz()
+  const { itemsAprendiz, queryAprendiz } = useAprendiz()
   const datos = itemsAprendiz?.data || [];
   const [mensajeModal,setMensageModal] = useState('');
   const handleClose = (e) => {
     setSignUpModalAdd(false);
-    query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+    queryAprendiz('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
   }
   const columns = [
     {
@@ -138,13 +139,6 @@ const Aprendiz = (props) => {
       accessor: 'correo',
       sort: false,
     },
-    {
-      Header: 'Acciones',
-      accessor: 'action',
-      sort: false,
-      classes: 'table-action',
-      Cell: ActionColumn,
-    },
   ];
   const toggleSignUp = () => {
     setOpcion('add');
@@ -153,8 +147,8 @@ const Aprendiz = (props) => {
   };
 
   useEffect(() => {
-    query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
-  }, [query]);
+    queryAprendiz('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+  }, [queryAprendiz]);
 
   useEffect(() => {
     {(() => {

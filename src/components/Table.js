@@ -193,7 +193,7 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
 
             <div className="table-responsive">
 
-                <div className="bg-dataTable p-1 text-sm-start text-white mt-1"><br/><h4 className="header-title mb-3">{titleTable}</h4></div>
+                <div className="bg-dataTable p-1 text-sm-start text-white mt-1 bg-success"><br/><small className="headerActas_datos_estudiantes mb-2">{titleTable}</small></div>
                 <table id={table}
                     {...dataTable.getTableProps()}
                     className={classNames('table table-striped', props['tableClass'])}>

@@ -1,13 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable default-case */
 /* eslint-disable no-fallthrough */
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback,useState } from 'react';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
 import encodeBasicUrl from '../../utils/encodeBasicUrl';
 const api = new APICore();
 const NotificacionesContext = createContext();
+
 const NotificacionesProvider = ({ children }) => {
+
     const [loading, setLoading] = useState(true);
     const [itemsQueryById, setQueryByIdComite] = useState([]);
     const [itemsQueryByIdAprendiz, setQueryByIdAprendiz] = useState([]);
@@ -29,36 +32,72 @@ const NotificacionesProvider = ({ children }) => {
     const [itemsSinEnviar, setConsultarSolicitudSinEnviar] = useState({});
     const [activeTab, setActiveTab] = useState('Enviar Solicitud');
     const [openFormAprendiz, setOpenFormAprendiz] = useState(false);
+    const [openFormAsistente, setConsultarAsistentes] = useState([]);
 
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
     const getData = useCallback((queryDatos) => {
-        const infoUsers = sessionStorage.getItem('hyper_user');
-        const infoUser = JSON.parse(infoUsers);
-        if (Number(infoUser[0]?.id > 0)) {
-            const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
-                infoUser[0]?.id
-            )}&Apikey=${encodeBasicUrl(infoUser[0]?.Apikey)}&ApiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}`;
-            const respDatos = api.sendRequestData(url);
-            respDatos
-                ?.then(function (resp) {
-                    if (resp[0].status === '202') {
-                        Swal.fire('' + resp[0].message + '');
-                        setStatus('202');
-                    } else {
-                        Swal.fire('' + resp[0].message + '');
-                        setStatus('404');
-                    }
+      const infoUsers = sessionStorage.getItem('hyper_user');
+      const infoUser = JSON.parse(infoUsers);
+      if (Number(infoUser[0]?.id > 0)) {
+          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
+              infoUser[0]?.id
+          )}&Apikey=${encodeBasicUrl(infoUser[0]?.Apikey)}&ApiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}`;
+          const respDatos = api.sendRequestData(url);
+          respDatos
+              ?.then(function (resp) {
+                  if (resp[0].status === '202') {
+                      const message = resp[0].message;
+                      // Extraer el usuario y la contraseña del mensaje
+                      const userData = message.match(/Su password es:([\w\W]+?), y el usuario: ([\w\W]+)/);
+                      if (userData) {
+                          const password = userData[1].trim();
+                          const username = userData[2].trim();
+                          // Mostrar el Swal con el texto plano y clase personalizada
+                          Swal.fire({
+                              title: 'Usuario Sena Creado con éxito!',
+                              html: `
+                                  <div>
+                                      <p class="swal-style-p"><strong>Usuario:</strong> ${username}</p>
+                                      <p class="swal-style-p"><strong>Contraseña:</strong> ${password}</p>
+                                  </div>
+                              `,
+                              showCloseButton: true, // Mostrar botón de cerrar
+                              showCancelButton: false, // No mostrar botón de cancelar
+                              focusConfirm: false,
+                              confirmButtonText: 'Salir',
+                              customClass: {
+                                  confirmButton: 'swal-confirm-button-class'
+                              },
+                              onClose: () => {
+                                  console.log('Cuadro de diálogo cerrado');
+                              }
+                          }).then((result) => {
+                              if (result.isConfirmed) {
+                                  console.log('Aceptar clickeado');
+                              }
+                          });
+                      } else {
+                          Swal.fire('Mensaje recibido', message);
+                      }
+                      setStatus('202');
+                  } else {
+                      Swal.fire('' + resp[0].message + '');
+                      setStatus('404');
+                  }
 
-                    /**setEvents */
-                })
-                .catch((error) => console.error('Error:', error))
-                .finally(() => {
-                    setTimeout(function () {
-                        setLoading(true);
-                    }, 1000);
-                });
-        }
-    }, []);
+                  /**setEvents */
+              })
+              .catch((error) => console.error('Error:', error))
+              .finally(() => {
+                  setTimeout(function () {
+                      setLoading(true);
+                  }, 1000);
+              });
+      }
+  }, []);
+
+
+
 
     /*QUERY PARA CONSULTAR DATOS */
     const query = useCallback((itemUrl, tipo, opcion) => {
@@ -111,9 +150,13 @@ const NotificacionesProvider = ({ children }) => {
                                         case 'ConsultarSolicitudSinEnviar':
                                             setConsultarSolicitudSinEnviar(response);
                                             break;
-                                            case 'ConsultarSolicitudByCodigo':
+                                        case 'ConsultarSolicitudByCodigo':
                                             setConsultarSolicitudByCodigo(response);
                                             break;
+                                        case 'ConsultarAsistentes':
+                                            setConsultarAsistentes(response);
+                                            break;
+                                       ;
                                     }
                                 })();
                             }
@@ -252,6 +295,7 @@ const NotificacionesProvider = ({ children }) => {
 
 
 
+
     const data = {
         getData,
         convertirFecha,
@@ -299,7 +343,10 @@ const NotificacionesProvider = ({ children }) => {
         setActiveTab,
         itemsConsultarSolicitudByCodigo,
         setConsultarSolicitudByCodigo,
-        openFormAprendiz, setOpenFormAprendiz
+        openFormAprendiz, setOpenFormAprendiz,
+        openFormAsistente,
+
+
     };
 
     return (

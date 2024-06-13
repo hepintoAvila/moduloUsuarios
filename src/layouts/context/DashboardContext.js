@@ -1,11 +1,17 @@
+/* eslint-disable default-case */
+/* eslint-disable no-lone-blocks */
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useEffect, useCallback} from 'react';
 import classNames from 'classnames';
 import {Card } from 'react-bootstrap';
 import Spinner from '../../components/Spinner';
-import ConfirmacionEliminacionStrategy from './ConfirmacionEliminacionStrategy';
+import encodeBasicUrl from '../../utils/encodeBasicUrl';
+
+import { useAprendiz } from '../../hooks/useAprendiz';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
+import ConfirmacionEnviarActaPapeleray from './ConfirmacionEnviarActaPapeleray';
 const api = new APICore();
 const DashboardContext = createContext();
 const DashboardProvider = ({ children }) => {
@@ -15,12 +21,41 @@ const DashboardProvider = ({ children }) => {
   const [itemsQuery, setItemsQuery] = useState([]);
   const [isLoading, setLoading] = useState([]);
   const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownImprimir, setDropdownImprimir] = useState(false);
   const [signUpModalAdd, setSignUpModalAdd] = useState(false);
   const [itemsUpdate, setItemsUpdate] = useState(0);
+  const [itemActa, setItemsActa] = useState(0);
   const [opcion, setOpcion] = useState('');
+  const [opcionBusqueda, setOpcionBusqueda] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedItem, setIsCheckedItem] = useState(0);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItemsConsolidados, setSelectedItemsConsolidados] = useState([]);
+  const [itemsConsolidados, setItemsConsolidados] = useState([]);
+  const [objAprendiz, setObjAprendiz] = useState([]);
+  const [objActas, setObjActas] = useState({});
+  const [objDatosAprendiz, setObjDatosAprendiz] = useState({});
+  const [status, setStatus] = useState('202');
+  const [urlpdf, setUrl] = useState('');
+  const [idSolicitud, setIdSolicitud] = useState(0);
+   const [itemsAsistentes, setItemsAsistentes] = useState([
+    {
+        nombresApellidos:'',
+        documento:'',
+        contratista:'',
+        otroContratista:'',
+        dependencia:'',
+        email:'',
+        telefono:'',
+        planta:'',
+        autorizacion:'',
+        firmaDigital:'',
+        nombresDigital:'',
 
+
+    },
+]);
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
 
   const itemsMenuCallBack = (e) => {
@@ -88,7 +123,7 @@ const DashboardProvider = ({ children }) => {
 
 const pagesInSearch = () => {
   const query = window.location.hash;
-  console.log('query',query)
+  //console.log('query',query)
   return query;
 };
 const AdvertenciaLocalStorage = () => {
@@ -108,7 +143,7 @@ const AdvertenciaLocalStorage = () => {
           let permiso = sessionStorage.getItem('PERMISO');
           const localPermiso = JSON.parse(permiso);
           if (localPermiso.delete) {
-              const estrategiaConfirmacion = new ConfirmacionEliminacionStrategy();
+              const estrategiaConfirmacion = new ConfirmacionEnviarActaPapeleray();
               estrategiaConfirmacion.confirmar(cel, (cel) => {
                   const url = `accion=${btoa(itemUrl)}&tipo=${btoa(tipo)}&opcion=${btoa('delete')}'&id=${btoa(cel)}`;
                   const respuesta = api.sendRequestData(`${url}`);
@@ -154,34 +189,280 @@ const handleRegresar = (tipo) => {
   setitemsUrl(tipo);
   return window.location.hash=url;
 }
-const handleOnChange = (id,name,email) => {
+const handleOnChange = (id, name, email) => {
   setIsChecked(!isChecked);
   setIsCheckedItem(id);
 
   const dataInLocalStorage = localStorage.getItem('idsIncidentes');
   const data = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
-  const itemExists = data?.filter((row) => {
-    return row?.id === id;
-    });
 
+  const itemExists = data.find((row) => row.id === id);
 
-
-  if (!itemExists[0]?.id) {
-    const newItem = { id,name,email };
+  if (!itemExists) {
+    // Agregar el nuevo ítem si no existe
+    const newItem = { id, name, email };
     const updatedData = [...data, newItem];
     localStorage.setItem('idsIncidentes', JSON.stringify(updatedData));
-  }else{
-    const itemsDelete = data?.filter((row) => {
-      return row?.id !== id;
-      });
-      localStorage.removeItem('idsIncidentes');
-      localStorage.setItem('idsIncidentes', JSON.stringify(itemsDelete));
+  } else {
+    // Remover el ítem si ya existe
+    const updatedData = data.filter((row) => row.id !== id);
+    localStorage.setItem('idsIncidentes', JSON.stringify(updatedData));
   }
 };
 
 
+
+
+    /*GETDATA PARA ENVIAR DATOS DEL FOMULARIO */
+    const sendData = useCallback((queryDatos) => {
+      const infoUsers = sessionStorage.getItem('hyper_user');
+      const infoUser = JSON.parse(infoUsers);
+      if (Number(infoUser[0]?.id > 0)) {
+          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
+              infoUser[0]?.id
+          )}&Apikey=${encodeBasicUrl(infoUser[0]?.Apikey)}&ApiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}`;
+          const respDatos = api.sendRequestData(url);
+          respDatos
+              ?.then(function (resp) {
+                  if (resp[0].status === '202') {
+                      Swal.fire('' + resp[0].message + '');
+                      setStatus('202');
+                  } else {
+                      Swal.fire('' + resp[0].message + '');
+                      setStatus('404');
+                  }
+
+                  /**setEvents */
+              })
+              .catch((error) => console.error('Error:', error))
+              .finally(() => {
+                  setTimeout(function () {
+                      setLoading(true);
+                  }, 1000);
+              });
+      }
+  }, []);
+
+    /*GETDATA PARA GENERAR CONSOLIDADOS */
+    const getConsolidado = useCallback((queryDatos) => {
+      const infoUsers = sessionStorage.getItem('hyper_user');
+      const infoUser = JSON.parse(infoUsers);
+      if (Number(infoUser[0]?.id > 0)) {
+          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
+              infoUser[0]?.id
+          )}&Apikey=${encodeBasicUrl(infoUser[0]?.Apikey)}&ApiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}`;
+          const respDatos = api.sendRequestData(url);
+          respDatos
+              ?.then(function (resp) {
+                try {
+                    setItemsConsolidados(resp)
+                } catch (error) {
+                  console.error(error);
+                }
+                  /**setEvents */
+              });
+      }
+  }, []);
+    /*QUERY PARA CONSULTAR DATOS */
+    const query = useCallback((itemUrl, tipo, opcion) => {
+      setLoading(true);
+      setTimeout(function () {
+          let varibles;
+          let datos = opcion;
+          if (opcion) {
+              var queryString = datos[0]
+                  ? Object.keys(datos[0])
+                        .map((key) => key + '=' + datos[0][key])
+                        .join('&')
+                  : '';
+              varibles = queryString;
+          }
+          let userInfo = sessionStorage.getItem('hyper_user');
+          const user = JSON.parse(userInfo);
+
+          if (user) {
+              const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&rol=${encodeBasicUrl(user[0]?.role)}&Apikey=${encodeBasicUrl(user[0]?.Apikey)}&ApiToken=${encodeBasicUrl(user[0]?.ApiToken)}`;
+              const datosMaterial = api.sendRequestData(`${url}`);
+              datosMaterial
+                  ?.then(function (response) {
+                      try {
+                          {
+                              (() => {
+                                  switch (datos[0]?.obj) {
+                                      case 'changePassword':
+                                        if (response.status === '202') {
+                                          Swal.fire('' + response.message + '');
+                                          setStatus('202');
+                                      } else {
+                                          Swal.fire('' + response.message + '');
+                                          setStatus('404');
+                                      }
+                                      break;
+                                     ;
+                                  }
+                              })();
+                          }
+                      } catch (error) {
+                          console.error(error);
+                      }
+                  })
+                  .catch((error) => console.error('Error:', error))
+                  .finally(() => {
+                      setTimeout(function () {
+                          setLoading(false);
+                      }, 1000);
+                  });
+          }
+      }, 2000);
+  }, []);
+const toggleItemSelection = (item) => {
+
+  setSelectedItems(prevSelectedItems => {
+    const newSelectedItems = prevSelectedItems.includes(item)
+      ? prevSelectedItems.filter(i => i !== item)
+      : [...prevSelectedItems, item];
+      return newSelectedItems;
+  });
+};
+const toggleItemConsolidados = (item) => {
+
+  setSelectedItemsConsolidados(prevSelectedItems => {
+    const newSelectedItems = prevSelectedItems.includes(item)
+      ? prevSelectedItems.filter(i => i !== item)
+      : [...prevSelectedItems, item];
+      return newSelectedItems;
+  });
+};
+const handleCheckboxNotificaciones= (key) => {
+  toggleItemConsolidados(key);
+};
+const jsonConsolidados = useCallback((selectedItems) => {
+  if (selectedItems.length > 0) {
+
+    /* OBTENER EL ID DEL ACTA*/
+    const idUrl = pagesInSearch();
+    let url = '#/dashboard/ModuloActas/Actas?p=';
+    const id = idUrl?.replace(url, '');
+
+    console.log('id',id)
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: 'Registro Enviado',
+      showConfirmButton: false,
+      timer: 1500
+    });
+    const datosEvent = {
+      items: btoa(selectedItems),
+      accion: btoa('ModuloActas'),
+      opcion: btoa('generarConsolidado'),
+      tipo: btoa('actas'),
+    };
+
+    const queryDatos = Object.keys(datosEvent)
+    .map((key) => {
+      if (Array.isArray(datosEvent[key])) {
+        return datosEvent[key]
+          .map((item, index) => `${key}[${index}]=${encodeURIComponent(item)}`)
+          .join('&');
+      } else {
+        return `${key}=${encodeURIComponent(datosEvent[key])}`;
+      }
+    })
+    .join('&');
+
+   getConsolidado(queryDatos)
+    console.log('resp',itemsConsolidados)
+
+      return itemsConsolidados;
+  }else{
+
+    Swal.fire('SELECCIONE UNO O MAS ACTAS PARA GENERAR EL REPORTE');
+  }
+
+}, [itemsConsolidados]);
+
+useEffect(() => {
+  if (selectedItems.length > 0) {
+
+    /* OBTENER EL ID DEL ACTA*/
+    const idUrl = pagesInSearch();
+    let url = '#/dashboard/ModuloActas/Actas?p=';
+    const id = idUrl?.replace(url, '');
+
+    console.log('id',id)
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: 'Registro Enviado',
+      showConfirmButton: false,
+      timer: 1500
+    });
+    const datosEvent = {
+      idActa:btoa(id),
+      items: btoa(selectedItems),
+      accion: btoa('ModuloActas'),
+      opcion: btoa('addIds'),
+      tipo: btoa('actas'),
+      opcionBusqueda: btoa(opcionBusqueda),
+    };
+
+    const queryDatos = Object.keys(datosEvent)
+    .map((key) => {
+      if (Array.isArray(datosEvent[key])) {
+        return datosEvent[key]
+          .map((item, index) => `${key}[${index}]=${encodeURIComponent(item)}`)
+          .join('&');
+      } else {
+        return `${key}=${encodeURIComponent(datosEvent[key])}`;
+      }
+    })
+    .join('&');
+    sendData(queryDatos)
+  }
+}, [selectedItems]);
+
+
+const {itemsAprendiz,queryAprendiz} = useAprendiz()
+useEffect(() => {
+  if(objAprendiz?.aprendiz?.length > 0){
+ const partes = objAprendiz?.aprendiz.split('-');
+ const datos = itemsAprendiz?.data || [];
+ const datosTask = datos?.filter((t) => t.idAprendiz === partes[0]);
+
+ const objDatosAprendiz ={
+   id:datosTask[0]?.idAprendiz,
+   nombres:datosTask[0]?.nombres,
+   apellidos:datosTask[0]?.apellidos,
+   correo:datosTask[0]?.correo,
+   telefono:datosTask[0]?.telefono,
+   identificacion:datosTask[0]?.identificacion,
+   programaFormacion:datosTask[0]?.programaFormacion,
+   proyectoFormativo:datosTask[0]?.proyectoFormativo,
+   tipoIdentificacion:datosTask[0]?.tipoIdentificacion
+ }
+ setObjDatosAprendiz(objDatosAprendiz)
+}
+}, [objAprendiz]);
+
+useEffect(() => {
+  queryAprendiz('ModuloAprendiz','aprendiz',[{opcion:btoa('listaAprendiz'),obj:'aprendiz'}]);
+}, [queryAprendiz]);
+
+
+
+
   const data = {
+    sendData,
+    status,
+    setStatus,
     handleOnChange,
+    toggleItemSelection,
+    toggleItemConsolidados,
+    handleCheckboxNotificaciones,
+    selectedItemsConsolidados,
+    jsonConsolidados,
+    selectedItems,
     isChecked, setIsChecked,isCheckedItem,
     AdvertenciaLocalStorage,
     itemsMenuCallBack,
@@ -202,7 +483,17 @@ const handleOnChange = (id,name,email) => {
     setSignUpModalAdd,
     itemsUpdate, setItemsUpdate,
     opcion, setOpcion,
-    eliminar
+    eliminar,
+    opcionBusqueda,
+    setOpcionBusqueda,
+    objActas, setObjActas,setObjAprendiz,objDatosAprendiz,
+    itemsAsistentes, setItemsAsistentes,
+    idSolicitud, setIdSolicitud,
+    dropdownOpen, setDropdownOpen,
+    dropdownImprimir, setDropdownImprimir,
+    urlpdf, setUrl,
+     query,
+     itemActa, setItemsActa
   };
   return (
     <>

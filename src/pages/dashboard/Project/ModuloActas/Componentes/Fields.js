@@ -9,8 +9,14 @@ import { useActas } from '../../../../../hooks/useActas';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import Swal from 'sweetalert2';
+import { useSecurity } from '../../../../../layouts/context/SecurityProvider';
+
+
 const Fields = (props): React$Element<React$FragmentType> => {
-    const { getData } = useContext(NotificacionesContext);
+  const { errors,checkSpecialChars } = useSecurity(); // Usamos el hook useSecurity
+
+
+  const { getData } = useContext(NotificacionesContext);
     const {query} = useActas();
     const { setSignUpModalAdd } = useContext(DashboardContext);
       const {objActa}= props;
@@ -22,11 +28,24 @@ const Fields = (props): React$Element<React$FragmentType> => {
             horaInicial:objActa?.horaInicial?.length > 1 ? objActa?.horaInicial : '',
             horaFinal:objActa?.horaFinal?.length > 1 ? objActa?.horaFinal: '',
             secretario:objActa?.secretario?.length > 1 ? objActa?.secretario: '',
+            presentacion:objActa?.presentacion?.length > 1 ? objActa?.presentacion: '',
             opcion:props?.opcion?.length > 1 ? props?.opcion: '',
 
 
         },
     ]);
+    const handleChange = (field) => (e) => {
+      const value = e.target.value;
+      checkSpecialChars(field, value);
+      setItems((prevItems) => {
+        const newItems = [...prevItems];
+        newItems[0] = {
+          ...newItems[0],
+          [field]: value,
+        };
+        return newItems;
+      });
+    };
 
     const Registrarse = (items,opcion) => {
 
@@ -46,10 +65,16 @@ const Fields = (props): React$Element<React$FragmentType> => {
 
 
         const queryDatos = datosEvent
-            ? Object.keys(datosEvent)
-                  .map((key) => key + '=' + btoa(datosEvent[key]))
-                  .join('&')
-            : '';
+        ? Object.entries(datosEvent)
+            .map(([key, value]) => {
+              // Eliminar comillas simples de los valores si existen
+           // //const cleanValue = value.replace(/'/g, '');
+              // Codificar el valor limpio en base64
+              const encodedValue = btoa(value);
+              return `${key}=${encodedValue}`;
+            })
+            .join('&')
+        : '';
 
         setTimeout(function () {
             getData(queryDatos);
@@ -62,40 +87,27 @@ const Fields = (props): React$Element<React$FragmentType> => {
     return (
         <>
             <form className="formModal">
-                <FormInput
-                    label={'NOMBRE DEL COMITÉ O DE LA REUNIÓN'}
-                    type="textarea"
-                    rows="5"
-                    name="nombre"
-                    value={items[0]?.nombre}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                nombre: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'ACTA DEL COMITÉ DE EVALUACIÓN Y SEGUIMIENTO No.'}
-                    containerClass={'mb-3'}
+              <FormInput
+                  label={'NOMBRE DEL COMITÉ O DE LA REUNIÓN'}
+                  type="textarea"
+                  rows="5"
+                  name="nombre"
+                  value={items[0]?.nombre}
+                  onChange={handleChange('nombre')}
+                  placeholder={'ACTA DEL COMITÉ DE EVALUACIÓN Y SEGUIMIENTO No.'}
+                  containerClass={`mb-3 ${errors.nombre?.hasSpecialChar || errors.nombre?.isEmpty ? 'bg-alert' : ''}`}
                 />
-                <FormInput
-                    label={'Fecha'}
-                    type="date"
-                    containerClass={'mb-3'}
-                    name="fecha"
-                    value={items[0]?.fecha}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                fecha: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite la Fecha'}
-
-                />
+ <div className="mb-3 mb-0 text-center"></div>
+                  <FormInput
+                        label={'Fecha'}
+                        type="date"
+                        name="fecha"
+                        value={items[0]?.fecha}
+                        onChange={handleChange('fecha')}
+                        placeholder={'Digite la Fecha'}
+                        containerClass={`mb-3 ${errors.fecha?.hasSpecialChar || errors.fecha?.isEmpty ? 'bg-alert' : ''}`}
+                      />
+      <div className="mb-3 mb-0 text-center"></div>
                 <FormInput
                     label={'Hora Inicial'}
                     type="time"
@@ -109,10 +121,10 @@ const Fields = (props): React$Element<React$FragmentType> => {
                             },
                         ])
                     }
-                    placeholder={'Digite la Hora Inicial'}
+                    placeholder={'Digite la Hora Final'}
                     containerClass={'mb-3'}
                 />
-
+      <div className="mb-3 mb-0 text-center"></div>
                 <FormInput
                     label={'Hora Final'}
                     type="time"
@@ -129,23 +141,28 @@ const Fields = (props): React$Element<React$FragmentType> => {
                     placeholder={'Digite la Hora Final'}
                     containerClass={'mb-3'}
                 />
+                <div className="mb-3 mb-0 text-center"></div>
                 <FormInput
-                    label={'Secretario'}
-                    type="text"
-                    name="secretario"
-                    value={items[0]?.secretario}
-                    onChange={(e) =>
-                        setItems([
-                            {
-                                ...items[0],
-                                secretario: e.target.value,
-                            },
-                        ])
-                    }
-                    placeholder={'Digite el nombre de la secretario'}
-                    containerClass={'mb-3'}
+                  label={'Secretario'}
+                  type="text"
+                   name="secretario"
+                  value={items[0]?.secretario}
+                  onChange={handleChange('secretario')}
+                  placeholder={'Secretario.'}
+                  containerClass={`mb-3 ${errors.secretario?.secretario || errors.secretario?.isEmpty ? 'bg-alert' : ''}`}
                 />
                 <div className="mb-3 mb-0 text-center"></div>
+                <FormInput
+                  label={'PRESENTACION'}
+                  type="textarea"
+                  rows="5"
+                  name="presentacion"
+                  value={items[0]?.presentacion}
+                  onChange={handleChange('presentacion')}
+                  placeholder={'PRESENTACION.'}
+                  containerClass={`mb-3 ${errors.presentacion?.hasSpecialChar || errors.presentacion?.isEmpty ? 'bg-alert' : ''}`}
+                />
+
             </form>
 
             <div className="mb-6 mb-2 text-center">

@@ -1,27 +1,20 @@
-import React,{useContext,useEffect} from 'react';
+import React,{useContext} from 'react';
 
 
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 /* custon FormUpdate */
 import Fields from './Fields';
 import { useAprendiz } from '../../../../../hooks/useAprendiz';
-
+import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 
 
 const FormUpdate = (props) => {
 
-  const { itemUrl, tipo,itemsUsuarios,itemsUpdate } = useContext(DashboardContext);
-
-  const {itemsAprendiz,query} = useAprendiz()
-
+const { itemUrl, tipo,itemsUsuarios,itemsUpdate } = useContext(DashboardContext);
+const {itemsAprendiz} = useAprendiz()
 const datos = itemsAprendiz?.data || [];
 const idAprendizABuscar = itemsUpdate > 0 ? itemsUpdate: 0;
-
 const datosTask = datos?.filter((t) => t.idAprendiz === idAprendizABuscar);
-
-useEffect(() => {
-  query('ModuloAprendiz','aprendiz',[{opcion:btoa('listaAprendiz'),obj:'aprendiz'}]);
-}, [query]);
 
   return (
   <React.Fragment>
@@ -39,7 +32,7 @@ useEffect(() => {
         objAprendiz={datosTask[0]}
         Idpermiso={itemsUpdate?.items?.Idpermiso}
       />
-      : "Cargando Datos Aprendiz..."}
+      :<PermisoAlert />}
   </React.Fragment>
     );
 }
