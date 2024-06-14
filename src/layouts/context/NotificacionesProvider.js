@@ -41,7 +41,7 @@ const NotificacionesProvider = ({ children }) => {
       if (Number(infoUser[0]?.id > 0)) {
           const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
               infoUser[0]?.id
-          )}&Apikey=${encodeBasicUrl(infoUser[0]?.Apikey)}&ApiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}`;
+          )}&apiToken=${btoa(infoUser[0]?.ApiToken)}&apikey=${btoa(infoUser[0].Apikey)}`;
           const respDatos = api.sendRequestData(url);
           respDatos
               ?.then(function (resp) {
@@ -117,7 +117,7 @@ const NotificacionesProvider = ({ children }) => {
             const user = JSON.parse(userInfo);
 
             if (user) {
-                const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&rol=${encodeBasicUrl(user[0]?.role)}`;
+                const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&rol=${encodeBasicUrl(user[0]?.role)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
                 const datosMaterial = api.sendRequestData(`${url}`);
                 datosMaterial
                     ?.then(function (response) {

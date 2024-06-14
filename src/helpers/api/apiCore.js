@@ -58,11 +58,21 @@ const getUserFromSession = () => {
   const user = sessionStorage.getItem(AUTH_SESSION_KEY);
   return user ? (typeof user == 'object' ? user : JSON.parse(user)) : null;
 };
+
 const get = async (url, authOptions) => {
   try {
     const urls = `${environments.baseURL}${url}`;
     const response = await fetch(urls, authOptions);
-    return  await response.json();
+
+    // Verificar si la respuesta es JSON
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      return await response.json();
+    } else {
+      // Manejar el caso en que la respuesta no sea JSON
+      const text = await response.text();
+      throw new Error(`Expected JSON, but received: ${text}`);
+    }
   } catch (err) {
     console.error(err);
   }
@@ -149,9 +159,10 @@ class APICore {
   sendRequestData = (url) => {
     let userInfo = sessionStorage.getItem('hyper_user');
     const user = JSON.parse(userInfo);
+
     if(user){
     const authOptions = {
-      url: `${environments.baseURL}${url}&ApiToken=${btoa(user[0].ApiToken)}}`,
+      url: `${environments.baseURL}${url}`,
       method: 'GET',
       headers: {
         ...axios.defaults.headers,

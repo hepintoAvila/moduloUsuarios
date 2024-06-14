@@ -22,10 +22,13 @@ const ActionColAsistentes = ({ row }) => {
     (cel) => {
         let permiso = sessionStorage.getItem('PERMISO');
         const localPermiso = JSON.parse(permiso);
+        const infoUsers = sessionStorage.getItem('hyper_user');
+        const user = JSON.parse(infoUsers);
+
         if (localPermiso.delete) {
             const estrategiaConfirmacion = new ConfirmacionEliminacionStrategy();
             estrategiaConfirmacion.confirmar(cel, (cel) => {
-                const url = `accion=${btoa('ModuloActas')}&tipo=${btoa('actas')}&opcion=${btoa('deleteAsistente')}'&id=${btoa(cel)}`;
+                const url = `accion=${btoa('ModuloActas')}&tipo=${btoa('actas')}&opcion=${btoa('deleteAsistente')}'&id=${btoa(cel)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
                 const respuesta = api.sendRequestData(`${url}`);
                 respuesta
                     .then(function (resp) {

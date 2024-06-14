@@ -25,8 +25,9 @@ export const useAprendiz = () => {
       }
       let userInfo = sessionStorage.getItem('hyper_user');
       const user = JSON.parse(userInfo);
+
       if (user) {
-        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}`;
+        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&apiToken=${encodeBasicUrl(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
         const datosMaterial = api.sendRequestData(`${url}`);
         datosMaterial?.then(function (response) {
           try {

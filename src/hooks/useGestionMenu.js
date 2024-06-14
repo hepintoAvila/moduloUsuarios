@@ -23,12 +23,12 @@ export const useGestionMenu = () => {
             .map((key) => key + '=' + datos[0][key])
             .join('&')
           : '';
-        varibles = queryString; 
+        varibles = queryString;
       }
       let userInfo = sessionStorage.getItem('hyper_user');
       const user = JSON.parse(userInfo);
       if (user) {
-        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}`;
+        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
         const datosMaterial = api.sendRequestData(`${url}`);
 
         datosMaterial?.then(function (response) {

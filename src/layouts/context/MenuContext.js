@@ -7,21 +7,21 @@ const MenuContext = createContext();
 const MenuProvider = ({ children }) => {
 
     const [MENU_ITEMS_CONTEXT, setmenu] = useState([{}]);
-    
+
     const onItemMenu = useCallback(() => {
         setTimeout(function () {
             // get parameters from post request
             let userInfo = sessionStorage.getItem('hyper_user');
             const user = JSON.parse(userInfo);
             if (user) {
-            const url = `accion=${encodeBasicUrl('menu')}&opcion=${encodeBasicUrl('consultar')}&IdMenu=${encodeBasicUrl(user[0]?.role)}&entidad=${encodeBasicUrl(user[0]?.entidad)}`;
+            const url = `accion=${encodeBasicUrl('menu')}&opcion=${encodeBasicUrl('consultar')}&IdMenu=${encodeBasicUrl(user[0]?.role)}&entidad=${encodeBasicUrl(user[0]?.entidad)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
             const datosMenu = api.sendRequestData(`${url}`);
             datosMenu.then(function (response) {
                 try {
-                    
+
                     if (response?.length > 0) {
                     setmenu(response);
-                    }   
+                    }
                 } catch (error) {
                     console.error(error);
                 }

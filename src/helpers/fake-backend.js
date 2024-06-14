@@ -36,6 +36,7 @@ export function configureFakeBackend() {
                       role: response?.data?.Auth?.Rol,
                       Apikey: response?.data?.Auth?.Apikey,
                       ApiToken: response?.data?.Auth?.ApiToken,
+                      alea_actuel: response?.data?.Auth?.alea_actuel,
                   };
                   sessionStorage.setItem('PERMISO_ALL', JSON.stringify(response?.data?.Permisos));
                   arrayRes.push(users);
@@ -77,9 +78,10 @@ export function configureFakeBackend() {
 mock.onPost('/queryform/').reply(function (config) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
+          let userInfo = sessionStorage.getItem('hyper_user');
+          const user = JSON.parse(userInfo);
             let params = JSON.parse(config?.data);
             let obj=params?.datos
-
             if (params) {
               var queryString = obj
                 ? Object.keys(obj)
@@ -87,7 +89,7 @@ mock.onPost('/queryform/').reply(function (config) {
                   .join('&')
                 : '';
               }
-              const url = `${queryString}`;
+              const url = `${queryString}&apikey=${btoa(user[0].Apikey)}`;
               const respuesta = api.sendRequestData(`${url}`);
               respuesta.then(function (resp) {
                 Swal.fire('' + resp[0].menssage + '');

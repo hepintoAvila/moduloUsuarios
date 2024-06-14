@@ -60,6 +60,12 @@ const Login = (): React$Element<any> => {
       sessionStorage.removeItem('ITEM_SELECT');
       sessionStorage.removeItem('TiposCategorias');
       localStorage.removeItem('menuNomina');
+      localStorage.removeItem('comiteSelect');
+      localStorage.removeItem('smde_1');
+      localStorage.removeItem('roles');
+      localStorage.removeItem('idsIncidentes');
+      localStorage.removeItem('Conceptos');
+
       dispatch(loginUser(formData['username'], formData['password']));
     };
 
