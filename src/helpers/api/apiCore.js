@@ -115,7 +115,7 @@ class APICore {
           headers: {
               ...axios.defaults.headers,
               'enctype': 'multipart/form-data',
-              Authorization: `Basic ${encodeBasic(environments.loginAPI, environments.passwordAPI)}`,
+               Authorization: `Basic ${encodeBasic(user[0].username,user[0].ApiToken)}`,
           },
       };
       const response = await fetch(`${environments.baseURL}${url}`, config);
