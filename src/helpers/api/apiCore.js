@@ -110,7 +110,7 @@ class APICore {
       try {
 
         const config = {
-          method: 'GET',
+          method: 'POST',
           body: JSON.stringify(data),
           headers: {
               ...axios.defaults.headers,

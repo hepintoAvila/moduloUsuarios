@@ -39,7 +39,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         tipoComite: '',
         tipoAtencion: '',
         fechaIncidente: '',
-        accion: 'ModuloSolicitudComite',
+        accion: 'ModuloEnviarComite',
         opcion: 'add_solicitud',
         tipo: 'EnviarSolicitud',
         selectedFile:'',

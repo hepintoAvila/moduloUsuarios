@@ -38,7 +38,7 @@ const SearchProvider = ({ children }) => {
     const infoUser =  JSON.parse(infoUsers)
 
     if(Number(infoUser[0]?.id>0)){
-    const url = `${queryDatos}&idUsuario=${btoa(infoUser[0]?.id)}&entidad=${btoa(infoUser[0]?.entidad)}&ApiToken=${btoa(infoUser[0]?.ApiToken)}&Apikey=${btoa(infoUser[0]?.Apikey)}`;
+    const url = `${queryDatos}&idUsuario=${btoa(infoUser[0]?.id)}&entidad=${btoa(infoUser[0]?.entidad)}&apiToken=${btoa(infoUser[0]?.ApiToken)}&apikey=${btoa(infoUser[0]?.Apikey)}`;
     const datosMaterial = api.sendFile(url, dataFile);
     datosMaterial
         ?.then(function (resp) {
