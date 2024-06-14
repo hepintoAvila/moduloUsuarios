@@ -23,7 +23,7 @@ export const useGestionMenu = () => {
             .map((key) => key + '=' + datos[0][key])
             .join('&')
           : '';
-        varibles = queryString;
+        varibles = queryString; 
       }
       let userInfo = sessionStorage.getItem('hyper_user');
       const user = JSON.parse(userInfo);

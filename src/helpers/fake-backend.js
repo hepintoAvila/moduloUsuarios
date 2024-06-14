@@ -34,11 +34,8 @@ export function configureFakeBackend() {
                       username: response?.data?.Auth?.Usuario,
                       email: response?.data?.Auth?.Email,
                       role: response?.data?.Auth?.Rol,
-                      password: response?.data?.Auth?.Password,
-                      token: response?.data?.Auth.TOKEN,
                       Apikey: response?.data?.Auth?.Apikey,
                       ApiToken: response?.data?.Auth?.ApiToken,
-                      entidad: response?.data?.Auth?.entidad,
                   };
                   sessionStorage.setItem('PERMISO_ALL', JSON.stringify(response?.data?.Permisos));
                   arrayRes.push(users);

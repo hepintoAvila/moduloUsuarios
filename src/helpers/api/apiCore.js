@@ -100,7 +100,7 @@ class APICore {
       try {
 
         const config = {
-          method: 'POST',
+          method: 'GET',
           body: JSON.stringify(data),
           headers: {
               ...axios.defaults.headers,
@@ -151,11 +151,11 @@ class APICore {
     const user = JSON.parse(userInfo);
     if(user){
     const authOptions = {
-      url: `${environments.baseURL}${url}`,
+      url: `${environments.baseURL}${url}&ApiToken=${btoa(user[0].ApiToken)}}`,
       method: 'GET',
       headers: {
         ...axios.defaults.headers,
-        Authorization: `Basic ${encodeBasic(environments.loginAPI, environments.passwordAPI)}`,
+        Authorization: `Basic ${encodeBasic(user[0].username,user[0].ApiToken)}`,
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
       },
     };
