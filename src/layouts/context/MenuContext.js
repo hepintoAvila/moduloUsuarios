@@ -14,7 +14,7 @@ const MenuProvider = ({ children }) => {
             let userInfo = sessionStorage.getItem('hyper_user');
             const user = JSON.parse(userInfo);
             if (user) {
-            const url = `accion=${encodeBasicUrl('menu')}&opcion=${encodeBasicUrl('consultar')}&role=${encodeBasicUrl(user[0]?.role)}&entidad=${encodeBasicUrl(user[0]?.entidad)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
+            const url = `accion=${encodeBasicUrl('menu')}&opcion=${encodeBasicUrl('consultar')}&role=${encodeBasicUrl(user[0]?.role)}&entidad=${encodeBasicUrl(user[0]?.entidad)}`;
             const datosMenu = api.sendRequestData(`${url}`);
             datosMenu.then(function (response) {
                 try {

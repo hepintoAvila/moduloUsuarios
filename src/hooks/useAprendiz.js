@@ -27,7 +27,7 @@ export const useAprendiz = () => {
       const user = JSON.parse(userInfo);
 
       if (user) {
-        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&apiToken=${encodeBasicUrl(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
+        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}`;
         const datosMaterial = api.sendRequestData(`${url}`);
         datosMaterial?.then(function (response) {
           try {

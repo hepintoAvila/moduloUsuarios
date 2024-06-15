@@ -39,9 +39,7 @@ const NotificacionesProvider = ({ children }) => {
       const infoUsers = sessionStorage.getItem('hyper_user');
       const infoUser = JSON.parse(infoUsers);
       if (Number(infoUser[0]?.id > 0)) {
-          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
-              infoUser[0]?.id
-          )}&apiToken=${btoa(infoUser[0]?.ApiToken)}&apikey=${btoa(infoUser[0].Apikey)}`;
+          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(infoUser[0]?.id)}`;
           const respDatos = api.sendRequestData(url);
           respDatos
               ?.then(function (resp) {
@@ -117,7 +115,7 @@ const NotificacionesProvider = ({ children }) => {
             const user = JSON.parse(userInfo);
 
             if (user) {
-                const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&rol=${encodeBasicUrl(user[0]?.role)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
+                const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&rol=${encodeBasicUrl(user[0]?.role)}`;
                 const datosMaterial = api.sendRequestData(`${url}`);
                 datosMaterial
                     ?.then(function (response) {

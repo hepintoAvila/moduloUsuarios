@@ -30,7 +30,7 @@ export const useActas = () => {
       const user = JSON.parse(userInfo);
 
       if (user) {
-        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
+        const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}`;
         const datosResq = api.sendRequestData(`${url}`);
         datosResq?.then(function (response) {
           try {
@@ -72,7 +72,7 @@ export const useActas = () => {
             console.log('hyper_user',queryDatos)
             const url = `${queryDatos}&${queryDatos2}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
                 infoUser[0]?.id
-            )}&apiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}&apikey=${btoa(infoUser[0].Apikey)}`;
+            )}`;
             const respDatos = api.sendRequestData(url);
             respDatos
                 ?.then(function (resp) {

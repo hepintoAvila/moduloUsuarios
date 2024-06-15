@@ -165,6 +165,8 @@ class APICore {
       url: `${environments.baseURL}${url}`,
       method: 'GET',
       headers: {
+        'X-SICES-API-AppKey':btoa(user[0].Apikey),
+        'X-SICES-API-AppToken':btoa(user[0].ApiToken),
         ...axios.defaults.headers,
         Authorization: `Basic ${encodeBasic(user[0].username,user[0].ApiToken)}`,
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

@@ -147,7 +147,7 @@ const AdvertenciaLocalStorage = () => {
           if (localPermiso.delete) {
               const estrategiaConfirmacion = new ConfirmacionEnviarActaPapeleray();
               estrategiaConfirmacion.confirmar(cel, (cel) => {
-                  const url = `accion=${btoa(itemUrl)}&tipo=${btoa(tipo)}&opcion=${btoa('delete')}'&id=${btoa(cel)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
+                  const url = `accion=${btoa(itemUrl)}&tipo=${btoa(tipo)}&opcion=${btoa('delete')}'&id=${btoa(cel)}`;
                   const respuesta = api.sendRequestData(`${url}`);
                   respuesta
                       .then(function (resp) {
@@ -220,9 +220,7 @@ const handleOnChange = (id, name, email) => {
       const infoUsers = sessionStorage.getItem('hyper_user');
       const infoUser = JSON.parse(infoUsers);
       if (Number(infoUser[0]?.id > 0)) {
-          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
-              infoUser[0]?.id
-          )}&Apikey=${encodeBasicUrl(infoUser[0]?.Apikey)}&ApiToken=${encodeBasicUrl(infoUser[0]?.ApiToken)}&apikey=${btoa(infoUser[0].Apikey)}`;
+          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(infoUser[0]?.id)}`;
           const respDatos = api.sendRequestData(url);
           respDatos
               ?.then(function (resp) {
@@ -250,9 +248,7 @@ const handleOnChange = (id, name, email) => {
       const infoUsers = sessionStorage.getItem('hyper_user');
       const infoUser = JSON.parse(infoUsers);
       if (Number(infoUser[0]?.id > 0)) {
-          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(
-              infoUser[0]?.id
-          )}&apiToken=${btoa(infoUser[0]?.ApiToken)}&apikey=${btoa(infoUser[0].Apikey)}`;
+          const url = `${queryDatos}&entidad=${encodeBasicUrl(infoUser[0]?.entidad)}&idUsuario=${encodeBasicUrl(infoUser[0]?.id)}`;
           const respDatos = api.sendRequestData(url);
           respDatos
               ?.then(function (resp) {
@@ -283,7 +279,7 @@ const handleOnChange = (id, name, email) => {
           const user = JSON.parse(userInfo);
 
           if (user) {
-              const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&rol=${encodeBasicUrl(user[0]?.role)}&apiToken=${btoa(user[0]?.ApiToken)}&apikey=${btoa(user[0].Apikey)}`;
+              const url = `accion=${encodeBasicUrl(itemUrl)}&tipo=${encodeBasicUrl(tipo)}&${varibles}&entidad=${encodeBasicUrl(user[0]?.entidad)}&idUsuario=${encodeBasicUrl(user[0]?.id)}&rol=${encodeBasicUrl(user[0]?.role)}`;
               const datosMaterial = api.sendRequestData(`${url}`);
               datosMaterial
                   ?.then(function (response) {

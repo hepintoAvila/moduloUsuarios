@@ -78,8 +78,7 @@ export function configureFakeBackend() {
 mock.onPost('/queryform/').reply(function (config) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
-          let userInfo = sessionStorage.getItem('hyper_user');
-          const user = JSON.parse(userInfo);
+
             let params = JSON.parse(config?.data);
             let obj=params?.datos
             if (params) {
@@ -89,7 +88,7 @@ mock.onPost('/queryform/').reply(function (config) {
                   .join('&')
                 : '';
               }
-              const url = `${queryString}&apikey=${btoa(user[0].Apikey)}`;
+              const url = `${queryString}`;
               const respuesta = api.sendRequestData(`${url}`);
               respuesta.then(function (resp) {
                 Swal.fire('' + resp[0].menssage + '');
