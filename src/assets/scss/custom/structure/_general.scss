@@ -398,10 +398,9 @@ body {
   font-weight: 900;
 }
 .btnenviarSolicitud{
-  margin-top: 0em;
-  overflow: auto;
-  position: absolute;
-  left: 0em;
+  position: relative;
+  left: 33em;
+  margin-top: -12em;
 }
 
 .zIndex{
@@ -409,7 +408,7 @@ body {
   z-index: 1;
 }
 
-.editTitulos{
+.editTitulos,.titleFechaHora{
 
   font-size: small;
   color: crimson;
@@ -418,7 +417,12 @@ body {
   align-content: left;
   align-content: left;
 }
-.uploadSolicitud, .uploadSolicitudAprendiz {
+.titleFechaHora{
+  width: 146%;
+  margin-top: 1.2em;
+  margin-left: -2em;
+}
+.uploadSolicitud, .uploadSolicitudAprendiz,.uploadSolicitudFechaHora {
     padding: 0em 0em 0em;
     cursor: pointer;
     font-size: revert;
@@ -431,7 +435,10 @@ body {
         transition-duration: .05s;
     }
 }
-
+.uploadSolicitudFechaHora{
+  margin-top: -4em;
+  margin-left: 23em;
+}
 .uploadSolicitudAprendiz{
   margin-top: -0.7em;
 }

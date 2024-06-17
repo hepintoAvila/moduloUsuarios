@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 // @flow
-import React, { Suspense, useCallback,  useEffect,  useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 // actions
 import { changeSidebarType, changeSidebarTheme } from '../redux/actions';
@@ -18,6 +18,7 @@ import { ValidadorProvider } from './context/ValidadorContext';
 import { SearchProvider } from './context/SearchContext';
 import { NotificacionesProvider } from './context/NotificacionesProvider';
 import { SecurityProvider } from './context/SecurityProvider';
+import { DatosSolicitudContext, DatosSolicitudProvider } from './context/DatosComiteContext';
 const Topbar = React.lazy(() => import('./Topbar'));
 const LeftSidebar = React.lazy(() => import('./LeftSidebar'));
 const Footer = React.lazy(() => import('./Footer'));
@@ -93,50 +94,55 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
 
   return (
     <>
-    <SecurityProvider>
-      <DashboardProvider>
-        <MenuProvider>
-          <PermisosProvider>
-            <SearchProvider>
-            <NotificacionesProvider>
-            <div className="wrapper">
-              <Suspense fallback={loading()}>
-                <LeftSidebar isCondensed={isCondensed} isLight={isLight} hideUserProfile={true} />
-              </Suspense>
-              <div className="content-page">
+      <SecurityProvider>
+        <DashboardProvider>
+          <MenuProvider>
+            <PermisosProvider>
+              <SearchProvider>
 
-                <div className="content">
-                  <Suspense fallback={loading()}>
-                    <Topbar openLeftMenuCallBack={openMenu} hideLogo={true} />
-                  </Suspense>
-                  <Suspense fallback={loading()}>
-                    <Container fluid>
+                <NotificacionesProvider>
+                <DatosSolicitudProvider>
+                  <div className="wrapper">
+                    <Suspense fallback={loading()}>
+                      <LeftSidebar isCondensed={isCondensed} isLight={isLight} hideUserProfile={true} />
+                    </Suspense>
+                    <div className="content-page">
+                      <div className="content">
+                        <Suspense fallback={loading()}>
+                          <Topbar openLeftMenuCallBack={openMenu} hideLogo={true} />
+                        </Suspense>
+                        <Suspense fallback={loading()}>
+                          <Container fluid>
+                            <Suspense fallback={loading()}>
+
+                                <ValidadorProvider>
+
+                                  <ProjectDashboard />
+
+                                </ValidadorProvider>
+
+                            </Suspense>
+                          </Container>
+                        </Suspense>
+                      </div>
                       <Suspense fallback={loading()}>
-                      <ValidadorProvider>
-
-                     <ProjectDashboard/>
-                        </ValidadorProvider>
+                        <Footer />
                       </Suspense>
-                    </Container>
+                    </div>
+                  </div>
+
+                  <Suspense fallback={loading()}>
+                    <RightSidebar>
+                      <ThemeCustomizer />
+                    </RightSidebar>
                   </Suspense>
-                </div>
-                <Suspense fallback={loading()}>
-                  <Footer />
-                </Suspense>
-              </div>
-            </div>
+                  </DatosSolicitudProvider>
+                </NotificacionesProvider>
 
-            <Suspense fallback={loading()}>
-              <RightSidebar>
-                <ThemeCustomizer />
-              </RightSidebar>
-            </Suspense>
-            </NotificacionesProvider>
-
-            </SearchProvider>
-          </PermisosProvider>
-        </MenuProvider>
-      </DashboardProvider>
+              </SearchProvider>
+            </PermisosProvider>
+          </MenuProvider>
+        </DashboardProvider>
       </SecurityProvider>
     </>
   );

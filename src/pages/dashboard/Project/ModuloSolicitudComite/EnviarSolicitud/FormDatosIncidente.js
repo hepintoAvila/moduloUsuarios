@@ -1,40 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext,useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import classNames from 'classnames';
-import { Button, Row,Card } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import Swal from 'sweetalert2';
+import {  Row,Card } from 'react-bootstrap';
+
 // components
-import { VerticalForm, FormInput } from '../../../../../components';
+
 import HyperDatepicker from '../../../../../components/Datepicker';
-
-
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
-import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
+import FormInput from '../../../components/FormInput';
+import { DatosSolicitudContext } from '../../../../../layouts/context/DatosComiteContext';
 
-function contarVerdaderos(array) {
-    let contador = 0;
-    for (let i = 0; i <= array.length; i++) {
-        if (array[i] === true) {
-            contador++;
-        }
-    }
-    return contador;
-}
 const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
-    const children = props.children || null;
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [enviar, setEnviar] = useState(false);
-    const { convertirFecha } = useContext(NotificacionesContext);
-    const { validateError, setError, queryFile, loading, nombrePrograma, descripcion, fallas } =
+
+    const { validateError, setError, loading } =
         useContext(SearchContext);
 
+        const { itemsSolicitud, setItemsSolicitud} =
+        useContext(DatosSolicitudContext);
     //console.log({...fallas[0]})
-
+/*
     const [items, setItems] = useState([
         {
             idAprendiz: '',
@@ -50,20 +37,16 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
             nombrePrograma: nombrePrograma,
         },
     ]);
+*/
 
-    const { t } = useTranslation();
-    const schemaResolver = yupResolver(yup.object().shape({}));
-    const onSubmit = () => {
-        setEnviar(!enviar);
-    };
 
     const onDateChangefechaIncidente = (date, fechaError) => {
         if (date) {
             setSelectedDate(date);
             setError({ ...validateError, fechaError: fechaError });
-            setItems([
+            setItemsSolicitud([
                 {
-                    ...items[0],
+                    ...itemsSolicitud[0],
                     fechaIncidente: date,
                     idAprendiz: props?.idAprendiz,
                 },
@@ -74,9 +57,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const onChangeTipoAtencion = (value, tipoAtencionError) => {
         if (value) {
             setError({ ...validateError, tipoAtencionError: tipoAtencionError });
-            setItems([
+            setItemsSolicitud([
                 {
-                    ...items[0],
+                    ...itemsSolicitud[0],
                     tipoAtencion: value,
                     idAprendiz: props?.idAprendiz,
                 },
@@ -86,9 +69,9 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
     const onChangeTipoComite = (value, comiteError) => {
         if (value) {
             setError({ ...validateError, comiteError: comiteError });
-            setItems([
+            setItemsSolicitud([
                 {
-                    ...items[0],
+                    ...itemsSolicitud[0],
                     tipoComite: value,
                     idAprendiz: props?.idAprendiz,
                 },
@@ -96,79 +79,17 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
         }
     };
 
-    useEffect(() => {
-        if (enviar) {
-            const obj = Object.values({ ...validateError });
-            let numtrue = contarVerdaderos(obj);
-
-            if (Number(numtrue) === 8) {
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: 'Solicitud Enviada',
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                const datosfiles = {
-                    idAprendiz: items[0].idAprendiz,
-                    tipoComite: items[0].tipoComite,
-                    tipoAtencion: items[0].tipoAtencion,
-                    fechaIncidente: convertirFecha(items[0].fechaIncidente),
-                    accion: 'ModuloSolicitudComite',
-                    opcion: 'add_solicitud',
-                    tipo: 'EnviarSolicitud',
-                    selectedFile: items[0].selectedFile,
-                    descripcion: descripcion,
-                    nombrePrograma: nombrePrograma,
-                    ...fallas[0],
-                };
-
-                const queryDatos = datosfiles
-                    ? Object.keys(datosfiles)
-                          .map((key) => key + '=' + btoa(datosfiles[key]))
-                          .join('&')
-                    : '';
-                queryFile(queryDatos, items[0].base64String);
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'ERROR:: FALTAN CAMPOS POR DILIGENCIAR',
-                });
-            }
-        }
-    }, [enviar]);
 
     return (
         <>
             {loading ? (
-                <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect>
+                <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${itemsSolicitud[0]?.idAprendiz}`}></Redirect>
             ) : null}
 
-            <VerticalForm
-                onSubmit={onSubmit}
-                resolver={schemaResolver}
-                defaultValues={{}}
-                className={classNames('col-4')}>
-                <Row className=" mb-5">
-                    <div
-                        className="mb-3 mb-4 text-center btnenviarSolicitud"
-                        style={{ marginLeft: '400px', marginTop: '-80px' }}>
-                        <Button variant="primary" type="submit" disabled={loading}>
-                            {t('ENVIAR SOLICITUD')}
-                        </Button>
-                    </div>
-                </Row>
                 <Row>
                     <Card className={classNames('widget-flat')}>
                         <Card.Body>
-                            {!props?.aprendizError ? (
-                                <div className="hederComponente">SELECCIONE EL APRENDIZ</div>
-                            ) : (
-                              <div className="hederComponente">APRENDIZ SELECCIONADO</div>
-                            )}
-                            {children}
-                            <br />
+
                             <Row className="align-items-center">
                                 <br />
                                 <br />
@@ -231,10 +152,7 @@ const FormDatosIncidente = (props): React$Element<React$FragmentType> => {
                         </Card.Body>
                     </Card>
                 </Row>
-                <br />
-                <br />
-                <br />
-            </VerticalForm>
+
         </>
     );
 };

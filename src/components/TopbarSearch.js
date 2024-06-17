@@ -160,7 +160,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
                 options={formateOptions(options)}
                 formatOptionLabel={handleFormatOptionLabel}
                 isOptionDisabled={(option) => option.type === 'title'}
-                maxMenuHeight="450px"
+                maxMenuHeight="auto"
                 isSearchable
                 name="search-app"
                 className="app-search dropdown"
@@ -172,6 +172,7 @@ const TopbarSearch = (props: TopbarSearchProps): React$Element<any> => {
             />
 
         </>
+
     );
 };
 

@@ -50,6 +50,6 @@ const ModuloSolicitudComite = (props) => {
   );
 };
 ModuloSolicitudComite.defaultProps = {
-  itemsmenu: '/',
+  itemsmenu: '/dashboard/ModuloSolicitudComite',
 };
 export default ModuloSolicitudComite;

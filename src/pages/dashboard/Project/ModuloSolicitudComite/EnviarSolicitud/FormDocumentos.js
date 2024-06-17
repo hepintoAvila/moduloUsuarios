@@ -2,18 +2,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext,useEffect,useState } from 'react';
 import FileUploader from '../../../../../components/FileUploader';
-import classNames from 'classnames';
-import { Button, Row, Col, Card,Link,Collapse } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Row, Col, Card,Collapse } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
+import { DatosSolicitudContext } from '../../../../../layouts/context/DatosComiteContext';
 
-const FormDocumentos = (props): React$Element<React$FragmentType> => {
+const FormDocumentos = (props)  => {
+  const { itemsSolicitud, setItemsSolicitud} =
+  useContext(DatosSolicitudContext);
 
   const [enviar, setEnviar] = useState(false);
   const [options, setOptions] = useState(0);
   const {getData} = useContext(NotificacionesContext);
-  const {validateError,setError,queryFile,loading,nombrePrograma,descripcion,fallas} = useContext(SearchContext)
+  const {validateError,setError} = useContext(SearchContext)
   const [documentos, setAttachments] = useState({
     attachments: [
         { id: 1, name: 'Cargando...', size: '', ext: '.pdf' },
@@ -21,16 +24,7 @@ const FormDocumentos = (props): React$Element<React$FragmentType> => {
 });
 const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes || [];
 const [open, setOpen] = useState(false);
-const [items, setItems] = useState([
-  {
-      idAprendiz: '',
-      accion: 'ModuloSolicitudComite',
-      opcion: 'add_solicitud',
-      tipo: 'EnviarSolicitud',
-      selectedFile: '',
-      base64String: '',
-  },
-]);
+
 
 
 
@@ -106,8 +100,8 @@ const toggle = (id) => {
 const onDateChangeFile = (file,base64String,filesError,base64StringsError) => {
   if (file) {
       setError({...validateError,filesError:filesError,base64StringsError:base64StringsError})
-      setItems([{
-          ...items[0],
+      setItemsSolicitud([{
+          ...itemsSolicitud[0],
           selectedFile:file,
           base64String:base64String,
           idAprendiz:props?.idAprendiz,
@@ -120,6 +114,7 @@ useEffect(() => {
       setAttachments({ attachments: datosAprendiz[0]?.attachments });
   }
 }, [datosAprendiz]);
+
 return (
   <>
 <Row>
@@ -127,6 +122,7 @@ return (
 
     <Card>
         <Card.Body>
+        <div className="mb-3">
             <FileUploader
                 onFileUpload={(e) => {
                 const files = Array.from(e);
@@ -150,57 +146,13 @@ return (
                 //
                 }}
             />
-            {!validateError.filesError && !validateError.base64StringsError ? <div className="isinvalid"><p className="text-white font-13 m-b-30">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
-
+            {!validateError.filesError && !validateError.base64StringsError ? <div className="isinvalid"><p className="text-black font-13 m-b-3 p-1">CARGUE LA EVIDENCIA EN PDF</p></div>:<h4 className="header-title mb-3">documento subido</h4>}
+            </div>
         </Card.Body>
     </Card>
 </Col>
 </Row>
-<h5 className="mb-3">Documentos Cargados</h5>
 
-<Row>
-    {documentos?.attachments?.map((f, idx) => (
-        <Col xl={12} key={idx}>
-            <Card className="mb-1 shadow-none border">
-                <div className="p-2">
-                    <Row className="align-items-center">
-                        <Col className="col-auto">
-                            {f.size === '1' ? (
-                                <div className="avatar-sm">
-                                    <span className="avatar-title bg-primary-lighten text-primary rounded">
-                                        <Link
-                                            to="#"
-                                            className="custom-accordion-title d-block pt-2 pb-2"
-                                            onClick={() => { deleteDocumento(f.id) }}
-                                        >
-                                            <i className="mdi mdi-delete-sweep"></i>
-                                        </Link>
-                                    </span>
-                                </div>
-                            ) : (
-                                <div className="avatar-sm">
-                                    <span className="avatar-title bg-primary-lighten text-primary rounded">
-                                        <Link
-                                            to="#"
-                                            className="custom-accordion-title d-block pt-2 pb-2"
-                                            onClick={() => { toggle(f.id) }}
-                                            aria-controls={'collapse 1'}
-                                            aria-expanded={open}>
-                                            <i className="mdi mdi-file-upload-outline"></i>
-                                        </Link>
-                                    </span>
-                                </div>
-                            )}
-                        </Col>
-                        <Col className="col ps-0">
-                            <p className="mb-0 text-muted font-weight-bold">{f.name}</p>
-                        </Col>
-                    </Row>
-                </div>
-            </Card>
-        </Col>
-    ))}
-</Row>
 <hr />
 <Collapse in={open}>
     <Row>

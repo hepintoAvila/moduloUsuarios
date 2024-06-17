@@ -5,13 +5,20 @@ import { Row, Col } from 'react-bootstrap';
 import profileImg from '../../../../../assets/images/users/avatar-3.jpg';
 import FormInput from '../../../components/FormInput';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
+import { DatosSolicitudContext } from '../../../../../layouts/context/DatosComiteContext';
 
 const FormDatosAprendiz = (props) => {
-    const { setNombrePrograma, nombrePrograma, nombreProgramaError, setError, validateError, fallas, setFallas } =
+    const { setNombrePrograma, nombreProgramaError, setError, validateError, fallas, setFallas } =
         useContext(SearchContext);
-
+        const {itemsSolicitud,setItemsSolicitud} = useContext(DatosSolicitudContext);
     const onNombrePrograma = (e) => {
         if (e) {
+          setItemsSolicitud([
+            {
+                ...itemsSolicitud[0],
+                nombrePrograma: e,
+            },
+        ]);
             setNombrePrograma({ nombrePrograma: e, valideNombrePrograma: e?.length === 0 ? false : true });
             setError({ ...validateError, nombreProgramaError: true });
         }
@@ -266,7 +273,7 @@ const FormDatosAprendiz = (props) => {
                                                 containerClass="mb-3"
                                                 className="form-select"
                                                 key="nombrePrograma"
-                                                value={nombrePrograma}
+                                                value={itemsSolicitud?.nombrePrograma}
                                                 onChange={(e) => onNombrePrograma(e.target.value)}>
                                                 <option value="">Seleccione programa de formación</option>
                                                 <option value="APOYO ADMINISTRATIVO EN SALUD">

@@ -119,6 +119,18 @@ const CarSolicitudeEnviadas = (props) => {
   //const permisos = props.permisos || {};
   const {codigoFicha,modal,setModal,itemsConsultarSolicitudByCodigo} = useContext(NotificacionesContext)
 
+  const handleSave = (id) => {
+
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: 'Registro Enviado...',
+      showConfirmButton: false,
+      timer: 1500,
+  });
+
+
+};
 
 
   const datos = props?.Solicitudes|| [{id:1,
@@ -175,6 +187,24 @@ const CarSolicitudeEnviadas = (props) => {
   ];
   const onClose = () => {
     setModal(false);
+};
+
+const options = {
+  autosave: {
+      enabled: false,
+      uniqueId: 2,
+  },
+  toolbar: [
+      'bold', 'italic', 'heading', '|',
+      'quote', 'unordered-list', 'ordered-list', '|',
+      'link', 'image', '|',
+      {
+          name: 'save',
+          action: () => handleSave(2),
+          className: 'fa fa-save',
+          title: 'Guardar',
+      },
+  ],
 };
   return (
     <>
@@ -233,7 +263,7 @@ const CarSolicitudeEnviadas = (props) => {
                     />
                      </Col>
                      <Col lg={6} className="derechaColumnEnviarSolicitud">
-                      <FormDatosEvidencia/>
+                      <FormDatosEvidencia hechos={itemsConsultarSolicitudByCodigo?.data?.Solicitudes[0]?.hechos} options={options}/>
                     </Col>
                     </Row>
                     </>)
