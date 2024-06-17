@@ -24,6 +24,7 @@ import AdministradorActas from './AdministradorActas/AdministradorActas';
 import PdfDropdown from './Componentes/PdfDropdown/PdfDropdown'
 import ExcelGenerator from './Componentes/ExcelGenerator';
 import ViewPdf from './Componentes/ViewPdf';
+import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
 
 
 
@@ -447,7 +448,7 @@ const Actas = (props) => {
 
                                   return (
                                     <React.Fragment>
-                                      {''}
+                                     <LogoSena/>
                                       </React.Fragment>
                                   );
                               }

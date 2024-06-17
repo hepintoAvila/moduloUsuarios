@@ -12,6 +12,7 @@ import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
 import Swal from 'sweetalert2';
 import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
+import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
 
 
 
@@ -237,7 +238,7 @@ const ConsultaNotificaciones = (props) => {
                                 </Row>
                               );
                             default:
-                              return <>{''}</>;
+                              return <><LogoSena/></>;
                           }
                         })()}
                       </Row>

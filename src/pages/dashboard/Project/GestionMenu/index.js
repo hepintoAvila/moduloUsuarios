@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
- 
+
 import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
-import MenuPrincipal from '../GestionMenu/MenuPrincipal/MenuPrincipal';
+import MenuPrincipal from './MenuPrincipal/MenuPrincipal';
 
 const GestionMenu = (props) => {
   const permisos = props?.permisos || {};
@@ -29,4 +29,8 @@ const GestionMenu = (props) => {
   );
 };
 
+GestionMenu.defaultProps = {
+  itemsmenu: '/dashboard/GestionMenu',
+};
 export default GestionMenu;
+

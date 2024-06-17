@@ -1,9 +1,8 @@
 /* eslint-disable no-fallthrough */
 /* eslint-disable no-duplicate-case */
 import React from 'react';
-import Actas from './Actas';
 
-const ProjectDashboard = () => {
+const Actas = () => {
 
   return (
       <React.Fragment>
@@ -12,8 +11,8 @@ const ProjectDashboard = () => {
   );
 };
 
-ProjectDashboard.defaultProps = {
-  itemsmenu: '/',
+Actas.defaultProps = {
+  itemsmenu: '/dashboard/Actas',
 };
 
-export default ProjectDashboard;
+export default Actas;

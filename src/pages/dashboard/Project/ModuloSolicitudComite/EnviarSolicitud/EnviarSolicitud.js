@@ -17,6 +17,7 @@ import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import CarSolicitudeEnviadas from '../ConsultarIncidente/CarSolicitudeEnviadas';
+import LogoSena from '../Components/LogoSena';
 
 
 const EnviarSolicitud = (props) => {
@@ -162,7 +163,7 @@ const EnviarSolicitud = (props) => {
                                                                     </Row>
                                                                     );
                                                                     default:
-                                                                      return(<>{''}</>)
+                                                                      return(<><LogoSena/></>)
                                                         }
                                                         })()}
 

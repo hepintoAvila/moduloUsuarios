@@ -2,20 +2,19 @@ import React, { useContext } from 'react';
 
 import AdminUsuarios from '../../AdminUsuarios/AdminUsuarios';
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
-import GestionMenu from '../../GestionMenu/GestionMenu';
-import ModuloSolicitudComite from '../../ModuloSolicitudComite/ModuloSolicitudComite';
-import ModuloNotificaciones from '../../ModuloNotificaciones/ModuloNotificaciones';
-import AdministradorActas from '../AdministradorActas/AdministradorActas';
-import ModuloAprendiz from '../../ModuloAprendiz/ModuloAprendiz';
-import ModuloActas from '../ModuloActas';
+import GestionMenu from '../../GestionMenu';
+import ModuloNotificaciones from '../../ModuloNotificaciones/';
+
+import ModuloAprendiz from '../../ModuloAprendiz';
 import BtnNivelI from '../../../components/BtnMenu/BtnNivelI';
+import CambiarPassword from './CambiarPassword';
+import ModuloSolicitudComite from '../../ModuloSolicitudComite';
+import ModuloActas from '../ModuloActas';
+
+//Context
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../../hooks/usePermisos';
-
-import CambiarPassword from './CambiarPassword';
-
-//import {filtrarURLNumero,filtrarURLSeccion} from '../../../helpers/menu';
-// PAGES
+import AdministradorActas from '../AdministradorActas/AdministradorActas';
 
 const MenuModuloPrincipal= () => {
   const { tipo, AdvertenciaLocalStorage, itemUrl,setitemsMenuPrincipal,setitemsUrl } = useContext(DashboardContext)

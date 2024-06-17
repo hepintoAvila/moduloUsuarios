@@ -6,6 +6,7 @@ import EnviarSolicitud from './EnviarSolicitud/EnviarSolicitud';
 import ConsultarIncidente from './ConsultarIncidente/ConsultarIncidente';
 import CarHistorialIncidencias from './ConsultarIncidente/CarHistorialIncidencias';
 import ConsultarAprendiz from './ConsultarIncidente/ConsultarAprendiz';
+import LogoSena from './Components/LogoSena';
 
 
 
@@ -37,10 +38,9 @@ const ModuloSolicitudComite = (props) => {
                  <ConsultarAprendiz/>
                </React.Fragment>
           default:
-
             return (
               <React.Fragment>
-                {''}
+               <LogoSena/>
                 </React.Fragment>
             );
         }

@@ -8,6 +8,7 @@ import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
 import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
+import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
 
 
 const ModuloNotificaciones = (props) => {
@@ -45,7 +46,7 @@ const ModuloNotificaciones = (props) => {
           default:
             return (
               <React.Fragment>
-                {''}
+                <LogoSena/>
                 </React.Fragment>
             );
         }

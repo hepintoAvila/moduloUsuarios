@@ -4,7 +4,8 @@ import React, { useContext } from 'react';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';
 //import Navbar from '../../components/Navbar';
-import Aprendiz from '../ModuloAprendiz/Aprendiz/Aprendiz'
+import Aprendiz from './Aprendiz/Aprendiz'
+import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
 
 
 const ModuloAprendiz = () => {
@@ -29,7 +30,7 @@ const ModuloAprendiz = () => {
           default:
             return (
               <React.Fragment>
-                {''}
+               <LogoSena/>
                 </React.Fragment>
             );
         }
@@ -39,6 +40,6 @@ const ModuloAprendiz = () => {
   );
 };
 ModuloAprendiz.defaultProps = {
-  itemsmenu: '/',
+  itemsmenu: '/dashboard/ModuloAprendiz',
 };
 export default ModuloAprendiz;

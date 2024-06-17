@@ -490,6 +490,17 @@ body {
   width: 28em !important;
   margin-right: 5em;
 }
+.grid_contenedor_logo {
+  position: relative !important;
+  /* Equivale a... */
+  width: 90%;
+  padding: 0 0 4em;
+  .logo_contenedor{
+    padding: 0 0 0em;
+    margin-left: 43.0em;
+    margin-top: 1em;
+  }
+}
 .grid_contenedor {
   position: relative !important;
   display: grid;
