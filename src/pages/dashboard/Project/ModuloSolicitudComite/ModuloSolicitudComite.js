@@ -6,7 +6,6 @@ import EnviarSolicitud from './EnviarSolicitud/EnviarSolicitud';
 import ConsultarIncidente from './ConsultarIncidente/ConsultarIncidente';
 import CarHistorialIncidencias from './ConsultarIncidente/CarHistorialIncidencias';
 import ConsultarAprendiz from './ConsultarIncidente/ConsultarAprendiz';
-import Navbar from '../../components/Navbar';
 
 
 

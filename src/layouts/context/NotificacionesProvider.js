@@ -183,10 +183,11 @@ const NotificacionesProvider = ({ children }) => {
     }
     function obtenerIdsVerdaderos(array1, array2) {
         const idsVerdaderos = [];
-
+        console.log('array1',array1);
+        console.log('array2',array2);
         for (let i = 0; i < array1.length; i++) {
-            if (array1[i] === true && array2[i] && array2[i].idDirectivo) {
-                idsVerdaderos.push(array2[i].idDirectivo);
+            if (array1[i] === true && array2[i] && array2[i].id_auteur) {
+                idsVerdaderos.push(array2[i].id_auteur);
             }
         }
 
@@ -194,7 +195,9 @@ const NotificacionesProvider = ({ children }) => {
             return idsVerdaderos.join(','); // Unir los "id" con comas
         } else {
             return ''; // Si no se encuentran "id" verdaderos, retornar una cadena vacía
+
         }
+
     }
     function objetoContieneElementosVacios(objeto) {
         for (const propiedad in objeto) {

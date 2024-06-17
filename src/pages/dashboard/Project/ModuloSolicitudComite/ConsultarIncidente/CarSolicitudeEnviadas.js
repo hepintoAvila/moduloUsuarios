@@ -14,6 +14,7 @@ import { NotificacionesContext } from '../../../../../layouts/context/Notificaci
 import BtnSeccionPdf from '../../../../../components/BtnSeccionPdf';
 import FormEditarSolicitud from '../EnviarSolicitud/FormEditarSolicitud';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+import FormDatosEvidencia from '../EnviarSolicitud/FormDatosEvidencia';
 
 const ActionColumn = ({ row }) => {
   const { setCodigoFicha, setModal,getData,query } = useContext(NotificacionesContext)
@@ -200,7 +201,7 @@ const CarSolicitudeEnviadas = (props) => {
         </Col>
       </Row>
       <Row>
-        <Modal show={modal} fullscreen={codigoFicha?.titulo==='EDITAR'? false:true} onHide={onClose} >
+        <Modal show={modal} onHide={onClose} fullscreen='xxl-down' size='xl'>
           <Modal.Body>
           <Modal.Header onClick={onClose}>
                     <h4 className="modal-description">{codigoFicha?.titulo}</h4>
@@ -211,7 +212,11 @@ const CarSolicitudeEnviadas = (props) => {
                 case 'FORMATO':
                   return (<><ViewPdf codigoFicha={codigoFicha?.codigoFicha} titulo={codigoFicha?.titulo} /> </>)
                 case 'EDITAR':
-                  return (<><FormEditarSolicitud
+                  return (<>
+                  <Row>
+
+                  <Col lg={6}>
+                  <FormEditarSolicitud
                    itemsConsultarSolicitudByCodigo={itemsConsultarSolicitudByCodigo}
                    idAprendiz={props?.idAprendiz}
                    itemsDescripcion={props?.itemsDescripcion}
@@ -225,7 +230,13 @@ const CarSolicitudeEnviadas = (props) => {
                    idSolicitud={codigoFicha?.idSolicitud}
                    handleClick={props?.handleClick}
                    datosAprendiz={props?.datosAprendiz}
-                    /> </>)
+                    />
+                     </Col>
+                     <Col lg={6} className="derechaColumnEnviarSolicitud">
+                      <FormDatosEvidencia/>
+                    </Col>
+                    </Row>
+                    </>)
                 default:
                   return (<>{''}</>)
               }

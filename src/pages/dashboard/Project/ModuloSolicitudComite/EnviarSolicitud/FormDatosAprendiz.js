@@ -285,7 +285,7 @@ const FormDatosAprendiz = (props) => {
             </Row>
             <Row>
                 {!nombreProgramaError ? (
-                    <div className="isinvalid">
+                    <div className="hederComponente">
                         <p className="text-white font-14 mb-3"></p>
                     </div>
                 ) : (

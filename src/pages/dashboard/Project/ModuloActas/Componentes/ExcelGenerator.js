@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState }  from 'react';
 import * as XLSX from 'xlsx';
 import { useActas } from '../../../../../hooks/useActas';

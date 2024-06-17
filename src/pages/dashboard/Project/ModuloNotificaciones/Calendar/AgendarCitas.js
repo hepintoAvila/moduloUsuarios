@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 // @flow
@@ -179,22 +180,39 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
     };
     // on date click
     const onDateClick = (arg) => {
-      const idSolicitud = obtenerNumeroDesdeURL(window.location.hash)
+      const idSolicitud = obtenerNumeroDesdeURL(window.location.hash);
+            // Obtener datos del localStorage y validar que sean un array
+      let comiteSelect = [];
       const dataInLocalStorage = localStorage.getItem('comiteSelect');
-      const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
-      const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
-      if((idSolicitud>0) && (idsVerdaderos?.length>0)){
-         query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'queryByIdComite', sw: 3, idSolicitud: encodeBasicUrl(idSolicitud) }]);
-        //query('ModuloSolicitudComite','EnviarSolicitud',[{opcion:encodeBasicUrl('ConsultarSolicitud'),obj:'queryByIdAprendiz',sw:4,idAprendiz:encodeBasicUrl(idSolicitud)}]);
-        query('ModuloSolicitudComite','Aprendiz',[{opcion:encodeBasicUrl('listaAprendices'),obj:'aprendices'}]);
+
+      if (dataInLocalStorage) {
+        try {
+          const parsedData = JSON.parse(dataInLocalStorage);
+          if (Array.isArray(parsedData)) {
+            comiteSelect = parsedData;
+          }
+        } catch (e) {
+          console.error('Error parsing comiteSelect from localStorage', e);
+        }
+      }
+
+      // Validar que comiteSelect exista y sea un array
+      let idsVerdaderos = [];
+      if (Array.isArray(comiteSelect)) {
+        idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
+      }
+
+      if ((idSolicitud > 0) && (idsVerdaderos.length > 0)) {
+        query('ModuloNotificaciones', 'AgendarCitas', [{ opcion: encodeBasicUrl('consultar'), obj: 'queryByIdComite', sw: 3, idSolicitud: encodeBasicUrl(idSolicitud) }]);
+        query('ModuloSolicitudComite', 'Aprendiz', [{ opcion: encodeBasicUrl('listaAprendices'), obj: 'aprendices' }]);
         setDateInfo(arg?.dateStr);
         setShow(true);
         setIsEditable(false);
-
-       }else{
+      } else {
         Swal.fire('Verifique los Miembros del Comite o seleccione el Aprendiz!');
-       }
+      }
     };
+
     /*
     on add event
     */
@@ -207,6 +225,7 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             showConfirmButton: false,
             timer: 1500
           })
+
           const dataInLocalStorage = localStorage.getItem('comiteSelect');
           const comiteSelect = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
           const idsVerdaderos = obtenerIdsVerdaderos(comiteSelect, state?.itemsAgendarCitas?.data?.Directivos);
@@ -222,8 +241,6 @@ const AgendarCitas = (state: CalendarAppState): React$Element<React$FragmentType
             start: `${data?.fechaCita} ${data?.horaCita}`,
             end: `${data?.fechaCita} 00:00`,
             title: data?.horaCita,
-           // hechos: data?.hechos,
-           // reglas: data?.reglas,
             idSolicitudComite: data?.idSolicitudComite,
             idComites: `${idsVerdaderos}`,
             accion: 'ModuloNotificaciones',

@@ -43,7 +43,7 @@ const FormDatosEvidencia = (): React$Element<React$FragmentType> => {
                                         onChange={(e) => {onEditorStateChange(e)
                                         }}
                                     />
-                                   {!descripcionError? <div className="isinvalid"><p className="text-white font-14 mb-3">
+                                   {!descripcionError? <div className="hederComponente"><p className="text-black font-14 mb-3">
                                      Por favor, Narre aqui los hechos:
                             </p></div>:<div><h4 className="header-title mb-3">.</h4></div>}
                      </Row>

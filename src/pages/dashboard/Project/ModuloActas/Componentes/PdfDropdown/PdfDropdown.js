@@ -1,6 +1,6 @@
 /* eslint-disable no-lone-blocks */
 // @flow
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 

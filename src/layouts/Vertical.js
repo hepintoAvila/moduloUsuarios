@@ -91,7 +91,6 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
   const isLight = leftSideBarTheme === layoutConstants.LEFT_SIDEBAR_THEME_LIGHT;
 
 
-
   return (
     <>
     <SecurityProvider>
@@ -114,6 +113,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
                     <Container fluid>
                       <Suspense fallback={loading()}>
                       <ValidadorProvider>
+
                      <ProjectDashboard/>
                         </ValidadorProvider>
                       </Suspense>

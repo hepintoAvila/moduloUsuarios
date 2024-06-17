@@ -113,6 +113,8 @@ class APICore {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
+            'X-SICES-API-AppKey':btoa(user[0].Apikey),
+            'X-SICES-API-AppToken':btoa(user[0].ApiToken),
               ...axios.defaults.headers,
               'enctype': 'multipart/form-data',
                Authorization: `Basic ${encodeBasic(user[0].username,user[0].ApiToken)}`,

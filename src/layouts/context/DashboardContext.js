@@ -141,8 +141,8 @@ const AdvertenciaLocalStorage = () => {
     const eliminar = useCallback(
       (cel) => {
           let permiso = sessionStorage.getItem('PERMISO');
-          let userInfo = sessionStorage.getItem('hyper_user');
-          const user = JSON.parse(userInfo);
+          //let userInfo = sessionStorage.getItem('hyper_user');
+          //const user = JSON.parse(userInfo);
           const localPermiso = JSON.parse(permiso);
           if (localPermiso.delete) {
               const estrategiaConfirmacion = new ConfirmacionEnviarActaPapeleray();

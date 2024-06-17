@@ -1,7 +1,7 @@
 /* eslint-disable no-duplicate-case */
 /* eslint-disable no-unreachable */
 import React, { useContext } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 //import { useHistory } from 'react-router-dom';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import { usePermisos } from '../../../../hooks/usePermisos';

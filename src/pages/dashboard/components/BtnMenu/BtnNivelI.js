@@ -18,10 +18,21 @@ const BtnNivelI = (props) => {
   const [countNovedades, setSinAgendar] = useState(0);
   useEffect(() => {
     let userInfo = sessionStorage.getItem('hyper_user');
-    const user = JSON.parse(userInfo);
-    query('ModuloSolicitudComite', 'EnviarSolicitud', [{ opcion: encodeBasicUrl('ConsultarSolicitud'), obj: 'ConsultarSolicitudSinEnviar',sw:'5',rol: encodeBasicUrl(user[0].role)}]);
+    try {
+        const user = JSON.parse(userInfo);
+        if (user && user.length > 0 && user[0].role) {
+            query('ModuloSolicitudComite', 'EnviarSolicitud', [{
+                opcion: encodeBasicUrl('ConsultarSolicitud'),
+                obj: 'ConsultarSolicitudSinEnviar',
+                sw: '5',
+                rol: encodeBasicUrl(user[0].role)
+            }]);
+        }
+    } catch (error) {
+        console.error('Failed to parse user info:', error);
+    }
 
-  }, [query])
+}, [query]);
 
   useEffect(() => {
     if(itemsSinEnviar?.data?.Solicitudes){

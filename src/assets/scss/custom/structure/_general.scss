@@ -110,6 +110,21 @@ body {
   background-position: right calc(0.375em + 0.225rem) center;
   background-size: calc(0.75em + 0.45rem) calc(0.75em + 0.45rem);
 }
+.hederComponente{
+  border-color: #ccc5c6;
+  background: rgba(#598855, 0.10)  !important;
+  padding-right: calc(1.5em + 0.9rem);
+  background-repeat: no-repeat;
+  color: rgb(92, 89, 89);
+  border-radius: 4px;
+  background-position: right calc(0.375em + 0.225rem) center;
+  background-size: calc(0.75em + 0.45rem) calc(0.75em + 0.45rem);
+  height: 3em;
+    padding: 0.5em 3em 3em 3em;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23fa5c7c'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23fa5c7c' stroke='none'/%3e%3c/svg%3e");
+    background-position: right 0.9rem center, center right 3.4rem;
+    background-size: 16px 12px, calc(0.75em + 0.45rem) calc(0.75em + 0.45rem);
+}
 .isinvalid{
   border-color: #ccc5c6;
   background: rgba(#fa5c7c, 0.20)  !important;
@@ -172,6 +187,11 @@ body {
   width: max-content;
 
 }
+.rich-editor-wrapper{
+  width: 45.5em;
+  height: 20em;
+
+}
 .center-text{
   width: max-content;
   padding: 7rem;
@@ -184,15 +204,15 @@ body {
   }
   .btn-grid-actas{
     overflow: auto;
-    margin-top: -147em;
+    margin-top: 0em;
     position: relative;
-    margin-left: 60em;
+    margin-left: 85em;
   }
   .btn-grid-consolidado{
     overflow: auto;
-    margin-top: -150em;
+    margin-top: 0em;
     position: relative;
-    margin-left: 60em;
+    margin-left: 55em;
   }
 .center-text-titulo{
     width: max-content;
@@ -555,7 +575,7 @@ body {
   margin-top:7em;
 }
 .cardAprendiz{
-  background-color: #74c95863 !important;
+  background-color: #bee0b563 !important;
 }
 .inputAprendiz{
   background-color: #74c95863 !important;

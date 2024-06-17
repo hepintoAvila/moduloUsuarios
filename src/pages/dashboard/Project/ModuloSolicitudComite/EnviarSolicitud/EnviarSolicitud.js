@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import {Row, Col, Tab, Nav, Card, Collapse } from 'react-bootstrap';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
@@ -108,21 +109,18 @@ const EnviarSolicitud = (props) => {
                                                                         <HeaderForm title={'SOLICITUD DE COMITÉ DE EVALUACIÓN Y SEGUIMIENTO'} />
                                                                         </Col>
                                                                         </Row>
-
                                                                         <Row>
-
-                                                                            <Col lg={6}>
+                                                                           <Col lg={6}>
                                                                                <FormDatosIncidente
                                                                                     idAprendiz={itemsOptionAprendiz?.idAprendiz}
                                                                                     itemsDescripcion={descripcion}
                                                                                     aprendizError={itemsOptionAprendiz?.aprendizError}
                                                                                     descripcionError={descripcionError}
                                                                                     children={<TopbarSearch data={allApredizDatos}
-                                                                                        selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}
+                                                                                    selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}
                                                                                 />
                                                                             </Col>
                                                                             <Col lg={6} className="derechaColumnEnviarSolicitud">
-
                                                                                 <p className="mt-3">{tab.text}</p>
                                                                                 <Collapse in={openFormAprendiz}>
                                                                                 <div>
@@ -130,11 +128,8 @@ const EnviarSolicitud = (props) => {
                                                                                 </div>
                                                                                 </Collapse>
                                                                                <br/>
-
                                                                                 <FormDatosEvidencia />
-
                                                                                </Col>
-
                                                                         </Row>
                                                                  </>);
                                                                 case 1:
@@ -158,7 +153,7 @@ const EnviarSolicitud = (props) => {
                                                                         itemsDescripcion={descripcion}
                                                                         aprendizError={itemsOptionAprendiz?.aprendizError}
                                                                         descripcionError={descripcionError}
-                                                                        childrenEvidencias={<FormDatosEvidencia/>}
+
                                                                         handleClick={props.handleClick} datosAprendiz={itemsOptionAprendiz}
                                                                         children={<TopbarSearch data={allApredizDatos}
                                                                         selectedOption={`${itemsOptionAprendiz?.Nombres?.toUpperCase()} ${itemsOptionAprendiz?.Apellidos?.toUpperCase()}`} />}

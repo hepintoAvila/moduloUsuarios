@@ -4,19 +4,14 @@
 // @flow
 import React, { useContext, useEffect } from 'react';
 import { Row, Col, Card, Modal, } from 'react-bootstrap';
-
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-import FormUpdate from './FormUpdate';
-//import Table from '../../../../../components/Table';
-import Swal from 'sweetalert2';
 import { useGestionMenu } from '../../../../../hooks/useGestionMenu';
 import FormAdd from './FormAdd';
-
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import Table from '../../../../../components/Table';
-import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
-import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
+import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
+ /*
 const ActionColumn = ({ row }) => {
 
   const {
@@ -63,6 +58,7 @@ const ActionColumn = ({ row }) => {
     </React.Fragment>
   );
 };
+*/
 const MenuPrincipal = (props) => {
   const {itemsEditerMenu,query} = useGestionMenu()
   const permisos = props.permisos || {};

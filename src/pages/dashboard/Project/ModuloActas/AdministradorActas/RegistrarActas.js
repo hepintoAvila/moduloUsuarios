@@ -103,8 +103,10 @@ const RegistrarActas = (props) => {
 
     };
     useEffect(() => {
+      if(props?.idSolicitud>0)
       query('ModuloActas', 'actas', [{ opcion: btoa('listarConceptos'), obj: 'listarConceptos',idActa: btoa(props.idActa),idSolicitud:btoa(props.idSolicitud)}]);
-    }, [query]);
+
+    }, []);
 
 
     useEffect(() => {

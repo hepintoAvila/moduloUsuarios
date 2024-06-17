@@ -6,16 +6,16 @@ import React, { useContext, useEffect} from 'react';
 import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import FormAdd from './FormAdd';
-import FormUpdate from './FormUpdate';
+//import FormUpdate from './FormUpdate';
 
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import Swal from 'sweetalert2';
 
 
-import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
+//import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAction';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import Table from '../../../components/Table';
-
+ /*
 const ActionColumn = ({ row }) => {
   const {
     eliminar,
@@ -61,6 +61,7 @@ const ActionColumn = ({ row }) => {
     </React.Fragment>
   );
 };
+*/
 const Usuarios = (props) => {
   const permisos = props?.permisos || {};
   const {itemsAdminUsuarios,query} = useAdminUsuarios()

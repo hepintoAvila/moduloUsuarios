@@ -247,13 +247,13 @@ const Actas = (props) => {
 
 
   useEffect(() => {
+    if(idSolicitud>0)
     query('ModuloActas', 'actas', [{ opcion: btoa('listarConceptos'), obj: 'listarConceptos',idActa: btoa(itemsUpdate),idSolicitud:btoa(idSolicitud)}]);
+
   }, [query,props]);
 
   useEffect(() => {
-
-    if(itemsUpdate>0){
-
+    if(itemsUpdate>0)
       setConceptos(objConceptos => ({
         ...objConceptos,
         hechos:decodeHTMLEntities(conseptos[0]?.hechos),
@@ -262,9 +262,7 @@ const Actas = (props) => {
         recomendacion:decodeHTMLEntities(conseptos[0]?.recomendacion),
         compromisos:decodeHTMLEntities(conseptos[0]?.compromisos),
     }));
-
-    }
-  }, [conseptos,itemsUpdate]);
+  }, []);
 
 
 
@@ -464,7 +462,15 @@ const Actas = (props) => {
               </Row>
               {datos?.length > 0 ?
 
-               <><Table
+               <>
+               <div className="text-sm-end"><Button className="btn btn-success mb-2 me-1 btn-grid-actas" onClick={toggleSignUp}>
+                    <i className="mdi mdi-account-plus"> Agregar Acta</i>
+                  </Button>
+                   { selectedItemsConsolidados?.length>0 ?<Button className="btn btn-success mb-2 me-1 btn-grid-consolidado" onClick={()=>imprimeConsolidado()}>
+                      <i className="mdi mdi-account-plus" >Consolidado</i>
+                    </Button>:''}
+                  </div>
+               <Table
                   columns={columns}
                   data={datos}
                   pageSize={25}
@@ -478,13 +484,7 @@ const Actas = (props) => {
                   nametable={props.accion}
                   titulo={'LISTADO DE ACTAS REGISTRADAS'}
                   permisos={permisos}
-                  icons={'dripicons-user'} /><Button className="btn btn-success mb-2 me-1 btn-grid-actas" onClick={toggleSignUp}>
-                    <i className="mdi mdi-account-plus"> Agregar Acta</i>
-                  </Button><div className="text-sm-end">
-                   { selectedItemsConsolidados?.length>0 ?<Button className="btn btn-success mb-2 me-1 btn-grid-consolidado" onClick={()=>imprimeConsolidado()}>
-                      <i className="mdi mdi-account-plus" >Consolidado</i>
-                    </Button>:''}
-                  </div></>
+                  icons={'dripicons-user'} /></>
                 : <PermisoAlert />}
             </Card.Body>
           </Card>
