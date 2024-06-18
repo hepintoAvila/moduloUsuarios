@@ -140,7 +140,7 @@ return (
                     );
 
 
-                    onDateChangeFile(JSON.stringify(file),base64String,true,true)
+                    onDateChangeFile(file,base64String,true,true)
                 }
 
                 //

@@ -33,7 +33,7 @@ function contarVerdaderos(array) {
   return contador;
 }
 const EnviarSolicitud = (props) => {
-  const { itemsOptionAprendiz, descripcion, descripcionError,validateError, setError, queryFile, loading, nombrePrograma,fallas } = useContext(SearchContext);
+  const { itemsOptionAprendiz, descripcion, descripcionError,validateError,  queryFile, loading, } = useContext(SearchContext);
   const { itemsAprendices, query, itemsSolicitudByID, activeTab, setActiveTab, openFormAprendiz } = useContext(NotificacionesContext);
   const [enviar, setEnviar] = useState(false);
   const { convertirFecha } = useContext(NotificacionesContext);
@@ -98,45 +98,54 @@ const EnviarSolicitud = (props) => {
 
   useEffect(() => {
     if (enviar) {
+
         const obj = Object.values({ ...validateError });
         let numtrue = contarVerdaderos(obj);
 
         if (Number(numtrue) === 8) {
+          if (itemsSolicitud[0].selectedFile?.path) {
             Swal.fire({
-                position: 'top-center',
-                icon: 'success',
-                title: 'Solicitud Enviada',
-                showConfirmButton: false,
-                timer: 1500,
-            });
-            const datosfiles = {
-              idAprendiz:itemsSolicitud[0].idAprendiz,
-              tipoComite: itemsSolicitud[0].tipoComite,
-              tipoAtencion: itemsSolicitud[0].tipoComite,
-              fechaIncidente: convertirFecha(itemsSolicitud[0].fechaIncidente),
-              accion: 'ModuloSolicitudComite',
-              opcion: 'add_solicitud',
-              tipo: 'EnviarSolicitud',
-              selectedFile: itemsSolicitud[0].selectedFile,
-              descripcion:itemsSolicitud[0].descripcion,
-              nombrePrograma:itemsSolicitud[0].nombrePrograma,
-                ...fallas[0],
-            };
+              title: 'Desea enviar la solicitud?',
+              showCancelButton: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                const selectedFile = {
+                  selectedFile: {
+                    base64: itemsSolicitud[0].base64String
+                  },
+                };
+                const datosUrl = {
+                  idAprendiz:itemsSolicitud[0].idAprendiz,
+                  tipoComite: itemsSolicitud[0].tipoComite,
+                  tipoAtencion: itemsSolicitud[0].tipoComite,
+                  fechaIncidente: convertirFecha(itemsSolicitud[0].fechaIncidente),
+                  descripcion:itemsSolicitud[0].descripcion,
+                  nombrePrograma:itemsSolicitud[0].nombrePrograma,
+                  accion: 'ModuloSolicitudComite',
+                  opcion: 'add_solicitud',
+                  tipo: 'EnviarSolicitud',
+                  codigoFicha: '0000',
+                  name: itemsSolicitud[0].selectedFile?.path,
+                  type: itemsSolicitud[0].selectedFile?.path,
+                  size: itemsSolicitud[0].selectedFile?.formattedSize,
+                  entidad: 'senaV1',
+                  maxId: allApredizDatos[0]?.userDetails?.maxId
+                };
+                //console.log(datosUrl);
+                 const queryDatos = Object.entries(datosUrl)
+                .map(([key, value]) => {
+                    const encodedValue = btoa(value);
+                    return `${key}=${encodedValue}`;
+                })
+                .join('&');
 
-            const queryDatos = datosfiles
-                ? Object.keys(datosfiles)
-                      .map((key) => key + '=' + btoa(datosfiles[key]))
-                      .join('&')
-                : '';
-                //console.log('FormDatosEnviar',{...itemsSolicitud[0]})
-                queryFile(queryDatos, itemsSolicitud[0].base64String);
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'ERROR:: FALTAN CAMPOS POR DILIGENCIAR',
+                queryFile(queryDatos,selectedFile);
+              }
             });
-        }
+          }
+
+      }
+
     }
 }, [enviar]);
 

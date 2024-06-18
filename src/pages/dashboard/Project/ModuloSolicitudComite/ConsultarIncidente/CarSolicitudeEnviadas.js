@@ -15,6 +15,7 @@ import BtnSeccionPdf from '../../../../../components/BtnSeccionPdf';
 import FormEditarSolicitud from '../EnviarSolicitud/FormEditarSolicitud';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import FormDatosEvidencia from '../EnviarSolicitud/FormDatosEvidencia';
+import FormDocumentosActualizar from '../EnviarSolicitud/FormDocumentosActualizar';
 
 const ActionColumn = ({ row }) => {
   const { setCodigoFicha, setModal,getData,query } = useContext(NotificacionesContext)
@@ -260,6 +261,10 @@ const options = {
                    idSolicitud={codigoFicha?.idSolicitud}
                    handleClick={props?.handleClick}
                    datosAprendiz={props?.datosAprendiz}
+                    />
+                    <FormDocumentosActualizar
+                    idSolicitud={codigoFicha?.idSolicitud}
+                    codigoFicha={codigoFicha?.codigoFicha}
                     />
                      </Col>
                      <Col lg={6} className="derechaColumnEnviarSolicitud">

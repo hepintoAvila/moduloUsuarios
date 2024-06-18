@@ -108,28 +108,43 @@ class APICore {
   sendFile = (url, data) => {
     const sendRequest = async () => {
       try {
+        if (!data || Object.keys(data).length === 0) {
+          throw new Error("La variable de entrada 'data' está vacía.");
+        }
 
         const config = {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {
-            'X-SICES-API-AppKey':btoa(user[0].Apikey),
-            'X-SICES-API-AppToken':btoa(user[0].ApiToken),
-              ...axios.defaults.headers,
-              'enctype': 'multipart/form-data',
-               Authorization: `Basic ${encodeBasic(user[0].username,user[0].ApiToken)}`,
+            'X-SICES-API-AppKey': btoa(user[0].Apikey),
+            'X-SICES-API-AppToken': btoa(user[0].ApiToken),
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${encodeBasic(user[0].username, user[0].ApiToken)}`,
           },
-      };
-      const response = await fetch(`${environments.baseURL}${url}`, config);
-      const resp = JSON.parse(await response.text());
-      return resp;
+        };
+
+        const response = await fetch(`${environments.baseURL}${url}`, config);
+
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const resp = await response.json();
+          return resp;
+        } else {
+          const text = await response.text();
+          console.error("La respuesta no es JSON válida:", text);
+          throw new Error("La respuesta no es JSON válida.");
+        }
 
       } catch (err) {
-          console.error(err);
+        console.error(err);
+        throw err;
       }
+    };
+
+    return sendRequest();
   };
-  return sendRequest();
-  };
+
+
   /**
    * post given data to url
    */
