@@ -116,7 +116,7 @@ const Roles = (props) => {
   useEffect(() => {
     query('AdminRoles', 'Roles', [{ opcion: encodeBasicUrl('consultar'), obj: 'Roles' }]);
   }, [query])
-console.log('open',open);
+//console.log('open',open);
   return (
     <>
 

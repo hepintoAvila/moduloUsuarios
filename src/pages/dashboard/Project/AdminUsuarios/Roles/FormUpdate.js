@@ -13,7 +13,7 @@ const FormUpdate = (props) => {
         tipo={tipo}
         title={props.title}
         validated={props.validated}
-        opcion={'update'}
+        opcion={'update_rol'}
         textBtn={''}
         ItemsUpdate={[itemsUpdate]}
         Idpermiso={itemsUpdate?.items?.Idpermiso}

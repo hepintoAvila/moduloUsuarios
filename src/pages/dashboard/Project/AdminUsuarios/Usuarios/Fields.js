@@ -3,13 +3,31 @@ import React, { useState,useContext } from 'react';
 import { Button} from 'react-bootstrap';
 import Select from 'react-select';
 // components
-import { FormInput } from '../../../../../components/';
 
 
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import Swal from 'sweetalert2';
-const Register = (props): React$Element<React$FragmentType> => {
+import { FormInput } from '../../../../../components';
+import { useSecurity } from '../../../../../layouts/context/SecurityProvider';
+
+const Register = (props) => {
+  const { errors,checkSpecialChars } = useSecurity(); // Usamos el hook useSecurity
+
+
+  const handleChange = (field) => (e) => {
+    const value = e.target.value;
+    checkSpecialChars(field, value);
+    setItems((prevItems) => {
+      const newItems = [...prevItems];
+      newItems[0] = {
+        ...newItems[0],
+        [field]: value,
+      };
+      return newItems;
+    });
+  };
+
   const {
     getData,
 } = useContext(NotificacionesContext)
@@ -44,9 +62,6 @@ const {setSignUpModalAdd,
   const queryDatos = datosEvent
   ? Object.entries(datosEvent)
       .map(([key, value]) => {
-        // Eliminar comillas simples de los valores si existen
-        //const cleanValue = value.replace(/'/g, '');
-        // Codificar el valor limpio en base64
         const encodedValue = btoa(value);
         return `${key}=${encodedValue}`;
       })
@@ -59,7 +74,7 @@ const {setSignUpModalAdd,
     setSignUpModalAdd(true)
     return window.location.hash = '#/dashboard/AdminUsuarios/Usuarios';
   };
-
+  console.log(items)
    return (
     <>
 
@@ -69,22 +84,18 @@ const {setSignUpModalAdd,
           type="text"
           name="login"
           value={items[0]?.login}
-          onChange={(e) => setItems([{
-            ...items[0], login: e.target.value,
-          }])}
+          onChange={handleChange('login')}
           placeholder={'Digite su login'}
-          containerClass={'mb-3'}
+          containerClass={`mb-3 ${errors.login?.hasSpecialChar || errors.login?.isEmpty ? 'bg-alert' : ''}`}
         />
         <FormInput
           label={'Email'}
           type="email"
           name="email"
           value={items[0]?.email}
-          onChange={(e) => setItems([{
-            ...items[0], email: e.target.value
-          }])}
+          onChange={handleChange('email')}
           placeholder={'Digite su email'}
-          containerClass={'mb-3'}
+          containerClass={`mb-3 ${errors.email?.hasSpecialChar || errors.email?.isEmpty ? 'bg-alert' : ''}`}
         />
         <Select
           type="select"
@@ -103,44 +114,36 @@ const {setSignUpModalAdd,
           type="text"
           name="nombres"
           value={items[0]?.nombres}
-          onChange={(e) => setItems([{
-            ...items[0], nombres: e.target.value
-          }])}
+          onChange={handleChange('nombres')}
           placeholder={'Digite sus nombres'}
-          containerClass={'mb-3'}
+          containerClass={`mb-3 ${errors.nombres?.hasSpecialChar || errors.nombres?.isEmpty ? 'bg-alert' : ''}`}
         />
           <FormInput
           label={'Apellidos'}
           type="text"
           name="apellidos"
           value={items[0]?.apellidos}
-          onChange={(e) => setItems([{
-            ...items[0], apellidos: e.target.value
-          }])}
+          onChange={handleChange('apellidos')}
           placeholder={'Digite sus apellidos'}
-          containerClass={'mb-3'}
+          containerClass={`mb-3 ${errors.apellidos?.hasSpecialChar || errors.apellidos?.isEmpty ? 'bg-alert' : ''}`}
         />
           <FormInput
           label={'Identificación'}
-          type="text"
+          type="number"
           name="identificacion"
           value={items[0]?.identificacion}
-          onChange={(e) => setItems([{
-            ...items[0], identificacion: e.target.value
-          }])}
+          onChange={handleChange('identificacion')}
           placeholder={'Digite sus identificacion'}
-          containerClass={'mb-3'}
+          containerClass={`mb-3 ${errors.identificacion?.hasSpecialChar || errors.identificacion?.isEmpty ? 'bg-alert' : ''}`}
         />
             <FormInput
           label={'Numero del Celular'}
-          type="text"
+          type="number"
           name="telefono"
           value={items[0]?.telefono}
-          onChange={(e) => setItems([{
-            ...items[0], telefono: e.target.value
-          }])}
+          onChange={handleChange('telefono')}
           placeholder={'Digite el número de sus telefono'}
-          containerClass={'mb-3'}
+          containerClass={`mb-3 ${errors.telefono?.hasSpecialChar || errors.telefono?.isEmpty ? 'bg-alert' : ''}`}
         />
         <div className="mb-3 mb-0 text-center">
 

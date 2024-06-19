@@ -12,7 +12,7 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 import { queryFormSend } from '../../../../../redux/actions';
 import { VerticalForm } from '../../../../../components';
 
-const Register = (props): React$Element<React$FragmentType> => {
+const Register = (props) => {
   const { setOpen, open } = useContext(DashboardContext);
   const {query} = useAdminUsuarios()
   const [items, setItems] = useState([{
@@ -24,7 +24,8 @@ const Register = (props): React$Element<React$FragmentType> => {
     accion: btoa(props?.accion),
     opcion: btoa(props?.opcion),
     tipo: btoa(props?.tipo),
-    id: props?.ItemsUpdate?.length === 1 ? btoa(props?.ItemsUpdate[0]?.id) : '',
+    entidad: btoa('senaV1'),
+    id: btoa(props?.ItemsUpdate[0]?.id),
   }]);
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const Register = (props): React$Element<React$FragmentType> => {
     }, 2000);
   };
   const operado = [{ value: '', label: '' }, { value: 'S', label: 'S' }, { value: 'N', label: 'N' }];
-
+  console.log(props)
   return (
     <>
       {queryForm ? <Redirect to={`/dashboard/${props?.accion}/${props?.tipo}`}></Redirect> : null}
@@ -77,7 +78,10 @@ const Register = (props): React$Element<React$FragmentType> => {
                 className="react-select"
                 classNamePrefix="react-select"
                 onChange={(e) => setItems([{
-                  ...items[0], c: e.value, id: props?.ItemsUpdate[0]?.id,
+                  ...items[0], c: btoa(e.value),
+                  id: btoa(Number(props?.ItemsUpdate[0]?.id)),
+                  rol:btoa(props?.ItemsUpdate[0]?.rol),
+
                 }])}
                 options={operado}
                 selected={props?.ItemsUpdate[0]?.c}
@@ -94,7 +98,9 @@ const Register = (props): React$Element<React$FragmentType> => {
                 className="react-select"
                 classNamePrefix="react-select"
                 onChange={(e) => setItems([{
-                  ...items[0], a: e.value, id: props?.ItemsUpdate[0]?.id,
+                  ...items[0], a: btoa(e.value),
+                   id: btoa(Number(props?.ItemsUpdate[0]?.id)),
+                   rol:btoa(props?.ItemsUpdate[0]?.rol),
                 }])}
                 options={operado}
                 selected={props?.ItemsUpdate[0]?.a}
@@ -111,13 +117,12 @@ const Register = (props): React$Element<React$FragmentType> => {
                 className="react-select"
                 classNamePrefix="react-select"
                 onChange={(e) => setItems([{
-                  ...items[0], u: e.value,
-                  id: props?.ItemsUpdate[0]?.id,
+                  ...items[0], u: btoa(e.value),
+                  id: btoa(Number(props?.ItemsUpdate[0]?.id)),
                 }])}
                 options={operado}
                 selected={props?.ItemsUpdate[0]?.u}
                 placeholder={`${props?.ItemsUpdate[0]?.u}`}
-
               />
             </Form.Group>
           </Col>
@@ -130,8 +135,8 @@ const Register = (props): React$Element<React$FragmentType> => {
                 className="react-select"
                 classNamePrefix="react-select"
                 onChange={(e) => setItems([{
-                  ...items[0], d: e.value,
-                  id: props?.ItemsUpdate[0]?.id,
+                  ...items[0], d: btoa(e.value),
+                  id: btoa(Number(props?.ItemsUpdate[0]?.id)),
                 }])}
                 options={operado}
                 selected={props?.ItemsUpdate[0]?.d}
@@ -142,27 +147,7 @@ const Register = (props): React$Element<React$FragmentType> => {
 
           <Row>
           <Col sm={4}></Col>
-
-              <Col sm={4}>
-                 {/*
-                <Form.Group className="mb-3">
-                  <Form.Label>Permisos</Form.Label>
-                  <Select
-                    type="select"
-                    name="Permisos"
-                    className="react-select"
-                    classNamePrefix="react-select"
-                    onChange={(e) => setItems([{
-                      ...items[0], d: e.value,
-                    }])}
-                    options={props?.Permisos}
-                    selected={props?.ItemsUpdate[0]?.d}
-                    placeholder={`${props?.ItemsUpdate[0]?.d}`}
-                  />
-                </Form.Group>
-                */}
-              </Col>
-
+          <Col sm={4}></Col>
             <Col sm={4}>
               <Form.Group className="mb-3 mb-3 mb-3 ">
                 <Button variant="primary" type="submit" disabled={loading}>
