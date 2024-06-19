@@ -16,7 +16,7 @@ import FormEditarSolicitud from '../EnviarSolicitud/FormEditarSolicitud';
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import FormDatosEvidencia from '../EnviarSolicitud/FormDatosEvidencia';
 import FormDocumentosActualizar from '../EnviarSolicitud/FormDocumentosActualizar';
-
+import { DatosSolicitudContext } from '../../../../../layouts/context/DatosComiteContext';
 const ActionColumn = ({ row }) => {
   const { setCodigoFicha, setModal,getData,query } = useContext(NotificacionesContext)
 
@@ -69,10 +69,7 @@ const ActionColumn = ({ row }) => {
                const queryDatos = datosEvent
                ? Object.entries(datosEvent)
                    .map(([key, value]) => {
-                     // Eliminar comillas simples de los valores si existen
-                     //const cleanValue = value.replace(/'/g, '');
-                     // Codificar el valor limpio en base64
-                     const encodedValue = btoa(value);
+                    const encodedValue = btoa(value);
                      return `${key}=${encodedValue}`;
                    })
                    .join('&')
@@ -117,23 +114,19 @@ const ActionColumn = ({ row }) => {
   );
 };
 const CarSolicitudeEnviadas = (props) => {
-  //const permisos = props.permisos || {};
   const {codigoFicha,modal,setModal,itemsConsultarSolicitudByCodigo} = useContext(NotificacionesContext)
+  const { updateSolicitud} = useContext(DatosSolicitudContext);
 
-  const handleSave = (id) => {
-
-    Swal.fire({
-      position: 'top-center',
-      icon: 'success',
-      title: 'Registro Enviado...',
-      showConfirmButton: false,
-      timer: 1500,
-  });
+  const handleSave = (idSolicitud) => {
+     const dataInLocalStorage = localStorage.getItem('hechos');
+     const hechos = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : '';
+      if(hechos && idSolicitud>0) {
+        updateSolicitud('hechos',hechos,idSolicitud);
+        localStorage.removeItem('hechos');
+      }
 
 
 };
-
-
   const datos = props?.Solicitudes|| [{id:1,
     codigoFicha:'0001',
     aprendiz:'SR',
@@ -186,14 +179,16 @@ const CarSolicitudeEnviadas = (props) => {
       Cell: ActionColumn,
     },
   ];
-  const onClose = () => {
+
+const onClose = () => {
     setModal(false);
+    localStorage.removeItem('hechos');
 };
 
 const options = {
   autosave: {
       enabled: false,
-      uniqueId: 2,
+      uniqueId: codigoFicha?.idSolicitud,
   },
   toolbar: [
       'bold', 'italic', 'heading', '|',
@@ -201,7 +196,7 @@ const options = {
       'link', 'image', '|',
       {
           name: 'save',
-          action: () => handleSave(2),
+          action: () => handleSave(codigoFicha?.idSolicitud),
           className: 'fa fa-save',
           title: 'Guardar',
       },
@@ -209,7 +204,6 @@ const options = {
 };
   return (
     <>
-
       <Row>
         <Col>
           <Card>
@@ -226,7 +220,7 @@ const options = {
                     isSearchable={true}
                     nametable={'table1'}
                     titleTable={'HISTORIAL DE INCIDENCIAS'}
-  />}
+                />}
             </Card.Body>
           </Card>
         </Col>
@@ -245,8 +239,7 @@ const options = {
                 case 'EDITAR':
                   return (<>
                   <Row>
-
-                  <Col lg={6}>
+               <Col lg={6}>
                   <FormEditarSolicitud
                    itemsConsultarSolicitudByCodigo={itemsConsultarSolicitudByCodigo}
                    idAprendiz={props?.idAprendiz}
@@ -268,7 +261,10 @@ const options = {
                     />
                      </Col>
                      <Col lg={6} className="derechaColumnEnviarSolicitud">
-                      <FormDatosEvidencia hechos={itemsConsultarSolicitudByCodigo?.data?.Solicitudes[0]?.hechos} options={options}/>
+                      <FormDatosEvidencia
+                      hechos={itemsConsultarSolicitudByCodigo?.data?.Solicitudes[0]?.hechos}
+                      options={options}
+                      />
                     </Col>
                     </Row>
                     </>)

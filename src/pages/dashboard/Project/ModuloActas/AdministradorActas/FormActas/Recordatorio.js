@@ -9,13 +9,11 @@ const Recordatorio = ({ id, titulo, value, onChange, handleSave, handleUpdate })
   const { hasSpecialChar, checkSpecialChars,isEmpty } = useSecurity(); // Usamos el hook useSecurity
 
   const handleChange = (value) => {
-
        checkSpecialChars(value);
        onChange(id, value);
      };
 
-
-    const options = {
+  const options = {
       autosave: {
           enabled: false,
           uniqueId: id,

@@ -11,85 +11,22 @@ import FileUploader from '../../../../../components/FileUploader';
 
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import { SearchContext } from '../../../../../layouts/context/SearchContext';
 
 const FormDocumentosActualizar = (props) => {
-
-
-  const [options, setOptions] = useState(0);
-  const { getData } = useContext(NotificacionesContext);
-  const [documentos, setAttachments] = useState({
-    attachments: [
-      { id: 1, name: 'Cargando...', size: '', ext: '.pdf' },
-    ],
-  });
 const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes || [];
-  const { validateError,  queryFile, loading,  } =  useContext(SearchContext);
+  const { validateError,  queryFile, loading,idSolicitud, setidSolicitud  } =  useContext(SearchContext);
   const [open, setOpen] = useState(false);
-  const [idSolicitud, setidSolicitud] = useState(props?.idSolicitud);
 
-  const toggle = (id, idSolicitud) => {
-    setOptions(id);
+
+  const toggle = (idSolicitud) => {
     setOpen((prevState) => !prevState);
     setidSolicitud(idSolicitud);
-
-    // Construye la nueva URL con parámetros de consulta y hash
-    const newUrl = `${window.location.origin}${window.location.pathname}#dashboard/ModuloSolicitudComite/EnviarSolicitud&p=${idSolicitud}`;
-    window.history.pushState({ path: newUrl }, '', newUrl); // Cambia la URL sin recargar la página
-
-    return newUrl;
-};
-
-  const deleteDocumento = (id) => {
-    Swal.fire({
-      title: id === '1' ? 'Desea eliminar los hechos' : 'Desea eliminar el formato de solicitud',
-      showCancelButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const datosEvent = {
-          idOpcion: id,
-          codigoFicha: props?.codigoFicha,
-          accion: 'ModuloSolicitudComite',
-          opcion: 'deleteSolicitud',
-          obj: 'deleteFile',
-        };
-        const queryDatos = Object.entries(datosEvent)
-          .map(([key, value]) => {
-            const encodedValue = btoa(value);
-            return `${key}=${encodedValue}`;
-          })
-          .join('&');
-
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Enviando Solicitud...',
-          showConfirmButton: false,
-          timer: 1500
-        });
-
-        setTimeout(() => {
-          setidSolicitud(id)
-          getData(queryDatos);
-        }, 2000);
-      }
-    });
   };
 
-  const [items, setItems] = useState([
-    {
-      accion: 'ModuloSolicitudComite',
-      opcion: 'update_solicitudDocumentos',
-      tipo: 'EnviarSolicitud',
-      selectedFile: '',
-      base64String: '',
-      descripcion: '',
-    },
-  ]);
+
 
   const schemaResolver = yupResolver(yup.object().shape({}));
-
 
   const onDateChangeFile = (file, base64Strng) => {
 
@@ -107,6 +44,7 @@ const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes 
           const datosUrl = {
             codigoFicha: props?.codigoFicha,
             idSolicitud: props?.idSolicitud,
+            idAprendiz: datosAprendiz?.idAprendiz,
             accion: 'Documentos',
             opcion: 'add_documentos',
             tipo: 'add_documentos',
@@ -114,6 +52,7 @@ const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes 
             type: file?.path,
             size: file?.formattedSize,
             entidad: 'senaV1',
+            maxId: '1',
           };
            const url = Object.entries(datosUrl)
           .map(([key, value]) => {
@@ -127,30 +66,9 @@ const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes 
         }
       });
     }
-
  };
 
-  useEffect(() => {
-    if (datosAprendiz.length === 1) {
-      const objet = {
-        accion: 'ModuloSolicitudComite',
-        opcion: 'add_solicitud',
-        tipo: 'EnviarSolicitud',
-        selectedFile: '',
-        base64String: '',
-        descripcion: datosAprendiz[0]?.hechos,
-      };
-      setAttachments({ attachments: datosAprendiz[0]?.attachments });
-      setItems([objet]);
-    }
-  }, [datosAprendiz]);
 
-
-  useEffect(() => {
-    return (window.location.hash = `#/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${idSolicitud}`);
-  }, []);
-
-  console.log('idSolicitud',idSolicitud)
   return (
     <>
       {loading ? (
@@ -165,47 +83,31 @@ const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes 
             <Card.Body>
               <h5 className="mb-3">Documentos Cargados</h5>
               <Row>
-                {documentos?.attachments?.map((f, idx) => (
-                  <Col xl={4} key={idx}>
+                  <Col xl={4}>
                     <Card className="mb-1 shadow-none border">
                       <div className="p-2">
                         <Row className="align-items-center">
                           <Col className="col-auto">
-                            {f.size === '1' ? (
-                              <div className="avatar-sm">
+                          <div className="avatar-sm">
                                 <span className="avatar-title bg-primary-lighten text-primary rounded">
                                   <Link
-                                    to="#"
+                                    to={`?p=${idSolicitud}`}
                                     className="custom-accordion-title d-block pt-2 pb-2"
-                                    onClick={() => { deleteDocumento(f.id) }}
-                                  >
-                                    <i className="mdi mdi-delete-sweep"></i>
-                                  </Link>
-                                </span>
-                              </div>
-                            ) : (
-                              <div className="avatar-sm">
-                                <span className="avatar-title bg-primary-lighten text-primary rounded">
-                                  <Link
-                                    to="#"
-                                    className="custom-accordion-title d-block pt-2 pb-2"
-                                    onClick={() => { toggle(f.id,idSolicitud) }}
+                                    onClick={() => { toggle(idSolicitud) }}
                                     aria-controls={'collapse 1'}
                                     aria-expanded={open}>
                                     <i className="mdi mdi-file-upload-outline"></i>
                                   </Link>
                                 </span>
                               </div>
-                            )}
                           </Col>
                           <Col className="col ps-0">
-                            <p className="mb-0 text-muted font-weight-bold">{f.name}</p>
+                            <p className="mb-0 text-muted font-weight-bold"></p>
                           </Col>
                         </Row>
                       </div>
                     </Card>
                   </Col>
-                ))}
               </Row>
               <hr />
               <Collapse in={open}>
@@ -232,6 +134,7 @@ const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes 
                               );
                             };
                           }}
+                          idSolicitud={idSolicitud}
                         />
                         {!validateError.filesError && !validateError.base64StringsError ? (
                           <div className="isinvalid">
@@ -240,7 +143,7 @@ const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes 
                             </p>
                           </div>
                         ) : (
-                          <h4 className="header-title mb-3">documento subido</h4>
+                          <h4 className="header-title mb-3">Actualizar documento de la Evidencia</h4>
                         )}
                       </Card.Body>
                     </Card>

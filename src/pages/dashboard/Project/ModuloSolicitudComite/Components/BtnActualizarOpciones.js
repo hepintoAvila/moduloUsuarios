@@ -16,7 +16,7 @@ const BtnActualizarOpciones = (props) => {
         <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={popover} key={`${props?.titulo}`}>
           {
             props?.permisos === 'N' ? (
-              <Link  key={`${props?.titulo}`}to={'#'} className="action-icon " onClick={() => updateSolicitud(props?.titulo,props?.value,props?.idSolicitud)}>
+              <Link  key={`${props?.titulo}`}to={`${props?.menuRef}`} className="action-icon " onClick={() => updateSolicitud(props?.titulo,props?.value,props?.idSolicitud)}>
                 <i className={`${props?.icon}`}></i>
               </Link>) : ''
           }

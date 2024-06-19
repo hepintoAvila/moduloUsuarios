@@ -24,11 +24,11 @@ const DatosSolicitudProvider = ({ children }) => {
 const handleSaveEvidencia = (e) => {
   console.log(e)
 };
-const updateSolicitud = (key, value,idSolicitud) => {
+const updateSolicitud = (campo,dataUpdate,idSolicitud) => {
   const datosEvent = {
       idSolicitud: idSolicitud,
-      opcionUpdate: key,
-      e: value,
+      campo: campo,
+      dataUpdate: dataUpdate,
       accion: 'ModuloSolicitudComite',
       opcion: 'updateSolicitud',
       tipo: 'updateSolicitud',
@@ -39,6 +39,7 @@ const updateSolicitud = (key, value,idSolicitud) => {
       showCancelButton: true,
   }).then((result) => {
       if (result.isConfirmed) {
+
           const queryDatos = Object.entries(datosEvent)
               .map(([key, value]) => {
                   const encodedValue = btoa(value);

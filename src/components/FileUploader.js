@@ -7,11 +7,13 @@ import Dropzone from 'react-dropzone';
 type FileUploaderProps = {
     onFileUpload?: (files: any) => void,
     showPreview?: boolean,
+    idSolicitud?: number,
 };
 
 const FileUploader = (props: FileUploaderProps): React$Element<any> => {
     FileUploader.defaultProps = {
         showPreview: true,
+        idSolicitud: props.idSolicitud?  props.idSolicitud:1,
     };
 
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -109,7 +111,7 @@ const FileUploader = (props: FileUploaderProps): React$Element<any> => {
                                             </p>
                                         </Col>
                                         <Col className="text-end">
-                                            <Link to="#" className="btn btn-link btn-lg text-muted shadow-none">
+                                            <Link   to={`?p=${props.idSolicitud}`} className="btn btn-link btn-lg text-muted shadow-none">
                                                 <i className="dripicons-cross" onClick={() => removeFile(i)}></i>
                                             </Link>
                                         </Col>

@@ -65,6 +65,7 @@ const Login = (): React$Element<any> => {
       localStorage.removeItem('roles');
       localStorage.removeItem('idsIncidentes');
       localStorage.removeItem('Conceptos');
+      localStorage.removeItem('hechos');
 
       dispatch(loginUser(formData['username'], formData['password']));
     };

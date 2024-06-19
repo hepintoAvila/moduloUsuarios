@@ -8,7 +8,8 @@ const SearchProvider = ({ children }) => {
     const [itemsOptionAprendiz, setSelectedOptionAprendiz] = useState('none');
     const [itemsEnvioSolicitud, setSelectedEnvioSolicitud] = useState([]);
     const [itemsDescripcion, setDescripcion] = useState('');
-    const [itemsNombrePrograma, setNombrePrograma] = useState('');
+    const [itemsNombrePrograma, setNombrePrograma] = useState('')
+    const [idSolicitud, setidSolicitud] = useState(0);;
     const [loading, setLoading] = useState(false);
 
     const [validateError, setError] = useState({
@@ -72,7 +73,8 @@ const SearchProvider = ({ children }) => {
         nombreProgramaError,
         nombrePrograma,
         fallas,
-        setFallas
+        setFallas,
+        idSolicitud, setidSolicitud
     };
 
     return (

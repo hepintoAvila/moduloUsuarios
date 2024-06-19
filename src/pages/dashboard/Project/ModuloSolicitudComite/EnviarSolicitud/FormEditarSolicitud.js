@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import classNames from 'classnames';
 import { Row, Card, } from 'react-bootstrap';
-import Swal from 'sweetalert2';
 
 // components
 import { VerticalForm, FormInput } from '../../../../../components';
@@ -16,14 +15,14 @@ import { SearchContext } from '../../../../../layouts/context/SearchContext';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import BtnActualizarOpciones from '../Components/BtnActualizarOpciones';
 
-const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
+const FormEditarSolicitud = (props) => {
 
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const { convertirFecha } = useContext(NotificacionesContext);
 
-  const { validateError, setError, loading } =
+  const { validateError, setError, loading,idSolicitud, setidSolicitud  } =
     useContext(SearchContext);
   const datosAprendiz = props?.itemsConsultarSolicitudByCodigo?.data?.Solicitudes || [];
   const [items, setItems] = useState([
@@ -93,13 +92,14 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
         base64String: '',
       };
       setItems([objet]);
+      setidSolicitud(props?.idSolicitud)
     }
-  }, [datosAprendiz]);
-
+  }, []);
+ //* console.log('idSolicitud',idSolicitud)
   return (
     <>
       {loading ? (
-        <Redirect to={`/ModuloSolicitudComite/EnviarSolicitud?p=${items[0]?.idAprendiz}`}></Redirect>
+        <Redirect to={`p=${idSolicitud}`}></Redirect>
       ) : null}
       <VerticalForm
         resolver={schemaResolver}
@@ -134,11 +134,12 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                 </div>
                 <div className="uploadSolicitud col-4 avatar-sm">
                   <BtnActualizarOpciones
+                    menuRef={`?p=${idSolicitud}`}
                     titulo={'tipoComite'}
                     descripcion={'Actualiza el tipo de falta'}
-                    value={''}
+                    value={items[0]?.tipoComite}
                     permisos={'N'}
-                    idSolicitud={'N'}
+                    idSolicitud={idSolicitud}
                     icon={'fa fa-save pt-3'}
                   />
                 </div>
@@ -168,11 +169,12 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                 </div>
                 <div className="uploadSolicitud col-4 avatar-sm">
                   <BtnActualizarOpciones
+                    menuRef={`?p=${idSolicitud}`}
                     titulo={'tipoAtencion'}
                     descripcion={'Actualiza la calificación de la falta'}
-                    value={''}
+                    value={items[0]?.tipoAtencion}
                     permisos={'N'}
-                    idSolicitud={'N'}
+                    idSolicitud={idSolicitud}
                     icon={'fa fa-save pt-3'}
                   />
                 </div>
@@ -201,10 +203,11 @@ const FormEditarSolicitud = (props): React$Element<React$FragmentType> => {
                     <BtnActualizarOpciones
                   titulo={'fechaIncidente'}
                   descripcion={'Fecha y Hora de los Hechos'}
-                  value={''}
+                  value={items[0]?.fechaIncidente}
                   permisos={'N'}
-                  idSolicitud={'N'}
+                  idSolicitud={idSolicitud}
                   icon={`${'fa fa-save pt-4'}` }
+                  menuRef={`?p=${idSolicitud}`}
                 />
                 </div>
                  <div className="pt-0 col-8">

@@ -20,6 +20,8 @@ const FormDatosEvidencia = (props) => {
 
   const onEditorStateChange = (e) => {
 
+    localStorage.removeItem('hechos');
+    localStorage.setItem('hechos', JSON.stringify(e))
 
     setDescripcion({ descripcion: e, valideDescripcion: e?.length === 0 ? false : true });
     setLoading(false)
