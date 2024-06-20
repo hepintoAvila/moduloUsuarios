@@ -153,8 +153,7 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
 
   }, [query,props.opcionBusqueda])
 
-
-//onsole.log('datos',datos)
+console.log('datos',props.opcionBusqueda)
   return (
     <>
       <Row>
@@ -171,7 +170,7 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
             isSearchable={true}
             nametable={'table_1'}
             titleTable={'LISTADO DE NOTIFICACIONES'}
-          />:<PermisoAlert/>}
+          />:'Cargando...'}
         </Col>
       </Row>
 

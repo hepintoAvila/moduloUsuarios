@@ -110,7 +110,7 @@ const ActionColumn = ({ row }) => {
       nombre     : row.cells[0].row.values.nombre,
      }
 
-    if (verificarPermiso('Actas',"update")) {
+    if (verificarPermiso('Actas',"add")) {
       if (row.cells[0].row.values.idActa === id) {
       setItemsUpdate(id);
       setOpen(!open);
