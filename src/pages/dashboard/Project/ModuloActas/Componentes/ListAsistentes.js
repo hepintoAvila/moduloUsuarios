@@ -13,16 +13,17 @@ import BtnActions from "../../../components/BtnActions";
 import Swal from 'sweetalert2';
 import ConfirmacionEliminacionStrategy from './../../../../../layouts/context/ConfirmacionEliminacionStrategy';
 import { APICore } from '../../../../../helpers/api/apiCore';
+import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 const api = new APICore();
 
 
 const ActionColAsistentes = ({ row }) => {
-
+  const {verificarPermiso} = useAdminUsuarios()
   const eliminar = useCallback(
+
     (cel) => {
-        let permiso = sessionStorage.getItem('PERMISO');
-        const localPermiso = JSON.parse(permiso);
-        if (localPermiso.delete) {
+
+        if (verificarPermiso('Actas',"delete")) {
             const estrategiaConfirmacion = new ConfirmacionEliminacionStrategy();
             estrategiaConfirmacion.confirmar(cel, (cel) => {
                 const url = `accion=${btoa('ModuloActas')}&tipo=${btoa('actas')}&opcion=${btoa('deleteAsistente')}'&id=${btoa(cel)}`;

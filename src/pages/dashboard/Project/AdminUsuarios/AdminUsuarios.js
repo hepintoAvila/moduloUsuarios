@@ -3,30 +3,30 @@
 import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 import Usuarios from './Usuarios/Usuarios';
 import Roles from './Roles/Roles';
+import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
 const AdminUsuarios = (props) => {
-  const permisos = props?.permisos || {};
-
+  const {verificarPermiso} = useAdminUsuarios()
   return (
     <>
       {(() => {
         switch (props?.tipo) {
           case 'Usuarios':
             return <>
-              {permisos?.query?.length === 1 ?
-                (<Usuarios
+            {verificarPermiso('Usuarios',"query") ?
+                <Usuarios
                   accion={'AdminUsuarios'}
                   tipo={props.tipo}
                   permisos={props.permisos}
-                /> ): <PermisoAlert />}
+                />: <PermisoAlert opcion={verificarPermiso('Usuarios',"query")}/>}
             </>
           case 'Roles':
             return <>
-              {permisos?.query?.length === 1 ?
+              {verificarPermiso('Roles',"query") ?
                 <Roles
                   accion={'AdminUsuarios'}
                   tipo={props.tipo}
                   permisos={props.permisos}
-                /> : <PermisoAlert />}
+                /> : <PermisoAlert opcion={verificarPermiso('Roles',"query")}/>}
             </>
           default:
             return (

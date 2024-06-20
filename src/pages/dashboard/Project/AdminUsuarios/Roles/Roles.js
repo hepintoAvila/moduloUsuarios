@@ -15,7 +15,7 @@ import BtnSeccionAction from '../../../components/BtnSeccionAction/BtnSeccionAct
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 
 const ActionColumn = ({ row }) => {
-
+  const {verificarPermiso} = useAdminUsuarios()
   const {
     eliminar,
     validated,
@@ -24,9 +24,8 @@ const ActionColumn = ({ row }) => {
     open,
   } = useContext(DashboardContext);
    const toggleSignUp = (id) => {
-    let permiso = sessionStorage.getItem('PERMISO');
-    const localPermiso = JSON.parse(permiso);
-    if (localPermiso?.update === 'S') {
+
+    if (verificarPermiso('Roles',"update")) {
 
       if(row.cells[0].row.values.id===id)
       setItemsUpdate(row?.cells[0]?.row?.values)
@@ -51,15 +50,13 @@ const ActionColumn = ({ row }) => {
   return (
     <React.Fragment>
       <BtnSeccionAction obj={obj}>
-
         </BtnSeccionAction>
     </React.Fragment>
   );
 };
 const Roles = (props) => {
-  const permisos = props.permisos || {};
 
-  const {itemsRoles,query} = useAdminUsuarios()
+  const {itemsRoles,query,verificarPermiso} = useAdminUsuarios()
   const {
     sizePerPageList,
     setOpen,
@@ -116,7 +113,7 @@ const Roles = (props) => {
   useEffect(() => {
     query('AdminRoles', 'Roles', [{ opcion: encodeBasicUrl('consultar'), obj: 'Roles' }]);
   }, [query])
-//console.log('open',open);
+
   return (
     <>
 
@@ -124,8 +121,7 @@ const Roles = (props) => {
         <Col>
           <Card>
             <Card.Body>
-              {datos?.length > 0 && permisos?.query === 'S' ? (
-
+            {verificarPermiso('Roles',"query") ? (
               <Table
                     columns={columns}
                     data={datos}
@@ -137,7 +133,7 @@ const Roles = (props) => {
                     searchBoxClass="mt-2 mb-3"
                     isSearchable={true}
                     nametable={props.accion}
-              />) : <PermisoAlert />}
+              />) : <PermisoAlert opcion={verificarPermiso('Roles',"query")}/>}
             </Card.Body>
           </Card>
         </Col>
@@ -154,7 +150,6 @@ const Roles = (props) => {
                   </Modal.Header>
                   <FormUpdate
                       title={`FORMULARIO PARA LA EDICION PERMISOS `}
-
                     />
                 </Modal.Body>
               </Modal>

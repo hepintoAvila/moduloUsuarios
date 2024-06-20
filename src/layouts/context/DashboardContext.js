@@ -12,10 +12,11 @@ import { useAprendiz } from '../../hooks/useAprendiz';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
 import ConfirmacionEnviarActaPapeleray from './ConfirmacionEnviarActaPapeleray';
+import { useAdminUsuarios } from '../../hooks/useAdminUsuarios';
 const api = new APICore();
 const DashboardContext = createContext();
 const DashboardProvider = ({ children }) => {
-
+  const {verificarPermiso} = useAdminUsuarios()
   const [tipo, setitemsMenuPrincipal] = useState('/dashboard/');
   const [itemUrl, setitemsUrl] = useState('');
   const [itemsQuery, setItemsQuery] = useState([]);
@@ -140,11 +141,8 @@ const AdvertenciaLocalStorage = () => {
     //ELEIMINAR REGISTRO
     const eliminar = useCallback(
       (cel) => {
-          let permiso = sessionStorage.getItem('PERMISO');
-          //let userInfo = sessionStorage.getItem('hyper_user');
-          //const user = JSON.parse(userInfo);
-          const localPermiso = JSON.parse(permiso);
-          if (localPermiso.delete) {
+
+
               const estrategiaConfirmacion = new ConfirmacionEnviarActaPapeleray();
               estrategiaConfirmacion.confirmar(cel, (cel) => {
                   const url = `accion=${btoa(itemUrl)}&tipo=${btoa(tipo)}&opcion=${btoa('delete')}'&id=${btoa(cel)}`;
@@ -158,9 +156,7 @@ const AdvertenciaLocalStorage = () => {
                           setTimeout(function () {}, 5000);
                       });
               });
-          } else {
-              Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
-          }
+
       },
       [itemUrl,tipo]
   );

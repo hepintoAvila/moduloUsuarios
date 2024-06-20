@@ -4,10 +4,11 @@ import React, { useContext } from "react";
 
 import BtnActions from "../../../components/BtnActions";
 import { DashboardContext } from "../../../../../layouts/context/DashboardContext";
+import { useAdminUsuarios } from "../../../../../hooks/useAdminUsuarios";
 
 const BtnActas = (props) => {
 
-
+  const {verificarPermiso} = useAdminUsuarios()
   const descripcionbtnaction = props?.obj?.descripcionbtnaction || '';
 
   const { selectedItemsConsolidados, toggleItemConsolidados } = useContext(DashboardContext);
@@ -24,7 +25,7 @@ const BtnActas = (props) => {
         <Pagination className="pagination-rounded mx-auto" size="sm">
           <Pagination.Item>
 
-                <BtnActions
+          {verificarPermiso('Actas',"update") ?<BtnActions
                   permisos={'S'}
                   key={`EDITAR_${props?.obj?.key}`}
                   toggleActions={props?.obj?.toggleSignUp}
@@ -32,11 +33,11 @@ const BtnActas = (props) => {
                   titulo={'EDITAR'}
                   descripcion={`Editar ${descripcionbtnaction}`}
                   icon={'mdi mdi-square-edit-outline'}
-                />
+                />:''}
           </Pagination.Item>
 
           <Pagination.Item>
-             <BtnActions
+          {verificarPermiso('Actas',"query") ?<BtnActions
                   permisos={'S'}
                   key={`SOLICITUDES${props?.obj?.key}`}
                   toggleActions={props?.obj?.listarEstudiante}
@@ -45,10 +46,10 @@ const BtnActas = (props) => {
                   descripcion={`Asignar Solicitudes de casos al acta del comite`}
                   icon={'mdi mdi-account-alert'}
 
-                />
+                />:''}
           </Pagination.Item>
           <Pagination.Item>
-             <BtnActions
+          {verificarPermiso('Actas',"add") ?<BtnActions
                   permisos={'S'}
                   key={`ASIGNADOS${props?.obj?.key}`}
                   toggleActions={props?.obj?.listarEstudiante}
@@ -56,11 +57,10 @@ const BtnActas = (props) => {
                   titulo={'ASIGNADOS'}
                   descripcion={`Listado de Solicitudes asignadas al acta del comite`}
                   icon={'mdi mdi-account-check-outline'}
-
-                />
+                />:''}
           </Pagination.Item>
           <Pagination.Item>
-             <BtnActions
+          {verificarPermiso('Actas',"query") ?<BtnActions
                   permisos={'S'}
                   key={`ASISTENCIAS${props?.obj?.key}`}
                   toggleActions={props?.obj?.registrarAsistentes}
@@ -68,13 +68,12 @@ const BtnActas = (props) => {
                   titulo={'ASISTENCIAS'}
                   descripcion={`Registro de Asistencia y Aprobación del Acta`}
                   icon={'mdi mdi-account-details'}
-
-                />
+                />:''}
           </Pagination.Item>
           {
       }
           <Pagination.Item>
-             <BtnActions
+          {verificarPermiso('Actas',"delete") ?<BtnActions
                   permisos={'S'}
                   key={`ELIMINAR_${props?.obj?.key}`}
                   toggleActions={props?.obj?.eliminar}
@@ -83,14 +82,14 @@ const BtnActas = (props) => {
                   descripcion={`Eliminar ${descripcionbtnaction}`}
                   icon={'mdi mdi-delete'}
 
-                />
+                />:''}
           </Pagination.Item>
           <Pagination.Item>
-            <input
+          {verificarPermiso('Actas',"add") ?<input
               type="checkbox"
               checked={selectedItemsConsolidados.includes(props?.obj?.key)}
               onChange={handleCheckboxConsolidados}
-            />
+            />:''}
           </Pagination.Item>
       </Pagination>
       </Row>

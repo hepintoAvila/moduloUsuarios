@@ -4,8 +4,9 @@ import classNames from 'classnames';
 import Spinner from '../../../../components/Spinner';
 import { Suspense } from 'react';
 const loading = () => <div className="text-center"></div>;
-const Spinners = () => {
+const Spinners = ({opcion}) => {
   const sizes = ['xl'];
+  const mensage = opcion ? 'Cargando información...':'Opps: Usted no tiene permisos habilitados';
   return (
     <>
       {sizes.map((size, index) => {
@@ -13,6 +14,9 @@ const Spinners = () => {
 
           <Modal show={true} size={'lg'}>
             <Modal.Body>
+            <Modal.Header closeButton >
+              <h4 className="modal-description">{mensage}</h4>
+            </Modal.Header>
               <div className={classNames('w-100')}>
                 <Spinner className="spinner-border" size={size} />
               </div>

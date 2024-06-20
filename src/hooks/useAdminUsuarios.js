@@ -11,6 +11,26 @@ export const useAdminUsuarios = () => {
   const [itemsAdminUsuarios, setAdminUsuarios] = useState([]);
   const [itemsRoles, setRoles] = useState([]);
 
+  function verificarPermiso(menuSubmenu, permiso) {
+    const dataInLocalStorage = sessionStorage.getItem('PERMISO_ALL');
+    const objArray = dataInLocalStorage ? JSON.parse(dataInLocalStorage) : [];
+    // Recorrer el array de objetos
+    for (let i = 0; i < objArray.length; i++) {
+        const objeto = objArray[i];
+
+        // Verificar si el campo 'menu' o 'submenu' coincide con el valor proporcionado
+        if (objeto.menu === menuSubmenu || objeto.submenu === menuSubmenu) {
+            // Verificar que el permiso especificado sea 'S'
+            const permisoCumplido = objeto[permiso] === 'S';
+            // Retornar verdadero si el permiso está permitido
+            if (permisoCumplido) {
+                return true;
+            }
+        }
+    }
+    // Retornar falso si no se encuentra ningún objeto con el permiso
+    return false;
+}
   //QUERY DE RESPUSTA DE CONSULTAS
   const query = useCallback((itemUrl, tipo, opcion) => {
     setLoading(true);
@@ -65,7 +85,7 @@ export const useAdminUsuarios = () => {
       isLoading,
       itemsAdminUsuarios,
       itemsRoles,
-
+      verificarPermiso
     }
   )
 }

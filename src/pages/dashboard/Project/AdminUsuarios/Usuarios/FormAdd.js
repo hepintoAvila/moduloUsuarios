@@ -1,6 +1,7 @@
 import React, {  useContext } from 'react';
 import Fields from './Fields';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
+
 /* custon FormAdd */
 const FormAdd = (props) => {
 
@@ -10,7 +11,7 @@ const FormAdd = (props) => {
   const roles = JSON.parse(role);
   let userInfo = sessionStorage.getItem('hyper_user');
   const user = JSON.parse(userInfo);
- 
+
   return (
     <React.Fragment>
       <Fields

@@ -4,8 +4,6 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 import Fields from './Fields';
 const FormUpdate = (props) => {
   const { itemUrl, tipo,itemsUpdate, } = useContext(DashboardContext);
-
-
   return (
   <React.Fragment>
       <Fields

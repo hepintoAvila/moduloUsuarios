@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // @flow
 
+import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
 import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 import MenuPrincipal from './MenuPrincipal/MenuPrincipal';
 
 const GestionMenu = (props) => {
-  const permisos = props?.permisos || {};
+  const {verificarPermiso} = useAdminUsuarios()
   return (
     <>
       {(() => {
         switch (props?.tipo) {
           case 'Menus':
             return <>
-              {permisos?.query?.length === 1 ?
+              {verificarPermiso('Menus',"query") ?
                 (<MenuPrincipal
                   accion={'MenuPrincipal'}
                   tipo={props.tipo}
-                  permisos={props.permisos}
-                /> ): <PermisoAlert menssage={'Usted no tiene permiso de consulta'}/>}
+                /> ):<PermisoAlert opcion={verificarPermiso('Menus',"query")}/>}
             </>
           default:
             return (

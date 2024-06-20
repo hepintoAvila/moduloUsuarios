@@ -25,6 +25,8 @@ import PdfDropdown from './Componentes/PdfDropdown/PdfDropdown'
 import ExcelGenerator from './Componentes/ExcelGenerator';
 import ViewPdf from './Componentes/ViewPdf';
 import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
+import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
+import Spinner from '../../../../components/Spinner';
 
 
 
@@ -44,7 +46,7 @@ const ActionColumn = ({ row }) => {
     setOpcionBusqueda,
     setObjActas
   } = useContext(DashboardContext);
-
+  const {verificarPermiso} = useAdminUsuarios()
   const toggleSignUp = (id) => {
     const objActas = {
       id      : row.cells[0].row.values.idActa,
@@ -55,9 +57,8 @@ const ActionColumn = ({ row }) => {
       nombre     : row.cells[0].row.values.nombre,
      }
 
-    let permiso = sessionStorage.getItem('PERMISO');
-    const localPermiso = JSON.parse(permiso);
-    if (localPermiso?.update === 'S') {
+
+    if (verificarPermiso('Actas',"update")) {
 
       if (row.cells[0].row.values.idActa === id)
 
@@ -82,9 +83,8 @@ const ActionColumn = ({ row }) => {
       nombre     : row.cells[0].row.values.nombre,
      }
 
-    let permiso = sessionStorage.getItem('PERMISO');
-    const localPermiso = JSON.parse(permiso);
-    if (localPermiso?.update === 'S') {
+
+    if (verificarPermiso('Actas',"update")) {
       if (row.cells[0].row.values.idActa === id) {
       setItemsUpdate(id);
       setOpen(!open);
@@ -109,9 +109,8 @@ const ActionColumn = ({ row }) => {
       idActa     : row.cells[0].row.values.idActa,
       nombre     : row.cells[0].row.values.nombre,
      }
-    let permiso = sessionStorage.getItem('PERMISO');
-    const localPermiso = JSON.parse(permiso);
-    if (localPermiso?.update === 'S') {
+
+    if (verificarPermiso('Actas',"update")) {
       if (row.cells[0].row.values.idActa === id) {
       setItemsUpdate(id);
       setOpen(!open);
@@ -126,15 +125,13 @@ const ActionColumn = ({ row }) => {
     }
 
    };
-  let permiso = sessionStorage.getItem('PERMISO');
-  const localPermiso = JSON.parse(permiso);
+
   const isbtnLink = 'S';
   const obj = {
     open,
     toggleSignUp,
     listarEstudiante,
     registrarAsistentes,
-    localPermiso,
     validated,
     key: row.cells[0].value,
     row: row.cells[0].value,
@@ -150,7 +147,7 @@ const ActionColumn = ({ row }) => {
 };
 const Actas = (props) => {
 
-  const permisos = props?.permisos || {};
+  const {verificarPermiso} = useAdminUsuarios()
   const {
     validated, setDropdownImprimir,urlpdf,
     objActas,setOpcion, opcion, itemsUpdate,opcionBusqueda,
@@ -168,7 +165,6 @@ const Actas = (props) => {
     setDropdownImprimir(false)
     setSignUpModalAdd(false);
     query('ModuloActas', 'actas', [{ opcion: btoa('listActas'), obj: 'actas' }]);
-   //return window.location.hash =  `#/dashboard/ModuloActas/Actas?p=${e}`;
   }
   const imprimeConsolidado = () => {
      setOpen(!open);
@@ -213,7 +209,7 @@ const Actas = (props) => {
   ];
   const toggleSignUp = () => {
     setOpcion('add');
-    { permisos?.add === 'S' ? setSignUpModalAdd(!signUpModalAdd) : Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION') }
+    { verificarPermiso('Actas',"add")  ? setSignUpModalAdd(!signUpModalAdd) : Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION') }
 
   };
 
@@ -264,10 +260,6 @@ const Actas = (props) => {
         compromisos:decodeHTMLEntities(conseptos[0]?.compromisos),
     }));
   }, []);
-
-
-
-
   return (
     <>
 
@@ -286,7 +278,6 @@ const Actas = (props) => {
                           <Col sm={11}>
                           <Row>
                            <div className="editTitulos">{mensajeModal}</div>
-
                           </Row>
                           <Row>
                           {opcion !== 'Consolidado' ?
@@ -359,50 +350,49 @@ const Actas = (props) => {
                             </Col>
                         </Row>
                         </Modal.Header>
-
-
                         <Modal.Body>
                             {(() => {
                               switch (opcion) {
                                 case 'update':
                                   window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
                                 return <React.Fragment>
-
-                                    <FormUpdate
+                                    {verificarPermiso('Actas',"update") ? (
+                                      <FormUpdate
                                       idAprendiz={itemsUpdate}
                                       title={`FORMULARIO PARA LA EDICION DE ${props?.tipo?.toUpperCase()}`}
                                       validated={validated}
-                                    />
+                                    />) :<PermisoAlert opcion={verificarPermiso('Actas',"update")}/>}
                                   </React.Fragment>
-
                                 case 'add':
                                 return <React.Fragment>
-                                    <FormAdd
+                                    {verificarPermiso('Actas',"add") ? ( <FormAdd
                                       title={`REGISTRAR ${props?.tipo?.toUpperCase()}`}
                                       validated={validated}
-                                    />
+                                    />) :<PermisoAlert opcion={verificarPermiso('Actas',"add")}/>}
                                   </React.Fragment>
                                      case 'solicitudes':
                                       window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
                                      return <React.Fragment>
-                                         <Solicitudes
+                                         {verificarPermiso('Actas',"query") ? (
+                                          <Solicitudes
                                          opcionBusqueda={opcionBusqueda}
                                            title={`Asignar ${props?.tipo?.toUpperCase()}`}
                                            validated={validated}
-                                         />
+                                         />) :<PermisoAlert opcion={verificarPermiso('Actas',"query")}/>}
                                        </React.Fragment>
                                    case 'Actas':
                                     window.location.hash = `#/dashboard/ModuloActas/Actas?p=${itemsUpdate}`;
                                    return  <React.Fragment>
                                    {objConceptos ? (
-                                     <AdministradorActas
-                                       accion="ModuloActas"
-                                       tipo={props?.tipo}
-                                       permisos={permisos}
-                                       idActa={itemsUpdate}
-                                       idSolicitud={idSolicitud}
-                                       objConceptos={objConceptos}
-                                     />
+                                      verificarPermiso('Actas',"query") ? (
+                                         <AdministradorActas
+                                        accion="ModuloActas"
+                                        tipo={props?.tipo}
+                                        idActa={itemsUpdate}
+                                        idSolicitud={idSolicitud}
+                                        objConceptos={objConceptos}
+                                     />) :<PermisoAlert opcion={verificarPermiso('Actas',"query")}/>
+
                                    ) : (
                                     <PermisoAlert />
                                    )}
@@ -413,7 +403,6 @@ const Actas = (props) => {
                                        <FieldAsistencia
                                           accion={'ModuloActas'}
                                           tipo={props?.tipo}
-                                          permisos={permisos}
                                           idActa={itemsUpdate}
                                         />
                                        </React.Fragment>
@@ -423,10 +412,8 @@ const Actas = (props) => {
                                        <ExcelGenerator
                                           accion={'ModuloActas'}
                                           tipo={props?.tipo}
-                                          permisos={permisos}
                                           idActa={itemsUpdate}
                                           selectedItems={selectedItemsConsolidados}
-
                                         />
                                        </React.Fragment>
                                        case 'Imprimir':
@@ -438,7 +425,6 @@ const Actas = (props) => {
                                                  accion={'ModuloActas'}
                                                  url={urlpdf}
                                                  tipo={props?.tipo}
-                                                 permisos={permisos}
                                                  idActa={itemsUpdate}
                                              />
                                           }
@@ -462,7 +448,6 @@ const Actas = (props) => {
                 </Col>
               </Row>
               {datos?.length > 0 ?
-
                <>
                <div className="text-sm-end"><Button className="btn btn-success mb-2 me-1 btn-grid-actas" onClick={toggleSignUp}>
                     <i className="mdi mdi-account-plus"> Agregar Acta</i>
@@ -470,8 +455,8 @@ const Actas = (props) => {
                    { selectedItemsConsolidados?.length>0 ?<Button className="btn btn-success mb-2 me-1 btn-grid-consolidado" onClick={()=>imprimeConsolidado()}>
                       <i className="mdi mdi-account-plus" >Consolidado</i>
                     </Button>:''}
-                  </div>
-               <Table
+               </div>
+               {verificarPermiso('Actas',"query") ?  <Table
                   columns={columns}
                   data={datos}
                   pageSize={25}
@@ -484,9 +469,10 @@ const Actas = (props) => {
                   isVisible={true}
                   nametable={props.accion}
                   titulo={'LISTADO DE ACTAS REGISTRADAS'}
-                  permisos={permisos}
-                  icons={'dripicons-user'} /></>
-                : <PermisoAlert />}
+                  icons={'dripicons-user'} />
+                 :<PermisoAlert opcion={verificarPermiso('add',"update")}/>}
+                </>
+            :<Spinner />};
             </Card.Body>
           </Card>
         </Col>

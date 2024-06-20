@@ -13,14 +13,15 @@ import ModuloActas from '../ModuloActas';
 
 //Context
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-import { usePermisos } from '../../../../../hooks/usePermisos';
+
 import AdministradorActas from '../AdministradorActas/AdministradorActas';
+import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 
 const MenuModuloPrincipal= () => {
   const { tipo, AdvertenciaLocalStorage, itemUrl,setitemsMenuPrincipal,setitemsUrl } = useContext(DashboardContext)
 
   AdvertenciaLocalStorage();
-  const { permisos, initPermiso } = usePermisos(tipo);
+  const {verificarPermiso} = useAdminUsuarios()
 
   const handleClick = (url,nivel) => {
    if(url?.length>0){
@@ -53,73 +54,67 @@ const MenuModuloPrincipal= () => {
         switch (itemUrl) {
           case 'AdminUsuarios':
             return <React.Fragment>
-              {initPermiso === 1 ?
-                (<AdminUsuarios
+                {verificarPermiso('Usuarios',"query") ? (<AdminUsuarios
                   accion={itemUrl}
                   tipo={tipo}
-                  permisos={permisos}
-                />) : <PermisoAlert menssage={'Cargando...'}/>}
+               />) :<PermisoAlert opcion={verificarPermiso('Usuarios',"query")}/>}
             </React.Fragment>
           case 'GestionMenu':
             return <React.Fragment>
-              {initPermiso === 1 ?
-                (<GestionMenu
+              {verificarPermiso('Menus',"query") ? (<GestionMenu
                   accion={itemUrl}
                   tipo={tipo}
-                  permisos={permisos}
-                />) : <PermisoAlert menssage={'Cargando...'} />}
+                 />) :<PermisoAlert opcion={verificarPermiso('Menus',"query")}/>}
             </React.Fragment>
           case 'ModuloSolicitudComite':
             return <React.Fragment>
                 <ModuloSolicitudComite
                   accion={itemUrl}
                   tipo={tipo}
-                  permisos={permisos}
                   handleClick={handleClick}
                 />
             </React.Fragment>
            case 'ModuloNotificaciones':
             return <React.Fragment>
-                <ModuloNotificaciones
+                 {verificarPermiso('ConsultaNotificaciones',"query") ? (<ModuloNotificaciones
                   accion={itemUrl}
                   tipo={tipo}
-                  permisos={permisos}
                   handleClick={handleClick}
-                />
+                />) :<PermisoAlert opcion={verificarPermiso('ConsultaNotificaciones',"query")}/>}
             </React.Fragment>
+            /*
             case 'AdministradorActas':
               return <React.Fragment>
-                  <AdministradorActas
+                  {verificarPermiso('Actas',"query") ? <AdministradorActas
                     accion={itemUrl}
                     tipo={tipo}
-                    permisos={permisos}
                     handleClick={handleClick}
-                  />
+                  /> :<PermisoAlert opcion={verificarPermiso('Actas',"query")}/>}
               </React.Fragment>
+            */
                case 'ModuloAprendiz':
                 return <React.Fragment>
-                    <ModuloAprendiz
+                    {verificarPermiso('Aprendiz',"query") ? (
+                      <ModuloAprendiz
                       accion={itemUrl}
                       tipo={tipo}
-                      permisos={permisos}
                       handleClick={handleClick}
-                    />
+                    />) :<PermisoAlert opcion={verificarPermiso('Aprendiz',"query")}/>}
                 </React.Fragment>
                case 'ModuloActas':
                 return <React.Fragment>
-                    <ModuloActas
+                    {verificarPermiso('Aprendiz',"query") ? ( <ModuloActas
                       accion={itemUrl}
                       tipo={tipo}
-                      permisos={permisos}
                       handleClick={handleClick}
-                    />
+                    />) :<PermisoAlert opcion={verificarPermiso('Aprendiz',"query")}/>}
                 </React.Fragment>
                case 'CambiarPassword':
                 return <React.Fragment>
                     <CambiarPassword
                       accion={itemUrl}
                       tipo={tipo}
-                      permisos={permisos}
+
                     />
                 </React.Fragment>
 

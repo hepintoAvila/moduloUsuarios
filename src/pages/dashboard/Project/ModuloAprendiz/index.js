@@ -2,30 +2,26 @@
 /* eslint-disable no-unreachable */
 import React, { useContext } from 'react';
 import { DashboardContext } from '../../../../layouts/context/DashboardContext';
-import { usePermisos } from '../../../../hooks/usePermisos';
 //import Navbar from '../../components/Navbar';
 import Aprendiz from './Aprendiz/Aprendiz'
 import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
+import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
+import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 
 
 const ModuloAprendiz = () => {
-
+  const {verificarPermiso} = useAdminUsuarios()
   const { tipo,itemUrl } = useContext(DashboardContext)
-
-  const { permisos } = usePermisos(tipo);
-
   return (
     <React.Fragment>
-
       {(() => {
         switch (tipo) {
           case 'Aprendiz':
             return <React.Fragment>
-              <Aprendiz
+             {verificarPermiso('Aprendiz',"query") ? <Aprendiz
                   accion={itemUrl}
                   tipo={tipo}
-                  permisos={permisos}
-                />
+                />:<PermisoAlert opcion={verificarPermiso('Aprendiz',"query")}/>}
             </React.Fragment>
           default:
             return (

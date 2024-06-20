@@ -13,6 +13,8 @@ import { NotificacionesContext } from '../../../../layouts/context/Notificacione
 import Swal from 'sweetalert2';
 import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
+import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
+import Spinner from '../../../../components/Spinner';
 
 
 
@@ -31,6 +33,7 @@ const ActionColumn = ({ row }) => {
 };
 
 const ConsultaNotificaciones = (props) => {
+  const {verificarPermiso} = useAdminUsuarios()
   const [sinAgendar, setSinAgendar] = useState([]);
   const [agendada, setAgendada] = useState([]);
   const tabContents = [
@@ -153,13 +156,6 @@ const ConsultaNotificaciones = (props) => {
       Swal.fire('No tiene items seleccionado');
     }
   };
-/*
-  useEffect(() => {
-    if(selectedItemsConsolidados.length>0){
-      //localStorage.setItem('idsIncidentes', JSON.stringify(selectedItemsConsolidados));
-    }
-}, [selectedItemsConsolidados]);
-*/
 
 
   return (
@@ -189,11 +185,8 @@ const ConsultaNotificaciones = (props) => {
                             case 0:
                               return (
                                 <>
-
-                                    <Col lg={12}>
-
+                                   <Col lg={12}>
                                       {sinAgendar?.length > 0 ? (
-
                                         <><Table
                                           columns={columnsAgendar}
                                           data={sinAgendar}
@@ -206,9 +199,9 @@ const ConsultaNotificaciones = (props) => {
                                           isSearchable={true}
                                           nametable={'table_2'}
                                           titleTable={'LISTADO DE NOTIFICACIONES'} />
-                                  {<Button variant="primary" type="submit" onClick={adjuntarLocalstore} className="btnenagendar">AGENDAR</Button>}</>
+                                          {verificarPermiso('ConsultaNotificaciones',"add") ? <Button variant="primary" type="submit" onClick={adjuntarLocalstore} className="btnenagendar">AGENDAR</Button>:''}</>
                                       ) : (
-                                        <PermisoAlert />
+                                        <Spinner />
                                       )}
                                     </Col>
                                  </>
@@ -232,7 +225,7 @@ const ConsultaNotificaciones = (props) => {
                                         titleTable={'LISTADO DE NOTIFICACIONES'}
                                       />
                                     ) : (
-                                      <PermisoAlert />
+                                      <Spinner />
                                     )}
                                   </Col>
                                 </Row>

@@ -4,25 +4,7 @@ import Fields from './Fields';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 /* custon FormAdd */
 const FormAdd = (props) => {
-
   const { itemUrl, tipo,itemsUpdate } = useContext(DashboardContext);
-  /*
-  let permiso = sessionStorage.getItem('Categorias');
-  const TipoCategoria = JSON.parse(permiso);
-  let Permisos = [];
-  const obj ={
-    value:'0',
-    label:'Registrar como nueva Categoria'
-  }
-  Permisos.push(obj)
-  TipoCategoria?.map((row, i) =>{
-          const obj ={
-            value:row.id,
-            label:row.Categoria
-          }
-          Permisos.push(obj)
-      })
-      */
   return (
     <React.Fragment>
       <Fields

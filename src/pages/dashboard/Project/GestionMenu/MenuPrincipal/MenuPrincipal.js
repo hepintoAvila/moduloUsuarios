@@ -11,58 +11,11 @@ import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 import Table from '../../../../../components/Table';
 
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
- /*
-const ActionColumn = ({ row }) => {
+import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 
-  const {
-    eliminar,
-    validated,
-    toggle,
-    setOpen,
-    setItemsUpdate,
-    open, tipo
-  } = useContext(DashboardContext);
-   const toggleSignUp = (id) => {
-    let permiso = sessionStorage.getItem('PERMISO');
-    const localPermiso = JSON.parse(permiso);
-    if (localPermiso?.update === 'S') {
-
-      if(row.cells[0].row.values.id===id)
-      setItemsUpdate(row?.cells[0]?.row?.values)
-      setOpen(open);
-      toggle()
-    } else {
-      Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
-    }
-  };
-
-  let permiso = sessionStorage.getItem('PERMISO');
-  const localPermiso = JSON.parse(permiso);
-  const obj = {
-    open,
-    toggleSignUp,
-    localPermiso,
-    validated,
-    key:row.cells[0].value,
-    row:row.cells[0].value,
-    eliminar,
-  }
-  return (
-    <React.Fragment>
-      <BtnSeccionAction obj={obj}>
-      <FormUpdate
-          title={`FORMULARIO PARA LA EDICION DE ${tipo?.toUpperCase()}`}
-          validated={validated}
-        />
-        </BtnSeccionAction>
-    </React.Fragment>
-  );
-};
-*/
 const MenuPrincipal = (props) => {
   const {itemsEditerMenu,query} = useGestionMenu()
-  const permisos = props.permisos || {};
-
+  const {verificarPermiso} = useAdminUsuarios()
   const {
     sizePerPageList,
     setSignUpModalAdd,
@@ -111,7 +64,7 @@ const MenuPrincipal = (props) => {
       <Row>
         <Col>
             <Card.Body>
-              {datos?.length > 0 && permisos?.query === 'S' ? (<Table
+              {verificarPermiso('Menus',"query") ? (<Table
                     columns={columns}
                     data={datos}
                     pageSize={5}
@@ -122,7 +75,7 @@ const MenuPrincipal = (props) => {
                     searchBoxClass="mt-0 mb-1"
                     isSearchable={true}
                     nametable={props.accion}
-              />) : <PermisoAlert />}
+              />) :<PermisoAlert opcion={verificarPermiso('Menus',"query")}/>}
             </Card.Body>
         </Col>
       </Row>
@@ -136,10 +89,10 @@ const MenuPrincipal = (props) => {
                 <Modal.Header closeButton>
                     <h4 className="modal-description">GESTIONAR USUARIOS</h4>
                   </Modal.Header>
-                  <FormAdd
+                  {verificarPermiso('Menus',"add") ?<FormAdd
                     title={`GESTIONAR USUARIOS`}
                     validated={validated}
-                  />
+                  /> :<PermisoAlert opcion={verificarPermiso('Menus',"query")}/>}
                 </Modal.Body>
               </Modal>
 

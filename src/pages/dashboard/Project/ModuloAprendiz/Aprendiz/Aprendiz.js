@@ -16,6 +16,7 @@ import FormAdd from './FormAdd';
 import FormUpdate from './FormUpdate';
 import FormSanciones from './FormSanciones';
 import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
+import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 //import BtnActualizarAprendiz from '../../../components/BtnActualizarAprendiz/BtnActualizarAprendiz';
 /*
 const ActionColumn = ({ row }) => {
@@ -90,11 +91,12 @@ const ActionColumn = ({ row }) => {
 };
 */
 const Aprendiz = (props) => {
+  const {verificarPermiso} = useAdminUsuarios()
   const {
     setOpcion, opcion, itemsUpdate
   } = useContext(DashboardContext);
 
-  const permisos = props?.permisos || {};
+
   const {
     validated,
     signUpModalAdd, setSignUpModalAdd,
@@ -142,7 +144,7 @@ const Aprendiz = (props) => {
   ];
   const toggleSignUp = () => {
     setOpcion('add');
-    { permisos?.add === 'S' ? setSignUpModalAdd(!signUpModalAdd) : Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION') }
+    {verificarPermiso('Aprendiz',"add") ?  setSignUpModalAdd(!signUpModalAdd) : Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION') }
 
   };
 
@@ -269,7 +271,6 @@ const Aprendiz = (props) => {
                   isVisible={true}
                   nametable={props.accion}
                   titulo={'LISTADO DE APRENDIZES REGISTRADOS'}
-                  permisos={permisos}
                   icons={'dripicons-user'}
                 />
                 : <PermisoAlert />}

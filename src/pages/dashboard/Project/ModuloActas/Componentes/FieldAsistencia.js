@@ -4,10 +4,12 @@ import ListAsistentes from './ListAsistentes';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { Row, Col, Card, Tab, Nav } from 'react-bootstrap';
 import classnames from 'classnames';
+import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
+import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
 
 
 const FieldAsistencia = (props) => {
-
+  const {verificarPermiso} = useAdminUsuarios()
   const { itemUrl, tipo } = useContext(DashboardContext);
 
 
@@ -66,7 +68,7 @@ const FieldAsistencia = (props) => {
                                   <>
                                     <Row>
                                       <Col lg={12}>
-                                        <FormAsistencia
+                                      {verificarPermiso('Actas',"query") ? <FormAsistencia
                                           opcionBusqueda={props.opcionBusqueda}
                                           accion={itemUrl}
                                           tipo={tipo}
@@ -76,7 +78,7 @@ const FieldAsistencia = (props) => {
                                           textBtn={'Registrar solicitudes'}
                                           entidad={user[0]?.entidad}
                                           idActa={props.idActa}
-                                        />
+                                        /> :<PermisoAlert opcion={verificarPermiso('Actas',"query")}/>}
                                       </Col>
                                     </Row>
                                   </>);
@@ -84,7 +86,7 @@ const FieldAsistencia = (props) => {
                                 return (
                                   <Row>
                                     <Col sm="12">
-                                    <ListAsistentes
+                                    {verificarPermiso('Actas',"add") ?  <ListAsistentes
                                           opcionBusqueda={props.opcionBusqueda}
                                           accion={itemUrl}
                                           tipo={tipo}
@@ -94,7 +96,7 @@ const FieldAsistencia = (props) => {
                                           textBtn={'Registrar solicitudes'}
                                           entidad={user[0]?.entidad}
                                           idActa={props.idActa}
-                                        />
+                                        />:<PermisoAlert opcion={verificarPermiso('Actas',"add")}/>}
                                     </Col>
                                   </Row>
                                 );
