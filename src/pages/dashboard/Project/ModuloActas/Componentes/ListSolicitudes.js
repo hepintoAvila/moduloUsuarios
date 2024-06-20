@@ -10,10 +10,11 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 import BtnSeccionAction from './BtnSeccionAction';
-import PermisoAlert from '../../../components/PermisoAlert/PermisoAlert';
+import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
+import Spinner from '../../../../../components/Spinner';
 
 const ActionColumnAgendada = ({ row }) => {
-
+  const {verificarPermiso} = useAdminUsuarios()
 
   const {
     isChecked, isCheckedItem,
@@ -24,10 +25,8 @@ const ActionColumnAgendada = ({ row }) => {
 
   const toggleSignUp = (id) => {
      const objDatosAprendiz = {aprendiz:row.cells[0].row.values.aprendiz }
-    let permiso = sessionStorage.getItem('PERMISO');
 
-    const localPermiso = JSON.parse(permiso);
-    if (localPermiso?.update === 'S') {
+    if (verificarPermiso('Actas',"add")) {
 
       if (row.cells[0].row.values.id === id)
       setIdSolicitud(id);
@@ -39,13 +38,11 @@ const ActionColumnAgendada = ({ row }) => {
       Swal.fire('USTED NO TIENE PERMISOS HABILITADOS PARA ESTA OPCION');
     }
   };
-  let permiso = sessionStorage.getItem('PERMISO');
-  const localPermiso = JSON.parse(permiso);
+
   const obj = {
     toggleSignUp,
     isChecked,
     isCheckedItem,
-    localPermiso,
     validated,
     key: row.cells[0].value,
     row: row.cells[0].value,
@@ -153,7 +150,6 @@ const ListSolicitudes = (props): React$Element<React$FragmentType> => {
 
   }, [query,props.opcionBusqueda])
 
-console.log('datos',props.opcionBusqueda)
   return (
     <>
       <Row>
@@ -170,7 +166,7 @@ console.log('datos',props.opcionBusqueda)
             isSearchable={true}
             nametable={'table_1'}
             titleTable={'LISTADO DE NOTIFICACIONES'}
-          />:'Cargando...'}
+          />:<Spinner/>}
         </Col>
       </Row>
 

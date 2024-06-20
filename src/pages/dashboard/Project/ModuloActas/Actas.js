@@ -472,7 +472,7 @@ const Actas = (props) => {
                   icons={'dripicons-user'} />
                  :<PermisoAlert opcion={verificarPermiso('add',"update")}/>}
                 </>
-            :<Spinner />};
+            :<Spinner />}
             </Card.Body>
           </Card>
         </Col>

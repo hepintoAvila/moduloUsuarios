@@ -13,8 +13,6 @@ import ModuloActas from '../ModuloActas';
 
 //Context
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
-
-import AdministradorActas from '../AdministradorActas/AdministradorActas';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 
 const MenuModuloPrincipal= () => {
