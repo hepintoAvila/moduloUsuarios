@@ -15,6 +15,7 @@ import ModuloActas from '../ModuloActas';
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import Auditoria from '../../ModuloAuditoria/Auditoria';
+import ModuloReportes from '../../ModuloReportes';
 
 const MenuModuloPrincipal= () => {
   const { tipo, AdvertenciaLocalStorage, itemUrl,setitemsMenuPrincipal,setitemsUrl } = useContext(DashboardContext)
@@ -113,6 +114,13 @@ const MenuModuloPrincipal= () => {
                       accion={itemUrl}
                       tipo={tipo}
 
+                    />
+                </React.Fragment>
+                case 'ModuloReportes':
+                return <React.Fragment>
+                    <ModuloReportes
+                      accion={itemUrl}
+                      tipo={tipo}
                     />
                 </React.Fragment>
 
