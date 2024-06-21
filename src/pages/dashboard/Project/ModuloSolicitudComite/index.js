@@ -7,11 +7,14 @@ import ConsultarIncidente from './ConsultarIncidente/ConsultarIncidente';
 import CarHistorialIncidencias from './ConsultarIncidente/CarHistorialIncidencias';
 import ConsultarAprendiz from './ConsultarIncidente/ConsultarAprendiz';
 import LogoSena from './Components/LogoSena';
+import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
+import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
 
 
 
 
 const ModuloSolicitudComite = (props) => {
+  const {verificarPermiso} = useAdminUsuarios()
   return (
     <React.Fragment>
 
@@ -19,7 +22,8 @@ const ModuloSolicitudComite = (props) => {
         switch (props.tipo) {
           case 'ModuloSolicitudComite':
             return <React.Fragment>
-              <MenuSegundo handleClick={props.handleClick}/>
+              {verificarPermiso('ModuloSolicitudComite',"query") ? (
+                <MenuSegundo handleClick={props.handleClick}/>) :<PermisoAlert opcion={verificarPermiso('ModuloSolicitudComite',"query")}/>}
             </React.Fragment>
            case 'EnviarSolicitud':
             return <React.Fragment>

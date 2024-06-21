@@ -83,7 +83,7 @@ const Roles = (props) => {
     , {
       Header: 'rol',
       accessor: 'rol',
-      sort: false,
+      sort: true,
     }, {
       Header: 'Consulta',
       accessor: 'c',
