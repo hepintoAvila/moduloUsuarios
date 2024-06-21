@@ -5,12 +5,14 @@ import { DashboardContext } from '../../../../layouts/context/DashboardContext';
 import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
 import BuscadorFecha from './Components/BuscadorFecha';
 
+import SolicitudesGraficas from './SolicitudesGraficas';
+
 //import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 
 
 const ModuloReportes = () => {
  // const {verificarPermiso} = useAdminUsuarios()
-  const { tipo,itemUrl } = useContext(DashboardContext)
+  const { tipo,itemUrl} = useContext(DashboardContext)
   return (
     <React.Fragment>
       {(() => {
@@ -18,6 +20,10 @@ const ModuloReportes = () => {
           case 'ReportesComite':
             return <React.Fragment>
               <BuscadorFecha/>
+              <SolicitudesGraficas
+                  accion={itemUrl}
+                  tipo={tipo}
+                />
               {'xxx'}
               {
                 /*

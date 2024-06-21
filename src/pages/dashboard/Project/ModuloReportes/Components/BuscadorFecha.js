@@ -1,41 +1,53 @@
+/* eslint-disable no-undef */
 import React,{useState,memo} from 'react';
 import { Alert, Button,Form } from 'react-bootstrap';
 import classnames from 'classnames';
 import FormInput from '../../../components/FormInput';
+import { useReportes } from '../../../../../hooks/useReportes';
+import Swal from 'sweetalert2';
+import Spinner from '../../../../../components/Spinner';
 //import Swal from 'sweetalert2';
 // components
 
 const BuscadorFecha = (props) => {
   const [validated, setValidated] = useState(false);
-
+  const [items, setItems] = useState([]);
+  const {queryReporte,isLoading} = useReportes();
   /*
    * handle form submission
    */
   const handleSubmit = (event) => {
     event.preventDefault();
-      const form = event.currentTarget;
-      if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-      }else{
-         setValidated(true);
-      }
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      const datosEvent = {
+        ...items,
+          accion: 'ModuloReportes',
+          opcion: 'reportesComite',
+          tipo: 'comite',
+      };
+        setTimeout(function () {
+
+          queryReporte('ModuloReportes', 'reportes', [{obj: 'reportesComite',...datosEvent }]);
+      }, 2000);
+
+    }
+
+    setValidated(true);
+  };
 
 
-  };
-  const onItemSedes = useCallback(
-    (arg, date) => {
-        const items = [];
+  const onItemSelect = (event,opcion) => {
+  const value = event.target.value;
+    setItems(prevState => ({
+      ...prevState,
+      [opcion]: value
+  }));
+};
 
-    },
-    []
-);
-  const onItemInicio = (event) => {
-  console.log('event',event)
-  };
-   const onItemSolicitud = (event) => {
-  console.log('event',event)
-  };
   const arrSolicitud = [{
     value: '1',
     label: 'Agendada'
@@ -64,10 +76,10 @@ const BuscadorFecha = (props) => {
                     id="estado"
                     required
                     onChange={(e) => {
-                      onItemSolicitud(e);
+                      onItemSelect(e,'estado');
                     }}
                     >
-                    <option value='0'>Selecione el estado de la solicitud</option>
+                    <option value='0'>Estado de la solicitud</option>
                     {
                     arrSolicitud?.map((p, i) => {
                       return(
@@ -83,7 +95,7 @@ const BuscadorFecha = (props) => {
                       <Form.Control type="date"
                          label="FechaInicial"
                           defaultValue={''}
-                           onChange={(e) => {(onItemInicio(e))}}
+                           onChange={(e) => {(onItemSelect(e,'FechaInicial'))}}
                              required
                              name="FechaInicial"
                             key="FechaInicial"
@@ -101,7 +113,7 @@ const BuscadorFecha = (props) => {
                     <Form.Control type="date"
                                              label="FechaFinal"
                                              defaultValue={''}
-                                              onChange={(e) => {onItemInicio(e)}}
+                                              onChange={(e) => {onItemSelect(e,'FechaFinal')}}
                                               required
                                               name="FechaFinal"
                                               key="FechaFinal"
@@ -116,9 +128,14 @@ const BuscadorFecha = (props) => {
             <Form.Group className="w-15 p-1">
                 <div className="form-group mb-3">
                     <label className="form-label">{''}</label> <br />
-                    <Button type="submit" variant="success">
-                        Consultar
-                    </Button>
+                    {
+                      isLoading ? <Button type="submit" variant="success">
+                      <Spinner/>
+                  </Button>:<Button type="submit" variant="success">
+                      Consultar
+                  </Button>
+                    }
+
                 </div>
             </Form.Group>
         </Form.Group>

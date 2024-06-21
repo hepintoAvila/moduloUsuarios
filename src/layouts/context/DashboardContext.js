@@ -366,7 +366,7 @@ const jsonConsolidados = useCallback((selectedItems) => {
     .join('&');
 
    getConsolidado(queryDatos)
-    console.log('resp',itemsConsolidados)
+    //console.log('resp',itemsConsolidados)
 
       return itemsConsolidados;
   }else{
