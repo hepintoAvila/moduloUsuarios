@@ -33,6 +33,7 @@ const NotificacionesProvider = ({ children }) => {
     const [activeTab, setActiveTab] = useState('Enviar Solicitud');
     const [openFormAprendiz, setOpenFormAprendiz] = useState(false);
     const [openFormAsistente, setConsultarAsistentes] = useState([]);
+    const [itemsAuditoria, setConsultarAuditoria] = useState([]);
 
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
     const getData = useCallback((queryDatos) => {
@@ -154,7 +155,10 @@ const NotificacionesProvider = ({ children }) => {
                                         case 'ConsultarAsistentes':
                                             setConsultarAsistentes(response);
                                             break;
-                                       ;
+                                            case 'consultarAuditoria':
+                                              setConsultarAuditoria(response);
+                                              break;
+
                                     }
                                 })();
                             }
@@ -183,8 +187,8 @@ const NotificacionesProvider = ({ children }) => {
     }
     function obtenerIdsVerdaderos(array1, array2) {
         const idsVerdaderos = [];
-        console.log('array1',array1);
-        console.log('array2',array2);
+       // console.log('array1',array1);
+       // console.log('array2',array2);
         for (let i = 0; i < array1.length; i++) {
             if (array1[i] === true && array2[i] && array2[i].id_auteur) {
                 idsVerdaderos.push(array2[i].id_auteur);
@@ -346,7 +350,8 @@ const NotificacionesProvider = ({ children }) => {
         setConsultarSolicitudByCodigo,
         openFormAprendiz, setOpenFormAprendiz,
         openFormAsistente,
-
+        itemsAuditoria,
+         setConsultarAuditoria
 
     };
 

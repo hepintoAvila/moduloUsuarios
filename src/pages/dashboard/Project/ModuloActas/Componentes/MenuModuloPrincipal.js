@@ -14,6 +14,7 @@ import ModuloActas from '../ModuloActas';
 //Context
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
+import Auditoria from '../../ModuloAuditoria/Auditoria';
 
 const MenuModuloPrincipal= () => {
   const { tipo, AdvertenciaLocalStorage, itemUrl,setitemsMenuPrincipal,setitemsUrl } = useContext(DashboardContext)
@@ -80,16 +81,15 @@ const MenuModuloPrincipal= () => {
                   handleClick={handleClick}
                 />) :<PermisoAlert opcion={verificarPermiso('ConsultaNotificaciones',"query")}/>}
             </React.Fragment>
-            /*
-            case 'AdministradorActas':
+
+            case 'ModuloAuditor':
               return <React.Fragment>
-                  {verificarPermiso('Actas',"query") ? <AdministradorActas
+                  {verificarPermiso('Auditoria',"query") ? <Auditoria
                     accion={itemUrl}
                     tipo={tipo}
-                    handleClick={handleClick}
-                  /> :<PermisoAlert opcion={verificarPermiso('Actas',"query")}/>}
+                      /> :<PermisoAlert opcion={verificarPermiso('Auditoria',"query")}/>}
               </React.Fragment>
-            */
+
                case 'ModuloAprendiz':
                 return <React.Fragment>
                     {verificarPermiso('Aprendiz',"query") ? (

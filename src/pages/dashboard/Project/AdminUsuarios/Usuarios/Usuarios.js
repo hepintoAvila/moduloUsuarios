@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import { useAdminUsuarios } from '../../../../../hooks/useAdminUsuarios';
 import Table from '../../../components/Table';
 const Usuarios = (props) => {
-  const permisos = props?.permisos || {};
+
   const {itemsAdminUsuarios,query,verificarPermiso} = useAdminUsuarios()
   const {
     validated,
@@ -20,6 +20,7 @@ const Usuarios = (props) => {
   } = useContext(DashboardContext);
 
   const datos = itemsAdminUsuarios?.data?.auteurs || [];
+  const roles = itemsAdminUsuarios?.data?.roles || [];
 
   const columns = [
     {
@@ -50,6 +51,7 @@ const Usuarios = (props) => {
   useEffect(() => {
     query('AdminUsuarios','Usuarios',[{opcion:btoa('listaUsuarios'),obj:'Usuarios'}]);
   }, [query]);
+
   return (
     <>
 
@@ -68,6 +70,7 @@ const Usuarios = (props) => {
                           <FormAdd
                             title={`GESTIONAR ${props?.tipo?.toUpperCase()}`}
                             validated={validated}
+                            roles={roles}
                           />:''}
                         </Modal.Body>
                       </Modal>
@@ -99,7 +102,6 @@ const Usuarios = (props) => {
                 isVisible={true}
                 nametable={props.accion}
                 titulo={'LISTADO DE USUARIOS REGISTRADOS'}
-                permisos={permisos}
                 icons={'dripicons-user'}
               />: <PermisoAlert opcion={verificarPermiso('Usuarios',"query")}/>}
             </Card.Body>

@@ -119,7 +119,7 @@ class APICore {
             'X-SICES-API-AppKey': btoa(user[0].Apikey),
             'X-SICES-API-AppToken': btoa(user[0].ApiToken),
             'Content-Type': 'application/json',
-            Authorization: `Basic ${encodeBasic(user[0].username, user[0].ApiToken)}`,
+            Authorization: `Basic ${encodeBasic(user[0].username,user[0].ApiToken)}`,
           },
         };
 
