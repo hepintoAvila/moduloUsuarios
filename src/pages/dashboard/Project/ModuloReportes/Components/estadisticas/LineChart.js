@@ -73,27 +73,27 @@ const LineChart = ({barChartData}): React$Element<any> => {
     // chart data
     const apexLineChartWithLablesData = [
       {
-        name: 'Agendada',
-        data:barChartData.agendada,
+        name: 'graduados',
+        data:barChartData.graduados,
     },
     {
-        name: 'Sin Agendar',
-        data: barChartData.sinagendar,
+        name: 'inscritos',
+        data: barChartData.inscritos,
     },
     {
         name: 'admitidos',
         data:barChartData.admitidos,
     },
     {
-        name: 'En comite',
-        data: barChartData.encomite,
+        name: 'matriculados',
+        data: barChartData.admitidos,
     },
     ];
 
     return (
         <Card>
             <Card.Body>
-            <h4 className="header-title mb-3">{barChartData.Solicitudes}</h4>
+            <h4 className="header-title mb-3">{barChartData.programa}</h4>
                 <Chart
                     options={apexLineChartWithLables}
                     series={apexLineChartWithLablesData}

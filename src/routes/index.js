@@ -48,8 +48,6 @@ const dashboardRoutes = {
 
 
 
-const appRoutes = [
-];
 
 // pages
 
@@ -77,8 +75,9 @@ const moduloSolicitudComiteRoutes = [
       name: 'Queryform',
       component: Queryform,
       route: Route,
-  }
+  },
 ]
+
 
 
 // auth
@@ -110,7 +109,7 @@ const authRoutes = [
 ];
 
 // All routes
-const authProtectedRoutes = [rootRoute, dashboardRoutes, ...appRoutes];
+const authProtectedRoutes = [rootRoute, dashboardRoutes,];
 const publicRoutes = [...authRoutes,...moduloSolicitudComiteRoutes];
 const authProtectedFlattenRoutes = flattenRoutes([...authProtectedRoutes]);
 const publicProtectedFlattenRoutes = flattenRoutes([...publicRoutes]);

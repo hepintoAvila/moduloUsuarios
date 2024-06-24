@@ -6,6 +6,7 @@ import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
 import BuscadorFecha from './Components/BuscadorFecha';
 
 import SolicitudesGraficas from './SolicitudesGraficas';
+import { SearchContext } from '../../../../layouts/context/SearchContext';
 
 //import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 
@@ -13,6 +14,8 @@ import SolicitudesGraficas from './SolicitudesGraficas';
 const ModuloReportes = () => {
  // const {verificarPermiso} = useAdminUsuarios()
   const { tipo,itemUrl} = useContext(DashboardContext)
+  const { itemsGraficos} = useContext(SearchContext)
+
   return (
     <React.Fragment>
       {(() => {
@@ -23,18 +26,8 @@ const ModuloReportes = () => {
               <SolicitudesGraficas
                   accion={itemUrl}
                   tipo={tipo}
+                  itemsGraficos={itemsGraficos}
                 />
-              {'xxx'}
-              {
-                /*
-              {verificarPermiso('Aprendiz',"query") ?
-              <Aprendiz
-                  accion={itemUrl}
-                  tipo={tipo}
-                />:<PermisoAlert opcion={verificarPermiso('Aprendiz',"query")}/>}
-                */
-              }
-
             </React.Fragment>
           default:
             return (

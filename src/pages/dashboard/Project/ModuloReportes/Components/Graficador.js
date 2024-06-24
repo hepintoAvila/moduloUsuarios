@@ -5,16 +5,11 @@
 // @flow
 import React, { } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
-import LineChart from './LineChart';
-import ApexBarChartData from './ApexBarChartData';
-import GraficaUno from './GraficaUno';
-import PieChart from './PieChart';
-import MixedChart from './MixedChart';
+import PieChart from './estadisticas/PieChart';
+import BarChartMaInsGra from './estadisticas/BarChartMaInsGra';
 const Graficador = (props) => {
-const categoryGraduados=[];
   return (
     <>
-
       <Row>
         <Col>
           <Card>
@@ -23,44 +18,20 @@ const categoryGraduados=[];
                 <Col sm={12}>
                   <Card>
                     <Card.Body>
-                    <Row>
-                                            <Col xl={6}>
-                                            {
-                                                categoryGraduados?.DonutData?.length> 0 &&
-                                                <GraficaUno barChartData={categoryGraduados.Chart} donutData={categoryGraduados.DonutData} />
-
-                                            }
-                                            </Col>
-                                            <Col xl={6}>
-                                              {
-                                                categoryGraduados?.ApexBarChartData?.axial?.length> 0 &&
-                                              <ApexBarChartData ApexBarChartData={categoryGraduados?.ApexBarChartData} />
-                                          }
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col xl={6}>
-                                              {
-                                              categoryGraduados?.ApexBarChartData?.axial?.length> 0 &&
-                                             <LineChart barChartData={categoryGraduados?.ApexBarChartData} />
-                                            }
-                                            </Col>
-                                            <Col xl={6}>
-                                            {
-                                              categoryGraduados?.Piechart?.programa?.length> 0 &&
-                                              <PieChart pieChart={categoryGraduados?.Piechart} />
-                                            }
-                                              </Col>
-                                            </Row>
-                                            <Row>
-                                          <Col>
-                                            {
-                                              categoryGraduados?.Piechart?.programa?.length> 0 &&
-                                              <MixedChart grafiCuatro={categoryGraduados?.ApexBarChartData} />
-                                            }
-
-                                          </Col>
-                                      </Row>
+                      <Row>
+                        <Col xl={6}>
+                          {
+                            props?.itemsGraficos?.items?.length > 0 &&
+                            <PieChart itemsGraficos={props?.itemsGraficos}/>
+                          }
+                        </Col>
+                        <Col xl={6}>
+                          {
+                            props?.itemsGraficos?.items?.length > 0 &&
+                            <BarChartMaInsGra itemsGraficos={props?.itemsGraficos}/>
+                           }
+                        </Col>
+                      </Row>
                     </Card.Body>
                   </Card>
                 </Col>

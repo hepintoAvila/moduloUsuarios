@@ -1,4 +1,4 @@
-// 
+//
 // email.scss
 //
 
@@ -18,7 +18,22 @@
         bottom: -1.5rem;
     }
 }
+.page-aside-details {
+  width: 700px;
+  float: left;
+  padding: 0 20px 20px 10px;
+  position: relative;
 
+  &:before {
+      content: "";
+      background-color: $body-bg;
+      width: 5px;
+      position: absolute;
+      right: -15px;
+      height: 100%;
+      bottom: -1.5rem;
+  }
+}
 .page-aside-right {
     margin: -1.5rem 0 -1.5rem 250px;
     border-left: 5px solid $body-bg;
@@ -59,7 +74,7 @@
                 display: block;
                 float: left;
             }
-            
+
             .checkbox-wrapper-mail {
                 margin: 15px 10px 0 20px;
                 cursor: pointer;
@@ -133,15 +148,15 @@
                 position: absolute;
                 transition: all 0.5s;
                 right: -180px;
-        
+
                 li {
                     margin: 0 10px;
                 }
-        
+
                 .email-action-icons-item {
                     font-size: 20px;
                     transition: all 0.5s;
-        
+
                     &:hover {
                         color: $danger;
                     }
@@ -155,7 +170,7 @@
 
             .email-action-icons {
                 opacity: 1;
-                
+
                 ul {
                     transition: all 0.5s;
                     right: 10px;
@@ -172,7 +187,7 @@
                     transition: all 0.5s;
                 }
             }
-        }   
+        }
     }
 }
 

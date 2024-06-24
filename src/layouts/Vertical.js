@@ -18,7 +18,8 @@ import { ValidadorProvider } from './context/ValidadorContext';
 import { SearchProvider } from './context/SearchContext';
 import { NotificacionesProvider } from './context/NotificacionesProvider';
 import { SecurityProvider } from './context/SecurityProvider';
-import { DatosSolicitudContext, DatosSolicitudProvider } from './context/DatosComiteContext';
+import {  DatosSolicitudProvider } from './context/DatosComiteContext';
+//import {  ReportesProvider } from './context/ReportesProvider';
 const Topbar = React.lazy(() => import('./Topbar'));
 const LeftSidebar = React.lazy(() => import('./LeftSidebar'));
 const Footer = React.lazy(() => import('./Footer'));
@@ -100,6 +101,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
             <PermisosProvider>
               <SearchProvider>
 
+
                 <NotificacionesProvider>
                 <DatosSolicitudProvider>
                   <div className="wrapper">
@@ -138,6 +140,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
                   </Suspense>
                   </DatosSolicitudProvider>
                 </NotificacionesProvider>
+
 
               </SearchProvider>
             </PermisosProvider>

@@ -11,7 +11,6 @@ import BtnNotificados from './Components/BtnNotificados';
 import encodeBasicUrl from '../../../../utils/encodeBasicUrl';
 import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
 import Swal from 'sweetalert2';
-import PermisoAlert from '../../components/PermisoAlert/PermisoAlert';
 import LogoSena from '../ModuloSolicitudComite/Components/LogoSena';
 import { useAdminUsuarios } from '../../../../hooks/useAdminUsuarios';
 import Spinner from '../../../../components/Spinner';

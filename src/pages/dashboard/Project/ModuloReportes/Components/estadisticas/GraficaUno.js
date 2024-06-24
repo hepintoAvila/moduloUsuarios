@@ -4,11 +4,12 @@ import classnames from 'classnames';
 import BarChart from '../estadisticas/BarChart';
 import BarChartVertical from '../estadisticas/BarChartVertical';
 import DonutChart from '../estadisticas/DonutChart';
-const GraficaUno = ({barChartData,donutData}) => {
-  //console.log(donutData[0]?.programa)
+const GraficaUno = (props) => {
+  console.log(props)
   return (
     <>
           <Row>
+            {/*
         <Card>
           <Card.Body>
             <Tab.Container defaultActiveKey="1">
@@ -35,19 +36,19 @@ const GraficaUno = ({barChartData,donutData}) => {
               <Tab.Content className="px-4 pb-4 pt-0 mx-auto">
                     <Tab.Pane eventKey={'1'}  id={'1'} key={'1'}>
                       <br/>
-                    <h4 className="header-title mb-3">{donutData[0]?.programa}</h4>
+                    <h4 className="header-title mb-3">{donutData[0]?.categoria}</h4>
                       <BarChart barChartData={barChartData}/>
                       </Tab.Pane>
               </Tab.Content>
               <Tab.Content className="px-4 pb-4 pt-0 mx-auto">
                     <Tab.Pane eventKey={'2'}  id={'2'} key={'2'} >
-                    <h4 className="header-title mb-3">{donutData[0]?.programa}</h4>
+                    <h4 className="header-title mb-3">{donutData[0]?.categoria}</h4>
                       <BarChartVertical barChartData={barChartData}/>
                       </Tab.Pane>
               </Tab.Content>
               <Tab.Content className="px-4 pb-4 pt-0 mx-auto">
                     <Tab.Pane eventKey={'3'}  id={'3'} key={'3'} >
-                    <h4 className="header-title mb-3">{barChartData[0]?.programa}</h4>
+                    <h4 className="header-title mb-3">{barChartData[0]?.categoria}</h4>
                       <DonutChart donutData={donutData}/>
                       </Tab.Pane>
               </Tab.Content>
@@ -55,6 +56,7 @@ const GraficaUno = ({barChartData,donutData}) => {
 
           </Card.Body>
         </Card>
+        */}
       </Row>
     </>
     );

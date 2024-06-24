@@ -1,29 +1,18 @@
 import React from 'react';
 import { Row, Col, Tab, Card, Nav} from 'react-bootstrap';
 import classnames from 'classnames';
+import Graficador from './Components/Graficador';
 
 const SolicitudesGraficas = (props) => {
 const tabItems = [
   {
     id: 1,
-    title: 'Solicitadas',
+    title: 'Graficar Solicitudes',
     icon: 'mdi mdi-home-variant',
     text: 'Clasificación por Consultas',
   },
-  {
-    id: 2,
-    title: 'Agendadas',
-    icon: 'mdi mdi-chart-bar',
-    text: 'En esta session puedes consultar las estadsticas',
-  }
-  ,
-  {
-    id: 3,
-    title: 'Total General',
-    icon: 'mdi mdi-calendar-search',
-    text: 'En esta session puedes consultar los reportes',
-  },
 ];
+
 return (
     <React.Fragment>
       <Row>
@@ -54,16 +43,9 @@ return (
                               case 1:
                                 return (
                                     <>
-
+                                      <Graficador itemsGraficos={props?.itemsGraficos}/>
                                     </>
                                 );
-                              case 2:
-                                    return (<>
-                                      <Row>
-                                        <Col sm="12 mt-1">
-                                        {'2'}
-                                        </Col>
-                                      </Row></>);
                               default:
                                 return (
                                   'defould'

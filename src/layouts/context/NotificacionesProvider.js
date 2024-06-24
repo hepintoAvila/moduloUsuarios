@@ -34,6 +34,7 @@ const NotificacionesProvider = ({ children }) => {
     const [openFormAprendiz, setOpenFormAprendiz] = useState(false);
     const [openFormAsistente, setConsultarAsistentes] = useState([]);
     const [itemsAuditoria, setConsultarAuditoria] = useState([]);
+    const [querySolicitudByUser, setQuerySolicitudByUser] = useState([]);
 
     /*GETDATA PARA ENVIAR DATOS DEL PROMULARIO */
     const getData = useCallback((queryDatos) => {
@@ -155,9 +156,14 @@ const NotificacionesProvider = ({ children }) => {
                                         case 'ConsultarAsistentes':
                                             setConsultarAsistentes(response);
                                             break;
-                                            case 'consultarAuditoria':
+                                        case 'consultarAuditoria':
                                               setConsultarAuditoria(response);
-                                              break;
+                                            break;
+                                            case 'querySolicitudByUser':
+                                              setQuerySolicitudByUser(response);
+                                            break;
+
+
 
                                     }
                                 })();
@@ -351,7 +357,8 @@ const NotificacionesProvider = ({ children }) => {
         openFormAprendiz, setOpenFormAprendiz,
         openFormAsistente,
         itemsAuditoria,
-         setConsultarAuditoria
+         setConsultarAuditoria,
+         querySolicitudByUser,
 
     };
 

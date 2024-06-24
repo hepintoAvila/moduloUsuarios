@@ -1,18 +1,17 @@
 /* eslint-disable no-undef */
-import React,{useState,memo} from 'react';
+import React,{useState,memo,useContext} from 'react';
 import { Alert, Button,Form } from 'react-bootstrap';
 import classnames from 'classnames';
-import FormInput from '../../../components/FormInput';
-import { useReportes } from '../../../../../hooks/useReportes';
-import Swal from 'sweetalert2';
+
 import Spinner from '../../../../../components/Spinner';
+import { SearchContext } from '../../../../../layouts/context/SearchContext';
 //import Swal from 'sweetalert2';
 // components
 
 const BuscadorFecha = (props) => {
   const [validated, setValidated] = useState(false);
   const [items, setItems] = useState([]);
-  const {queryReporte,isLoading} = useReportes();
+  const { queryReporte,loading} = useContext(SearchContext)
   /*
    * handle form submission
    */
@@ -30,7 +29,6 @@ const BuscadorFecha = (props) => {
           tipo: 'comite',
       };
         setTimeout(function () {
-
           queryReporte('ModuloReportes', 'reportes', [{obj: 'reportesComite',...datosEvent }]);
       }, 2000);
 
@@ -48,62 +46,27 @@ const BuscadorFecha = (props) => {
   }));
 };
 
-  const arrSolicitud = [{
-    value: '1',
-    label: 'Agendada'
-  }, {
-    value: '2',
-    label: 'Sin Agendar'
-  }, {
-    value: '3',
-    label: 'En comite'
-  }]
-
 
   return (
     <>
     <Alert variant={'success'}>
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group className={classnames("mh-100 d-flex flex-row")}>
-        <Form.Group className={classnames("w-65 p-0")}>
-                <FormInput
-                    type="select"
-                    label="Estado"
-                    name="estado"
-                    className="form-control"
-                    containerClass={'w-65  p-0'}
-                    key="estado"
-                    id="estado"
-                    required
-                    onChange={(e) => {
-                      onItemSelect(e,'estado');
-                    }}
-                    >
-                    <option value='0'>Estado de la solicitud</option>
-                    {
-                    arrSolicitud?.map((p, i) => {
-                      return(
-                      <option value={p.label} key={i+1}>{p.label}</option>
-                      )
-                       })}
-                </FormInput>
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group >
-            <Form.Group className={classnames("w-15 p-0")}>
+              <Form.Group className={classnames("w-15 p-0")}>
                 <Form.Group className="form-group mb-3">
                     <label className="form-label">Fecha Inicial</label> <br />
                       <Form.Control type="date"
                          label="FechaInicial"
                           defaultValue={''}
                            onChange={(e) => {(onItemSelect(e,'FechaInicial'))}}
-                             required
+
                              name="FechaInicial"
                             key="FechaInicial"
                             id="FechaInicial"
                       placeholder="FechaInicial"
                       />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid Fecha Inicial.
+                        Por favor asigne la Fecha Inicial.
                     </Form.Control.Feedback>
                 </Form.Group>
             </Form.Group>
@@ -121,7 +84,7 @@ const BuscadorFecha = (props) => {
                       placeholder="FechaFinal"
                       />
                       <Form.Control.Feedback type="invalid">
-                        Please provide a valid Final.
+                      Por favor asigne la fecha Final.
                     </Form.Control.Feedback>
                 </Form.Group>
             </Form.Group>
@@ -129,7 +92,7 @@ const BuscadorFecha = (props) => {
                 <div className="form-group mb-3">
                     <label className="form-label">{''}</label> <br />
                     {
-                      isLoading ? <Button type="submit" variant="success">
+                      loading ? <Button type="submit" variant="success">
                       <Spinner/>
                   </Button>:<Button type="submit" variant="success">
                       Consultar
