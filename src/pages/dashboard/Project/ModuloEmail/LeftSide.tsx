@@ -25,21 +25,6 @@ const LeftSide = ({ totalUnreadEmails, showAllEmails, showStarredEmails }: LeftS
                     <span className="badge badge-info-lighten float-end ms-2">32</span>
                 </Link>
             </div>
-
-            <div className="mt-4">
-                <h6 className="text-uppercase">Tipo Solicitud</h6>
-                <div className="email-menu-list labels-list mt-2">
-                    <Link to="/apps/email/inbox">
-                        <i className="mdi mdi-circle font-13 text-info me-2"></i>Leves
-                    </Link>
-                    <Link to="/apps/email/inbox">
-                        <i className="mdi mdi-circle font-13 text-warning me-2"></i>Graves
-                    </Link>
-                    <Link to="/apps/email/inbox">
-                        <i className="mdi mdi-circle font-13 text-success me-2"></i>Gravisimas
-                    </Link>
-                </div>
-            </div>
         </>
     );
 };

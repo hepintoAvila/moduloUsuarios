@@ -1,95 +1,87 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-redeclare */
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Card,} from 'react-bootstrap';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EmailDetails } from './types';
 import avatarImg from '../../../../assets/images/users/avatar-1.jpg'
+import { NotificacionesContext } from '../../../../layouts/context/NotificacionesProvider';
+function getIdFromUrl() {
+  // Obtener el hash de la URL
+  const hash = window.location.hash;
 
+  // Utilizar una expresión regular para extraer el número después de /details/
+  const match = hash.match(/\/details\/(\d+)/);
+
+  // Devolver el número si se encuentra, de lo contrario devolver null
+  return match ? match[1] : null;
+}
+interface Attachment {
+  id: number;
+  name: string;
+  size: string;
+  ext: string;
+}
+
+interface EmailDetails {
+  avatar?: string;
+  subject?: string;
+  from_name?: string;
+  from_email?: string;
+  recieved_on?: string;
+  attachments?: Attachment[];
+}
 const EmailDetail = () => {
-    //const [totalUnreadEmails] = useState<number>(emails.filter((e) => e.is_read === false).length);
-    const [email] = useState<EmailDetails>({
-        avatar: avatarImg,
-        subject: 'Your elite author Graphic Optimization reward is ready!',
-        from_name: 'Steven Smith',
-        from_email: 'jonathan@domain.com',
-        recieved_on: 'Jul 24, 2019, 5:17 AM',
-        attachments: [
-            { id: 1, name: 'Hyper-admin-design.zip', size: '2.3MB', ext: '.zip' },
-            { id: 2, name: 'Dashboard-design.jpg', size: '0.3MB', ext: '.jpg' },
-            { id: 3, name: 'Admin-bug-report.mp4', size: '4.1MB', ext: '.mp4' },
-        ],
-    });
 
-    // handle compose modal
+  const [detailsEmails, setDetailsEmails] = useState<EmailDetails | undefined>(undefined);
+  const { querySolicitudByUser } = useContext(NotificacionesContext)
+    //const [totalUnreadEmails] = useState<number>(emails.filter((e) => e.is_read === false).length);
+    const attachments= [
+      { id: 1, name: 'Evidencia.pdf', size: '2.3MB', ext: '.pdf' },
+      { id: 2, name: 'actaComite.pdf', size: '0.3MB', ext: '.pdf' },
+      { id: 3, name: 'Solicitud.pdf', size: '4.1MB', ext: '.pdf' },
+  ]
+
+    useEffect(() => {
+      const idUrl =getIdFromUrl();
+      if (querySolicitudByUser.length > 0) {
+        const filteredUsers = querySolicitudByUser.filter((item: any) => item.id === idUrl);
+
+        setDetailsEmails(filteredUsers[0]);
+      }
+    }, [ querySolicitudByUser]);
+
     return (
         <>
             <Row>
                 <Col>
                     <Card>
                         <Card.Body>
-
-
                             <div className="page-aside-details ">
-
                                 <div className="mt-3">
-                                    <h5 className="font-18">Your elite author Graphic Optimization reward is ready!</h5>
+                                    <h5 className="font-18">{detailsEmails?.subject}</h5>
                                     <hr />
-
                                     <div className="d-flex mb-3 mt-1">
                                         <img
                                             className="d-flex me-2 rounded-circle"
-                                            src={email.avatar}
-                                            alt={email.from_name}
+                                            src={avatarImg}
+                                            alt={detailsEmails?.from_name}
                                             height="32"
                                         />
                                         <div className="w-100 overflow-hidden">
-                                            <small className="float-end">{email.recieved_on}</small>
-                                            <h6 className="m-0 font-14">{email.from_name}</h6>
-                                            <small className="text-muted">From: {email.from_email}</small>
+                                            <small className="float-end">{detailsEmails?.recieved_on}</small>
+                                            <h6 className="m-0 font-14">{detailsEmails?.from_name}</h6>
+                                            <small className="text-muted">From: {detailsEmails?.from_email}</small>
                                         </div>
                                     </div>
-
-                                    <p>Hi Coderthemes!</p>
                                     <p>
-                                        Clicking ‘Order Service’ on the right-hand side of the above page will present
-                                        you with an order page. This service has the following Briefing Guidelines that
-                                        will need to be filled before placing your order:
-                                    </p>
-
-                                    <ol>
-                                        <li>Your design preferences (Color, style, shapes, Fonts, others) </li>
-                                        <li>Tell me, why is your item different? </li>
-                                        <li>
-                                            Do you want to bring up a specific feature of your item? If yes, please tell
-                                            me{' '}
-                                        </li>
-                                        <li>
-                                            Do you have any preference or specific thing you would like to change or
-                                            improve on your item page?{' '}
-                                        </li>
-                                        <li>
-                                            Do you want to include your item's or your provider's logo on the page? if
-                                            yes, please send it to me in vector format (Ai or EPS){' '}
-                                        </li>
-                                        <li>Please provide me with the copy or text to display</li>
-                                    </ol>
-
-                                    <p>
-                                        Filling in this form with the above information will ensure that they will be
-                                        able to start work quickly.
-                                    </p>
-                                    <p>
-                                        You can complete your order by putting your coupon code into the Promotional
-                                        code box and clicking ‘Apply Coupon’.
-                                    </p>
-                                    <p>
-                                        <b>Best,</b> <br /> Graphic Studio
+                                        {detailsEmails?.subject}
                                     </p>
                                     <hr />
-
                                     <h5 className="mb-3">Attachments</h5>
                                     <Row>
-                                        {email?.attachments.map((f, index) => {
+                                        {attachments?.map((f, index) => {
                                             return (
                                                 <Col xl={4} key={index.toString()}>
                                                     <Card className="mb-1 shadow-none border">
@@ -126,7 +118,6 @@ const EmailDetail = () => {
                                             );
                                         })}
                                     </Row>
-
                                     <div className="mt-5">
                                         <Link to="#" className="btn btn-secondary me-2">
                                             <i className="mdi mdi-reply me-1"></i> Reply

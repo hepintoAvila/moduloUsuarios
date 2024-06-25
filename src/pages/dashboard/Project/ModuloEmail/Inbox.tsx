@@ -136,65 +136,6 @@ const Inbox = () => {
                                 />
                             </div>
                             <div className="page-aside-right">
-                                <ButtonGroup className="me-1 my-1">
-                                    <OverlayTrigger placement="bottom" overlay={<Tooltip id={'1'}>Archived</Tooltip>}>
-                                        <Button variant="secondary">
-                                            <i className="mdi mdi-archive font-16"></i>
-                                        </Button>
-                                    </OverlayTrigger>
-                                    <OverlayTrigger placement="bottom" overlay={<Tooltip id={'2'}>Spam</Tooltip>}>
-                                        <Button variant="secondary">
-                                            <i className="mdi mdi-alert-octagon font-16"></i>
-                                        </Button>
-                                    </OverlayTrigger>
-                                    <OverlayTrigger key="bottm" placement="bottom" overlay={<Tooltip id={'3'}>Delete</Tooltip>}>
-                                        <Button variant="secondary">
-                                            <i className="mdi mdi-delete-variant font-16"></i>
-                                        </Button>
-                                    </OverlayTrigger>
-                                </ButtonGroup>
-
-                                <ButtonGroup as={Dropdown} className="d-inline-block me-1 my-1">
-                                    <Dropdown.Toggle variant="secondary" className="arrow-none">
-                                        <i className="mdi mdi-folder font-16"></i>
-                                        <i className="mdi mdi-chevron-down"></i>
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <span className="dropdown-header">Move to:</span>
-                                        <Dropdown.Item>Social</Dropdown.Item>
-                                        <Dropdown.Item>Promotions</Dropdown.Item>
-                                        <Dropdown.Item>Updates</Dropdown.Item>
-                                        <Dropdown.Item>Forums</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </ButtonGroup>
-
-                                <ButtonGroup as={Dropdown} className="d-inline-block me-1 my-1">
-                                    <Dropdown.Toggle variant="secondary" className="arrow-none">
-                                        <i className="mdi mdi-label font-16"></i>
-                                        <i className="mdi mdi-chevron-down"></i>
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <span className="dropdown-header">Label as:</span>
-                                        <Dropdown.Item>Social</Dropdown.Item>
-                                        <Dropdown.Item>Promotions</Dropdown.Item>
-                                        <Dropdown.Item>Updates</Dropdown.Item>
-                                        <Dropdown.Item>Forums</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </ButtonGroup>
-
-                                <ButtonGroup as={Dropdown} className="d-inline-block me-1 my-1">
-                                    <Dropdown.Toggle variant="secondary" className="arrow-none">
-                                        <i className="mdi mdi-dots-horizontal font-16"></i> More
-                                        <i className="mdi mdi-chevron-down"></i>
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <span className="dropdown-header">More Options :</span>
-                                        <Dropdown.Item>Mark as Unread</Dropdown.Item>
-                                        <Dropdown.Item>Add to Tasks</Dropdown.Item>
-                                        <Dropdown.Item>Add Star</Dropdown.Item>
-                                        <Dropdown.Item>Mute</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </ButtonGroup>
                                 {(() => {
                               switch (rutaBase) {
                                 case '/':
