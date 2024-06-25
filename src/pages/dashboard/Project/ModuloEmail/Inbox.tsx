@@ -101,7 +101,6 @@ const Inbox = () => {
 
 
     const {
-        emails,
         totalEmails,
         startIndex,
         endIndex,
@@ -125,6 +124,7 @@ const Inbox = () => {
     return (
         <>
             <Row>
+
                 <Col>
                     <Card>
                         <Card.Body>
@@ -201,7 +201,7 @@ const Inbox = () => {
                                   return <>
                                     <div className="mt-3">
 
-                                      <EmailsList emails={emails} />
+                                      <EmailsList/>
 
                                     </div>
 
