@@ -152,6 +152,22 @@ const Register = (props) => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="form-group mb-3">
+                <label className="form-label">Apellidos</label> <br />
+                <Form.Control
+                  type="text"
+                  key="apellidos"
+                  id="apellidos"
+                  required
+                  name="apellidos"
+                  defaultValue={items?.nombres}
+                  onChange={(e) => onItemSelect(e, 'apellidos')}
+                  containerClass={'mb-3'}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Por favor asigne los apellidos.
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className="form-group mb-3">
                 <label className="form-label">Rol</label> <br />
                 <Form.Select
                   key="rol"
