@@ -21,6 +21,8 @@ const ModuloReportes = () => {
       {(() => {
         switch (tipo) {
           case 'ReportesComite':
+          case 'ReporteIncidente':
+          case 'ReportesIncidentes':
             return <React.Fragment>
               <BuscadorFecha/>
               <SolicitudesGraficas

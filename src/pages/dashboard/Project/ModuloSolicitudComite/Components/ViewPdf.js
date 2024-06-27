@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 // @flow
 import React, { useEffect, useState } from 'react';
+import { environments } from '../../../../../environments/environments';
 //import { NotificacionesContext } from '../../../../../layouts/context/NotificacionesProvider';
 //import encodeBasicUrl from '../../../../../utils/encodeBasicUrl';
 /*
@@ -26,12 +27,13 @@ const ViewPdf = (props) => {
   useEffect(() => {
     // eslint-disable-next-line no-lone-blocks
     {(() => {
+      const URL = `${environments.URL}`;
       switch (props?.titulo) {
         case 'EVIDENCIAS':
-          setUrl( `http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloIncidentes/pdf/${props?.codigoFicha}.pdf`);
+          setUrl( `${URL}ModuloIncidentes/pdf/${props?.codigoFicha}.pdf`);
         break
         case 'FORMATO':
-         setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloSolicitudComite/pdf/sc/${props?.codigoFicha}.pdf`) ;
+         setUrl(`${URL}ModuloSolicitudComite/pdf/sc/${props?.codigoFicha}.pdf`) ;
         break
         default:
           setUrl('');
@@ -56,7 +58,7 @@ const ViewPdf = (props) => {
 }, [url]);
 
  return pdf && (
-    <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
+    <div style={{  position: 'relative', width: '100%', height: '80em'}}>
       <object
         data={`${url}`}
         type="application/pdf"

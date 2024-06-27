@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable @typescript-eslint/no-redeclare */
 import { useContext, useEffect, useState } from 'react';
-import { Row, Col, Card, Dropdown, ButtonGroup, Button, OverlayTrigger,Tooltip} from 'react-bootstrap';
+import { Row, Col, Card,  ButtonGroup, Button} from 'react-bootstrap';
 import classNames from 'classnames';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Link, useLocation } from 'react-router-dom';
@@ -35,7 +35,7 @@ const emails: Email[] = querySolicitudByUser || [{
     return (
 
         <ul className="email-list">
-            {emails?.map((email, index) => {
+            {emails?.length>0 && emails?.map((email, index) => {
                 return (
                     <li className={classNames({ unread: !email.is_read })} key={index.toString()}>
                         <div className="email-sender-info">

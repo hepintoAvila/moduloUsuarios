@@ -127,7 +127,7 @@ const MenuModuloPrincipal= () => {
           default:
             return (
               <React.Fragment>
-                {itemUrl.length===0?<BtnNivelI handleClick={handleClick} menuRef={''} />:''}
+                {itemUrl?.length===0?<BtnNivelI handleClick={handleClick} menuRef={''} />:''}
                </React.Fragment>
             );
         }

@@ -22,7 +22,7 @@ const BtnActas = (props) => {
     <React.Fragment>
 
       <Row>
-        <Pagination className="pagination-rounded mx-auto" size="sm">
+        <Pagination className="pagination-rounded mx-auto btnsul" size="sm">
           <Pagination.Item>
 
           {verificarPermiso('Actas',"update") ?<BtnActions

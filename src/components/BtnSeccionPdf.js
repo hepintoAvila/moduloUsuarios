@@ -6,7 +6,7 @@ const BtnSeccionPdf = (props) => {
   return (
     <React.Fragment>
       <Row>
-        <Pagination className="pagination-rounded mx-auto" size="sm">
+        <Pagination className="pagination-rounded mx-auto btnsul" size="sm">
           <Pagination.Item>
                 <BtnActions
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
@@ -19,7 +19,7 @@ const BtnSeccionPdf = (props) => {
                   descripcion={`Ver evidencias del instructor`}
                   icon={'mdi mdi-account-convert'}
                 />
-          </Pagination.Item> 
+          </Pagination.Item>
           <Pagination.Item>
                 <BtnActions
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
@@ -32,7 +32,7 @@ const BtnSeccionPdf = (props) => {
                   descripcion={`Ver Formato solicitud Comité`}
                   icon={'mdi mdi-file-pdf-box'}
                 />
-          </Pagination.Item>  
+          </Pagination.Item>
           <Pagination.Item>
                 <BtnActions
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
@@ -45,7 +45,7 @@ const BtnSeccionPdf = (props) => {
                   descripcion={`EDITAR solicitud`}
                   icon={'mdi mdi-square-edit-outline'}
                 />
-          </Pagination.Item> 
+          </Pagination.Item>
           <Pagination.Item>
                 <BtnActions
                  url={`/dashboard/ModuloSolicitudComite/EnviarSolicitud?p=${props?.obj?.row}`}
@@ -58,7 +58,7 @@ const BtnSeccionPdf = (props) => {
                   descripcion={`DELETE solicitud`}
                   icon={'mdi mdi-delete-circle-outline'}
                 />
-          </Pagination.Item>                     
+          </Pagination.Item>
       </Pagination>
       </Row>
     </React.Fragment>

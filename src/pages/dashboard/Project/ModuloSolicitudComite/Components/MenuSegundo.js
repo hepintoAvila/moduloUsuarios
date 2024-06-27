@@ -42,7 +42,7 @@ const MenuSegundo = (props) => {
                  <MenuBtn texto='Consulta de incidente' image={avatar2} handleClick={props.handleClick} menuRef={'ModuloSolicitudComite/ConsultaIncidente'} nivel={2}/>
 				</div>
               <div className="grid_btn2 col-xl-3 col-lg-4 col-sm-6">
-                <MenuBtn texto='Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloSolicitudComite/ReporteIncidente'} nivel={2}/>
+                <MenuBtn texto='Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloReportes/ReportesComite'} nivel={2}/>
               </div>
               <br/>
 

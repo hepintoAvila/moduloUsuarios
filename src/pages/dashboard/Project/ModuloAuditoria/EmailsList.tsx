@@ -182,7 +182,7 @@ const Inbox = () => {
                                 </ButtonGroup>
 
                                 <div className="mt-3">
-                                    <EmailsList emails={emails} />
+                                    <EmailsList/>
                                 </div>
 
                                 <Row>

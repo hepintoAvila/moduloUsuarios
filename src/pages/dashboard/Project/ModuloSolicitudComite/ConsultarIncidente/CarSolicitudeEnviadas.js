@@ -202,6 +202,7 @@ const options = {
       },
   ],
 };
+console.log('datos',datos)
   return (
     <>
       <Row>

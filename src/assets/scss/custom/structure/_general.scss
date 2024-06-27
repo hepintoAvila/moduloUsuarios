@@ -19,6 +19,13 @@ body {
 .bg-alert {
   background-color:rgba(#ee0909, 0.18)  !important;
 }
+
+.btnsul {
+  list-style-type: none !important;
+  padding: 0;            /* Quita el relleno predeterminado del ul */
+  display: flex;         /* Hace que los elementos li se ordenen en fila */
+  justify-content: center; /* Centra los elementos li horizontalmente */
+}
 .container
 {
  min-height: 100vh;

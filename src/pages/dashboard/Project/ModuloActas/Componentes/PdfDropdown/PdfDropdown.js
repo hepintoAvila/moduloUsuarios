@@ -10,6 +10,7 @@ import dribbbleIcon from './icons/dribbble.png';
 import githubIcon from './icons/github.png';
 import help from './icons/help.png';
 import { DashboardContext } from '../../../../../../layouts/context/DashboardContext';
+import { environments } from '../../../../../../environments/environments';
 
 const PdfDropdown  = (props) => {
  const {
@@ -56,19 +57,19 @@ const Apps = [
 
 
     };
-
+    const URL = `${environments.URL}`;
       const handleClick = (tipo) => {
 
         {(() => {
           switch (tipo) {
             case 'actas':
-             setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/evidenciActas_${props?.itemsUpdate}.pdf`) ;
+             setUrl(`${URL}ModuloActas/pdf/sc/evidenciActas_${props?.itemsUpdate}.pdf`) ;
             break
             case 'aprendices':
-              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/evidenciaAprendices_${props?.itemsUpdate}.pdf`) ;
+              setUrl(`${URL}ModuloActas/pdf/sc/evidenciaAprendices_${props?.itemsUpdate}.pdf`) ;
              break
              case 'asistencia':
-              setUrl(`http://localhost/sicesv.1/apis.sena/ecrire/exec/model/sena/ModuloActas/pdf/sc/evidenciAsistencia_${props?.itemsUpdate}.pdf`) ;
+              setUrl(`${URL}ModuloActas/pdf/sc/evidenciAsistencia_${props?.itemsUpdate}.pdf`) ;
              break
             default:
               setUrl('');

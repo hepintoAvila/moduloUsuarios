@@ -384,7 +384,7 @@ useEffect(() => {
     let url = '#/dashboard/ModuloActas/Actas?p=';
     const id = idUrl?.replace(url, '');
 
-    console.log('id',id)
+
     Swal.fire({
       position: 'top-center',
       icon: 'success',
