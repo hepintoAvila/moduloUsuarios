@@ -133,15 +133,16 @@ const EnviarSolicitud = (props) => {
                   entidad: 'senaV1',
                   maxId: allApredizDatos[0]?.userDetails?.maxId
                 };
-                //console.log(datosUrl);
+
                  const queryDatos = Object.entries(datosUrl)
                 .map(([key, value]) => {
                     const encodedValue = btoa(value);
                     return `${key}=${encodedValue}`;
                 })
                 .join('&');
+
                 setTimeout(function () {
-                  queryFile(queryDatos,selectedFile);
+                 queryFile(queryDatos,selectedFile);
               }, 2000);
 
               }

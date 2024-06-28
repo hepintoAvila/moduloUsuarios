@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "sicesv1",
-=======
-  "name": "sices",
->>>>>>> 25784ef2a1ea055fd18823eb4c8ad6bca5b5349a
   "version": "0.0.2",
   "private": true,
   "homepage": ".",

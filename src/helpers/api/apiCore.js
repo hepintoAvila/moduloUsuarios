@@ -108,6 +108,7 @@ class APICore {
   sendFile = (url, data) => {
     const sendRequest = async () => {
       try {
+        console.log('data',data)
         if (!data || Object.keys(data).length === 0) {
           throw new Error("La variable de entrada 'data' está vacía.");
         }

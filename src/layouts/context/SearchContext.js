@@ -75,13 +75,13 @@ const SearchProvider = ({ children }) => {
     const descripcion = itemsDescripcion;
     const descripcionError = validateError.descripcionError;
 
-    const queryFile = useCallback((queryDatos, dataFile) => {
+    const queryFile = useCallback((queryDatos, dataFiles) => {
         const infoUsers = sessionStorage.getItem('hyper_user');
         const infoUser = JSON.parse(infoUsers);
 
         if (Number(infoUser[0]?.id > 0)) {
             const url = `${queryDatos}&idUsuario=${btoa(infoUser[0]?.id)}&entidad=${btoa(infoUser[0]?.entidad)}`;
-            const datosMaterial = api.sendFile(url, dataFile);
+            const datosMaterial = api.sendFile(url, dataFiles);
             datosMaterial
                 ?.then(function (resp) {
                     Swal.fire('' + resp[0].message + '');
