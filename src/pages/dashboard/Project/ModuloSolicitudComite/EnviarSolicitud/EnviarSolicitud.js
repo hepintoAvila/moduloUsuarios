@@ -103,7 +103,9 @@ const EnviarSolicitud = (props) => {
         let numtrue = contarVerdaderos(obj);
 
         if (Number(numtrue) === 8) {
+
           if (itemsSolicitud[0].selectedFile?.path) {
+
             Swal.fire({
               title: 'Desea enviar la solicitud?',
               showCancelButton: true,
@@ -138,8 +140,10 @@ const EnviarSolicitud = (props) => {
                     return `${key}=${encodedValue}`;
                 })
                 .join('&');
+                setTimeout(function () {
+                  queryFile(queryDatos,selectedFile);
+              }, 2000);
 
-                queryFile(queryDatos,selectedFile);
               }
             });
           }

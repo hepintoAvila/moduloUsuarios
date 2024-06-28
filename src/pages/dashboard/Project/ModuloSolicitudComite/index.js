@@ -23,7 +23,7 @@ const ModuloSolicitudComite = (props) => {
           case 'ModuloSolicitudComite':
             return <React.Fragment>
               {verificarPermiso('ModuloSolicitudComite',"query") ? (
-                <MenuSegundo handleClick={props.handleClick}/>) :<PermisoAlert opcion={verificarPermiso('ModuloSolicitudComite',"query")}/>}
+                <MenuSegundo/>) :<PermisoAlert opcion={verificarPermiso('ModuloSolicitudComite',"query")}/>}
             </React.Fragment>
            case 'EnviarSolicitud':
             return <React.Fragment>

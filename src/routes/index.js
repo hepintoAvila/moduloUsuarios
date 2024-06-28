@@ -10,10 +10,11 @@ import PrivateRoute from './PrivateRoute';
 const Login = React.lazy(() => import('../pages/account/Login'));
 const Logout = React.lazy(() => import('../pages/account/Logout'));
 const Register = React.lazy(() => import('../pages/account/Register'));
-const Queryform = React.lazy(() => import('../pages/dashboard/Project'));
+const Queryform = React.lazy(() => import('../pages/dashboard/configuracion/ModulosPrincipales'));
 const ForgetPassword = React.lazy(() => import('../pages/account/ForgetPassword'));
 const LockScreenInicio = React.lazy(() => import('../pages/dashboard/Project/ModuloActas/Componentes/CambiarPassword'));
-const ProjectDashboard = React.lazy(() => import('../pages/dashboard/Project'));
+const ProjectDashboard = React.lazy(() => import('../pages/dashboard/configuracion/ModulosPrincipales'));
+const BtnIniciales = React.lazy(() => import('../pages/dashboard/configuracion/BtnIniciales'));
 
 // root routes
 const rootRoute = {
@@ -41,7 +42,8 @@ const dashboardRoutes = {
           name: 'Project',
           component: LockScreenInicio,
           route: PrivateRoute,
-      }
+      },
+
     ],
 };
 

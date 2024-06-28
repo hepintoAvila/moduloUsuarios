@@ -3,7 +3,7 @@
 /* eslint-disable no-unreachable */
 import React from 'react';
 import { Row, Col,Card } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
 import avatar1 from '../../../../../assets/images/17.png';
 import avatar2 from '../../../../../assets/images/5.png';
 import avatar3 from '../../../../../assets/images/9.png';
@@ -36,13 +36,19 @@ const MenuSegundo = (props) => {
 
             <div className="grid_contenedor">
               <div className="grid_btn1 col-xl-3 col-lg-4 col-sm-6">
-                 <MenuBtn texto='Enviar Solicitud' image={avatar3} handleClick={props.handleClick} menuRef={'ModuloSolicitudComite/EnviarSolicitud'} nivel={2}/>
+              <Link to={`/dashboard/ModuloSolicitudComite/EnviarSolicitud`} className="btn btn-link p-0 text-secondary shadow-none px-0 py-2">
+                 <MenuBtn texto='Enviar Solicitud' image={avatar3}/>
+                 </Link>
                  </div>
               <div className="grid_btn2 col-xl-3 col-lg-4 col-sm-6" >
-                 <MenuBtn texto='Consulta de incidente' image={avatar2} handleClick={props.handleClick} menuRef={'ModuloSolicitudComite/ConsultaIncidente'} nivel={2}/>
+              <Link to={`/dashboard/ModuloSolicitudComite/ConsultaIncidente`} className="btn btn-link p-0 text-secondary shadow-none px-0 py-2">
+                 <MenuBtn texto='Consulta de incidente' image={avatar2}/>
+                 </Link>
 				</div>
               <div className="grid_btn2 col-xl-3 col-lg-4 col-sm-6">
-                <MenuBtn texto='Reportes' image={avatar1} handleClick={props.handleClick} menuRef={'ModuloReportes/ReportesComite'} nivel={2}/>
+              <Link to={`/dashboard/ModuloReportes/ReportesComite`} className="btn btn-link p-0 text-secondary shadow-none px-0 py-2">
+                <MenuBtn texto='Reportes' image={avatar1}/>
+                </Link>
               </div>
               <br/>
 

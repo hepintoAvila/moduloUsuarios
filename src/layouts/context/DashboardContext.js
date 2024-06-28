@@ -12,11 +12,11 @@ import { useAprendiz } from '../../hooks/useAprendiz';
 import Swal from 'sweetalert2';
 import { APICore } from '../../helpers/api/apiCore';
 import ConfirmacionEnviarActaPapeleray from './ConfirmacionEnviarActaPapeleray';
-import { useAdminUsuarios } from '../../hooks/useAdminUsuarios';
+//import { useAdminUsuarios } from '../../hooks/useAdminUsuarios';
 const api = new APICore();
 const DashboardContext = createContext();
 const DashboardProvider = ({ children }) => {
-  const {verificarPermiso} = useAdminUsuarios()
+ // const {verificarPermiso} = useAdminUsuarios()
   const [tipo, setitemsMenuPrincipal] = useState('/dashboard/');
   const [itemUrl, setitemsUrl] = useState('');
   const [itemsQuery, setItemsQuery] = useState([]);
@@ -58,6 +58,30 @@ const DashboardProvider = ({ children }) => {
     },
 ]);
    //DESGLOSAR URL PARA CADA OPCION DEL MENU
+   const handleBtnPrincipal = (url,nivel) => {
+    console.log('handleBtnPrincipal',url)
+    if(url?.length>0){
+       if(nivel===1){
+       setitemsMenuPrincipal(url);
+       setitemsUrl(url);
+         return window.location.hash = `dashboard/${url}`
+       }else{
+         const menuitems = window.location.hash.split('#/')[1];
+         const [seccion] = menuitems?.split('/');
+
+         const obj = {principal:seccion.length===0 ? `dashboard/${url}`:seccion, seccion: url}
+         sessionStorage.setItem('ITEM_SELECT', JSON.stringify({
+           tipo: obj.principal,
+           menu: obj.seccion}));
+         const urltemp = obj.seccion?.split('/');
+         setitemsMenuPrincipal(urltemp[1]);
+         setitemsUrl(urltemp[0]);
+         const urls = `dashboard/${url}`;
+           return window.location.hash = urls;
+       }
+
+     }
+   };
 
   const itemsMenuCallBack = (e) => {
     let userInfo = JSON.parse(sessionStorage.getItem('ITEM_SELECT'))
@@ -443,8 +467,16 @@ useEffect(() => {
   queryAprendiz('ModuloAprendiz','aprendiz',[{opcion:btoa('listaAprendiz'),obj:'aprendiz'}]);
 }, [queryAprendiz]);
 
-
-
+useEffect(() => {
+  // Lógica para establecer itemUrl
+  // Por ejemplo, podrías obtener itemUrl de una API o de sessionStorage/localStorage
+  const storedItemUrl = sessionStorage.getItem('itemUrl');
+  if (storedItemUrl) {
+    setitemsUrl(storedItemUrl);
+  } else {
+    setitemsUrl(''); // O algún valor por defecto
+  }
+}, []);
 
   const data = {
     sendData,
@@ -487,7 +519,7 @@ useEffect(() => {
     dropdownImprimir, setDropdownImprimir,
     urlpdf, setUrl,
      query,
-     itemActa, setItemsActa
+     itemActa, setItemsActa,handleBtnPrincipal
   };
   return (
     <>

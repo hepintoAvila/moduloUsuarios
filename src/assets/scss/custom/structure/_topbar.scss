@@ -70,8 +70,15 @@
     .nav-link {
         line-height: $topbar-height;
     }
-}
 
+}
+.topbar-Inicio{
+  position: static;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: auto;
+  padding: calc(#{$topbar-height - 38px} / 2) 5px calc(#{$topbar-height - 38px} / 2) 0;
+}
 /* Search */
 
 // topbar-search

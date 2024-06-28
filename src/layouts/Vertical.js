@@ -19,12 +19,13 @@ import { SearchProvider } from './context/SearchContext';
 import { NotificacionesProvider } from './context/NotificacionesProvider';
 import { SecurityProvider } from './context/SecurityProvider';
 import {  DatosSolicitudProvider } from './context/DatosComiteContext';
+import ModulosPrincipales from '../pages/dashboard/configuracion/ModulosPrincipales';
 //import {  ReportesProvider } from './context/ReportesProvider';
 const Topbar = React.lazy(() => import('./Topbar'));
 const LeftSidebar = React.lazy(() => import('./LeftSidebar'));
 const Footer = React.lazy(() => import('./Footer'));
 const RightSidebar = React.lazy(() => import('./RightSidebar'));
-const ProjectDashboard = React.lazy(() => import('../pages/dashboard/Project/'));
+const ProjectDashboard = React.lazy(() => import('../pages/dashboard/configuracion/ModulosPrincipales'));
 const loading = () => <div className=""></div>;
 
 export function capitalize(str) {
@@ -100,8 +101,6 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
           <MenuProvider>
             <PermisosProvider>
               <SearchProvider>
-
-
                 <NotificacionesProvider>
                 <DatosSolicitudProvider>
                   <div className="wrapper">
@@ -111,19 +110,13 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
                     <div className="content-page">
                       <div className="content">
                         <Suspense fallback={loading()}>
+                        <ValidadorProvider>
                           <Topbar openLeftMenuCallBack={openMenu} hideLogo={true} />
+                          </ValidadorProvider>
                         </Suspense>
                         <Suspense fallback={loading()}>
                           <Container fluid>
-                            <Suspense fallback={loading()}>
-
-                                <ValidadorProvider>
-
-                                  <ProjectDashboard />
-
-                                </ValidadorProvider>
-
-                            </Suspense>
+                          <ModulosPrincipales />
                           </Container>
                         </Suspense>
                       </div>

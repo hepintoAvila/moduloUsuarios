@@ -1,5 +1,5 @@
 // @flow
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
@@ -17,6 +17,9 @@ import logo from '../assets/images/logo-light.png';
 //constants
 import * as layoutConstants from '../constants/layout';
 import Title from '../pages/dashboard/components/Title';
+import BtnIniciales from '../pages/dashboard/configuracion/BtnIniciales';
+import { DashboardContext } from './context/DashboardContext';
+import ModulosPrincipales from '../pages/dashboard/configuracion/ModulosPrincipales';
 
 
 // get the profilemenu
@@ -85,7 +88,8 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
       setAutor({name:userlocal[0]?.username,role:userlocal[0]?.role});
 
     }, []);
-
+    const { itemUrl,AdvertenciaLocalStorage } = useContext(DashboardContext);
+    AdvertenciaLocalStorage();
     return (
         <React.Fragment>
 
@@ -164,6 +168,10 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                     )}
 
                 </div>
+            </div>
+            <div className={`navbar-custom topbar-Inicio `}>
+           {!itemUrl&&<BtnIniciales itemUrl={itemUrl} />}
+           {/*<ModulosPrincipales />*/}
             </div>
         </React.Fragment>
     );

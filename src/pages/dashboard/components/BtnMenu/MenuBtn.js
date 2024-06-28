@@ -16,7 +16,7 @@ const MenuBtn = (props) => {
 
               <div className={`step-item`}>
 
-                <Button variant="outline-secondary" type="submit" className="btnInicio1" onClick={() => props.handleClick(props.menuRef,props.nivel)}>
+                <Button variant="outline-secondary" type="submit" className="btnInicio1">
                   <Row className="justify-content-center">
 
                     <div className="col-xl-4 col-lg-5"><img src={props.image} height="64" alt="" className="btn-menu" />{novedades?<div className="indicador_novedades"><label className="indicador_novedades_label">{props?.countNovedades}</label></div>:null}</div>
