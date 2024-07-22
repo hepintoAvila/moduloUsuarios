@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Swal from 'sweetalert2'
-
+import qs from 'qs';
 import { APICore } from './api/apiCore';
 import encodeBasicUrl from '../utils/encodeBasicUrl';
 const api = new APICore();
@@ -15,9 +15,15 @@ export function configureFakeBackend() {
       setTimeout(function () {
         // get parameters from post request
         let params = JSON.parse(config?.data);
-        const url = `accion=${encodeBasicUrl('auteur')}&opcion=${encodeBasicUrl('consultarusuario')}`;
-        const Usuarios = api.sendRequestUser(`${url}`,params.username,params.password);
-        Usuarios.then(function (response) {
+        const formattedPassword = `${btoa(params.password)}`;
+        const dataUrl = {
+          var_login: params?.username,
+          password: formattedPassword // Incluye la contraseña formateada
+        };
+        const dataUrlString = qs.stringify(dataUrl);
+        const url = `accion=${encodeBasicUrl('auteur')}&opcion=${encodeBasicUrl('consultarusuario')}&${dataUrlString}`;
+        const Usuarios = api.sendRequestUser(`${url}`,params?.username,params.password);
+        Usuarios?.then(function (response) {
           try {
           if (response?.data?.Auth.status === '404' || response.status ==='') {
               resolve([401, { message: 'Username or password is incorrect' }]);
