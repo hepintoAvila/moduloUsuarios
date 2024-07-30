@@ -102,7 +102,7 @@ const EnviarSolicitud = (props) => {
         const obj = Object.values({ ...validateError });
         let numtrue = contarVerdaderos(obj);
 
-        if (Number(numtrue) === 8) {
+        if (Number(numtrue) === 7) {
 
           if (itemsSolicitud[0].selectedFile?.path) {
 
@@ -122,7 +122,6 @@ const EnviarSolicitud = (props) => {
                   tipoAtencion: itemsSolicitud[0].tipoComite,
                   fechaIncidente: convertirFecha(itemsSolicitud[0].fechaIncidente),
                   descripcion:itemsSolicitud[0].descripcion,
-                  nombrePrograma:itemsSolicitud[0].nombrePrograma,
                   accion: 'ModuloSolicitudComite',
                   opcion: 'add_solicitud',
                   tipo: 'EnviarSolicitud',

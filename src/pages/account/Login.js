@@ -47,7 +47,7 @@ const Login = (): React$Element<any> => {
     */
     const schemaResolver = yupResolver(
         yup.object().shape({
-           var_login: yup.string().required(t('Por favor Ingrese Su Usuario')),
+            username: yup.string().required(t('Por favor Ingrese Su Usuario')),
             password: yup.string().required(t('Por favor Ingrese Su Contraseña')),
         })
     );
@@ -55,6 +55,7 @@ const Login = (): React$Element<any> => {
     handle form submission
     */
     const onSubmit = (formData) => {
+      console.log('onSubmit',formData);
       sessionStorage.removeItem('PERMISO_ALL');
       sessionStorage.removeItem('PERMISO');
       sessionStorage.removeItem('ITEM_SELECT');
@@ -67,7 +68,7 @@ const Login = (): React$Element<any> => {
       localStorage.removeItem('Conceptos');
       localStorage.removeItem('hechos');
 
-      dispatch(loginUser(formData['var_login'], formData['password']));
+      dispatch(loginUser(formData['username'], formData['password']));
     };
 
     return (
@@ -88,11 +89,11 @@ const Login = (): React$Element<any> => {
                 <VerticalForm
                     onSubmit={onSubmit}
                     resolver={schemaResolver}
-                    defaultValues={{ var_login: '', password: '' }}>
+                    defaultValues={{ username: '', password: '' }}>
                     <FormInputAcout
                         label={t('Usuario')}
                         type="text"
-                        name="var_login"
+                        name="username"
                         placeholder={t('Ingresa Tu Usuario')}
                         containerClass={'mb-3'}
                     />

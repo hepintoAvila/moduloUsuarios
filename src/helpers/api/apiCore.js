@@ -195,15 +195,14 @@ class APICore {
   };
 
   /*CONSULTA USUARIOS*/
-  sendRequestUser = (url, username, password) => {
+  sendRequestUser = (url, var_login, password) => {
+    console.log('var_login, password',var_login, password);
     const authOptions = {
-      method: 'POST',
+      method: 'GET',
       headers: {
-        'X-SICES-API-AppKey':btoa(environments.loginAPI),
-        'X-SICES-API-AppToken':btoa(environments.passwordAPI),
-        Url: `${environments.baseURL}&${url}&username=${encodeBasic(username)}`,
+        Url: `${environments.baseURL}&${url}`,
         ...axios.defaults.headers,
-        Authorization: `Basic ${encodeBasic(username, password)}`,
+        Authorization: `Basic ${btoa(`${var_login}:${password}`)}`,
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
       },
     };

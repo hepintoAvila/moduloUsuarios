@@ -15,13 +15,16 @@ export function configureFakeBackend() {
       setTimeout(function () {
         // get parameters from post request
         let params = JSON.parse(config?.data);
-        const formattedPassword = `${btoa(params.password)}`;
+        console.log('params',params)
+       // const formattedPassword = `${btoa(params.password)}`;
+        /*
         const dataUrl = {
           var_login: params?.username,
           password: formattedPassword // Incluye la contraseña formateada
         };
-        const dataUrlString = qs.stringify(dataUrl);
-        const url = `accion=${encodeBasicUrl('auteur')}&opcion=${encodeBasicUrl('consultarusuario')}&${dataUrlString}`;
+        */
+        //const dataUrlString = qs.stringify(dataUrl);
+        const url = `accion=${encodeBasicUrl('auteur')}&opcion=${encodeBasicUrl('consultarusuario')}&bonjour=oui`;
         const Usuarios = api.sendRequestUser(`${url}`,params?.username,params.password);
         Usuarios?.then(function (response) {
           try {

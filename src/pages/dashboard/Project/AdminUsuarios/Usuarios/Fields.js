@@ -7,12 +7,12 @@ import { NotificacionesContext } from '../../../../../layouts/context/Notificaci
 import { DashboardContext } from '../../../../../layouts/context/DashboardContext';
 import Swal from 'sweetalert2';
 import Spinner from '../../../components/Spinner';
+import useNumericValidation from '../../../../../hooks/useValidacion'; // Cambia esta ruta según tu estructura de archivos
 
 const Register = (props) => {
   const [validated, setValidated] = useState(false);
   const { getData, loading } = useContext(NotificacionesContext);
   const { setSignUpModalAdd } = useContext(DashboardContext);
-  const [errors, setErrors] = useState({ identificacion: '' });
 
   const [items, setItems] = useState({
     login: props?.usuario?.length === 1 ? props?.usuario[0]?.login : '',
@@ -24,27 +24,21 @@ const Register = (props) => {
     telefono: '',
   });
 
-  const handleIdentificacion = (value) => {
-    // Validar que solo contenga números
-    if (!/^[0-9]*$/.test(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        identificacion: 'El campo identificación solo debe contener números',
-      }));
-    } else if (value.length > 11) {
-      // Validar que no exceda los 11 caracteres
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        identificacion: 'El campo identificación no debe exceder los 11 caracteres',
-      }));
+  const { errors, handleNumericValidation } = useNumericValidation();
+
+  const onItemSelect = (event, opcion) => {
+    const value = event.target.value;
+    if (['identificacion', 'telefono'].includes(opcion)) { // Validar ambos campos
+      handleNumericValidation(value, opcion, setItems);
     } else {
-      // Limpiar errores si la validación es exitosa
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        identificacion: '',
+      setItems((prevState) => ({
+        ...prevState,
+        [opcion]: value,
       }));
     }
   };
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -77,23 +71,14 @@ const Register = (props) => {
         : '';
 
       setTimeout(function () {
-         getData(queryDatos);
+        getData(queryDatos);
       }, 2000);
       setSignUpModalAdd(true);
     }
     setValidated(true);
   };
 
-  const onItemSelect = (event, opcion) => {
-    const value = event.target.value;
-    if (opcion === 'identificacion') {
-      handleIdentificacion(value);
-    }
-    setItems((prevState) => ({
-      ...prevState,
-      [opcion]: value,
-    }));
-  };
+
 
   return (
     <>
@@ -122,11 +107,12 @@ const Register = (props) => {
               <Form.Group className="form-group mb-3">
                 <label className="form-label">Email</label> <br />
                 <Form.Control
-                  type="text"
+                  type="email"
                   key="email"
                   id="email"
                   required
                   name="email"
+                  inputMode="email"
                   defaultValue={items?.email}
                   onChange={(e) => onItemSelect(e, 'email')}
                   containerClass={'mb-3'}
@@ -188,7 +174,6 @@ const Register = (props) => {
                 <Form.Control.Feedback type="invalid">
                   Por favor asigne el rol.
                 </Form.Control.Feedback>
-
               </Form.Group>
               <Form.Group className="form-group mb-3">
                 <label className="form-label">Identificación</label> <br />
@@ -198,7 +183,7 @@ const Register = (props) => {
                   id="identificacion"
                   required
                   name="identificacion"
-                  defaultValue={items?.identificacion}
+                  value={items?.identificacion} // Cambiar defaultValue a value
                   onChange={(e) => onItemSelect(e, 'identificacion')}
                   containerClass={'mb-3'}
                   isInvalid={!!errors.identificacion}
@@ -214,12 +199,13 @@ const Register = (props) => {
                 id="telefono"
                 required
                 name="telefono"
-                defaultValue={items?.telefono}
+                value={items?.telefono}
                 onChange={(e) => onItemSelect(e, 'telefono')}
                 containerClass={'mb-3'}
+                isInvalid={!!errors.telefono}
               />
               <Form.Control.Feedback type="invalid">
-                Por favor asigne el telefono.
+              {errors?.telefono}
               </Form.Control.Feedback>
             </Form.Group>
 

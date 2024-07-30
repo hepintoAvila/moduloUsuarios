@@ -16,7 +16,7 @@ export const authApiResponseError = (actionType: string, error: string): AuthAct
 
 export const loginUser = (username: string, password: string): AuthAction => ({
     type: AuthActionTypes.LOGIN_USER,
-    payload: { username, password},
+    payload: {username, password},
 });
 
 export const logoutUser = (): AuthAction => ({

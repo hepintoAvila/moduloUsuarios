@@ -10,7 +10,6 @@ const SearchProvider = ({ children }) => {
     const [itemsOptionAprendiz, setSelectedOptionAprendiz] = useState('none');
     const [itemsEnvioSolicitud, setSelectedEnvioSolicitud] = useState([]);
     const [itemsDescripcion, setDescripcion] = useState('');
-    const [itemsNombrePrograma, setNombrePrograma] = useState('')
     const [idSolicitud, setidSolicitud] = useState(0);;
     const [loading, setLoading] = useState(false);
     const [itemsConsulta, setConsulta] = useState([]);
@@ -58,8 +57,7 @@ const SearchProvider = ({ children }) => {
         fechaError: false,
         filesError: false,
         base64StringsError: false,
-        descripcionError: false,
-        nombreProgramaError: false
+        descripcionError: false
     });
 
     const [fallas, setFallas] = useState([{
@@ -69,9 +67,6 @@ const SearchProvider = ({ children }) => {
         faltaVerbal: 0,
         faltaEscrito: 0,
     }]);
-
-    const nombrePrograma = itemsNombrePrograma;
-    const nombreProgramaError = validateError.nombreProgramaError;
     const descripcion = itemsDescripcion;
     const descripcionError = validateError.descripcionError;
 
@@ -112,9 +107,6 @@ const SearchProvider = ({ children }) => {
         queryFile,
         loading,
         setLoading,
-        setNombrePrograma,
-        nombreProgramaError,
-        nombrePrograma,
         fallas,
         setFallas,
         idSolicitud, setidSolicitud,

@@ -13,11 +13,12 @@ import { DashboardContext } from '../../../../../layouts/context/DashboardContex
 import Swal from 'sweetalert2';
 import classnames from 'classnames';
 import classNames from 'classnames';
+import useNumericValidation from '../../../../../hooks/useValidacion';
 
 const Fields = (props) => {
   const [validated, setValidated] = useState(false);
   const { getData } = useContext(NotificacionesContext);
-  const { isLoading, query } = useAprendiz();
+  const { isLoading, queryAprendiz } = useAprendiz();
   const { setSignUpModalAdd } = useContext(DashboardContext);
   const { objAprendiz } = props;
   const [items, setItems] = useState(
@@ -41,29 +42,19 @@ const Fields = (props) => {
 
     },
   );
-  const [errors, setErrors] = useState({ identificacion: '' });
-  const handleIdentificacion = (value) => {
-    // Validar que solo contenga números
-    if (!/^[0-9]*$/.test(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        identificacion: 'El campo identificación solo debe contener números',
-      }));
-    } else if (value.length > 11) {
-      // Validar que no exceda los 11 caracteres
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        identificacion: 'El campo identificación no debe exceder los 11 caracteres',
-      }));
+  const { errors, handleNumericValidation } = useNumericValidation();
+
+  const onItemSelect = (event, opcion) => {
+    const value = event.target.value;
+    if (['identificacion', 'telefono', 'ficha'].includes(opcion)) { // Validar ambos campos
+      handleNumericValidation(value, opcion, setItems);
     } else {
-      // Limpiar errores si la validación es exitosa
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        identificacion: '',
+      setItems((prevState) => ({
+        ...prevState,
+        [opcion]: value,
       }));
     }
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -93,25 +84,24 @@ const Fields = (props) => {
         : '';
       setTimeout(function () {
         getData(queryDatos);
-        query('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
+        queryAprendiz('ModuloAprendiz', 'aprendiz', [{ opcion: btoa('listaAprendiz'), obj: 'aprendiz' }]);
       }, 2000);
       setSignUpModalAdd(true);
     }
     setValidated(true);
   };
 
-  const onItemSelect = (event, opcion) => {
-    const value = event.target.value;
-    if (opcion === 'identificacion') {
-      handleIdentificacion(value);
-    }
 
-    setItems(prevState => ({
-      ...prevState,
-      [opcion]: value
-    }));
-  };
-
+const tipoIdentificacion = [{
+  label:'CC',
+  value:'CC',
+},{
+  label:'TI',
+  value:'TI',
+},{
+  label:'CE',
+  value:'CE',
+}];
 
   return (
     <>
@@ -153,23 +143,28 @@ const Fields = (props) => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Form.Group>
-            <Form.Group className={classnames("w-15 p-0")}>
-              <Form.Group className="form-group mb-3">
+            <Form.Group className="form-group mb-3">
                 <label className="form-label">Tipo Identificacion</label> <br />
-                <Form.Control type="text"
+                <Form.Select
                   key="tipoIdentificacion"
                   id="tipoIdentificacion"
                   required
                   name="tipoIdentificacion"
-                  defaultValue={items?.tipoIdentificacion}
-                  onChange={(e) => { (onItemSelect(e, 'tipoIdentificacion')) }}
+                  value={items?.tipoIdentificacion}
+                  onChange={(e) => onItemSelect(e, 'tipoIdentificacion')}
                   containerClass={'mb-3'}
-                />
+                >
+                  <option value="">Tipo Identificacion</option>
+                  {tipoIdentificacion?.map((items, index) => (
+                    <option key={index} value={items.value}>
+                      {items.label}
+                    </option>
+                  ))}
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">
-                  Por favor Digite Su Tipo Identificacion.
+                  Por favor asigne el rol.
                 </Form.Control.Feedback>
               </Form.Group>
-            </Form.Group>
             <Form.Group className="form-group mb-3">
                 <label className="form-label">Identificación</label> <br />
                 <Form.Control
@@ -178,7 +173,7 @@ const Fields = (props) => {
                   id="identificacion"
                   required
                   name="identificacion"
-                  defaultValue={items?.identificacion}
+                  value={items?.identificacion} // Cambiar defaultValue a value
                   onChange={(e) => onItemSelect(e, 'identificacion')}
                   containerClass={'mb-3'}
                   isInvalid={!!errors.identificacion}
@@ -190,26 +185,31 @@ const Fields = (props) => {
             <Form.Group className={classnames("w-15 p-0")}>
               <Form.Group className="form-group mb-3">
                 <label className="form-label">Telefono</label> <br />
-                <Form.Control type="text"
+                <Form.Control
+                  type="text"
                   key="telefono"
                   id="telefono"
                   required
                   name="telefono"
-                  defaultValue={items?.telefono}
-                  onChange={(e) => { (onItemSelect(e, 'telefono')) }}
+                  value={items?.telefono} // Cambiar defaultValue a value
+                  onChange={(e) => onItemSelect(e, 'telefono')}
                   containerClass={'mb-3'}
-                /><Form.Control.Feedback type="invalid">
-                  Por favor Digite Su Telefono.
-                </Form.Control.Feedback>
+                  isInvalid={!!errors.telefono}
+                />
+                <Form.Control.Feedback type="invalid">
+                {errors?.telefono}
+              </Form.Control.Feedback>
               </Form.Group>
             </Form.Group>
             <Form.Group className={classnames("w-15 p-0")}>
               <Form.Group className="form-group mb-3">
                 <label className="form-label">Correo</label> <br />
-                <Form.Control type="email"
+                <Form.Control
+                  type="email"
                   name="correo"
                   key="correo"
                   id="correo"
+                  inputMode="email"
                   required
                   defaultValue={items[0]?.correo}
                   onChange={(e) => { (onItemSelect(e, 'correo')) }}
@@ -299,19 +299,22 @@ const Fields = (props) => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Form.Group>
-            <Form.Group className={classNames("w-15 p-0")}>
+            <Form.Group className={classnames("w-15 p-0")}>
               <Form.Group className="form-group mb-3">
                 <label className="form-label">Ficha</label> <br />
-                <Form.Control type="text"
-                  name="ficha"
+                <Form.Control
+                  type="text"
                   key="ficha"
                   id="ficha"
                   required
-                  defaultValue={items[0]?.ficha}
-                  onChange={(e) => { (onItemSelect(e, 'ficha')) }}
+                  name="ficha"
+                  value={items?.ficha} // Cambiar defaultValue a value
+                  onChange={(e) => onItemSelect(e, 'ficha')}
                   containerClass={'mb-3'}
-                /><Form.Control.Feedback type="invalid">
-                  Por favor asigne la Ficha.
+                  isInvalid={!!errors.ficha}
+                />
+                <Form.Control.Feedback type="invalid">
+                {errors?.ficha}
                 </Form.Control.Feedback>
               </Form.Group>
             </Form.Group>

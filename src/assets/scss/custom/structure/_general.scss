@@ -173,8 +173,11 @@ body {
   margin-top: -13rem;
 }
 .derechaColumnEnviarSolicitud{
+  position: relative;
   height: 100%;
   padding: 0em 0em 1em 2em;
+  margin-top: -14em;
+  z-index: 0;
 }
 .headerTitulo, .center-text{
   background-color: var(--muted-1-5);
