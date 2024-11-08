@@ -196,7 +196,7 @@ class APICore {
 
   /*CONSULTA USUARIOS*/
   sendRequestUser = (url, var_login, password) => {
-    console.log('var_login, password',var_login, password);
+
     const authOptions = {
       method: 'GET',
       headers: {
